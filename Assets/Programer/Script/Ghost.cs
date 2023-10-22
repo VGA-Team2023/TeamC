@@ -24,10 +24,10 @@ public class Ghost : EnemyBase
         _basePos = transform.position;
         Instantiate(_base, _basePos, Quaternion.identity);
         _dir = new Vector3
-                (Mathf.Sin(Random.Range(0, 361)) * Mathf.Cos(0) * _moveRange,
-                0,
+                (Mathf.Sin(Random.Range(0, 361)) * _moveRange,
+                _basePos.y,
                 Mathf.Cos(Random.Range(0, 361) * _moveRange));
-        Instantiate(_destination, _dir, Quaternion.identity);
+        Instantiate(_destination, new Vector3(_dir.x, _basePos.y, _dir.z), Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -38,21 +38,21 @@ public class Ghost : EnemyBase
         
         if (baseDis < _distance && !_isArrived)
         {
-            _rb.velocity = Vector3.zero;
+            float random = Random.Range(0, 361);
             _dir = new Vector3
-                (Mathf.Sin(Random.Range(0, 361)) * Mathf.Cos(Random.Range(0, 361)) * _moveRange,
-                0,
-                Mathf.Cos(Random.Range(0, 361)) * _moveRange);
-            Instantiate(_destination, _dir, Quaternion.identity);
+                (Mathf.Sin(random) * _moveRange,
+                _basePos.y,
+                Mathf.Cos(random) * _moveRange);
+            Instantiate(_destination, new Vector3(_dir.x, _basePos.y, _dir.z), Quaternion.identity);
             _isArrived = true;
         }
         else if(destinationDis < _distance && _isArrived)
         {
-            _rb.velocity = Vector3.zero;
             _dir = (_basePos - transform.position).normalized;
             _isArrived = false;
         }
-        transform.forward = _dir + new Vector3(0, transform.position.y, 0);
+        transform.forward = _dir;
         _rb.velocity = transform.forward * base.Speed;
+        transform.position = new Vector3(transform.position.x, _basePos.y, transform.position.z);
     }
 }

@@ -13,15 +13,4 @@ public class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("エネミーの移動速度")]
     float _speed;
     public float Speed => _speed;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
