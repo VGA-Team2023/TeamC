@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlowManager : MonoBehaviour
@@ -15,22 +16,37 @@ public class SlowManager : MonoBehaviour
     public Action<float> OnChangeSlowSpeed { get {return ChangeSlowSpeed;} set { ChangeSlowSpeed = value; } }
     /// <summary>スローから通常に切り替わる時に使うAction</summary>
     public Action OnChangeNormalSpeed { get { return ChangeNormalSpeed; } set { ChangeNormalSpeed = value; } }
+    bool _isSlow = false;
+    List<ISlow> _slows = new List<ISlow>();
 
     /// <summary>スローの切り替え処理を行う</summary>
     /// <param name="isSlow">スローにするかどうか</param>
     public void OnOffSlow(bool isSlow)
     {
-        //何も入ってなかったら
-        if (ChangeSlowSpeed == null) return;
-        if(isSlow)
+        _isSlow = isSlow;
+        foreach(ISlow slow in _slows)
         {
-            //スロー
-            ChangeSlowSpeed.Invoke(_slowSpeedRate);
+            if(_isSlow)
+            {
+                slow.OnSlow(_slowSpeedRate);
+            }
+            else
+            {
+                slow.OffSlow();
+            }
         }
-        else
+    }
+
+    public void Add(ISlow slow)
+    {
+        _slows.Add(slow);
+        if (_isSlow)
         {
-            //通常
-            ChangeNormalSpeed.Invoke();
+            slow.OnSlow(_slowSpeedRate);
         }
+    }
+    public void Remove(ISlow slow)
+    {
+        _slows.Remove(slow);
     }
 }
