@@ -8,14 +8,6 @@ public class SlowManager : MonoBehaviour
 {
     [Header("設定")]
     [SerializeField, Tooltip("スロー時の再生速度の割合"), Range(0,1)] float _slowSpeedRate;
-    /// <summary>通常からスローに切り替わる時に使うAction</summary>
-    event Action<float> ChangeSlowSpeed;
-    /// <summary>スローから通常に切り替わる時に使うAction</summary>
-    event Action ChangeNormalSpeed;
-    /// <summary>通常からスローに切り替わる時に使うAction/第一パラメータはスロー時の再生速度の割合</summary>
-    public Action<float> OnChangeSlowSpeed { get {return ChangeSlowSpeed;} set { ChangeSlowSpeed = value; } }
-    /// <summary>スローから通常に切り替わる時に使うAction</summary>
-    public Action OnChangeNormalSpeed { get { return ChangeNormalSpeed; } set { ChangeNormalSpeed = value; } }
     bool _isSlow = false;
     List<ISlow> _slows = new List<ISlow>();
 
