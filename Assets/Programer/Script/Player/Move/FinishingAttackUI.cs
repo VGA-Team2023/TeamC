@@ -22,12 +22,14 @@ public class FinishingAttackUI
     [SerializeField] private GameObject _dofinishingUI;
 
     [Header("トドメのパーセンテージを表示")]
-    [SerializeField] private Slider _finishingSliderUI;
+    [SerializeField] private Image _finishingSliderUI;
 
     // オブジェクト位置のオフセット
     [SerializeField] private Vector3 _worldOffset;
 
     [SerializeField] private Canvas _canvas;
+
+    private float _finishTime = 3;
 
     private RectTransform _parentUI;
 
@@ -37,10 +39,11 @@ public class FinishingAttackUI
 
     private PlayerControl _playerControl;
 
-    public void Init(PlayerControl playerControl)
+    public void Init(PlayerControl playerControl,float finishTime)
     {
         _playerControl = playerControl;
         _parentUI = _canvas.GetComponent<RectTransform>();
+        _finishTime = finishTime;
 
         for (int i = 0; i < _enemyMaxNum; i++)
         {
@@ -73,9 +76,8 @@ public class FinishingAttackUI
         }
 
         _dofinishingUI.SetActive(true);
-        _finishingSliderUI.maxValue = max;
-        _finishingSliderUI.minValue = 0;
-        _finishingSliderUI.value = 0;
+
+        _finishingSliderUI.fillAmount = 0;
     }
 
     public void UnSetFinishUI()
@@ -90,7 +92,7 @@ public class FinishingAttackUI
 
     public void ChangeValue(float time)
     {
-        _finishingSliderUI.value = time;
+        _finishingSliderUI.fillAmount += time/_finishTime;
     }
 
 

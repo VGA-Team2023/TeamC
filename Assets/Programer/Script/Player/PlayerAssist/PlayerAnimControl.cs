@@ -47,10 +47,10 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
     }
 
-    public void StartFinishAttack(WeaponType weaponType)
+    public void StartFinishAttack(AttackType weaponType)
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
-        if (weaponType == WeaponType.Gun)
+        if (weaponType == AttackType.ShortChantingMagick)
         {
             _playerControl.Animator.Play("Player_FinishingGun_1");
         }
@@ -70,9 +70,9 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsFinishAttack", false);
     }
 
-    public void EndFinishAttack(WeaponType weaponType)
+    public void EndFinishAttack(AttackType weaponType)
     {
-        if (weaponType == WeaponType.Gun)
+        if (weaponType == AttackType.ShortChantingMagick)
         {
             _playerControl.Animator.Play("Player_FinishingGun_1_Complet");
         }
