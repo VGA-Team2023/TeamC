@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour
 
     private bool _isFinishAttackDown = false;
 
+    private bool _isAvoid = false;
+
     /// <summary>ƒWƒƒƒ“ƒv</summary>
     private bool _isJump;
 
@@ -40,6 +42,7 @@ public class InputManager : MonoBehaviour
     public bool IsAttackUp => _isAttackUp;
     public bool IsFinishAttack => _isFinishAttack;
     public bool IsFinishAttackDown => _isFinishAttackDown;
+    public bool IsAvoid => _isAvoid;
 
     private void Update()
     {
@@ -57,7 +60,7 @@ public class InputManager : MonoBehaviour
         _isFinishAttack = Input.GetButton("FinishAttack");
 
         _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
-
+        _isAvoid = Input.GetButtonDown("Avoid");
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");

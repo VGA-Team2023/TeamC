@@ -89,6 +89,12 @@ public class FinishingAttack
             damgeble?.StartFinishing();
         }
 
+        //トドメ用のカメラを使う
+        _playerControl.CameraControl.UseFinishCamera();
+
+        //カメラを敵の方向に向ける
+        _playerControl.CameraControl.FinishAttackCamera.SetCamera(_nowFinishEnemy[0].transform.position);
+
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
     }
@@ -152,6 +158,15 @@ public class FinishingAttack
 
         _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
 
+        //カメラ終わり
+        _playerControl.CameraControl.FinishAttackCamera.EndFinish();
+
+        //通常のカメラに戻す
+        _playerControl.CameraControl.UseDefultCamera(false);
+
+        //カメラの振動
+        _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
+
         //コントローラーの振動を停止
         _playerControl.ControllerVibrationManager.StopVibration();
 
@@ -178,6 +193,11 @@ public class FinishingAttack
     {
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
+
+        //通常のカメラに戻す
+        _playerControl.CameraControl.UseDefultCamera(false);
+
+        _playerControl.CameraControl.FinishAttackCamera.EndFinish();
 
         foreach (var e in _nowFinishEnemy)
         {

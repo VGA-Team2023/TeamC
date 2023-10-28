@@ -71,7 +71,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
                 go.transform.position = transform.position;
 
                 CameraControl camera = FindObjectOfType<CameraControl>();
-                camera?.ShakeCamra(CameraType.SetUp, CameraShakeType.AttackNomal);
+                camera?.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
 
                 Destroy(gameObject);
