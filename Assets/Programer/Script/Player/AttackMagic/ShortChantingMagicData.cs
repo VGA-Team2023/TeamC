@@ -92,6 +92,8 @@ public class ShortChantingMagicData
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;
 
+        _playerControl.PlayerAnimControl.SetAttackNum(_attackCount);
+
         if (_attackCount == _magicBase.AttackMaxNum)
         {
             _isEndMagick = true;

@@ -11,7 +11,7 @@ public class PlayerAnimControl
     [SerializeField] private string _toSword = "Player_ChangeWeapon_ToSword";
 
     [Header("çUåÇâÒêî")]
-    [SerializeField] private string _attackNum = "";
+    [SerializeField] private string _attackNum = "AttackNum";
 
     [Header("çUåÇÇÃTrigger")]
     [SerializeField] private string _attackTrigger = "";
@@ -21,6 +21,18 @@ public class PlayerAnimControl
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
+    }
+
+    public void Avoid(bool isStart)
+    {
+        if (isStart)
+        {
+            _playerControl.Animator.Play("Player_Avoid");
+        }
+        else
+        {
+            _playerControl.Animator.Play("Player_AvoidEnd");
+        }
     }
 
     public void AnimSet()

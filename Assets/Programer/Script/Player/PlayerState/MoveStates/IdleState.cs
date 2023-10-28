@@ -18,7 +18,7 @@ public class IdleState : PlayerStateBase
     public override void FixedUpdate()
     {
         //カメラのFOV設定
-        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetFOV();
+        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
 
         //トドメをさせる敵を探す
         _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
@@ -32,6 +32,10 @@ public class IdleState : PlayerStateBase
     public override void Update()
     {
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
+
+        //移動入力を受け取る
+        float h = _stateMachine.PlayerController.InputManager.HorizontalInput;
+        float v = _stateMachine.PlayerController.InputManager.VerticalInput;
 
         if (_stateMachine.PlayerController.FinishingAttack.IsCanFinishing &&
 _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
@@ -47,13 +51,13 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
             return;
         }   //攻撃
 
-        //if (_stateMachine.PlayerController.SetUp.IsSetUp)
-        //{
-        //    _stateMachine.TransitionTo(_stateMachine.SetUpIdle);
-        //    //構えに行く際の設定
-        //    _stateMachine.PlayerController.SetUp.ArrangementStartSetUp();
-        //    return;
-        //}   //構え
+        if (_stateMachine.PlayerController.InputManager.IsAvoid)
+        {
+            _stateMachine.PlayerController.Avoid.SetAvoidDir();
+            _stateMachine.TransitionTo(_stateMachine.AvoidState);
+            return;
+        }   //回避
+
 
 
         if (_stateMachine.PlayerController.InputManager.HorizontalInput != 0
