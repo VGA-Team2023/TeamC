@@ -47,7 +47,7 @@ public class FinishingAttack
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
-        _finishingAttackUI.Init(playerControl);
+        _finishingAttackUI.Init(playerControl,_finishingAttackShort.FinishTime);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -75,7 +75,7 @@ public class FinishingAttack
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.StartFinishAttack(WeaponType.Sword);
+        _playerControl.PlayerAnimControl.StartFinishAttack(AttackType.LongChantingMagick);
 
 
         //敵を索敵
@@ -126,7 +126,7 @@ public class FinishingAttack
         {
             _countFinishTime += Time.deltaTime;
 
-            _finishingAttackUI.ChangeValue(_countFinishTime);
+            _finishingAttackUI.ChangeValue(Time.deltaTime);
 
             if (_countFinishTime >= _setFinishTime)
             {
@@ -165,7 +165,7 @@ public class FinishingAttack
 
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.EndFinishAttack(WeaponType.Sword);
+        _playerControl.PlayerAnimControl.EndFinishAttack(AttackType.LongChantingMagick);
 
         foreach (var e in _nowFinishEnemy)
         {

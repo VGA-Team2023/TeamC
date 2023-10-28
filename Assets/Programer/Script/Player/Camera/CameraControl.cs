@@ -8,6 +8,9 @@ public class CameraControl : MonoBehaviour
     [Header("=====構えのカメラの設定=====")]
     [SerializeField] private SetUpCamera _setUpCameraSetting;
 
+    [Header("===トドメの時のカメラの動き===")]
+    [SerializeField] private FinishAttackCamera _finishAttackCamera;
+     
     [Header("通常時のカメラ")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
 
@@ -35,6 +38,7 @@ public class CameraControl : MonoBehaviour
     private void Awake()
     {
         _setUpCameraSetting.Init(this);
+        _finishAttackCamera.Init(this, _defultCamera);
     }
 
     public void UseDefultCamera()

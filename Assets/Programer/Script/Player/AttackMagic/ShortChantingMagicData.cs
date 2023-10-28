@@ -87,7 +87,7 @@ public class ShortChantingMagicData
     public void AttackOneEnemy(Transform[] enemys)
     {
         //–‚–@w‚ğÁ‚·
-        _magicBase.UseMagick(_attackCount, enemys, false);
+        _magicBase.UseMagick(_attackCount, enemys,AttackType.ShortChantingMagick, false);
         //–‚–@w‚ğÁ‚·
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;
@@ -103,7 +103,7 @@ public class ShortChantingMagicData
     public void AttackAllEnemy(Transform[] enemys)
     {
         //–‚–@w‚ğÁ‚·
-        _magicBase.UseMagick(_attackCount, enemys, true);
+        _magicBase.UseMagick(_attackCount, enemys, AttackType.LongChantingMagick, true);
         //–‚–@w‚ğÁ‚·
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;

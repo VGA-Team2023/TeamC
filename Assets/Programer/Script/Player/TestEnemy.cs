@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
+public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
 {
     [SerializeField] private Transform _player;
 
@@ -124,13 +124,13 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
     }
 
 
-    public void Damage(WeaponType attackType, AttackHitType attackHitTyp)
+    public void Damage(AttackType attackType, MagickType attackHitTyp,float damage)
     {
         _rb.velocity = Vector3.zero;
 
-        if (attackType == WeaponType.Gun)
+        if (attackType == AttackType.ShortChantingMagick)
         {
-            if (attackHitTyp == AttackHitType.Nomal)
+            if (attackHitTyp == MagickType.Ice)
             {
                 pLow.gameObject.SetActive(true);
                 // pLow.Play();
@@ -138,7 +138,7 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
                 Vector3 dir = transform.position - _player.position;
                 _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
             }
-            else if (attackHitTyp == AttackHitType.Strong)
+            else if (attackHitTyp == MagickType.Grass)
             {
                 pHigh.gameObject.SetActive(true);
                 // pHigh.Play();

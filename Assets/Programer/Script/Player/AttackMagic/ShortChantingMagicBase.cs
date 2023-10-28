@@ -72,7 +72,7 @@ public class ShortChantingMagicBase
     /// ñÇñ@êwÇè¡Ç∑
     /// </summary>
     /// <param name="num"></param>
-    public void UseMagick(int num, Transform[] enemys, bool isAllAttack)
+    public void UseMagick(int num, Transform[] enemys, AttackType attackType, bool isAllAttack)
     {
         if (num > _magick.Count) return;
 
@@ -92,7 +92,7 @@ public class ShortChantingMagicBase
             var go = UnityEngine.GameObject.Instantiate(prefab);
             go.transform.position = _magick[num].transform.position;
             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-            magicble.SetEnemy(null, _playerControl.PlayerT.forward);
+            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, 1);
         }
         else
         {
@@ -101,7 +101,7 @@ public class ShortChantingMagicBase
                 var go = UnityEngine.GameObject.Instantiate(prefab);
                 go.transform.position = _magick[num].transform.position;
                 go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                magicble.SetEnemy(e, _playerControl.PlayerT.forward);
+                magicble.SetAttack(e, _playerControl.PlayerT.forward, attackType, 1);
             }
         }
     }
