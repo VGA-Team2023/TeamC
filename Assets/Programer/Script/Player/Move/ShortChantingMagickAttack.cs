@@ -59,7 +59,7 @@ public class ShortChantingMagickAttack
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
         //ƒJƒƒ‰‚ÌU“®
-        _playerControl.CameraControl.ShakeCamra(CameraType.SetUp, CameraShakeType.AttackNomal);
+        _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
         _attackCount++;
 

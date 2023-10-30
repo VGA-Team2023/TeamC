@@ -6,16 +6,16 @@ using Cinemachine;
 public class CameraControl : MonoBehaviour
 {
     [Header("=====構えのカメラの設定=====")]
-    [SerializeField] private SetUpCamera _setUpCameraSetting;
+    [SerializeField] private DefaultCamera _setUpCameraSetting;
 
     [Header("===トドメの時のカメラの動き===")]
     [SerializeField] private FinishAttackCamera _finishAttackCamera;
-     
+
     [Header("通常時のカメラ")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
 
-    [Header("構えの時のカメラ")]
-    [SerializeField] private CinemachineVirtualCamera _setUpCamera;
+    [Header("トドメの時のカメラ")]
+    [SerializeField] private CinemachineVirtualCamera _finishCamera;
 
     [Header("通常時のカメラ_振動")]
     [SerializeField] private CinemachineImpulseSource _defultCameraImpulsSource;
@@ -26,49 +26,51 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private PlayerControl _playerControl;
 
     public CinemachineVirtualCamera DedultCamera => _defultCamera;
-    public CinemachineVirtualCamera SetUpCamera => _setUpCamera;
+    public CinemachineVirtualCamera FinishCamera => _finishCamera;
 
-    public SetUpCamera SetUpCameraSetting => _setUpCameraSetting;
+    public DefaultCamera SetUpCameraSetting => _setUpCameraSetting;
 
     public PlayerControl PlayerControl => _playerControl;
 
-
+    public FinishAttackCamera FinishAttackCamera => _finishAttackCamera;
 
 
     private void Awake()
     {
-        _setUpCameraSetting.Init(this);
-        _finishAttackCamera.Init(this, _defultCamera);
+        _setUpCameraSetting.Init(this, _defultCamera);
+        _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
     }
 
-    public void UseDefultCamera()
+    public void UseDefultCamera(bool isReset)
     {
-        _setUpCameraSetting.ResetCamera();
-        _defultCamera.transform.eulerAngles = _setUpCamera.transform.eulerAngles;
+        if (isReset)
+        {
+            _finishAttackCamera.ResetCamera();
+        }
+
+        _defultCamera.transform.eulerAngles = _finishCamera.transform.eulerAngles;
         _defultCamera.Priority = 10;
-        _setUpCamera.Priority = 0;
-        ShakeCamra(CameraType.Defult, CameraShakeType.ChangeWeapon);
+        _finishCamera.Priority = 0;
+        //ShakeCamra(CameraType.Defult, CameraShakeType.ChangeWeapon);
     }
 
-    public void UseSetUpCamera()
+    public void UseFinishCamera()
     {
-        _setUpCameraSetting.ResetCamera();
-        _setUpCamera.transform.eulerAngles = _defultCamera.transform.eulerAngles;
+        _finishAttackCamera.ResetCamera();
+        _finishCamera.transform.eulerAngles = _defultCamera.transform.eulerAngles;
         _defultCamera.Priority = 0;
-        _setUpCamera.Priority = 10;
-        ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);
+        _finishCamera.Priority = 10;
+        //ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);
     }
 
     public void ShakeCamra(CameraType cameraType, CameraShakeType cameraShakeType)
     {
-
-
         CinemachineImpulseSource source = default;
         if (cameraType == CameraType.Defult)
         {
             source = _defultCameraImpulsSource;
         }
-        else if (cameraType == CameraType.SetUp)
+        else if (cameraType == CameraType.FinishCamera)
         {
             source = _setUpCameraImpulsSource;
         }
@@ -80,23 +82,35 @@ public class CameraControl : MonoBehaviour
         source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.2f;
         source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 0.2f;
 
-        float setPower = 0;
+        float setPowerX = 0;
+        float setPowerY = 0;
+        float setPowerZ = 0;
+
+
         if (cameraShakeType == CameraShakeType.ChangeWeapon)
         {
-            setPower = 2f;
+            setPowerY = 2f;
         }
         else if (cameraShakeType == CameraShakeType.AttackNomal)
         {
-            setPower = 1f;
+            setPowerY = 1f;
+        }
+        else if (cameraShakeType == CameraShakeType.EndFinishAttack)
+        {
+            setPowerX = 1f;
+            setPowerY = 2f;
+            setPowerZ = 0f;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime =1;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 1f;
         }
         else
         {
-            setPower = 1f;
+            setPowerY = 1f;
         }
 
 
 
-        source.GenerateImpulse(new Vector3(0, setPower, 0));
+        source.GenerateImpulse(new Vector3(setPowerX, setPowerY, setPowerZ));
     }
 
 }
@@ -104,7 +118,7 @@ public class CameraControl : MonoBehaviour
 public enum CameraType
 {
     Defult,
-    SetUp,
+    FinishCamera,
     All,
 }
 
@@ -113,4 +127,5 @@ public enum CameraShakeType
     ChangeWeapon,
     AttackNomal,
     Kill,
+    EndFinishAttack,
 }
