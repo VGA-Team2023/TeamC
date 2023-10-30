@@ -42,6 +42,7 @@ public class FinishingAttack
     public bool IsEndFinishAnim { get => _isEndFinishAnim; set => _isEndFinishAnim = value; }
 
     public bool IsCanFinishing => _isCanFinishing;
+    public FinishingAttackShort FinishingAttackShort => _finishingAttackShort;
 
     public FinishingAttackMove FinishingAttackMove => _finishingAttackMove;
     public void Init(PlayerControl playerControl)
@@ -93,7 +94,7 @@ public class FinishingAttack
         _playerControl.CameraControl.UseFinishCamera();
 
         //カメラを敵の方向に向ける
-        _playerControl.CameraControl.FinishAttackCamera.SetCamera(_nowFinishEnemy[0].transform.position);
+        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
 
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
@@ -166,6 +167,7 @@ public class FinishingAttack
 
         //カメラの振動
         _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
+        _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
 
         //コントローラーの振動を停止
         _playerControl.ControllerVibrationManager.StopVibration();
@@ -173,8 +175,15 @@ public class FinishingAttack
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
 
+        //トドメ完了のUIを表示
+        _finishingAttackUI.ShowCompleteFinishUI(true);
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
+
         //時間を遅くする
         GameManager.Instance.TimeControl.SetTimeScale(0.3f);
+
 
         LineSetting();
 
@@ -199,6 +208,9 @@ public class FinishingAttack
 
         _playerControl.CameraControl.FinishAttackCamera.EndFinish();
 
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
+
         foreach (var e in _nowFinishEnemy)
         {
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
@@ -216,10 +228,13 @@ public class FinishingAttack
     /// アニメーションイベントから呼ぶ。トドメのアニメーションが終わった</summary>
     public void EndFinishAnim()
     {
+        Debug.Log("FF");
         _isEndFinishAnim = true;
 
         _nowFinishEnemy = null;
 
+        //トドメ完了のUIを非表示
+        _finishingAttackUI.ShowCompleteFinishUI(false);
     }
 
     /// <summary>トドメを終えた際、エフェクトを消すかどうかを判断する</summary>

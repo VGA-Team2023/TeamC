@@ -11,6 +11,8 @@ public class FinishingAttackUI
     [Header("とどめをさしている間のUIのプレハブ")]
     [SerializeField] private GameObject _finishUIPrefab;
 
+
+
     [Header("敵の最大数")]
     [SerializeField] private int _enemyMaxNum = 10;
 
@@ -20,6 +22,9 @@ public class FinishingAttackUI
 
     [Header("トドメのUI")]
     [SerializeField] private GameObject _dofinishingUI;
+
+    [Header("トドメ完了のUI")]
+    [SerializeField] private GameObject _completeFinishUI;
 
     [Header("トドメのパーセンテージを表示")]
     [SerializeField] private Image _finishingSliderUI;
@@ -53,8 +58,11 @@ public class FinishingAttackUI
             _canFinishUI[i].transform.SetParent(_parentUI);
             _finishUI[i].transform.SetParent(_parentUI);
         }
+    }
 
-
+    public void ShowCompleteFinishUI(bool isOn)
+    {
+        _completeFinishUI.SetActive(isOn);
     }
 
     public void ShowCanFinishingUI(bool isON)

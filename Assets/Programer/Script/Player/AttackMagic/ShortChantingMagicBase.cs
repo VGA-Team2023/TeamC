@@ -8,6 +8,12 @@ public class ShortChantingMagicBase
     [Header("çUåÇÇÃâÒêî")]
     [SerializeField] private int _attackMaxNum = 3;
 
+    [Header("çUåÇóÕ_íôÇﬂÇÈëO")]
+    [SerializeField] private float _powerShortChanting = 1;
+
+    [Header("çUåÇóÕ_íôÇﬂÇΩ")]
+    [SerializeField] private float _powerLongChanting = 3;
+
     [Header("ñÇñ@êw")]
     [SerializeField] private List<GameObject> _magick = new List<GameObject>();
 
@@ -90,18 +96,20 @@ public class ShortChantingMagicBase
         if (enemys.Length == 0)
         {
             var go = UnityEngine.GameObject.Instantiate(prefab);
+            go.transform.forward = _playerControl.PlayerT.forward;
             go.transform.position = _magick[num].transform.position;
             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, 1);
+            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
         }
         else
         {
             foreach (var e in enemys)
             {
                 var go = UnityEngine.GameObject.Instantiate(prefab);
+                go.transform.forward = e.transform.position - _magick[num].transform.position;
                 go.transform.position = _magick[num].transform.position;
                 go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                magicble.SetAttack(e, _playerControl.PlayerT.forward, attackType, 1);
+                magicble.SetAttack(e, _playerControl.PlayerT.forward, attackType, _powerLongChanting);
             }
         }
     }

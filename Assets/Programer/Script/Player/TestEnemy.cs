@@ -35,6 +35,9 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     [Header("弾")]
     [SerializeField] private GameObject _bullet;
 
+    [Header("発射レート")]
+    [SerializeField] private float _rate = 7;
+
     [Header("マズル")]
     [SerializeField] private Transform _muzzle;
     [Header("回転速度")]
@@ -99,7 +102,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
         {
             _countTime += Time.deltaTime;
 
-            if (_countTime > 5)
+            if (_countTime > _rate)
             {
                 var go = Instantiate(_bullet);
                 go.transform.position = _muzzle.position;
@@ -124,7 +127,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     }
 
 
-    public void Damage(AttackType attackType, MagickType attackHitTyp,float damage)
+    public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         _rb.velocity = Vector3.zero;
 
@@ -157,7 +160,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
         }
         else
         {
-            _nowHp--;
+            _nowHp -= (int)damage;
 
             pLow.gameObject.SetActive(true);
 
