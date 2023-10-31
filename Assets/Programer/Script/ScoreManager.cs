@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>主にスコアの計算をするClass</summary>
-public class ScoreManager : MonoBehaviour
+public class ScoreManager
 {
     /// <summary>クリア時間をもとにスコア値を求めるメソッド</summary>
     /// <param name="time">ゲームクリア時間</param>
