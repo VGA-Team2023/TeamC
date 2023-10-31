@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SlowManager : MonoBehaviour
+[System.Serializable]
+public class SlowManager
 {
-    [Header("İ’è")]
-    [SerializeField, Tooltip("ƒXƒ[‚ÌÄ¶‘¬“x‚ÌŠ„‡"), Range(0,1)] float _slowSpeedRate;
+    [SerializeField] float _slowSpeedRate = 0.05f;
     bool _isSlow = false;
     List<ISlow> _slows = new List<ISlow>();
 
