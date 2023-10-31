@@ -21,7 +21,7 @@ public class WalkState : PlayerStateBase
         _stateMachine.PlayerController.Move.Move(PlayerMove.MoveType.Walk);
 
         //カメラのFOV設定
-        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetFOV();
+        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
 
         //トドメをさせる敵を探す
         _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
@@ -49,14 +49,12 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
             return;
         }   //攻撃
 
-        //if (_stateMachine.PlayerController.SetUp.IsSetUp)
-        //{
-        //    _stateMachine.TransitionTo(_stateMachine.SetUpMoveState);
-
-        //    //構えに行く際の設定
-        //    _stateMachine.PlayerController.SetUp.ArrangementStartSetUp();
-        //    return;
-        //}   //構え
+        if (_stateMachine.PlayerController.InputManager.IsAvoid)
+        {
+            _stateMachine.PlayerController.Avoid.SetAvoidDir();
+            _stateMachine.TransitionTo(_stateMachine.AvoidState);
+            return;
+        }   //回避
 
         if (_stateMachine.PlayerController.InputManager.HorizontalInput == 0
             && _stateMachine.PlayerController.InputManager.VerticalInput == 0)

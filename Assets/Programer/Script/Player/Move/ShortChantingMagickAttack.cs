@@ -59,7 +59,7 @@ public class ShortChantingMagickAttack
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
         //ÉJÉÅÉâÇÃêUìÆ
-        _playerControl.CameraControl.ShakeCamra(CameraType.SetUp, CameraShakeType.AttackNomal);
+        _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
         _attackCount++;
 
@@ -78,20 +78,6 @@ public class ShortChantingMagickAttack
             {
                 _shortChantingMagicAttackMove.SetEnemy(t[0]);
 
-                foreach (var e in t)
-                {
-                    e.TryGetComponent<IDamageble>(out IDamageble damageble);
-
-                    if (_attackCount % 3 == 0)
-                    {
-                        damageble?.Damage(WeaponType.Gun, AttackHitType.Strong);
-                    }
-                    else
-                    {
-                        damageble?.Damage(WeaponType.Gun, AttackHitType.Nomal);
-                    }
-                }
-
                 //ñÇñ@ÇÃçUåÇèàóù
                 _shortChantingMagicData.AttackOneEnemy(t);
             }
@@ -109,20 +95,6 @@ public class ShortChantingMagickAttack
             else
             {
                 _shortChantingMagicAttackMove.SetEnemy(t[0]);
-
-                foreach (var e in t)
-                {
-                    e.TryGetComponent<IDamageble>(out IDamageble damageble);
-
-                    if (_attackCount % 3 == 0)
-                    {
-                        damageble?.Damage(WeaponType.Gun, AttackHitType.Strong);
-                    }
-                    else
-                    {
-                        damageble?.Damage(WeaponType.Gun, AttackHitType.Nomal);
-                    }
-                }
 
                 //ñÇñ@ÇÃçUåÇèàóù
                 _shortChantingMagicData.AttackAllEnemy(t);

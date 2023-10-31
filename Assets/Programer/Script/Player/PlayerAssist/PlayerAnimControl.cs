@@ -11,7 +11,7 @@ public class PlayerAnimControl
     [SerializeField] private string _toSword = "Player_ChangeWeapon_ToSword";
 
     [Header("çUåÇâÒêî")]
-    [SerializeField] private string _attackNum = "";
+    [SerializeField] private string _attackNum = "AttackNum";
 
     [Header("çUåÇÇÃTrigger")]
     [SerializeField] private string _attackTrigger = "";
@@ -21,6 +21,18 @@ public class PlayerAnimControl
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
+    }
+
+    public void Avoid(bool isStart)
+    {
+        if (isStart)
+        {
+            _playerControl.Animator.Play("Player_Avoid");
+        }
+        else
+        {
+            _playerControl.Animator.Play("Player_AvoidEnd");
+        }
     }
 
     public void AnimSet()
@@ -47,10 +59,10 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
     }
 
-    public void StartFinishAttack(WeaponType weaponType)
+    public void StartFinishAttack(AttackType weaponType)
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
-        if (weaponType == WeaponType.Gun)
+        if (weaponType == AttackType.ShortChantingMagick)
         {
             _playerControl.Animator.Play("Player_FinishingGun_1");
         }
@@ -70,9 +82,9 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsFinishAttack", false);
     }
 
-    public void EndFinishAttack(WeaponType weaponType)
+    public void EndFinishAttack(AttackType weaponType)
     {
-        if (weaponType == WeaponType.Gun)
+        if (weaponType == AttackType.ShortChantingMagick)
         {
             _playerControl.Animator.Play("Player_FinishingGun_1_Complet");
         }

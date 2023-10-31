@@ -103,14 +103,25 @@ public class Attack
 
 }
 
-public enum WeaponType
+/// <summary>
+/// UŒ‚‚Ìƒ^ƒCƒv
+/// </summary>
+public enum AttackType
 {
-    Gun,
-    Sword,
+    /// <summary>’Z‚¢‰r¥‚ÌUŒ‚</summary>
+    ShortChantingMagick,
+    /// <summary>’·‚¢‰r¥‚ÌUŒ‚</summary>
+    LongChantingMagick,
 }
 
-public enum AttackHitType
+/// <summary>
+/// –‚–@‚Ì‘®«
+/// </summary>
+public enum MagickType
 {
-    Nomal,
-    Strong,
+    /// <summary>•X‘®« </summary>
+    Ice,
+
+    /// <summary>‘‘®« </summary>
+    Grass,
 }

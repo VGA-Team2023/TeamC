@@ -42,12 +42,13 @@ public class FinishingAttack
     public bool IsEndFinishAnim { get => _isEndFinishAnim; set => _isEndFinishAnim = value; }
 
     public bool IsCanFinishing => _isCanFinishing;
+    public FinishingAttackShort FinishingAttackShort => _finishingAttackShort;
 
     public FinishingAttackMove FinishingAttackMove => _finishingAttackMove;
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
-        _finishingAttackUI.Init(playerControl);
+        _finishingAttackUI.Init(playerControl,_finishingAttackShort.FinishTime);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -75,7 +76,7 @@ public class FinishingAttack
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.StartFinishAttack(WeaponType.Sword);
+        _playerControl.PlayerAnimControl.StartFinishAttack(AttackType.LongChantingMagick);
 
 
         //敵を索敵
@@ -88,6 +89,12 @@ public class FinishingAttack
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
             damgeble?.StartFinishing();
         }
+
+        //トドメ用のカメラを使う
+        _playerControl.CameraControl.UseFinishCamera();
+
+        //カメラを敵の方向に向ける
+        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
 
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
@@ -126,7 +133,7 @@ public class FinishingAttack
         {
             _countFinishTime += Time.deltaTime;
 
-            _finishingAttackUI.ChangeValue(_countFinishTime);
+            _finishingAttackUI.ChangeValue(Time.deltaTime);
 
             if (_countFinishTime >= _setFinishTime)
             {
@@ -152,20 +159,37 @@ public class FinishingAttack
 
         _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
 
+        //カメラ終わり
+        _playerControl.CameraControl.FinishAttackCamera.EndFinish();
+
+        //通常のカメラに戻す
+        _playerControl.CameraControl.UseDefultCamera(false);
+
+        //カメラの振動
+        _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
+        _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
+
         //コントローラーの振動を停止
         _playerControl.ControllerVibrationManager.StopVibration();
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
 
+        //トドメ完了のUIを表示
+        _finishingAttackUI.ShowCompleteFinishUI(true);
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
+
         //時間を遅くする
         GameManager.Instance.TimeControl.SetTimeScale(0.3f);
+
 
         LineSetting();
 
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.EndFinishAttack(WeaponType.Sword);
+        _playerControl.PlayerAnimControl.EndFinishAttack(AttackType.LongChantingMagick);
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -178,6 +202,14 @@ public class FinishingAttack
     {
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
+
+        //通常のカメラに戻す
+        _playerControl.CameraControl.UseDefultCamera(false);
+
+        _playerControl.CameraControl.FinishAttackCamera.EndFinish();
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -196,10 +228,13 @@ public class FinishingAttack
     /// アニメーションイベントから呼ぶ。トドメのアニメーションが終わった</summary>
     public void EndFinishAnim()
     {
+        Debug.Log("FF");
         _isEndFinishAnim = true;
 
         _nowFinishEnemy = null;
 
+        //トドメ完了のUIを非表示
+        _finishingAttackUI.ShowCompleteFinishUI(false);
     }
 
     /// <summary>トドメを終えた際、エフェクトを消すかどうかを判断する</summary>

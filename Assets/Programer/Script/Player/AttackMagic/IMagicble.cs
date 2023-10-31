@@ -5,6 +5,6 @@ using UnityEngine;
 public interface IMagicble
 {
 
-    void SetEnemy(Transform enemy, Vector3 foward);
+    void SetAttack(Transform enemy, Vector3 foward, AttackType attackType,float attackPower);
 
 }
