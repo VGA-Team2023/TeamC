@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
+public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
 {
     [SerializeField] private Transform _player;
 
@@ -34,6 +34,9 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
 
     [Header("弾")]
     [SerializeField] private GameObject _bullet;
+
+    [Header("発射レート")]
+    [SerializeField] private float _rate = 7;
 
     [Header("マズル")]
     [SerializeField] private Transform _muzzle;
@@ -71,7 +74,7 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
                 go.transform.position = transform.position;
 
                 CameraControl camera = FindObjectOfType<CameraControl>();
-                camera?.ShakeCamra(CameraType.SetUp, CameraShakeType.AttackNomal);
+                camera?.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
 
                 Destroy(gameObject);
@@ -99,7 +102,7 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
         {
             _countTime += Time.deltaTime;
 
-            if (_countTime > 5)
+            if (_countTime > _rate)
             {
                 var go = Instantiate(_bullet);
                 go.transform.position = _muzzle.position;
@@ -124,13 +127,13 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
     }
 
 
-    public void Damage(WeaponType attackType, AttackHitType attackHitTyp)
+    public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         _rb.velocity = Vector3.zero;
 
-        if (attackType == WeaponType.Gun)
+        if (attackType == AttackType.ShortChantingMagick)
         {
-            if (attackHitTyp == AttackHitType.Nomal)
+            if (attackHitTyp == MagickType.Ice)
             {
                 pLow.gameObject.SetActive(true);
                 // pLow.Play();
@@ -138,7 +141,7 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
                 Vector3 dir = transform.position - _player.position;
                 _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
             }
-            else if (attackHitTyp == AttackHitType.Strong)
+            else if (attackHitTyp == MagickType.Grass)
             {
                 pHigh.gameObject.SetActive(true);
                 // pHigh.Play();
@@ -157,7 +160,7 @@ public class TestEnemy : MonoBehaviour, IDamageble, IFinishingDamgeble
         }
         else
         {
-            _nowHp--;
+            _nowHp -= (int)damage;
 
             pLow.gameObject.SetActive(true);
 

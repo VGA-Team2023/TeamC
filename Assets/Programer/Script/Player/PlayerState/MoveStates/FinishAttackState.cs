@@ -27,6 +27,10 @@ public class FinishAttackState : PlayerStateBase
         _stateMachine.PlayerController.FinishingAttack.FinishingAttackMove.Rotation();
 
         _stateMachine.PlayerController.FinishingAttack.SetUI();
+
+        _stateMachine.PlayerController.CameraControl.FinishAttackCamera.DoFinishCameraSettingFirst();
+
+        _stateMachine.PlayerController.CameraControl.FinishAttackCamera.DoChangeDutch();
     }
 
     public override void LateUpdate()

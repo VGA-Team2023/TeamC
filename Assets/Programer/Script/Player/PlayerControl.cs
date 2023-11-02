@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : MonoBehaviour,IPlayerDamageble
 {
+    [Header("Hp設定")]
+    [SerializeField] private PlayerHp _hp;
+
+    [Header("ダメージ")]
+    [SerializeField] private PlayerDamage _damage;
+
     [Header("移動設定")]
     [SerializeField] private PlayerMove _playerMove;
+
+    [Header("回避")]
+    [SerializeField] private PlayerAvoid _avoid;
 
     [Header("攻撃")]
     [SerializeField] private Attack _attack;
@@ -32,6 +41,9 @@ public class PlayerControl : MonoBehaviour
     [Header("プレイヤー自身")]
     [SerializeField] private Transform _playerT;
 
+    [Header("Playerのメッシュ")]
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
+
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
 
@@ -45,6 +57,8 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] private ColliderCheck _colliderCheck;
 
+    public PlayerDamage PlayerDamage => _damage;
+    public PlayerHp PlayerHp => _hp;
     public ControllerVibrationManager ControllerVibrationManager => _controllerVibrationManager;
     public CameraControl CameraControl => _cameraControl;
     public PlayerAnimControl PlayerAnimControl => _playerAnimControl;
@@ -57,8 +71,10 @@ public class PlayerControl : MonoBehaviour
     public WeaponSetting WeaponSetting => _weaponSetting;
     public Attack Attack => _attack;
     public FinishingAttack FinishingAttack => _finishingAttack;
+    public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
+    public SkinnedMeshRenderer MeshRenderer => _meshRenderer;
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -69,6 +85,9 @@ public class PlayerControl : MonoBehaviour
         _weaponSetting.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
+        _avoid.Init(this);
+        _hp.Init(this);
+        _damage.Init(this);
     }
 
     void Start()
@@ -100,5 +119,10 @@ public class PlayerControl : MonoBehaviour
         _groundCheck.OnDrawGizmos(PlayerT);
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
+    }
+
+    public void Damage(float damage)
+    {
+        _damage.Damage(damage);
     }
 }
