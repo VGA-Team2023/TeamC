@@ -29,6 +29,8 @@ public class SlowManager
         }
     }
 
+    /// <summary>“o˜^</summary>
+    ///<param name="slow">©•ª</param>
     public void Add(ISlow slow)
     {
         _slows.Add(slow);
@@ -37,6 +39,9 @@ public class SlowManager
             slow.OnSlow(_slowSpeedRate);
         }
     }
+
+    /// <summary>‰ğœ</summary>
+    /// <param name="slow">©•ª</param>
     public void Remove(ISlow slow)
     {
         _slows.Remove(slow);

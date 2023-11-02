@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager _instance;
     /// <summary>現在のゲームの状態</summary>
     [SerializeField] GameState _currentGameState;
-    [SerializeField]TimeControl _timeControl;
+    [SerializeField] TimeControl _timeControl;
     [SerializeField] SlowManager _slowManager;
     [SerializeField] TimeManager _timeManager;
     ScoreManager _scoreManager = new ScoreManager();
@@ -65,8 +65,10 @@ public class GameManager : MonoBehaviour
             //インゲームが終わったら
             if(_timeManager.GamePlayElapsedTime < 0)
             {
-                //リザルトに行く
+                //リザルト状態に変更
                 ChangeGameState(GameState.Result);
+                //タイマーのリセット
+                _timeManager.TimerReset();
                 //ここにシーン遷移のメソッドを呼ぶ
             }
         }
@@ -78,21 +80,19 @@ public class GameManager : MonoBehaviour
         _score = 0;
     }
 
-    void TimerReset()
+    /// <summary>選択したPlayerの属性を保存する処理を行うメソッド</summary>
+    /// <param name="isEnumNumber">属性のenumの代わりとなる数値(０は氷１は草)</param>
+    public void PlayerAttributeSelect(int isEnumNumber)
     {
-        _timeManager.TimerReset();
-    }
-    /// <summary>Playerの属性を保存する処理を行うメソッド</summary>
-    /// <param name="isIce">氷属性かどうか</param>
-    public void PlayerAttributeSelect(bool isIce)
-    {
-        if(isIce)
+        if(isEnumNumber > -1 && isEnumNumber < 2)
         {
-            _playerAttribute = PlayerAttribute.Ice;
+            _playerAttribute = (PlayerAttribute)isEnumNumber;
         }
         else
         {
-            _playerAttribute = PlayerAttribute.Wood;
+            //エラーを出す
+            Debug.LogError("下記を呼んだうえで0 ～ 1までの数字を入れてください\n" +
+                " 氷属性は 0   草属性は 1 ");
         }
     }
 
@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour
     public void ChangeGameState(GameState changeGameState)
     {
         _currentGameState = changeGameState;
-        
     }
 
     public void Result()
@@ -126,6 +125,6 @@ public enum PlayerAttribute
 {
     /// <summary>氷属性</summary>
     Ice,
-    /// <summary>木属性</summary>
-    Wood
+    /// <summary>草属性</summary>
+    Grass
 }

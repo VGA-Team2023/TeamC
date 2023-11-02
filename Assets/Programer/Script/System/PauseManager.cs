@@ -7,6 +7,8 @@ public class PauseManager
     bool _isPause = false;
     List<IPause> _ipauselist = new List<IPause>();
 
+    /// <summary>ˆê’â~‚Æ’Êí‚ÌØ‚è‘Ö‚¦ˆ—‚ğs‚¤</summary>
+    /// <param name="pause">’â~‚·‚é‚©‚Ç‚¤‚©</param>
     public void PauseResume(bool pause)
     {
         _isPause = pause;
@@ -23,7 +25,8 @@ public class PauseManager
         }
         
     }
-
+    /// <summary>“o˜^</summary>
+    /// <param name="ipause">©•ª</param>
     public void Add(IPause ipause)
     {
         _ipauselist.Add(ipause);
@@ -32,6 +35,8 @@ public class PauseManager
             ipause.Pause();
         }
     }
+    /// <summary>‰ğœ</summary>
+    /// <param name="ipause">©•ª</param>
     public void Remove(IPause ipause)
     {
         _ipauselist.Remove(ipause);
