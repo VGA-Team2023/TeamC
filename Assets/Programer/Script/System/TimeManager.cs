@@ -12,13 +12,9 @@ public class TimeManager : ISlow,IPause
     /// <summary>ƒQ[ƒ€’†‚ÌŒo‰ßŠÔ</summary>
     float _gamePlayElapsedTime = 0;
     public float GamePlayElapsedTime => _gamePlayElapsedTime;
-    public TimeManager()
-    {
-        TimerReset();
-    }
-
     public void Start()
     {
+        TimerReset();
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
     }

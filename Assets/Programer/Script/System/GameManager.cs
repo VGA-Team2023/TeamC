@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
     /// <summary>現在のゲームの状態</summary>
-    [SerializeField] GameState _currentGameState;
+    [SerializeField,Header("現在のシーン")] GameState _currentGameState;
     [SerializeField] TimeControl _timeControl;
     [SerializeField] SlowManager _slowManager;
     [SerializeField] TimeManager _timeManager;
@@ -52,6 +52,15 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            _instance.ChangeGameState(this._currentGameState);
+            //二回目以降のゲームシーンに遷移したら
+            if(_currentGameState == GameState.Game)
+            {
+                //スコアリセット
+                _instance.ScoreReset();
+                //タイマーリセット
+                _instance._timeManager.TimerReset();
+            }
             Destroy(this);
         }
     }
@@ -63,13 +72,14 @@ public class GameManager : MonoBehaviour
         {
             _timeManager.Update();
             //インゲームが終わったら
-            if(_timeManager.GamePlayElapsedTime < 0)
+            if(_timeManager.GamePlayElapsedTime <= 0)
             {
                 //リザルト状態に変更
                 ChangeGameState(GameState.Result);
-                //タイマーのリセット
-                _timeManager.TimerReset();
-                //ここにシーン遷移のメソッドを呼ぶ
+                //スコアの計算をここに記述
+                //シーン遷移のメソッドを呼ぶ
+                SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
+                sceneControlle?.SceneChange();
             }
         }
     }
