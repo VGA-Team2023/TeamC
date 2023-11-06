@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3504829917955069712}
   - component: {fileID: 1447052630206629003}
   - component: {fileID: 7425714154426012488}
+  - component: {fileID: 7131809656300402974}
+  - component: {fileID: 1191131761304678656}
   m_Layer: 3
   m_Name: Ghost
   m_TagString: Untagged
@@ -123,11 +125,9 @@ MonoBehaviour:
   _hp: 0
   _attack: 0
   _speed: 2
-  _distance: 0.5
-  _moveRange: 3
-  _destination: {fileID: 8546216493707230748, guid: 487ed5fe84070ad45b1e682922ee0265,
-    type: 3}
-  _base: {fileID: 6447572823749280593, guid: b4a305cf73b814645b18956e3e4ecb46, type: 3}
+  _distance: 0.3
+  _moveRange: 2.84
+  _searchRange: 4.26
 --- !u!54 &7425714154426012488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -155,6 +155,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7131809656300402974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339299864678133122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f8f73c6b0824544b7b839819b0d8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1191131761304678656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339299864678133122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120e4b614efd1ec4ea116921c381019e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1852626314562871536
 GameObject:
   m_ObjectHideFlags: 0
