@@ -67,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap3D:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 11700000, guid: 2bc42c300e50fda4a838296bf4c71f0e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -173,8 +173,8 @@ Material:
     - _AlphaTransitionMapProgress: 0
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
-    - _AlphaTransitionMode: 0
-    - _AlphaTransitionProgress: 0
+    - _AlphaTransitionMode: 2
+    - _AlphaTransitionProgress: 0.04
     - _AlphaTransitionProgressCoord: 0
     - _BaseMapMirrorSampling: 0
     - _BaseMapMode: 0
@@ -184,7 +184,7 @@ Material:
     - _BaseMapProgressCoord: 0
     - _BaseMapRotation: 0
     - _BaseMapRotationCoord: 0
-    - _BaseMapSliceCount: 4
+    - _BaseMapSliceCount: 9
     - _Blend: 0
     - _BlendDst: 10
     - _BlendModePreserveSpecular: 1
@@ -201,12 +201,12 @@ Material:
     - _DepthFadeWidth: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveSharpness: 0.5
+    - _DissolveSharpness: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionAreaType: 1
     - _EmissionColorType: 0
-    - _EmissionIntensity: 1
+    - _EmissionIntensity: 2.58
     - _EmissionIntensityCoord: 0
     - _EmissionMapChannelsX: 0
     - _EmissionMapMode: 0
@@ -290,7 +290,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.19215703, g: 1, b: 0, a: 1}
+    - _EmissionColor: {r: 0.028461456, g: 1, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 10.685925, g: 10.685925, b: 10.685925, a: 1}
+    - _TintColor: {r: 0.15686274, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []

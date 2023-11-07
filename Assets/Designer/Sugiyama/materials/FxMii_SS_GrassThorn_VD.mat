@@ -27,15 +27,17 @@ Material:
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
+  - _DISSOLVE_TRANSITION_ENABLED
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _PARALLAX_MAP_MODE_2D
+  - _SOFT_PARTICLES_ENABLED
   - _TINT_AREA_ALL
   - _TINT_COLOR_ENABLED
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
@@ -45,7 +47,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTransitionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fad1d63b780f72249b6e1fb267860bdb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
@@ -171,9 +173,9 @@ Material:
     - _AlphaTransitionMapProgress: 0
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
-    - _AlphaTransitionMode: 0
+    - _AlphaTransitionMode: 2
     - _AlphaTransitionProgress: 0
-    - _AlphaTransitionProgressCoord: 0
+    - _AlphaTransitionProgressCoord: 11
     - _BaseMapMirrorSampling: 0
     - _BaseMapMode: 0
     - _BaseMapOffsetXCoord: 0
@@ -191,7 +193,7 @@ Material:
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ColorCorrectionMode: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DepthFadeEnabled: 0
     - _DepthFadeFar: 10
@@ -199,7 +201,7 @@ Material:
     - _DepthFadeWidth: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveSharpness: 0.5
+    - _DissolveSharpness: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionAreaType: 0
@@ -255,15 +257,15 @@ Material:
     - _RimTransparencySharpnessCoord: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesIntensity: 2.49
+    - _SoftParticlesEnabled: 1
+    - _SoftParticlesIntensity: 6
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TintAreaMode: 1
     - _TintBlendRate: 1
-    - _TintBlendRateCoord: 0
+    - _TintBlendRateCoord: 11
     - _TintColorMode: 0
     - _TintMap3DProgress: 0
     - _TintMap3DProgressCoord: 0
@@ -288,7 +290,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.89645165, g: 1, b: 0.6566038, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 8, g: 8, b: 8, a: 1}
+    - _TintColor: {r: 16, g: 16, b: 16, a: 1}
   m_BuildTextureStacks: []
