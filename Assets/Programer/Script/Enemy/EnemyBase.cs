@@ -11,6 +11,9 @@ public class EnemyBase :  MonoBehaviour
     [SerializeField, Tooltip("エネミーの移動速度")]
     float _speed;
     public float Speed => _speed;
+    [SerializeField, Tooltip("攻撃の間隔")]
+    float _attackInterval;
+    public float AttackInterval => _attackInterval;
     [SerializeField, Tooltip("プレイヤーを検出する範囲(赤い円)"), Range(0, 10)]
     float _searchRange;
     public float SearchRange => _searchRange;

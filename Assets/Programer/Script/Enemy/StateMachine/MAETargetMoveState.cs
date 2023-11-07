@@ -5,7 +5,6 @@ public class MAETargetMoveState : IStateMachine
     MeleeAttackEnemy _enemy;
     PlayerControl _player;
     Vector3 _basePosition;
-    Vector3 _dir;
     float _playerSearchDistance;
     float _distance;
     float _speed;
@@ -21,7 +20,7 @@ public class MAETargetMoveState : IStateMachine
     }
     public void Enter()
     {
-        
+        Debug.Log("TargetMove:Enter");
     }
 
     public void Exit()

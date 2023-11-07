@@ -8,7 +8,7 @@ public class MoveRangeGizmo : MonoBehaviour
         var enemy = GetComponent<MeleeAttackEnemy>();
         if (enemy)
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = Color.blue;
             GizmosExtensions.DrawWireCircle(transform.position, enemy.MoveRange);
         }
     }

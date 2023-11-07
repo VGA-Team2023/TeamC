@@ -1,5 +1,4 @@
 using UnityEngine;
-using Utils;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAttackEnemy : EnemyBase
