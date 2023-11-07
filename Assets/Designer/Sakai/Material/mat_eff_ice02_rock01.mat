@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
+  - _DISSOLVE_TRANSITION_ENABLED
   - _EMISSION_AREA_ALPHA
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
@@ -43,7 +44,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTransitionMap:
-        m_Texture: {fileID: 2800000, guid: 0dfbe7f4d520d0f4f9ecc4839e2abd8e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5fb27c8353d25aa4ab705907dd9ade52, type: 3}
         m_Scale: {x: 2, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
