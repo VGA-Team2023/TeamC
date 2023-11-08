@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,8 +12,8 @@ public class SlowManager
     List<ISlow> _slows = new List<ISlow>();
     public float SlowSpeedRate { get { return _slowSpeedRate; } set { _slowSpeedRate = value; } }
  
-    /// <summary>ƒXƒ[‚ÌØ‚è‘Ö‚¦ˆ—‚ğs‚¤</summary>
-    /// <param name="isSlow">ƒXƒ[‚É‚·‚é‚©‚Ç‚¤‚©</param>
+    /// <summary>ã‚¹ãƒ­ãƒ¼ã®åˆ‡ã‚Šæ›¿ãˆå‡¦ç†ã‚’è¡Œã†</summary>
+    /// <param name="isSlow">ã‚¹ãƒ­ãƒ¼ã«ã™ã‚‹ã‹ã©ã†ã‹</param>
     public void OnOffSlow(bool isSlow)
     {
         _isSlow = isSlow;
@@ -30,8 +30,8 @@ public class SlowManager
         }
     }
 
-    /// <summary>“o˜^</summary>
-    ///<param name="slow">©•ª</param>
+    /// <summary>ç™»éŒ²</summary>
+    ///<param name="slow">è‡ªåˆ†</param>
     public void Add(ISlow slow)
     {
         _slows.Add(slow);
@@ -41,8 +41,8 @@ public class SlowManager
         }
     }
 
-    /// <summary>‰ğœ</summary>
-    /// <param name="slow">©•ª</param>
+    /// <summary>è§£é™¤</summary>
+    /// <param name="slow">è‡ªåˆ†</param>
     public void Remove(ISlow slow)
     {
         _slows.Remove(slow);

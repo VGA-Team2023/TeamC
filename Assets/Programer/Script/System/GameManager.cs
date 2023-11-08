@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
-    /// <summary>Œ»İ‚ÌƒQ[ƒ€‚Ìó‘Ô</summary>
-    [SerializeField,Header("Œ»İ‚ÌƒV[ƒ“")] GameState _currentGameState;
+    /// <summary>ç¾åœ¨ã®ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹</summary>
+    [SerializeField,Header("ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³")] GameState _currentGameState;
     [SerializeField] TimeControl _timeControl;
     [SerializeField] SlowManager _slowManager;
     [SerializeField] TimeManager _timeManager;
     ScoreManager _scoreManager = new ScoreManager();
     PauseManager _pauseManager = new PauseManager();
-    /// <summary>ƒXƒRƒAŠi”[—p•Ï”</summary>
+    /// <summary>ã‚¹ã‚³ã‚¢æ ¼ç´ç”¨å¤‰æ•°</summary>
     public static int _score = 0;
-    /// <summary>Player‚Ì‘®«</summary>
+    /// <summary>Playerã®å±æ€§</summary>
     PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
     public PlayerAttribute PlayerAttribute => _playerAttribute;
     public TimeControl TimeControl => _timeControl;
@@ -23,19 +23,19 @@ public class GameManager : MonoBehaviour
     public TimeManager TimeManager => _timeManager;
     public static GameManager Instance
     {
-        //“Ç‚İæ‚è
+        //èª­ã¿å–ã‚Šæ™‚
         get
         {
-            //instance‚ªnull‚¾‚Á‚½‚ç
+            //instanceãŒnullã ã£ãŸã‚‰
             if (!_instance)
             {
-                //ƒV[ƒ““à‚ÌGameobject‚ÉƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚éT‚ğæ“¾
+                //ã‚·ãƒ¼ãƒ³å†…ã®Gameobjectã«ã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã‚‹Tã‚’å–å¾—
                 _instance = FindObjectOfType<GameManager>();
-                //ƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
+                //ã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ãªã‹ã£ãŸã‚‰
                 if (!_instance)
                 {
-                    //ƒGƒ‰[‚ğo‚·
-                    Debug.LogError("Scene“à‚É" + typeof(GameManager).Name + "‚ğƒAƒ^ƒbƒ`‚µ‚Ä‚¢‚éGameObject‚ª‚ ‚è‚Ü‚¹‚ñ");
+                    //ã‚¨ãƒ©ãƒ¼ã‚’å‡ºã™
+                    Debug.LogError("Sceneå†…ã«" + typeof(GameManager).Name + "ã‚’ã‚¢ã‚¿ãƒƒãƒã—ã¦ã„ã‚‹GameObjectãŒã‚ã‚Šã¾ã›ã‚“");
                 }
             }
             return _instance;
@@ -53,12 +53,12 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance.ChangeGameState(this._currentGameState);
-            //“ñ‰ñ–ÚˆÈ~‚ÌƒQ[ƒ€ƒV[ƒ“‚É‘JˆÚ‚µ‚½‚ç
+            //äºŒå›ç›®ä»¥é™ã®ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã«é·ç§»ã—ãŸã‚‰
             if(_currentGameState == GameState.Game)
             {
-                //ƒXƒRƒAƒŠƒZƒbƒg
+                //ã‚¹ã‚³ã‚¢ãƒªã‚»ãƒƒãƒˆ
                 _instance.ScoreReset();
-                //ƒ^ƒCƒ}[ƒŠƒZƒbƒg
+                //ã‚¿ã‚¤ãƒãƒ¼ãƒªã‚»ãƒƒãƒˆ
                 _instance._timeManager.TimerReset();
             }
             Destroy(this);
@@ -67,31 +67,31 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //ƒCƒ“ƒQ[ƒ€’†‚¾‚Á‚½‚ç
+        //ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ä¸­ã ã£ãŸã‚‰
         if(_currentGameState == GameState.Game)
         {
             _timeManager.Update();
-            //ƒCƒ“ƒQ[ƒ€‚ªI‚í‚Á‚½‚ç
+            //ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ãŒçµ‚ã‚ã£ãŸã‚‰
             if(_timeManager.GamePlayElapsedTime <= 0)
             {
-                //ƒŠƒUƒ‹ƒgó‘Ô‚É•ÏX
+                //ãƒªã‚¶ãƒ«ãƒˆçŠ¶æ…‹ã«å¤‰æ›´
                 ChangeGameState(GameState.Result);
-                //ƒXƒRƒA‚ÌŒvZ‚ğ‚±‚±‚É‹Lq
-                //ƒV[ƒ“‘JˆÚ‚Ìƒƒ\ƒbƒh‚ğŒÄ‚Ô
+                //ã‚¹ã‚³ã‚¢ã®è¨ˆç®—ã‚’ã“ã“ã«è¨˜è¿°
+                //ã‚·ãƒ¼ãƒ³é·ç§»ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶
                 SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
                 sceneControlle?.SceneChange();
             }
         }
     }
 
-    /// <summary>ƒXƒRƒA‚ÌƒŠƒZƒbƒg</summary>
+    /// <summary>ã‚¹ã‚³ã‚¢ã®ãƒªã‚»ãƒƒãƒˆ</summary>
     void ScoreReset()
     {
         _score = 0;
     }
 
-    /// <summary>‘I‘ğ‚µ‚½Player‚Ì‘®«‚ğ•Û‘¶‚·‚éˆ—‚ğs‚¤ƒƒ\ƒbƒh</summary>
-    /// <param name="isEnumNumber">‘®«‚Ìenum‚Ì‘ã‚í‚è‚Æ‚È‚é”’l(‚O‚Í•X‚P‚Í‘)</param>
+    /// <summary>é¸æŠã—ãŸPlayerã®å±æ€§ã‚’ä¿å­˜ã™ã‚‹å‡¦ç†ã‚’è¡Œã†ãƒ¡ã‚½ãƒƒãƒ‰</summary>
+    /// <param name="isEnumNumber">å±æ€§ã®enumã®ä»£ã‚ã‚Šã¨ãªã‚‹æ•°å€¤(ï¼ã¯æ°·ï¼‘ã¯è‰)</param>
     public void PlayerAttributeSelect(int isEnumNumber)
     {
         if(isEnumNumber > -1 && isEnumNumber < 2)
@@ -100,14 +100,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //ƒGƒ‰[‚ğo‚·
-            Debug.LogError("‰º‹L‚ğŒÄ‚ñ‚¾‚¤‚¦‚Å0 ` 1‚Ü‚Å‚Ì”š‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢\n" +
-                " •X‘®«‚Í 0   ‘‘®«‚Í 1 ");
+            //ã‚¨ãƒ©ãƒ¼ã‚’å‡ºã™
+            Debug.LogError("ä¸‹è¨˜ã‚’å‘¼ã‚“ã ã†ãˆã§0 ï½ 1ã¾ã§ã®æ•°å­—ã‚’å…¥ã‚Œã¦ãã ã•ã„\n" +
+                " æ°·å±æ€§ã¯ 0   è‰å±æ€§ã¯ 1 ");
         }
     }
 
-    /// <summary>Œ»İ‚ÌƒQ[ƒ€‚Ìó‘Ô‚ğ•Ï‚¦‚éˆ—‚ğ‚¨‚±‚È‚¤</summary>
-    /// <param name="changeGameState">•Ï‚¦‚½‚¢ó‘Ô‚Ì‚±‚Æ</param>
+    /// <summary>ç¾åœ¨ã®ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’å¤‰ãˆã‚‹å‡¦ç†ã‚’ãŠã“ãªã†</summary>
+    /// <param name="changeGameState">å¤‰ãˆãŸã„çŠ¶æ…‹ã®ã“ã¨</param>
     public void ChangeGameState(GameState changeGameState)
     {
         _currentGameState = changeGameState;
@@ -118,23 +118,23 @@ public class GameManager : MonoBehaviour
         _score = _scoreManager.ScoreCaster(_timeManager.GamePlayElapsedTime, 10);
     }
 }
-/// <summary>‘S‘Ì‚ÌƒQ[ƒ€‚Ìó‘Ô‚ğŠÇ—‚·‚éenum</summary>
+/// <summary>å…¨ä½“ã®ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹enum</summary>
 public enum GameState
 {
-    /// <summary>ƒ^ƒCƒgƒ‹</summary>
+    /// <summary>ã‚¿ã‚¤ãƒˆãƒ«</summary>
     Title,
-    /// <summary>ƒQ[ƒ€’†</summary>
+    /// <summary>ã‚²ãƒ¼ãƒ ä¸­</summary>
     Game,
-    /// <summary>“G¶¬’†</summary>
+    /// <summary>æ•µç”Ÿæˆä¸­</summary>
     Break,
-    /// <summary>ƒŠƒUƒ‹ƒg</summary>
+    /// <summary>ãƒªã‚¶ãƒ«ãƒˆ</summary>
     Result
 }
 
 public enum PlayerAttribute
 {
-    /// <summary>•X‘®«</summary>
+    /// <summary>æ°·å±æ€§</summary>
     Ice,
-    /// <summary>‘‘®«</summary>
+    /// <summary>è‰å±æ€§</summary>
     Grass
 }
