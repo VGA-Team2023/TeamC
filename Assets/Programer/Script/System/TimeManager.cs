@@ -12,6 +12,11 @@ public class TimeManager : ISlow,IPause
     /// <summary>ƒQ[ƒ€’†‚ÌŒo‰ßŠÔ</summary>
     float _gamePlayElapsedTime = 0;
     public float GamePlayElapsedTime => _gamePlayElapsedTime;
+    public float GamePlayTime { get { return _gamePlayTime; } set { _gamePlayTime = value; } }
+    public TimeManager(float time)
+    {
+        _gamePlayTime = time;
+    }
     public void Start()
     {
         TimerReset();

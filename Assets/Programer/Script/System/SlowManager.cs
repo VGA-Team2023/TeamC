@@ -10,7 +10,8 @@ public class SlowManager
     [SerializeField] float _slowSpeedRate = 0.05f;
     bool _isSlow = false;
     List<ISlow> _slows = new List<ISlow>();
-
+    public float SlowSpeedRate { get { return _slowSpeedRate; } set { _slowSpeedRate = value; } }
+ 
     /// <summary>スローの切り替え処理を行う</summary>
     /// <param name="isSlow">スローにするかどうか</param>
     public void OnOffSlow(bool isSlow)
