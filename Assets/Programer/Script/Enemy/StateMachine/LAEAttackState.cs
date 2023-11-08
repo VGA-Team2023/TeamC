@@ -15,12 +15,12 @@ public class LAEAttackState : IStateMachine
     }
     public void Enter()
     {
-        
+        Debug.Log("LAEAttack:Enter");
     }
 
     public void Exit()
     {
-        
+        Debug.Log("LAEAttack:Exit");
     }
 
     public void Update()
@@ -29,13 +29,14 @@ public class LAEAttackState : IStateMachine
         _timer += Time.deltaTime;
         if(_timer > _interval)
         {
-            _enemy.Attack();
+            _enemy.Attack(_enemy.transform.forward);
             _timer = 0;
             Debug.Log("UŒ‚");
         }
         float distance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
         if(distance > _playerDis) 
         {
+            Exit();
             _enemy.StateChange(EnemyBase.MoveState.FreeMove);
         }
     }

@@ -26,13 +26,13 @@ public class MAEFreeMoveState : IStateMachine
         _enemy.transform.forward = (_dir - _enemy.transform.position).normalized;
     }
     public void Enter()
-    { 
-
+    {
+        Debug.Log("MAEFreeMove:Enter");
     }
 
     public void Exit()
     {
-      
+        Debug.Log("MAEFreeMove:Exit");
     }
 
     public void Update()
@@ -40,7 +40,8 @@ public class MAEFreeMoveState : IStateMachine
         float playerDis = Vector3.Distance(_enemy.transform.position, _player.transform.position);
         if (playerDis < _playerSearchDistance)
         {
-            _enemy.StateChange(EnemyBase.MoveState.TargetMove);
+            Exit();
+            _enemy.StateChange(EnemyBase.MoveState.Attack);
         }
         float baseDis = Vector3.Distance(_enemy.transform.position, _basePosition);
         float destinationDis = Vector3.Distance(_enemy.transform.position, _dir);

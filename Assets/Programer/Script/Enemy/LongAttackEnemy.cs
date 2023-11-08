@@ -17,6 +17,7 @@ public class LongAttackEnemy : EnemyBase
 
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
+    MoveState _nextState = MoveState.Attack;
     LAEFreeMoveState _freeMove;
     LAEAttackState _attack;
 
@@ -53,15 +54,29 @@ public class LongAttackEnemy : EnemyBase
                 _attack.Update();
                 break;
         }
+        if(_state != _nextState)
+        {
+            switch (_nextState)
+            {
+                case MoveState.FreeMove:
+                    _freeMove.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+            }
+            _state = _nextState;
+        }
     }
 
     public void StateChange(MoveState changeState)
     {
-        _state = changeState;
+        _nextState = changeState;
     }
 
-    public void Attack()
+    public void Attack(Vector3 forward)
     {
-        Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
+        var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
+        bullet.GetComponent<EnemyBullet>().ShootForward = forward;
     }
 }

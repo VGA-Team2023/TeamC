@@ -22,12 +22,12 @@ public class LAEFreeMoveState : IStateMachine
     }
     public void Enter()
     {
-        
+        Debug.Log("LAEFreeMove:Enter");
     }
 
     public void Exit()
     {
-        
+        Debug.Log("LAEFreeMove:Exit");
     }
 
     public void Update()
@@ -35,6 +35,7 @@ public class LAEFreeMoveState : IStateMachine
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
         if(playerDistance < _playerDis)
         {
+            Exit();
             _enemy.StateChange(EnemyBase.MoveState.Attack);
         }
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);

@@ -12,16 +12,17 @@ public class MeleeAttackEnemy : EnemyBase
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     MoveState _state = MoveState.FreeMove;
+    MoveState _nextState = MoveState.FreeMove;
     PlayerControl _player;
     MAEFreeMoveState _freeMoveState;
-    MAETargetMoveState _targetMoveState;
+    MAEAttackState _attack;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _player = FindObjectOfType<PlayerControl>();
         _freeMoveState = new MAEFreeMoveState(this, _player, SearchRange, _distance, _moveRange, Speed);
-        _targetMoveState = new MAETargetMoveState(this, _player, SearchRange, _distance, Speed);
+        _attack = new MAEAttackState(this, _player, SearchRange, _distance, Speed);
     }
 
     void Update()
@@ -31,9 +32,22 @@ public class MeleeAttackEnemy : EnemyBase
             case MoveState.FreeMove:
                 _freeMoveState.Update();
                 break;
-            case MoveState.TargetMove:
-                _targetMoveState.Update(); 
+            case MoveState.Attack:
+                _attack.Update(); 
                 break;
+        }
+        if(_state != _nextState)
+        {
+            switch (_nextState)
+            {
+                case MoveState.FreeMove:
+                    _freeMoveState.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+            }
+            _state = _nextState;
         }
     }
 
@@ -47,6 +61,6 @@ public class MeleeAttackEnemy : EnemyBase
 
     public void StateChange(MoveState changeState)
     {
-        _state = changeState;
+        _nextState = changeState;
     }
 }
