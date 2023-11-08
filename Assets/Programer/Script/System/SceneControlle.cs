@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneControlle : MonoBehaviour
 {
-    [SerializeField,Tooltip("次のシーンの状態")] GameState _nextGameState;
+    [SerializeField, Tooltip("次のシーン名")] string _nextSceneName;
     /// <summary>シーン遷移メソッド</summary>
     /// <param name="nextSecene">遷移先のシーン名</param>
-    public void SceneChange(string nextSecene)
+    public void SceneChange()
     {
-        SceneManager.LoadScene(nextSecene);
-        GameManager.Instance.ChangeGameState(_nextGameState);
+        SceneManager.LoadScene(_nextSceneName);
     }
 }
