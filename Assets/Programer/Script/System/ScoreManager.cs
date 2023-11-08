@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>å‚ÉƒXƒRƒA‚ÌŒvZ‚ğ‚·‚éClass</summary>
+/// <summary>ä¸»ã«ã‚¹ã‚³ã‚¢ã®è¨ˆç®—ã‚’ã™ã‚‹Class</summary>
 public class ScoreManager
 {
-    /// <summary>ƒNƒŠƒAŠÔ‚ğ‚à‚Æ‚ÉƒXƒRƒA’l‚ğ‹‚ß‚éƒƒ\ƒbƒh</summary>
-    /// <param name="time">ƒQ[ƒ€ƒNƒŠƒAŠÔ</param>
-    /// /// <param name="count">Œ‚”j”</param>
+    /// <summary>ã‚¯ãƒªã‚¢æ™‚é–“ã‚’ã‚‚ã¨ã«ã‚¹ã‚³ã‚¢å€¤ã‚’æ±‚ã‚ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰</summary>
+    /// <param name="time">ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ™‚é–“</param>
+    /// /// <param name="count">æ’ƒç ´æ•°</param>
     /// <returns></returns>
     public int ScoreCaster(float time, int count)
     {

@@ -1,13 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneControlle : MonoBehaviour
 {
-    [SerializeField, Tooltip("Ÿ‚ÌƒV[ƒ“–¼")] string _nextSceneName;
-    /// <summary>ƒV[ƒ“‘JˆÚƒƒ\ƒbƒh</summary>
-    /// <param name="nextSecene">‘JˆÚæ‚ÌƒV[ƒ“–¼</param>
+    [SerializeField, Tooltip("æ¬¡ã®ã‚·ãƒ¼ãƒ³å")] string _nextSceneName;
+    /// <summary>ã‚·ãƒ¼ãƒ³é·ç§»ãƒ¡ã‚½ãƒƒãƒ‰</summary>
+    /// <param name="nextSecene">é·ç§»å…ˆã®ã‚·ãƒ¼ãƒ³å</param>
     public void SceneChange()
     {
         SceneManager.LoadScene(_nextSceneName);
