@@ -8,47 +8,55 @@ public class WaveManager : MonoBehaviour
     [SerializeField, Tooltip("WaveのPrefab")]
     List<WaveSetting> _waveSettings = new List<WaveSetting>();
     IEnumerator _waveCoroutine;
+    int _destroyCount = 0;
 
     void Start()
     {
         _waveCoroutine = NextWave();
-        Next();
+        _waveCoroutine.MoveNext();
     }
 
     void Update()
     {
-        //テスト用左クリックしたらWaveが進む
-        if(Input.GetMouseButtonDown(0))
+        if(_destroyCount <= 0)
         {
-            Next();
+            _waveCoroutine.MoveNext();
         }
-    }
-
-    public void Next()
-    {
-        _waveCoroutine.MoveNext();
     }
 
     IEnumerator NextWave()
     {
         Debug.Log("Wave1");
-        foreach(var summon in _waveSettings[0].Enemys)
+        _destroyCount = _waveSettings[0].EnemyCount;
+        _waveSettings[0].Enemy.SetActive(true);
+        foreach (var summon in _waveSettings[0].Enemys)
         {
-            summon.EnemyCreate();
+            summon.gameObject.SetActive(true);
+            summon.OnEnemyDestroy += EnemyDestroy;
         }
         yield return 1;
         Debug.Log("Wave2");
+        _destroyCount = _waveSettings[1].EnemyCount;
+        _waveSettings[1].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[1].Enemys)
         {
-            summon.EnemyCreate();
+            summon.gameObject.SetActive(true);
+            summon.OnEnemyDestroy += EnemyDestroy;
         }
         yield return 2;
         Debug.Log("Wave3");
+        _destroyCount = _waveSettings[2].EnemyCount;
+        _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)
         {
-            summon.EnemyCreate();
+            summon.OnEnemyDestroy += EnemyDestroy;
         }
         yield return 3;
+    }
+
+    public void EnemyDestroy()
+    {
+        _destroyCount--;
     }
 }
 
@@ -58,6 +66,7 @@ class WaveSetting
     [SerializeField, Tooltip("敵を配置している親オブジェクト")]
     GameObject _enemys;
 
-    public Summon[] Enemys => _enemys.GetComponentsInChildren<Summon>();
+    public GameObject Enemy => _enemys;
+    public EnemyBase[] Enemys => _enemys.GetComponentsInChildren<EnemyBase>();
     public int EnemyCount => Enemys.Length;
 }
