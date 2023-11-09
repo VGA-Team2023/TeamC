@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-/// <summary>ƒQ[ƒ€‚ÌŒo‰ßŠÔ‚ğ‘€ì‚·‚éClass</summary>
+/// <summary>ã‚²ãƒ¼ãƒ ã®çµŒéæ™‚é–“ã‚’æ“ä½œã™ã‚‹Class</summary>
 public class TimeManager : ISlow,IPause
 {
     float _currentTimeSpeedRate = 1;
-    /// <summary>ƒQ[ƒ€‚ÌƒvƒŒƒCŠÔ</summary>
+    /// <summary>ã‚²ãƒ¼ãƒ ã®ãƒ—ãƒ¬ã‚¤æ™‚é–“</summary>
     [SerializeField] float _gamePlayTime = 60;
-    /// <summary>ƒQ[ƒ€’†‚ÌŒo‰ßŠÔ</summary>
+    /// <summary>ã‚²ãƒ¼ãƒ ä¸­ã®çµŒéæ™‚é–“</summary>
     float _gamePlayElapsedTime = 0;
     public float GamePlayElapsedTime => _gamePlayElapsedTime;
     public float GamePlayTime { get { return _gamePlayTime; } set { _gamePlayTime = value; } }
@@ -23,12 +23,12 @@ public class TimeManager : ISlow,IPause
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
     }
-    /// <summary>å‚Éƒ^ƒCƒ€‚ÌŠÔ‚ğŒ¸‚ç‚·ˆ—‚ğs‚¤ŠÖ”</summary>
+    /// <summary>ä¸»ã«ã‚¿ã‚¤ãƒ ã®æ™‚é–“ã‚’æ¸›ã‚‰ã™å‡¦ç†ã‚’è¡Œã†é–¢æ•°</summary>
     public void Update()
     {
         _gamePlayElapsedTime -= Time.deltaTime * _currentTimeSpeedRate;
     }
-    /// <summary>ƒQ[ƒ€ŠÔ‚ÌƒŠƒZƒbƒg</summary>
+    /// <summary>ã‚²ãƒ¼ãƒ æ™‚é–“ã®ãƒªã‚»ãƒƒãƒˆ</summary>
     public void TimerReset()
     {
         _gamePlayElapsedTime = _gamePlayTime;

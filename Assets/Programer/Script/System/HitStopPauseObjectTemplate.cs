@@ -1,32 +1,32 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //////////////////////////////////////////////////////////////////////////
-/// ƒqƒbƒgƒXƒgƒbƒv‚Æˆê’â~‚ÌÀ‘•‚µ‚½‚à‚Ì(ƒeƒ“ƒvƒŒ[ƒg)
-/// ‰º‹L‚ÉƒqƒbƒgƒXƒgƒbƒv‚âˆê’â~‚ÉØ‚è‘Ö‚¦‚½‚¢‚Æ‚«‚ÌŒÄ‚Ño‚µ•û‹LÚ
-/// ƒqƒbƒgƒXƒgƒbƒv‚Æˆê’â~‚ÌÀ‘•‚µ‚½‚à‚Ì(ƒeƒ“ƒvƒŒ[ƒg)
+/// ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã¨ä¸€æ™‚åœæ­¢ã®å®Ÿè£…ã—ãŸã‚‚ã®(ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ)
+/// ä¸‹è¨˜ã«ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã‚„ä¸€æ™‚åœæ­¢ã«åˆ‡ã‚Šæ›¿ãˆãŸã„ã¨ãã®å‘¼ã³å‡ºã—æ–¹è¨˜è¼‰
+/// ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã¨ä¸€æ™‚åœæ­¢ã®å®Ÿè£…ã—ãŸã‚‚ã®(ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ)
 /////////////////////////////////////////////////////////////////////////
 public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
 {
     Rigidbody _rb;
     Animator _anim;
     GameManager _gaManager;
-    /// <summary>Œ»İ‚ÌˆÚ“®‘¬“x</summary>
-    [SerializeField,Header("Šm”F—p")] float _currentSpeed;
-    /// <summary>•às‘¬“x</summary>
+    /// <summary>ç¾åœ¨ã®ç§»å‹•é€Ÿåº¦</summary>
+    [SerializeField,Header("ç¢ºèªç”¨")] float _currentSpeed;
+    /// <summary>æ­©è¡Œé€Ÿåº¦</summary>
     [SerializeField] protected float _walkSpeed;
     private void OnEnable()
     { 
-        //ÀsI—¹Œã‚Éo‚éGameManager‚ÌQÆæ‚ª‚È‚­‚È‚é‚Æ‚¢‚¤ƒGƒ‰[‰ñ”ğ‚Ì‚½‚ßGameManager.Instance‚ğ•Ï”‚É“ü‚ê‚Ä‚¨‚­
+        //å®Ÿè¡Œçµ‚äº†å¾Œã«å‡ºã‚‹GameManagerã®å‚ç…§å…ˆãŒãªããªã‚‹ã¨ã„ã†ã‚¨ãƒ©ãƒ¼å›é¿ã®ãŸã‚GameManager.Instanceã‚’å¤‰æ•°ã«å…¥ã‚Œã¦ãŠã
         _gaManager = GameManager.Instance;
-        _gaManager.SlowManager.Add(this);@//ƒqƒbƒgƒXƒgƒbƒv‚Ì“o˜^
-        _gaManager.PauseManager.Add(this);  //ˆê’â~‚Ì“o˜^
+        _gaManager.SlowManager.Add(this);ã€€//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã®ç™»éŒ²
+        _gaManager.PauseManager.Add(this);  //ä¸€æ™‚åœæ­¢ã®ç™»éŒ²
     }
     private void OnDisable()
     {
-        _gaManager.SlowManager.Remove(this);@//ƒqƒbƒgƒXƒgƒbƒv‚Ì‰ğœ
-        _gaManager.PauseManager.Remove(this);  //ˆê’â~‚Ì‰ğœ
+        _gaManager.SlowManager.Remove(this);ã€€//ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã®è§£é™¤
+        _gaManager.PauseManager.Remove(this);  //ä¸€æ™‚åœæ­¢ã®è§£é™¤
     }
     void Start()
     {
@@ -37,47 +37,47 @@ public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
 
     void FixedUpdate()
     {
-        _rb.velocity = new Vector3(0, 0, _currentSpeed);  //‘O•û‚É‚Ü‚Á‚·‚®ˆÚ“®
+        _rb.velocity = new Vector3(0, 0, _currentSpeed);  //å‰æ–¹ã«ã¾ã£ã™ãç§»å‹•
     }
 
-    /////////////////////////////////ƒqƒbƒgƒXƒgƒbƒv///////////////////////////////////////
+    /////////////////////////////////ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—///////////////////////////////////////
     void ISlow.OnSlow(float slowSpeedRate)
     {
-        //ƒqƒbƒgƒXƒgƒbƒv‚Ìˆ—‚ğ‘‚­
-        _anim.speed = slowSpeedRate;@//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶‘¬“x‚Í0`1‚Ü‚Å‚È‚Ì‚Å‚»‚Ì‚Ü‚Ü‘ã“ü
-        _currentSpeed = _walkSpeed * slowSpeedRate;  //Š„‡’l‚ğ‚©‚¯‚é
+        //ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—æ™‚ã®å‡¦ç†ã‚’æ›¸ã
+        _anim.speed = slowSpeedRate;ã€€//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿé€Ÿåº¦ã¯0ï½1ã¾ã§ãªã®ã§ãã®ã¾ã¾ä»£å…¥
+        _currentSpeed = _walkSpeed * slowSpeedRate;  //å‰²åˆå€¤ã‚’ã‹ã‘ã‚‹
     }
 
     void ISlow.OffSlow()
     {
-        //’Êí‚Ìˆ—‚ğ‘‚­
+        //é€šå¸¸æ™‚æ™‚ã®å‡¦ç†ã‚’æ›¸ã
         _anim.speed = 1;
         _currentSpeed = _walkSpeed;
     }
 
-    //////////////////////////////////ˆê’â~///////////////////////////////////////
+    //////////////////////////////////ä¸€æ™‚åœæ­¢///////////////////////////////////////
     void IPause.Pause()
     {
-        //ˆê’â~‚Ìˆ—‚ğ‘‚­
+        //ä¸€æ™‚åœæ­¢æ™‚ã®å‡¦ç†ã‚’æ›¸ã
         _anim.speed = 0;
-        //Rigidbody‚Ì’â~‚Ì‚³‚¹•û‚ÍŠeX‚ÅŒˆ‚ß‚Ä‚à‚ç‚¤H
+        //Rigidbodyã®åœæ­¢ã®ã•ã›æ–¹ã¯å„ã€…ã§æ±ºã‚ã¦ã‚‚ã‚‰ã†ï¼Ÿ
         _rb.Sleep();
         _rb.isKinematic = true;
     }
 
     void IPause.Resume()
     {
-        //’Êí‚Ìˆ—‚ğ‘‚­
+        //é€šå¸¸æ™‚ã®å‡¦ç†ã‚’æ›¸ã
         _anim.speed = 1;
         _rb.isKinematic = false;
         _rb.WakeUp();
     }
 
-    ///////////////////////////////ŒÄ‚Ño‚µ•û////////////////////////////////////////
-    //ƒqƒbƒgƒXƒgƒbƒv
-    //GameManager.Instance.SlowManager.OnOffSlow(true); ‚ÅƒXƒ[‚ÉØ‚è‘Ö‚í‚é
-    //GameManager.Instance.SlowManager.OnOffSlow(false); ‚Å’Êí‚É–ß‚é
-    //ˆê’â~
-    //GameManager.Instance.PauseManager.PauseResume(true); ‚Å’â~‚ÉØ‚è‘Ö‚í‚é
-    //GameManager.Instance.PauseManager.PauseResume(false); ‚Å’Êí‚É–ß‚é
+    ///////////////////////////////å‘¼ã³å‡ºã—æ–¹////////////////////////////////////////
+    //ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—
+    //GameManager.Instance.SlowManager.OnOffSlow(true); ã§ã‚¹ãƒ­ãƒ¼ã«åˆ‡ã‚Šæ›¿ã‚ã‚‹
+    //GameManager.Instance.SlowManager.OnOffSlow(false); ã§é€šå¸¸ã«æˆ»ã‚‹
+    //ä¸€æ™‚åœæ­¢
+    //GameManager.Instance.PauseManager.PauseResume(true); ã§åœæ­¢ã«åˆ‡ã‚Šæ›¿ã‚ã‚‹
+    //GameManager.Instance.PauseManager.PauseResume(false); ã§é€šå¸¸ã«æˆ»ã‚‹
 }

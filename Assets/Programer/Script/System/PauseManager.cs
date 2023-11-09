@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +7,8 @@ public class PauseManager
     bool _isPause = false;
     List<IPause> _ipauselist = new List<IPause>();
 
-    /// <summary>ˆê’â~‚Æ’Êí‚ÌØ‚è‘Ö‚¦ˆ—‚ğs‚¤</summary>
-    /// <param name="pause">’â~‚·‚é‚©‚Ç‚¤‚©</param>
+    /// <summary>ä¸€æ™‚åœæ­¢ã¨é€šå¸¸ã®åˆ‡ã‚Šæ›¿ãˆå‡¦ç†ã‚’è¡Œã†</summary>
+    /// <param name="pause">åœæ­¢ã™ã‚‹ã‹ã©ã†ã‹</param>
     public void PauseResume(bool pause)
     {
         _isPause = pause;
@@ -25,8 +25,8 @@ public class PauseManager
         }
         
     }
-    /// <summary>“o˜^</summary>
-    /// <param name="ipause">©•ª</param>
+    /// <summary>ç™»éŒ²</summary>
+    /// <param name="ipause">è‡ªåˆ†</param>
     public void Add(IPause ipause)
     {
         _ipauselist.Add(ipause);
@@ -35,8 +35,8 @@ public class PauseManager
             ipause.Pause();
         }
     }
-    /// <summary>‰ğœ</summary>
-    /// <param name="ipause">©•ª</param>
+    /// <summary>è§£é™¤</summary>
+    /// <param name="ipause">è‡ªåˆ†</param>
     public void Remove(IPause ipause)
     {
         _ipauselist.Remove(ipause);
