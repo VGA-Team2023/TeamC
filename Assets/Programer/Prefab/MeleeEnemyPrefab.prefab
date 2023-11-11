@@ -84,7 +84,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &3477613071369339618
 MonoBehaviour:
@@ -102,8 +102,15 @@ MonoBehaviour:
   _attack: 5
   _speed: 1
   _attackInterval: 1
-  _searchRange: 1.1
-  _moveRange: 2.5
+  _searchRange: 10
+  _defaultLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _finishLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _core: {fileID: 9140955962965769994, guid: f26608a6b65af57438b73605e429a9f3, type: 3}
+  _moveRange: 5
   _distance: 0.5
 --- !u!114 &9137281057182230610
 MonoBehaviour:
@@ -14673,6 +14680,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7eb2b192a5c9e2941b0743d553791bba,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4282a5c3f49f8834d99ac44d83d07348, type: 2}
     - target: {fileID: 919132149155446097, guid: 7eb2b192a5c9e2941b0743d553791bba,
         type: 3}
       propertyPath: m_Name

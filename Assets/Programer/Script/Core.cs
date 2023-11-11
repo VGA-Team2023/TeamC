@@ -15,9 +15,9 @@ public class Core : MonoBehaviour
     void Update()
     {
         float theta = Time.time * _thetaSpeed;
-        float x = transform.position.x + _radius * Mathf.Cos(theta);
-        float y = transform.position.y;
-        float z = transform.position.z + _radius * Mathf.Sin(theta);
+        float x = transform.position.x + _radius * Mathf.Cos(theta) * Mathf.Sin(theta);
+        float y = 0;
+        float z = transform.position.z + _radius * Mathf.Cos(theta);
         _coreEffect.transform.position = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z + z);
     }
 }

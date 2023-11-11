@@ -9,6 +9,30 @@ public class WaveManager : MonoBehaviour
     List<WaveSetting> _waveSettings = new List<WaveSetting>();
     IEnumerator _waveCoroutine;
     int _destroyCount = 0;
+    public int DestroyCount
+    {
+        get => _destroyCount;
+        set
+        {
+            _destroyCount = value;
+            if (_destroyCount <= 0)
+            {
+                _waveCount++;
+                _waveCoroutine.MoveNext();
+                if (_waveCount == _waveSettings.Count)
+                {
+                    //リザルト状態に変更
+                    var _gameManager = FindObjectOfType<GameManager>();
+                    _gameManager.ChangeGameState(GameState.Result);
+                    //スコアの計算をここに記述
+                    //シーン遷移のメソッドを呼ぶ
+                    SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
+                    sceneControlle?.SceneChange();
+                }
+            }
+        }
+    }
+    int _waveCount;
 
     void Start()
     {
@@ -16,18 +40,10 @@ public class WaveManager : MonoBehaviour
         _waveCoroutine.MoveNext();
     }
 
-    void Update()
-    {
-        if(_destroyCount <= 0)
-        {
-            _waveCoroutine.MoveNext();
-        }
-    }
-
     IEnumerator NextWave()
     {
         Debug.Log("Wave1");
-        _destroyCount = _waveSettings[0].EnemyCount;
+        DestroyCount = _waveSettings[0].EnemyCount;
         _waveSettings[0].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[0].Enemys)
         {
@@ -36,7 +52,7 @@ public class WaveManager : MonoBehaviour
         }
         yield return 1;
         Debug.Log("Wave2");
-        _destroyCount = _waveSettings[1].EnemyCount;
+        DestroyCount = _waveSettings[1].EnemyCount;
         _waveSettings[1].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[1].Enemys)
         {
@@ -45,7 +61,7 @@ public class WaveManager : MonoBehaviour
         }
         yield return 2;
         Debug.Log("Wave3");
-        _destroyCount = _waveSettings[2].EnemyCount;
+        DestroyCount = _waveSettings[2].EnemyCount;
         _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)
         {
@@ -56,7 +72,7 @@ public class WaveManager : MonoBehaviour
 
     public void EnemyDestroy()
     {
-        _destroyCount--;
+        DestroyCount--;
     }
 }
 
