@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 
 public class MAEAttackState : IStateMachine
 {
     MeleeAttackEnemy _enemy;
     PlayerControl _player;
     Vector3 _basePosition;
+    Vector3 _dir;
     float _playerSearchDistance;
     float _distance;
     float _speed;
+    float _timer;
+
     public MAEAttackState(MeleeAttackEnemy enemy, PlayerControl player, float playerSearchDistance, float distance, float speed)
     {
         _enemy = enemy;
@@ -27,8 +26,8 @@ public class MAEAttackState : IStateMachine
         _enemy.Rb.velocity = Vector3.zero;
         var dir = (_player.transform.position - _enemy.transform.position).normalized;
         _enemy.transform.forward = dir;
-        var timer = await Attack();
-        _enemy.Rb.AddForce(dir * timer, ForceMode.Impulse);
+        _enemy.Rb.AddForce(_enemy.transform.forward * 5, ForceMode.Impulse);
+        _enemy.StateChange(EnemyBase.MoveState.FreeMove);
         Debug.Log("MAEAttack:Enter");
     }
 
@@ -39,36 +38,6 @@ public class MAEAttackState : IStateMachine
 
     public void Update()
     {
-        float playerDis = Vector3.Distance(_enemy.transform.position, _player.transform.position);
-        if (playerDis >= _playerSearchDistance)
-        {
-            float baseDis = Vector3.Distance(_enemy.transform.position, _basePosition);
-            if (baseDis > _distance)
-            {
-                _enemy.transform.forward = (_basePosition - _enemy.transform.position).normalized;
-                _enemy.Rb.velocity = _enemy.transform.forward * _speed;
-            }
-            else
-            {
-                Exit();
-                _enemy.StateChange(EnemyBase.MoveState.FreeMove);
-            }
-        }
-        else
-        {
-            Enter();
-        }
-    }
 
-    async UniTask<float> Attack()
-    {
-        float random = Random.Range(5, 11);
-        float timer = 0f;
-        while (1 > timer)
-        {
-            timer += Time.deltaTime;
-            await UniTask.Delay(1000);
-        }
-        return timer;
     }
 }
