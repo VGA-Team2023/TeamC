@@ -42,7 +42,6 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator NextWave()
     {
-        Debug.Log("Wave1");
         DestroyCount = _waveSettings[0].EnemyCount;
         _waveSettings[0].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[0].Enemys)
@@ -51,7 +50,6 @@ public class WaveManager : MonoBehaviour
             summon.OnEnemyDestroy += EnemyDestroy;
         }
         yield return 1;
-        Debug.Log("Wave2");
         DestroyCount = _waveSettings[1].EnemyCount;
         _waveSettings[1].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[1].Enemys)
@@ -60,7 +58,6 @@ public class WaveManager : MonoBehaviour
             summon.OnEnemyDestroy += EnemyDestroy;
         }
         yield return 2;
-        Debug.Log("Wave3");
         DestroyCount = _waveSettings[2].EnemyCount;
         _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)

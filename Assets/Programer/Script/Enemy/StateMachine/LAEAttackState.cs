@@ -15,12 +15,12 @@ public class LAEAttackState : IStateMachine
     }
     public void Enter()
     {
-        Debug.Log("LAEAttack:Enter");
+
     }
 
     public void Exit()
     {
-        Debug.Log("LAEAttack:Exit");
+
     }
 
     public void Update()
