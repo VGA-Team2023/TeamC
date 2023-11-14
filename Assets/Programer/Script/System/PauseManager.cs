@@ -6,7 +6,8 @@ public class PauseManager
 {
     bool _isPause = false;
     List<IPause> _ipauselist = new List<IPause>();
-
+    /// <summary>一時停止かどうか読み取り専用</summary>
+    public bool IsPause => _isPause;
     /// <summary>一時停止と通常の切り替え処理を行う</summary>
     /// <param name="pause">停止するかどうか</param>
     public void PauseResume(bool pause)
