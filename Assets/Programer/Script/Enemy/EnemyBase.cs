@@ -49,5 +49,6 @@ public abstract class EnemyBase : MonoBehaviour
         TargetMove,
         Attack,
         Finish,
+        Chase,
     }
 }

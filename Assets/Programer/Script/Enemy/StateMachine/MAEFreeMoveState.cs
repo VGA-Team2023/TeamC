@@ -41,7 +41,7 @@ public class MAEFreeMoveState : IStateMachine
         if (playerDis < _playerSearchDistance)
         {
             Exit();
-            _enemy.StateChange(EnemyBase.MoveState.Attack);
+            _enemy.StateChange(EnemyBase.MoveState.Chase);
         }
         float baseDis = Vector3.Distance(_enemy.transform.position, _basePosition);
         float destinationDis = Vector3.Distance(_enemy.transform.position, _dir);
