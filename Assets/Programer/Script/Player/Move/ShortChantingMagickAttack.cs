@@ -5,12 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class ShortChantingMagickAttack
 {
+    [Header("UŒ‚•û–@")]
+    [SerializeField] private bool _isMahouzinAttack = false;
+
+    public bool IsMahouzinAttack => _isMahouzinAttack;
+
     [Header("===–‚–@‚Ìİ’è===")]
     [SerializeField] private ShortChantingMagicData _shortChantingMagicData;
 
     [Header("‚½‚ß‚ÌŠÔ")]
     [SerializeField] private float _time = 1;
-
 
     public float TameTime => _time;
 
@@ -110,7 +114,12 @@ public class ShortChantingMagickAttack
     public void UnSetMagic()
     {
         //–‚–@w‚ğÁ‚·
-        _shortChantingMagicData.UnSetMagick();
+
+        if (_isMahouzinAttack)
+        {
+            _shortChantingMagicData.UnSetMagick();
+        }
+
         _attackCount = 0;
     }
 
