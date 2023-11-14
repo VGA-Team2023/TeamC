@@ -8,11 +8,10 @@ public class TimeManager : ISlow,IPause
 {
     float _currentTimeSpeedRate = 1;
     /// <summary>ゲームのプレイ時間</summary>
-    [SerializeField] float _gamePlayTime = 60;
+    [SerializeField,Tooltip("プレイ時間")] float _gamePlayTime = 60;
     /// <summary>ゲーム中の経過時間</summary>
     float _gamePlayElapsedTime = 0;
     public float GamePlayElapsedTime => _gamePlayElapsedTime;
-    public float GamePlayTime { get { return _gamePlayTime; } set { _gamePlayTime = value; } }
     public TimeManager(float time)
     {
         _gamePlayTime = time;

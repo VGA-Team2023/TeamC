@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager _instance;
     /// <summary>現在のゲームの状態</summary>
     [SerializeField,Header("現在のシーン")] GameState _currentGameState;
-    [SerializeField] TimeControl _timeControl;
-    [SerializeField] SlowManager _slowManager;
-    [SerializeField] TimeManager _timeManager;
+    [SerializeField,HideInInspector] TimeControl _timeControl;
+    [SerializeField,HideInInspector] SlowManager _slowManager;
+    [SerializeField,HideInInspector] TimeManager _timeManager;
     ScoreManager _scoreManager = new ScoreManager();
     PauseManager _pauseManager = new PauseManager();
     /// <summary>スコア格納用変数</summary>
