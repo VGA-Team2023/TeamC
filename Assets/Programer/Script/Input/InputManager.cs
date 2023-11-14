@@ -60,7 +60,7 @@ public class InputManager : MonoBehaviour
         _isFinishAttack = Input.GetButton("FinishAttack");
 
         _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
-        _isAvoid = Input.GetButtonDown("Avoid");
+       // _isAvoid = Input.GetButtonDown("Avoid");
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");

@@ -81,13 +81,13 @@ public class ShortChantingMagicData
     {
         //–‚–@w‚ğÁ‚·
         _magicBase.ShowTameMagic(_attackCount, true);
-        Debug.Log(_attackCount);
+       // Debug.Log(_attackCount);
     }
 
     public void AttackOneEnemy(Transform[] enemys)
     {
         //–‚–@w‚ğÁ‚·
-        _magicBase.UseMagick(_attackCount, enemys,AttackType.ShortChantingMagick, false);
+        _magicBase.UseMagick(_attackCount, enemys, AttackType.ShortChantingMagick, false);
         //–‚–@w‚ğÁ‚·
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;

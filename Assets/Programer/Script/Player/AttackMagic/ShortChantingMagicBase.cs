@@ -14,6 +14,9 @@ public class ShortChantingMagicBase
     [Header("攻撃力_貯めた")]
     [SerializeField] private float _powerLongChanting = 3;
 
+    [Header("攻撃の位置(魔法陣を使わない場合")]
+    [SerializeField] private Transform _attackInstanciatePos;
+
     [Header("魔法陣")]
     [SerializeField] private List<GameObject> _magick = new List<GameObject>();
 
@@ -59,7 +62,14 @@ public class ShortChantingMagicBase
     public void SetUpMagick()
     {
         _isStop = false;
-        _magick.ForEach(i => i.SetActive(true));
+
+        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+
+        if (_magick.Count != 0)
+        {
+            _magick?.ForEach(i => i.SetActive(true));
+        }
+
 
         foreach (var a in _particleSystem)
         {
@@ -71,6 +81,11 @@ public class ShortChantingMagicBase
 
     public void ShowTameMagic(int num, bool isOn)
     {
+        //魔法陣無しの場合、テスト
+        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+
+        if (_magickTame.Count <= num) return;
+
         _magickTame[num].SetActive(isOn);
     }
 
@@ -83,7 +98,12 @@ public class ShortChantingMagicBase
         if (num > _magick.Count) return;
 
         _magick[num].SetActive(false);
-        _magickEffect[num].SetActive(true);
+
+        if (_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack)
+        {
+            _magickEffect[num].SetActive(true);
+        }
+
 
 
         GameObject prefab = _prefab;
@@ -97,7 +117,18 @@ public class ShortChantingMagicBase
         {
             var go = UnityEngine.GameObject.Instantiate(prefab);
             go.transform.forward = _playerControl.PlayerT.forward;
-            go.transform.position = _magick[num].transform.position;
+
+
+            if (_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack)
+            {
+                go.transform.position = _magick[num].transform.position;
+            }
+            else
+            {
+                go.transform.position = _attackInstanciatePos.position;
+            }  //魔法陣無しの場合、テスト
+
+
             go.TryGetComponent<IMagicble>(out IMagicble magicble);
             magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
         }
@@ -106,8 +137,21 @@ public class ShortChantingMagicBase
             foreach (var e in enemys)
             {
                 var go = UnityEngine.GameObject.Instantiate(prefab);
-                go.transform.forward = e.transform.position - _magick[num].transform.position;
-                go.transform.position = _magick[num].transform.position;
+
+
+                if (_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack)
+                {
+                    go.transform.forward = e.transform.position - _magick[num].transform.position;
+                    go.transform.position = _magick[num].transform.position;
+                }
+                else
+                {
+                    go.transform.forward = e.transform.position - _attackInstanciatePos.position;
+                    go.transform.position = _attackInstanciatePos.position;
+                }  //魔法陣無しの場合、テスト
+
+
+
                 go.TryGetComponent<IMagicble>(out IMagicble magicble);
                 magicble.SetAttack(e, _playerControl.PlayerT.forward, attackType, _powerLongChanting);
             }
@@ -117,6 +161,9 @@ public class ShortChantingMagicBase
 
     public void UnSetMagick()
     {
+        //魔法陣無しの場合、テスト
+        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+
         _magick.ForEach(i => i.SetActive(false));
         _magickTame.ForEach(i => i.SetActive(false));
     }
@@ -124,6 +171,9 @@ public class ShortChantingMagicBase
 
     public void ParticleStopUpdate()
     {
+        //魔法陣無しの場合、テスト
+        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+
         if (_isStop) return;
 
         _countTime += Time.deltaTime;

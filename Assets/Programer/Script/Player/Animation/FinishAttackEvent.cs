@@ -15,7 +15,7 @@ public class FinishAttackEvent : MonoBehaviour
     public void ResetTime()
     {
         //ŽžŠÔ‚ð’x‚­‚·‚é
-        GameManager.Instance.TimeControl.SetTimeScale(1f);
+       // GameManager.Instance.SlowManager.OnOffSlow(false);
     }
 
 }
