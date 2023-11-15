@@ -6,6 +6,8 @@ public class MAEFinishState : IStateMachine
 {
     MeleeAttackEnemy _enemy;
     float _timer;
+    bool _isTimeStart  =false;
+
     public MAEFinishState(MeleeAttackEnemy enemy)
     {
         _enemy = enemy;
@@ -13,21 +15,27 @@ public class MAEFinishState : IStateMachine
 
     public void Enter()
     {
+        _isTimeStart = true;
         throw new System.NotImplementedException();
     }
 
     public void Exit()
     {
+        _isTimeStart = false;
+        _timer = 0;
         _enemy.StopFinishing();
     }
 
     public void Update()
     {
-        _timer += Time.deltaTime;
-        if(_timer > 5f)
+        if (_isTimeStart)
         {
-            Exit();
-            _enemy.StateChange(EnemyBase.MoveState.FreeMove);
+            _timer += Time.deltaTime;
+            if (_timer > 50f)
+            {
+                Exit();
+                //_enemy.StateChange(EnemyBase.MoveState.FreeMove);
+            }
         }
     }
 }
