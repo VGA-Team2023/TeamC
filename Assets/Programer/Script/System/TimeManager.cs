@@ -19,6 +19,7 @@ public class TimeManager : ISlow,IPause
     public void Start()
     {
         TimerReset();
+        _currentTimeSpeedRate = 1;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
     }
