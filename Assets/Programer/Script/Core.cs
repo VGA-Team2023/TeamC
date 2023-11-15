@@ -14,10 +14,9 @@ public class Core : MonoBehaviour
     float _phiSpeed;
     void Update()
     {
-        float theta = Time.time * _thetaSpeed;
-        float x = transform.position.x + _radius * Mathf.Cos(theta) * Mathf.Sin(theta);
-        float y = 0;
-        float z = transform.position.z + _radius * Mathf.Cos(theta);
+        float x = transform.position.x + _radius * Mathf.Cos(Time.time * _thetaSpeed);
+        float y = transform.position.x + _radius * Mathf.Sin(Time.time * _thetaSpeed) * Mathf.Cos(Time.time * _thetaSpeed);
+        float z = 0;
         _coreEffect.transform.position = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z + z);
     }
 }
