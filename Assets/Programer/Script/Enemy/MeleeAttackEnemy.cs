@@ -1,7 +1,4 @@
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
-using System.Linq;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
@@ -68,10 +65,10 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
         {
             EndFinishing();
         }
-        float x = transform.position.x + _radius * Mathf.Cos(Time.time * _thetaSpeed);
-        float y = transform.position.x + _radius * Mathf.Sin(Time.time * _thetaSpeed) * Mathf.Cos(Time.time * _thetaSpeed);
-        float z = 0;
-        transform.position = new Vector3(transform.position.x + x, transform.position.y + y, transform.position.z + z);
+        //float x = transform.position.x + _radius * Mathf.Cos(Time.time * _thetaSpeed);
+        //float y = transform.position.y + _radius * Mathf.Sin(Time.time * _thetaSpeed) * Mathf.Cos(Time.time * _thetaSpeed);
+        //float z = 0;
+        //transform.position = new Vector3(x, y, z);
         if (_state != _nextState)
         {
             switch (_nextState)
