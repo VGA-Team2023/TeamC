@@ -16,7 +16,6 @@ public class MAEFinishState : IStateMachine
     public void Enter()
     {
         _isTimeStart = true;
-        throw new System.NotImplementedException();
     }
 
     public void Exit()
