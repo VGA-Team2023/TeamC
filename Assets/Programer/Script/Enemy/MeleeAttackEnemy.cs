@@ -111,6 +111,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         }
     }
 
+    public bool TryGet<T>(out T returnObject, GameObject checkObject)
+    {
+        return checkObject.TryGetComponent(out returnObject);
+    }
+
     public void StateChange(MoveState changeState)
     {
         _nextState = changeState;
