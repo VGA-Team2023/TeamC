@@ -6,19 +6,13 @@ public class LAEFreeMoveState : IStateMachine
     LongAttackEnemy _enemy;
     PlayerControl _player;
     List<Vector3> _patrolPoint = new List<Vector3>();
-    float _distance;
-    float _speed;
-    float _playerDis;
     int _index;
 
-    public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint, float distance, float playerDis, float speed)
-    {
+    public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint)
+    { 
         _enemy = enemy;
         _player = player;
         _patrolPoint = patrolPoint;
-        _distance = distance;
-        _playerDis = playerDis;
-        _speed = speed;
     }
     public void Enter()
     {
@@ -33,17 +27,17 @@ public class LAEFreeMoveState : IStateMachine
     public void Update()
     {
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
-        if(playerDistance < _playerDis)
+        if(playerDistance < _enemy.SearchRange)
         {
             Exit();
             _enemy.StateChange(EnemyBase.MoveState.Attack);
         }
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);
-        if (distance < _distance)
+        if (distance < _enemy.ChangeDistance)
         {
             _index++;
         }
         _enemy.transform.forward = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
-        _enemy.Rb.velocity = _enemy.transform.forward * _speed;
+        _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
     }
 }

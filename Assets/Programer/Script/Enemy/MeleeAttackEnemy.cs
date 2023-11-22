@@ -37,12 +37,13 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     float _defaultSpeed = 0;
+    int _defaultHp = 0;
 
     MoveState _state = MoveState.FreeMove;
     MoveState _nextState = MoveState.FreeMove;
     MagickType _magicType;
-
     PlayerControl _player;
+
     MAEFreeMoveState _freeMoveState;
     MAEAttackState _attack;
     MAEFinishState _finish;
@@ -52,14 +53,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     {
         _rb = GetComponent<Rigidbody>();
         _player = FindObjectOfType<PlayerControl>();
-        PauseManager = new PauseManager();
+        _defaultHp = HP;
         _freeMoveState = new MAEFreeMoveState(this, _player);
         _attack = new MAEAttackState(this, _player);
         _finish = new MAEFinishState(this);
         _chase  = new MAEChaseState(this, _player);
         base.OnEnemyDestroy += StartFinishing;
-        PauseManager.Add(this);
-        SlowManager.Add(this);
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
     }
 
     void Update()
@@ -152,6 +153,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     {
         Core.SetActive(false);
         gameObject.layer = 3;
+        HP = _defaultHp;
     }
 
     public void EndFinishing()
@@ -168,8 +170,9 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
         base.OnEnemyDestroy -= StartFinishing;
-        PauseManager.Remove(this);
-        SlowManager.Remove(this);
+        EnemyFinish();
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
         Destroy(gameObject, 1f);
     }
 

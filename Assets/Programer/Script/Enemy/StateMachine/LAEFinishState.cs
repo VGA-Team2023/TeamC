@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class MAEFinishState : IStateMachine
+public class LAEFinishState : IStateMachine
 {
-    MeleeAttackEnemy _enemy;
+    LongAttackEnemy _enemy;
     float _timer;
-    bool _isTimeStart  =false;
+    bool _isTimeStart = false;
 
-    public MAEFinishState(MeleeAttackEnemy enemy)
+    public LAEFinishState(LongAttackEnemy enemy)
     {
         _enemy = enemy;
     }

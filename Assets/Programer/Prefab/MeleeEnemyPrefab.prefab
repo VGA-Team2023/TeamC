@@ -105,19 +105,18 @@ MonoBehaviour:
   _speed: 1
   _attackInterval: 1
   _searchRange: 10
+  _finishStopInterval: 5
   _defaultLayer:
     serializedVersion: 2
     m_Bits: 8
   _finishLayer:
     serializedVersion: 2
     m_Bits: 1024
-  _slowManager:
-    _slowSpeedRate: 0.05
   _core: {fileID: 2723460758023902759}
   _moveRange: 5
   _distance: 0.5
   _chaseDistance: 5
-  _slowSpeed: 0
+  _slowSpeed: 0.5
   _iceAttackEffect: {fileID: 2479105098826939982, guid: 3becfabcc7b73c14e9a9ba0de1ae95f1,
     type: 3}
   _iceFinishEffect: {fileID: 8565715187832649081, guid: 5a07250db38b03345a5fccfaaa2735fb,
@@ -160,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meleeEnemy: {fileID: 3477613071369339618}
   _longEnemy: {fileID: 0}
+  _testOn: 1
 --- !u!1 &3060971277741890734
 GameObject:
   m_ObjectHideFlags: 0

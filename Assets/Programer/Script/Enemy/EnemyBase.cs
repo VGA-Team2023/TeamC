@@ -41,6 +41,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーを検出する範囲(赤い円)"), Range(0, 10)]
     float _searchRange;
     public float SearchRange => _searchRange;
+    [SerializeField]
+    float _finishStopInterval;
+    public float FinishStopInterval => _finishStopInterval;
     [Header("====================")]
 
     [Header("とどめの攻撃を出来るか判定するレイヤー")]
@@ -52,31 +55,20 @@ public abstract class EnemyBase : MonoBehaviour
     public LayerMask FinishLayer => _finishLayer;
     [Header("====================")]
 
-    [Header("ポーズとスローのマネージャー")]
-    [SerializeField]
-    PauseManager _pausedManager;
-    public PauseManager PauseManager
-    {
-        get => _pausedManager;
-        set => _pausedManager = value;
-    }
-
-    [SerializeField]
-    SlowManager _slowManager;
-    public SlowManager SlowManager
-    {
-        get => _slowManager;
-        set => _slowManager = value;
-    }
-    [Header("====================")]
-
     [Header("生成するオブジェクト")]
     [SerializeField, Tooltip("コアのオブジェクト")]
     GameObject _core;
     public GameObject Core => _core;
 
-    //enemyが破壊された時に呼ばれる関数
+    //enemyのHPが0になった時に呼ばれる
     public event Action OnEnemyDestroy;
+    //enemyが破壊された時に呼ばれる関数
+    public event Action OnEnemyFinish;
+
+    public void EnemyFinish()
+    {
+        OnEnemyFinish?.Invoke();
+    }
 
     public enum MoveState
     {
