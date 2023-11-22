@@ -27,12 +27,10 @@ public class MAEFreeMoveState : IStateMachine
     }
     public void Enter()
     {
-        Debug.Log("MAEFreeMove:Enter");
     }
 
     public void Exit()
     {
-        Debug.Log("MAEFreeMove:Exit");
     }
 
     public void Update()
