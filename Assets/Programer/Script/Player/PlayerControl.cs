@@ -42,11 +42,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [SerializeField] private Transform _playerT;
 
     [Header("Player‚ÌƒƒbƒVƒ…")]
-<<<<<<< HEAD
-    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
-=======
     [SerializeField] private MeshRenderer _meshRenderer;
->>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
 
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
@@ -84,11 +80,8 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
-<<<<<<< HEAD
-    public SkinnedMeshRenderer MeshRenderer => _meshRenderer;
-=======
+
     public MeshRenderer MeshRenderer => _meshRenderer;
->>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -100,11 +93,9 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
         _avoid.Init(this);
-<<<<<<< HEAD
-=======
         _hp.Init(this);
         _damage.Init(this);
->>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
+
     }
 
     void Start()
@@ -185,5 +176,4 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     {
         _anim.speed = 1;
     }
->>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
 }

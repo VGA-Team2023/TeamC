@@ -105,7 +105,7 @@ public class CameraControl : MonoBehaviour
         }
         else if (cameraShakeType == CameraShakeType.AttackNomal)
         {
-            setPower = 3f;
+           // setPower = 3f;
         }
         else
         {
