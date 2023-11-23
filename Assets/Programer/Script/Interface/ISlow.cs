@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>スロー処理を行うインターフェイス</summary>
 public interface ISlow
 {
     /// <summary>通常からスローに切り替わる時に実行する</summary>

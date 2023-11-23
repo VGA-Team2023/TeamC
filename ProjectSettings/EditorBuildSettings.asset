@@ -6,15 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/UnitySetting/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+    path: Assets/Programer/Scene/TestResult.unity
+    guid: 5e8b7760809e6c64a8ae0214f836d653
+  - enabled: 0
+    path: Assets/Programer/Scene/TestCharactorPick.unity
+    guid: 699bf17184ad9ac46ab6b9688f4db04f
+  - enabled: 0
     path: Assets/Programer/Scene/TestTitle.unity
     guid: a3df0739ce9309f4d8cb5f6d708c9509
   - enabled: 1
-    path: Assets/Programer/Scene/TestCharactorPick.unity
-    guid: 699bf17184ad9ac46ab6b9688f4db04f
+    path: Assets/Programer/WorkSpace/Scene/TestTitle 1.unity
+    guid: 024a69c15861aec479c380e987f81ba9
   - enabled: 1
-    path: Assets/Programer/Scene/TestResult.unity
-    guid: 5e8b7760809e6c64a8ae0214f836d653
+    path: Assets/Programer/WorkSpace/Scene/TestCharactorPick 1.unity
+    guid: 9fadb4688d7fc4442b5a9486845d6c2d
+  - enabled: 1
+    path: Assets/Programer/WorkSpace/Scene/TestResult 1.unity
+    guid: d4d47004bebaf8b4c85ab8c93ec43826
+  - enabled: 1
+    path: Assets/Programer/WorkSpace/Scene/GameScene.unity
+    guid: 814844506a4fb4547b84749773761744
+  - enabled: 1
+    path: Assets/Programer/WorkSpace/Scene/GameScene_Houki.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

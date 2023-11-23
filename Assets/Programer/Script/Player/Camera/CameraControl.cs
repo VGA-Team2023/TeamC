@@ -103,6 +103,10 @@ public class CameraControl : MonoBehaviour
             source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime =2;
             source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 2f;
         }
+        else if (cameraShakeType == CameraShakeType.AttackNomal)
+        {
+           // setPower = 3f;
+        }
         else
         {
             setPowerY = 1f;

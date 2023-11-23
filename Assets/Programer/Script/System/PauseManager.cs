@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>普段の一時停止を管理するクラス</summary>
+
 public class PauseManager
 {
     bool _isPause = false;

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MAEFinishState : IStateMachine
@@ -14,7 +16,7 @@ public class MAEFinishState : IStateMachine
     public void Enter()
     {
         _isTimeStart = true;
-        _timer = 0;
+        throw new System.NotImplementedException();
     }
 
     public void Exit()
@@ -29,10 +31,10 @@ public class MAEFinishState : IStateMachine
         if (_isTimeStart)
         {
             _timer += Time.deltaTime;
-            if (_timer > _enemy.FinishStopInterval)
+            if (_timer > 50f)
             {
-                _enemy.StateChange(EnemyBase.MoveState.FreeMove);
                 Exit();
+                //_enemy.StateChange(EnemyBase.MoveState.FreeMove);
             }
         }
     }

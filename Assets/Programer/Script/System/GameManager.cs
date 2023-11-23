@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [SerializeField,HideInInspector] TimeManager _timeManager;
     ScoreManager _scoreManager = new ScoreManager();
     PauseManager _pauseManager = new PauseManager();
-    SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
     /// <summary>スコア格納用変数</summary>
     public static int _score = 0;
     /// <summary>Playerの属性</summary>
@@ -23,8 +22,6 @@ public class GameManager : MonoBehaviour
     public SlowManager SlowManager => _slowManager;
     public PauseManager PauseManager => _pauseManager;
     public TimeManager TimeManager => _timeManager;
-
-    public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
     public static GameManager Instance
     {
         //読み取り時
