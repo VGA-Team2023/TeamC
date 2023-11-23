@@ -53,7 +53,7 @@ public class FinishingAttack
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
-        _finishingAttackUI.Init(playerControl, _finishingAttackShort.FinishTime);
+        _finishingAttackUI.Init(playerControl,_finishingAttackShort.FinishTime);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -97,13 +97,11 @@ public class FinishingAttack
             damgeble?.StartFinishing();
         }
 
-
         //トドメ用のカメラを使う
         _playerControl.CameraControl.UseFinishCamera();
 
         //カメラを敵の方向に向ける
         _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
-
 
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
@@ -178,9 +176,9 @@ public class FinishingAttack
         _playerControl.CameraControl.UseDefultCamera(false);
 
         //カメラの振動
-
         _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
         _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
+
         //コントローラーの振動を停止
         _playerControl.ControllerVibrationManager.StopVibration();
 
@@ -221,7 +219,6 @@ public class FinishingAttack
         _playerControl.CameraControl.UseDefultCamera(false);
 
         _playerControl.CameraControl.FinishAttackCamera.EndFinish();
-
 
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.Stop();
