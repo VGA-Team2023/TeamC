@@ -18,7 +18,6 @@ public class FinishAttackCamera
     [Header("FOV")]
     [SerializeField] private float _changeFOVSpeed = 3;
 
-
     [Header("ç≈ëÂDutch")]
     [SerializeField] private float _maxDutch = 20;
 
@@ -31,6 +30,7 @@ public class FinishAttackCamera
     private float _first;
     private bool _isSetFOV = false;
     private bool _isSetDutch = false;
+
 
     private CinemachineVirtualCamera _finishCamera;
 
@@ -118,7 +118,6 @@ public class FinishAttackCamera
 
             if (_finishCameraPov.m_HorizontalAxis.Value == _set)
             {
-
                 _isSetFOV = true;
             }
         }

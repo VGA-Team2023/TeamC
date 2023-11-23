@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 /// <summary>ゲームの経過時間を操作するClass</summary>
-public class TimeManager : ISlow,IPause
+public class TimeManager : ISlow,IPause,ISpecialMovingPause
 {
     float _currentTimeSpeedRate = 1;
     /// <summary>ゲームのプレイ時間</summary>
@@ -19,8 +19,10 @@ public class TimeManager : ISlow,IPause
     public void Start()
     {
         TimerReset();
+        _currentTimeSpeedRate = 1;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
     /// <summary>主にタイムの時間を減らす処理を行う関数</summary>
     public void Update()
@@ -51,5 +53,14 @@ public class TimeManager : ISlow,IPause
     void ISlow.OnSlow(float slowSpeedRate)
     {
         _currentTimeSpeedRate = slowSpeedRate;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _currentTimeSpeedRate = 0;
+    }
+    void ISpecialMovingPause.Resume()
+    {
+        _currentTimeSpeedRate = 1;
     }
 }

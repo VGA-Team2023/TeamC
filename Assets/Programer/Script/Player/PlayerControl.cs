@@ -80,7 +80,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
-
     public MeshRenderer MeshRenderer => _meshRenderer;
     private void Awake()
     {
@@ -95,7 +94,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
         _avoid.Init(this);
         _hp.Init(this);
         _damage.Init(this);
-
     }
 
     void Start()
@@ -129,7 +127,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
-
 
     public void Damage(float damage)
     {

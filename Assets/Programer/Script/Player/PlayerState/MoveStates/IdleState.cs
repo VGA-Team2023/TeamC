@@ -33,10 +33,6 @@ public class IdleState : PlayerStateBase
     {
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
 
-        //ˆÚ“®“ü—Í‚ðŽó‚¯Žæ‚é
-        float h = _stateMachine.PlayerController.InputManager.HorizontalInput;
-        float v = _stateMachine.PlayerController.InputManager.VerticalInput;
-
         if (_stateMachine.PlayerController.FinishingAttack.IsCanFinishing &&
 _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
         {

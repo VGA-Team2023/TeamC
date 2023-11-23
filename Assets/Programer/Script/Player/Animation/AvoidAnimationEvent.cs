@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AvoidAnimationEvent : MonoBehaviour
 {
-
     [SerializeField] private PlayerControl _playerControl;
 
 

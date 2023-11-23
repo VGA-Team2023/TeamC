@@ -45,5 +45,4 @@ public class PlayerAvoidMove
         return false;
     }
 
-
 }

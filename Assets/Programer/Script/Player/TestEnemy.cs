@@ -75,9 +75,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
             if (_coundDestroyTime > _destroyTime)
             {
                 CameraControl camera = FindObjectOfType<CameraControl>();
-
                 camera?.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
-
 
                 OnEnemyDestroy();
                 Destroy(gameObject);
