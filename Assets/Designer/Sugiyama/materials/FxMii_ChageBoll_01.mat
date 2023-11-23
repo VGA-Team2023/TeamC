@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8424296910212932277
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,19 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FxMii_SS_GrassThorn_VD
+  m_Name: FxMii_ChageBoll_01
   m_Shader: {fileID: 4800000, guid: 1bc5c6a70411243779ce486a98012125, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
-  - _BASE_MAP_ROTATION_ENABLED
-  - _DISSOLVE_TRANSITION_ENABLED
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _PARALLAX_MAP_MODE_2D
-  - _SOFT_PARTICLES_ENABLED
   - _TINT_AREA_ALL
   - _TINT_COLOR_ENABLED
   m_InvalidKeywords: []
@@ -48,7 +32,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTransitionMap:
-        m_Texture: {fileID: 2800000, guid: fad1d63b780f72249b6e1fb267860bdb, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
@@ -60,8 +44,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 02bb608dffd958b45844330ac78771ee, type: 3}
-        m_Scale: {x: 3.72, y: 0.58}
+        m_Texture: {fileID: 2800000, guid: aa835eed92a3c36438b455b0ae60a5a2, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap2DArray:
         m_Texture: {fileID: 0}
@@ -174,16 +158,16 @@ Material:
     - _AlphaTransitionMapProgress: 0
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
-    - _AlphaTransitionMode: 2
+    - _AlphaTransitionMode: 0
     - _AlphaTransitionProgress: 0
-    - _AlphaTransitionProgressCoord: 11
+    - _AlphaTransitionProgressCoord: 0
     - _BaseMapMirrorSampling: 0
     - _BaseMapMode: 0
     - _BaseMapOffsetXCoord: 0
     - _BaseMapOffsetYCoord: 0
     - _BaseMapProgress: 0
     - _BaseMapProgressCoord: 0
-    - _BaseMapRotation: 0.5
+    - _BaseMapRotation: 0
     - _BaseMapRotationCoord: 0
     - _BaseMapSliceCount: 4
     - _Blend: 0
@@ -202,7 +186,7 @@ Material:
     - _DepthFadeWidth: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveSharpness: 0
+    - _DissolveSharpness: 0.5
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionAreaType: 0
@@ -258,15 +242,15 @@ Material:
     - _RimTransparencySharpnessCoord: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SoftParticlesEnabled: 1
-    - _SoftParticlesIntensity: 6
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesIntensity: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TintAreaMode: 1
     - _TintBlendRate: 1
-    - _TintBlendRateCoord: 11
+    - _TintBlendRateCoord: 0
     - _TintColorMode: 0
     - _TintMap3DProgress: 0
     - _TintMap3DProgressCoord: 0
@@ -278,8 +262,8 @@ Material:
     - _TransparentBlendMode: 0
     - _VertexAlphaMode: 0
     - _VertexDeformationEnabled: 0
-    - _VertexDeformationIntensity: 0
-    - _VertexDeformationIntensityCoord: 1
+    - _VertexDeformationIntensity: 0.1
+    - _VertexDeformationIntensityCoord: 0
     - _VertexDeformationMapChannel: 0
     - _VertexDeformationMapOffsetXCoord: 0
     - _VertexDeformationMapOffsetYCoord: 0
@@ -291,7 +275,20 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.89645165, g: 1, b: 0.6566038, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 16, g: 16, b: 16, a: 1}
+    - _TintColor: {r: 7.901428, g: 16, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &6623393085462399904
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
