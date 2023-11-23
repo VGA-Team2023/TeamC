@@ -14,6 +14,11 @@ public class FinishingAttack
     [Header("移動")]
     [SerializeField] private FinishingAttackMove _finishingAttackMove;
 
+    [Header("ための音")]
+    [SerializeField] private AudioSource _audioSource;
+
+    [Header("壊した音")]
+    [SerializeField] private AudioSource _audioSourceBrake;
 
     [Header("レイヤー")]
     [SerializeField] private LayerMask _targetLayer;
@@ -42,6 +47,7 @@ public class FinishingAttack
     public bool IsEndFinishAnim { get => _isEndFinishAnim; set => _isEndFinishAnim = value; }
 
     public bool IsCanFinishing => _isCanFinishing;
+    public FinishingAttackShort FinishingAttackShort => _finishingAttackShort;
 
     public FinishingAttackMove FinishingAttackMove => _finishingAttackMove;
     public void Init(PlayerControl playerControl)
@@ -56,6 +62,8 @@ public class FinishingAttack
 
     public void StartFinishingAttack()
     {
+        _audioSource.Play();
+
         _isEndFinishAnim = false;
 
         _isCompletedFinishTime = false;
@@ -92,8 +100,10 @@ public class FinishingAttack
 
         //トドメ用のカメラを使う
         _playerControl.CameraControl.UseFinishCamera();
+
         //カメラを敵の方向に向ける
-        _playerControl.CameraControl.FinishAttackCamera.SetCamera(_nowFinishEnemy[0].transform.position);
+        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
+
 
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
@@ -154,6 +164,9 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
+        _audioSource.Stop();
+        _audioSourceBrake.Play();
+
         _isCompletedFinishTime = true;
 
         _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
@@ -165,16 +178,24 @@ public class FinishingAttack
         _playerControl.CameraControl.UseDefultCamera(false);
 
         //カメラの振動
-        _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.EndFinishAttack);
 
+        _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
+        _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
         //コントローラーの振動を停止
         _playerControl.ControllerVibrationManager.StopVibration();
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
 
+        //トドメ完了のUIを表示
+        _finishingAttackUI.ShowCompleteFinishUI(true);
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
+
         //時間を遅くする
-        GameManager.Instance.TimeControl.SetTimeScale(0.3f);
+        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
+
 
         LineSetting();
 
@@ -191,6 +212,8 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
+        _audioSource.Stop();
+
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
 
@@ -198,6 +221,10 @@ public class FinishingAttack
         _playerControl.CameraControl.UseDefultCamera(false);
 
         _playerControl.CameraControl.FinishAttackCamera.EndFinish();
+
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -220,6 +247,8 @@ public class FinishingAttack
 
         _nowFinishEnemy = null;
 
+        //トドメ完了のUIを非表示
+        _finishingAttackUI.ShowCompleteFinishUI(false);
     }
 
     /// <summary>トドメを終えた際、エフェクトを消すかどうかを判断する</summary>

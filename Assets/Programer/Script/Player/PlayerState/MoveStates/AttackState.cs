@@ -34,7 +34,6 @@ public class AttackState : PlayerStateBase
 
     public override void Update()
     {
-        Debug.Log("Attack");
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
 
         _stateMachine.PlayerController.Attack.AttackInputedCheck();

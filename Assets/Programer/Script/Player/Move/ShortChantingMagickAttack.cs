@@ -5,12 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class ShortChantingMagickAttack
 {
+    [Header("UŒ‚•û–@")]
+    [SerializeField] private bool _isMahouzinAttack = false;
+
+    public bool IsMahouzinAttack => _isMahouzinAttack;
+
     [Header("===–‚–@‚Ìİ’è===")]
     [SerializeField] private ShortChantingMagicData _shortChantingMagicData;
 
     [Header("‚½‚ß‚ÌŠÔ")]
     [SerializeField] private float _time = 1;
-
 
     public float TameTime => _time;
 
@@ -59,7 +63,8 @@ public class ShortChantingMagickAttack
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
         //ƒJƒƒ‰‚ÌU“®
-        _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.AttackNomal);
+
+        _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
         _attackCount++;
 
@@ -109,7 +114,12 @@ public class ShortChantingMagickAttack
     public void UnSetMagic()
     {
         //–‚–@w‚ğÁ‚·
-        _shortChantingMagicData.UnSetMagick();
+
+        if (_isMahouzinAttack)
+        {
+            _shortChantingMagicData.UnSetMagick();
+        }
+
         _attackCount = 0;
     }
 

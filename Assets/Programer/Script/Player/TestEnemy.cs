@@ -12,10 +12,10 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     [SerializeField] private bool _isGun = false;
 
     [Header("エフェクト弱")]
-    [SerializeField] private GameObject pLow;
+    [SerializeField] private List<ParticleSystem> pLow = new List<ParticleSystem>();
 
     [Header("エフェクト強")]
-    [SerializeField] private GameObject pHigh;
+    [SerializeField] private List<ParticleSystem> pHigh = new List<ParticleSystem>();
 
     [Header("体力")]
     [SerializeField] private int _maxHp = 3;
@@ -30,15 +30,20 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     [SerializeField] private GameObject _downEffect;
 
     [Header("コア")]
-    [SerializeField] private GameObject _core;
+    [SerializeField] private GameObject _corec;
 
     [Header("弾")]
     [SerializeField] private GameObject _bullet;
+
+    [Header("発射レート")]
+    [SerializeField] private float _rate = 7;
 
     [Header("マズル")]
     [SerializeField] private Transform _muzzle;
     [Header("回転速度")]
     [SerializeField] private float _rotationSpeed = 200;
+
+    [SerializeField] private TstWave _wave;
 
     private int _nowHp = 3;
 
@@ -59,6 +64,8 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     }
 
 
+
+
     private void Update()
     {
         if (_isDestroy)
@@ -67,16 +74,20 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
 
             if (_coundDestroyTime > _destroyTime)
             {
-                var go = Instantiate(_downEffect);
-                go.transform.position = transform.position;
-
                 CameraControl camera = FindObjectOfType<CameraControl>();
-                camera?.ShakeCamra(CameraType.FinishCamera, CameraShakeType.AttackNomal);
+
+                camera?.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
 
+                OnEnemyDestroy();
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void OnEnemyDestroy()
+    {
+        _wave.DesEnemy();
     }
 
     private void FixedUpdate()
@@ -99,7 +110,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
         {
             _countTime += Time.deltaTime;
 
-            if (_countTime > 5)
+            if (_countTime > _rate)
             {
                 var go = Instantiate(_bullet);
                 go.transform.position = _muzzle.position;
@@ -124,7 +135,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     }
 
 
-    public void Damage(AttackType attackType, MagickType attackHitTyp,float damage)
+    public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         _rb.velocity = Vector3.zero;
 
@@ -132,7 +143,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
         {
             if (attackHitTyp == MagickType.Ice)
             {
-                pLow.gameObject.SetActive(true);
+                pLow.ForEach(i => i.Play());
                 // pLow.Play();
 
                 Vector3 dir = transform.position - _player.position;
@@ -140,7 +151,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
             }
             else if (attackHitTyp == MagickType.Grass)
             {
-                pHigh.gameObject.SetActive(true);
+                pLow.ForEach(i => i.Play());
                 // pHigh.Play();
 
                 Vector3 dir = transform.position - _player.position;
@@ -152,19 +163,19 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
             if (_nowHp <= 0)
             {
                 gameObject.layer = _lowLayerNum;
-                _core.SetActive(true);
+                _corec.SetActive(true);
             }
         }
         else
         {
-            _nowHp--;
+            _nowHp -= (int)damage;
 
-            pLow.gameObject.SetActive(true);
+            pLow.ForEach(i => i.Play());
 
             if (_nowHp <= 0)
             {
                 gameObject.layer = _lowLayerNum;
-                _core.SetActive(true);
+                _corec.SetActive(true);
             }
         }
     }
@@ -172,17 +183,20 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     public void EndFinishing()
     {
         _rb.velocity = Vector3.zero;
-        pHigh.gameObject.SetActive(true);
+        pLow.ForEach(i => i.Play());
         Vector3 dir = transform.position - _player.position;
-        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        // _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
 
         gameObject.layer = _defaltLayerNum;
-        _core.SetActive(false);
+        _corec.SetActive(false);
         _nowHp = _maxHp;
 
         _isDestroy = true;
 
         gameObject.layer = 0;
+
+        var go = Instantiate(_downEffect);
+        go.transform.position = transform.position;
     }
 
     public void StartFinishing()
@@ -193,7 +207,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
     public void StopFinishing()
     {
         gameObject.layer = _defaltLayerNum;
-        _core.SetActive(false);
+        _corec.SetActive(false);
         _nowHp = _maxHp;
     }
 }

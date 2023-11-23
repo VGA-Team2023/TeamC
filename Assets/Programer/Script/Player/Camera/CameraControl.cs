@@ -82,14 +82,26 @@ public class CameraControl : MonoBehaviour
         source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.2f;
         source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 0.2f;
 
-        float setPower = 0;
+        float setPowerX = 0;
+        float setPowerY = 0;
+        float setPowerZ = 0;
+
+
         if (cameraShakeType == CameraShakeType.ChangeWeapon)
         {
-            setPower = 2f;
+            setPowerY = 2f;
         }
         else if (cameraShakeType == CameraShakeType.AttackNomal)
         {
-            setPower = 1f;
+            setPowerY = 1f;
+        }
+        else if (cameraShakeType == CameraShakeType.EndFinishAttack)
+        {
+            setPowerX = 1f;
+            setPowerY = 5f;
+            setPowerZ = 0f;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime =2;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 2f;
         }
         else if (cameraShakeType == CameraShakeType.AttackNomal)
         {
@@ -97,12 +109,12 @@ public class CameraControl : MonoBehaviour
         }
         else
         {
-            setPower = 1f;
+            setPowerY = 1f;
         }
 
 
 
-        source.GenerateImpulse(new Vector3(0, setPower, 0));
+        source.GenerateImpulse(new Vector3(setPowerX, setPowerY, setPowerZ));
     }
 
 }

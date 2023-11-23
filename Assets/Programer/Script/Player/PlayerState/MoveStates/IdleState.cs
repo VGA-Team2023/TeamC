@@ -59,7 +59,6 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
         }   //‰ñ”ð
 
 
-
         if (_stateMachine.PlayerController.InputManager.HorizontalInput != 0
              || _stateMachine.PlayerController.InputManager.VerticalInput != 0)
         {

@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
 {
+    [Header("Hp設定")]
+    [SerializeField] private PlayerHp _hp;
+
+    [Header("ダメージ")]
+    [SerializeField] private PlayerDamage _damage;
+
     [Header("移動設定")]
     [SerializeField] private PlayerMove _playerMove;
 
@@ -36,7 +42,11 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Transform _playerT;
 
     [Header("Playerのメッシュ")]
+<<<<<<< HEAD
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
+=======
+    [SerializeField] private MeshRenderer _meshRenderer;
+>>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
 
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
@@ -47,10 +57,18 @@ public class PlayerControl : MonoBehaviour
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
 
+    [SerializeField] private HitStopConrol _hitStopConrol;
+
     [SerializeField] private PlayerStateMachine _stateMachine = default;
 
     [SerializeField] private ColliderCheck _colliderCheck;
 
+
+    private Vector3 _savePauseVelocity = default;
+
+    public HitStopConrol HitStopConrol => _hitStopConrol;
+    public PlayerDamage PlayerDamage => _damage;
+    public PlayerHp PlayerHp => _hp;
     public ControllerVibrationManager ControllerVibrationManager => _controllerVibrationManager;
     public CameraControl CameraControl => _cameraControl;
     public PlayerAnimControl PlayerAnimControl => _playerAnimControl;
@@ -66,7 +84,11 @@ public class PlayerControl : MonoBehaviour
     public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
+<<<<<<< HEAD
     public SkinnedMeshRenderer MeshRenderer => _meshRenderer;
+=======
+    public MeshRenderer MeshRenderer => _meshRenderer;
+>>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -78,6 +100,11 @@ public class PlayerControl : MonoBehaviour
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
         _avoid.Init(this);
+<<<<<<< HEAD
+=======
+        _hp.Init(this);
+        _damage.Init(this);
+>>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
     }
 
     void Start()
@@ -85,10 +112,11 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         _stateMachine.Update();
+
+        Debug.Log(Time.timeScale);
 
     }
 
@@ -110,4 +138,52 @@ public class PlayerControl : MonoBehaviour
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
+
+
+    public void Damage(float damage)
+    {
+        _damage.Damage(damage);
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+    }
+
+
+    public void Pause()
+    {
+        _anim.speed = 0;
+
+        _savePauseVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    public void Resume()
+    {
+        _anim.speed = 1;
+
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = _savePauseVelocity;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _anim.speed = slowSpeedRate;
+    }
+
+    public void OffSlow()
+    {
+        _anim.speed = 1;
+    }
+>>>>>>> 765e446d33297c7c5e77da3b738748a595dec27d
 }
