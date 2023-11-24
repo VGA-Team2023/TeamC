@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MAEFinishState : IStateMachine
 {
     MeleeAttackEnemy _enemy;
     float _timer;
+    bool _isTimeStart  =false;
+
     public MAEFinishState(MeleeAttackEnemy enemy)
     {
         _enemy = enemy;
@@ -13,21 +13,27 @@ public class MAEFinishState : IStateMachine
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        _isTimeStart = true;
+        _timer = 0;
     }
 
     public void Exit()
     {
+        _isTimeStart = false;
+        _timer = 0;
         _enemy.StopFinishing();
     }
 
     public void Update()
     {
-        _timer += Time.deltaTime;
-        if(_timer > 5f)
+        if (_isTimeStart)
         {
-            Exit();
-            _enemy.StateChange(EnemyBase.MoveState.FreeMove);
+            _timer += Time.deltaTime;
+            if (_timer > _enemy.FinishStopInterval)
+            {
+                _enemy.StateChange(EnemyBase.MoveState.FreeMove);
+                Exit();
+            }
         }
     }
 }
