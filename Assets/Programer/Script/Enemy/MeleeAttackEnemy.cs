@@ -1,12 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
+public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
 {
-
-    [SerializeField, Range(0, 10)]
-    float random;
-    public float Random => random;
+    [Header("敵の挙動に関する数値")]
     [SerializeField, Tooltip("移動の範囲(黄色の円)"), Range(0, 10)]
     float _moveRange;
     public float MoveRange => _moveRange;
@@ -15,16 +12,21 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
     float _distance;
     public float Distance => _distance;
 
-    [SerializeField]
+    [SerializeField, Tooltip("どれくらいプレイヤーに近づいたら追いかけるステートに入るか")]
     float _chaseDistance;
     public float ChaseDistance => _chaseDistance;
 
-    [SerializeField]
-    float _radius;
+    [SerializeField, Tooltip("スローになった時のプレイヤーのスピード")]
+    float _slowSpeed;
+    [Header("====================")]
 
-    [SerializeField]
-    float _thetaSpeed;
+    //[SerializeField]
+    //float _radius;
 
+    //[SerializeField]
+    //float _thetaSpeed;
+
+    [Header("生成するオブジェクト")]
     [SerializeField, Tooltip("氷魔法の通常攻撃エフェクト")]
     GameObject _iceAttackEffect;
 
@@ -34,11 +36,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
     Rigidbody _rb;
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
+    float _defaultSpeed = 0;
+    int _defaultHp = 0;
+
     MoveState _state = MoveState.FreeMove;
     MoveState _nextState = MoveState.FreeMove;
     MagickType _magicType;
-
     PlayerControl _player;
+
     MAEFreeMoveState _freeMoveState;
     MAEAttackState _attack;
     MAEFinishState _finish;
@@ -48,23 +53,18 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
     {
         _rb = GetComponent<Rigidbody>();
         _player = FindObjectOfType<PlayerControl>();
-        _freeMoveState = new MAEFreeMoveState(this, _player, SearchRange, _distance, _moveRange, Speed);
+        _defaultHp = HP;
+        _freeMoveState = new MAEFreeMoveState(this, _player);
         _attack = new MAEAttackState(this, _player);
         _finish = new MAEFinishState(this);
         _chase  = new MAEChaseState(this, _player);
         base.OnEnemyDestroy += StartFinishing;
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
     }
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Damage(AttackType.ShortChantingMagick, MagickType.Ice, 3f);
-        }
-        if(gameObject.layer == 10 && Input.GetMouseButtonDown(1))
-        {
-            EndFinishing();
-        }
         //float x = transform.position.x + _radius * Mathf.Cos(Time.time * _thetaSpeed);
         //float y = transform.position.y + _radius * Mathf.Sin(Time.time * _thetaSpeed) * Mathf.Cos(Time.time * _thetaSpeed);
         //float z = 0;
@@ -111,6 +111,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
         }
     }
 
+    public bool TryGet<T>(out T returnObject, GameObject checkObject)
+    {
+        return checkObject.TryGetComponent(out returnObject);
+    }
+
     public void StateChange(MoveState changeState)
     {
         _nextState = changeState;
@@ -153,13 +158,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
     {
         Core.SetActive(false);
         gameObject.layer = 3;
+        HP = _defaultHp;
     }
 
     public void EndFinishing()
     {
         if(_magicType == MagickType.Ice)
         {
-            GameObject iceAttack = Instantiate(_iceFinishEffect, transform.position, Quaternion.identity);
+            GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(iceAttack, 3f);
         }
         else if(_magicType == MagickType.Grass)
@@ -169,6 +175,31 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
         base.OnEnemyDestroy -= StartFinishing;
+        EnemyFinish();
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
         Destroy(gameObject, 1f);
+    }
+
+    public void Pause()
+    {
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    public void Resume()
+    {
+        Speed = _defaultSpeed;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _defaultSpeed = Speed;
+        Speed += _slowSpeed * Speed;
+    }
+
+    public void OffSlow()
+    {
+        Speed = _defaultSpeed;
     }
 }
