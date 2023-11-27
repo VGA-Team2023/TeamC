@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
     ScoreManager _scoreManager = new ScoreManager();
     PauseManager _pauseManager = new PauseManager();
     SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
-    /// <summary>スコア格納用変数</summary>
-    public static int _score = 0;
+    MinutesSecondsVer _clearTime;
     /// <summary>Playerの属性</summary>
     PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
     public PlayerAttribute PlayerAttribute => _playerAttribute;
@@ -23,8 +22,9 @@ public class GameManager : MonoBehaviour
     public SlowManager SlowManager => _slowManager;
     public PauseManager PauseManager => _pauseManager;
     public TimeManager TimeManager => _timeManager;
-
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
+    /// <summary>クリア時間</summary>
+    public MinutesSecondsVer ClearTime => _clearTime;
     public static GameManager Instance
     {
         //読み取り時
@@ -60,8 +60,6 @@ public class GameManager : MonoBehaviour
             //二回目以降のゲームシーンに遷移したら
             if(_currentGameState == GameState.Game)
             {
-                //スコアリセット
-                _instance.ScoreReset();
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
             }
@@ -76,22 +74,19 @@ public class GameManager : MonoBehaviour
         {
             _timeManager.Update();
             //インゲームが終わったら
-            if(_timeManager.GamePlayElapsedTime <= 0)
+            if(_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
-                //リザルト状態に変更
-                ChangeGameState(GameState.Result);
-                //スコアの計算をここに記述
-                //シーン遷移のメソッドを呼ぶ
-                SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
-                sceneControlle?.SceneChange();
+                ResultProcess();
             }
         }
     }
 
-    /// <summary>スコアのリセット</summary>
-    void ScoreReset()
+    /// <summary>リザルトシーン遷移処理</summary>
+    public void ResultProcess()
     {
-        _score = 0;
+        _clearTime = _timeManager.MinutesSecondsCast();
+        SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
+        sceneControlle?.SceneChange();
     }
 
     /// <summary>選択したPlayerの属性を保存する処理を行うメソッド</summary>
@@ -115,11 +110,6 @@ public class GameManager : MonoBehaviour
     public void ChangeGameState(GameState changeGameState)
     {
         _currentGameState = changeGameState;
-    }
-
-    public void Result()
-    {
-        _score = _scoreManager.ScoreCaster(_timeManager.GamePlayElapsedTime, 10);
     }
 }
 /// <summary>全体のゲームの状態を管理するenum</summary>
