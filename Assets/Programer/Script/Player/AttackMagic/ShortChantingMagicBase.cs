@@ -162,10 +162,12 @@ public class ShortChantingMagicBase
     public void UnSetMagick()
     {
         //魔法陣無しの場合、テスト
-        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
-
-        _magick.ForEach(i => i.SetActive(false));
-        _magickTame.ForEach(i => i.SetActive(false));
+        if (!_playerControl.IsNewAttack)
+        {
+            if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+            _magick.ForEach(i => i.SetActive(false));
+            _magickTame.ForEach(i => i.SetActive(false));
+        }
     }
 
 

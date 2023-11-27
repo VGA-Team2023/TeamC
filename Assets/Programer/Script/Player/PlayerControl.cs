@@ -16,6 +16,16 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("âÒî")]
     [SerializeField] private PlayerAvoid _avoid;
 
+    [Header("çUåÇÇêVverÇ…Ç∑ÇÈÇ©Ç«Ç§Ç©")]
+    [SerializeField] private bool _isNewAttack = true;
+
+    public bool IsNewAttack => _isNewAttack;
+
+    [Header("çUåÇÅQêVÇµÇ¢")]
+    [SerializeField] private Attack2 _attack2;
+
+    public Attack2 Attack2 => _attack2;
+
     [Header("çUåÇ")]
     [SerializeField] private Attack _attack;
 
@@ -88,6 +98,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
         _playerMove.Init(this);
         _playerAnimControl.Init(this);
         _attack.Init(this);
+        _attack2.Init(this);
         _weaponSetting.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
@@ -104,9 +115,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     void Update()
     {
         _stateMachine.Update();
-
-        Debug.Log(Time.timeScale);
-
     }
 
     private void FixedUpdate()
@@ -125,6 +133,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     {
         _groundCheck.OnDrawGizmos(PlayerT);
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
+        _attack2.AttackMagic.OnDrwowGizmo(_playerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
 
