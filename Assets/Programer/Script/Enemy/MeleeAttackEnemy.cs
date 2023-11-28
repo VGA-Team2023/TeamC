@@ -1,22 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
 {
-    [Header("“G‚Ì‹““®‚ÉŠÖ‚·‚é”’l")]
-    [SerializeField, Tooltip("ˆÚ“®‚Ì”ÍˆÍ(‰©F‚Ì‰~)"), Range(0, 10)]
+    [Header("æ•µã®æŒ™å‹•ã«é–¢ã™ã‚‹æ•°å€¤")]
+    [SerializeField, Tooltip("ç§»å‹•ã®ç¯„å›²(é»„è‰²ã®å††)"), Range(0, 10)]
     float _moveRange;
     public float MoveRange => _moveRange;
 
-    [SerializeField, Tooltip("‚Ç‚ê‚­‚ç‚¢ƒx[ƒXˆÊ’u‚É‹ß‚Ã‚¢‚½‚çŽŸ‚Ì–Ú•W‚ÉŒü‚©‚¤‚©")]
+    [SerializeField, Tooltip("ã©ã‚Œãã‚‰ã„ãƒ™ãƒ¼ã‚¹ä½ç½®ã«è¿‘ã¥ã„ãŸã‚‰æ¬¡ã®ç›®æ¨™ã«å‘ã‹ã†ã‹")]
     float _distance;
     public float Distance => _distance;
 
-    [SerializeField, Tooltip("‚Ç‚ê‚­‚ç‚¢ƒvƒŒƒCƒ„[‚É‹ß‚Ã‚¢‚½‚ç’Ç‚¢‚©‚¯‚éƒXƒe[ƒg‚É“ü‚é‚©")]
+    [SerializeField, Tooltip("ã©ã‚Œãã‚‰ã„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«è¿‘ã¥ã„ãŸã‚‰è¿½ã„ã‹ã‘ã‚‹ã‚¹ãƒ†ãƒ¼ãƒˆã«å…¥ã‚‹ã‹")]
     float _chaseDistance;
     public float ChaseDistance => _chaseDistance;
 
-    [SerializeField, Tooltip("ƒXƒ[‚É‚È‚Á‚½Žž‚ÌƒvƒŒƒCƒ„[‚ÌƒXƒs[ƒh")]
+    [SerializeField, Tooltip("ã‚¹ãƒ­ãƒ¼ã«ãªã£ãŸæ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float _slowSpeed;
     [Header("====================")]
 
@@ -26,12 +26,18 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     //[SerializeField]
     //float _thetaSpeed;
 
-    [Header("¶¬‚·‚éƒIƒuƒWƒFƒNƒg")]
-    [SerializeField, Tooltip("•X–‚–@‚Ì’ÊíUŒ‚ƒGƒtƒFƒNƒg")]
+    [Header("ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    [SerializeField, Tooltip("æ°·é­”æ³•ã®é€šå¸¸æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     GameObject _iceAttackEffect;
 
-    [SerializeField, Tooltip("•X–‚–@‚Ì‚Æ‚Ç‚ßUŒ‚ƒGƒtƒFƒNƒg")]
+    [SerializeField, Tooltip("æ°·é­”æ³•ã®ã¨ã©ã‚æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     GameObject _iceFinishEffect;
+
+    [SerializeField, Tooltip("è‰é­”æ³•ã®é€šå¸¸æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
+    GameObject _grassAttackEffect;
+
+    [SerializeField, Tooltip("è‰é­”æ³•ã®ã¨ã©ã‚æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
+    GameObject _grassFinishEffect;
 
     Rigidbody _rb;
     public Rigidbody Rb { get => _rb; set => _rb = value; }
@@ -134,7 +140,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             }
             else if(attackHitTyp == MagickType.Grass)
             {
-
+                GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
+                Destroy(grassAttack, 0.3f);
             }
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
@@ -148,7 +155,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void StartFinishing()
     {
-        gameObject.layer = 10;
+        gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
         StateChange(MoveState.Finish);
@@ -157,7 +164,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     public void StopFinishing()
     {
         Core.SetActive(false);
-        gameObject.layer = 3;
+        gameObject.layer = DefaultLayer;
         HP = _defaultHp;
     }
 
@@ -170,7 +177,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         }
         else if(_magicType == MagickType.Grass)
         {
-
+            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(grassAttack, 3f);
         }
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
