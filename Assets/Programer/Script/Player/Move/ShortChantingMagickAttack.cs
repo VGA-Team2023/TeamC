@@ -72,6 +72,8 @@ public class ShortChantingMagickAttack
         {
             //“G‚ğõ“G
             Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, _targetLayer);
+            Debug.Log("Offset:" + _offset + "Size:" + _size + "Layer:" + _targetLayer.value);
+            Debug.Log("“G‚Ì”:"+t.Length);
             if (t.Length == 0)
             {
                 //–‚–@‚ÌUŒ‚ˆ—
