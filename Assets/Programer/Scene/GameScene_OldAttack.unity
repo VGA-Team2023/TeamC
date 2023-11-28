@@ -11881,6 +11881,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 1311016408}
   _anim: {fileID: 604225502}
   _inputManager: {fileID: 1580661036}
+  _audio: {fileID: 0}
   _hitStopConrol: {fileID: 1774561326}
   _stateMachine: {}
 --- !u!54 &1311016408
@@ -12931,6 +12932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aefec02d7e84314196ce1293126a8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _control: {fileID: 1311016407}
 --- !u!114 &1580661037
 MonoBehaviour:
   m_ObjectHideFlags: 0
