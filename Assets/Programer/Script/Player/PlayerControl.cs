@@ -63,6 +63,11 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
 
+    [Header("‰¹")]
+    [SerializeField] private PlayerAudio _audio;
+
+    public PlayerAudio PlayerAudio => _audio;
+
     [SerializeField] private HitStopConrol _hitStopConrol;
 
     [SerializeField] private PlayerStateMachine _stateMachine = default;

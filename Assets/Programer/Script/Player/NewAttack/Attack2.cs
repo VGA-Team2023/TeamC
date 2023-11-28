@@ -53,7 +53,11 @@ public class Attack2
 
     public void DoAttack()
     {
+        //ÉJÉÅÉâïœçX
         _playerControl.CameraControl.UseAttackChargeCamera();
+
+        //âπ
+        _playerControl.PlayerAudio.IceCharge(true);
 
         _isAttackNow = true;
         _isCanNextAttack = false;
@@ -84,6 +88,9 @@ public class Attack2
             if (_playerControl.InputManager.IsAttackUp)
             {
                 _playerControl.CameraControl.UseDefultCamera(true);
+
+                //âπ
+                _playerControl.PlayerAudio.IceCharge(false);
 
 
                 _playerControl.Animator.SetBool("IsAttack", false);

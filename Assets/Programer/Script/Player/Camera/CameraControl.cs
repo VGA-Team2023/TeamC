@@ -111,11 +111,11 @@ public class CameraControl : MonoBehaviour
         }
         else if (cameraShakeType == CameraShakeType.EndFinishAttack)
         {
-            setPowerX = 1f;
+            setPowerX = 5f;
             setPowerY = 5f;
             setPowerZ = 0f;
-            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 2;
-            source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 2f;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 1;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 1f;
         }
         else
         {
