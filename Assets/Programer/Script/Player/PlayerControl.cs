@@ -133,7 +133,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     {
         _groundCheck.OnDrawGizmos(PlayerT);
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
-        _attack2.AttackMagic.OnDrwowGizmo(_playerT);
+        _attack2.AttackMagic.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
 

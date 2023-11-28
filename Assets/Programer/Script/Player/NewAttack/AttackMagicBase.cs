@@ -92,20 +92,29 @@ public class AttackMagicBase
         {
             //魔法陣を消す
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
-            Debug.Log("消す:" + i);
 
-            //foreach (var a in _magickData[_attackCount - 1].MagickData[i].UseMagicparticle)
-            //{
-            //    a.Play();
-            //}   //魔法を発動した時のエフェクト
             _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
 
             //魔法のプレハブを出す
             var go = UnityEngine.GameObject.Instantiate(_prefab);
-            go.transform.forward = _playerControl.PlayerT.forward;
             go.transform.position = _magickData[attackCount - 1].MagickData[i].MuzzlePos.position;
-            go.TryGetComponent<IMagicble>(out IMagicble magicble);
-            magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+
+            if (enemys.Length == 0)
+            {
+                go.transform.forward = _playerControl.PlayerT.forward;
+                go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+            }
+            else
+            {
+                go.transform.forward = _playerControl.PlayerT.forward;
+                go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                magicble.SetAttack(enemys[i % enemys.Length], _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+            }
+
+
+
+
         }
     }
 }

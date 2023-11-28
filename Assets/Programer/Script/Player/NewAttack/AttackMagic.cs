@@ -37,6 +37,7 @@ public class AttackMagic
     public ShortChantingMagicAttackMove ShortChantingMagicAttackMove => _shortChantingMagicAttackMove;
     public void Init(PlayerControl playerControl)
     {
+        Debug.Log("ÉåÉCÉÑÅ[:" + _targetLayer);
         _playerControl = playerControl;
         _shortChantingMagicAttackMove.Init(playerControl);
         _attackBase = _magicSetting[0];
@@ -87,7 +88,7 @@ public class AttackMagic
     {
         if (_isDrawGizmo)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.cyan;
 
             Quaternion r = Quaternion.Euler(0, origin.eulerAngles.y, 0);
             Gizmos.matrix = Matrix4x4.TRS(origin.position, r, origin.localScale);
