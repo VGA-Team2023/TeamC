@@ -6,6 +6,9 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerControl _control;
 
+    [Header("KeyBord‘€ì")]
+    [SerializeField] private bool _isKeybord = false;
+
     /// <summary>\‚¦‰Ÿ‚·</summary>
     private bool _isSetUpDown = false;
 
@@ -57,7 +60,7 @@ public class InputManager : MonoBehaviour
 
         _isJump = Input.GetButtonDown("Jump");
 
-        if (_control.IsNewAttack)
+        if (_control.IsNewAttack && !_isKeybord)
         {
             float v = Input.GetAxis("Trigger");
             if (v > 0)
