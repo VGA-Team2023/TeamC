@@ -14,11 +14,17 @@ public class CameraControl : MonoBehaviour
     [Header("通常時のカメラ")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
 
+    [Header("攻撃溜めのカメラ")]
+    [SerializeField] private CinemachineVirtualCamera _attackChargeCamera;
+
     [Header("トドメの時のカメラ")]
     [SerializeField] private CinemachineVirtualCamera _finishCamera;
 
     [Header("通常時のカメラ_振動")]
     [SerializeField] private CinemachineImpulseSource _defultCameraImpulsSource;
+
+    [Header("攻撃時のカメラ_振動")]
+    [SerializeField] private CinemachineImpulseSource _attckChargeCameraImpulsSource;
 
     [Header("構え時のカメラ_振動")]
     [SerializeField] private CinemachineImpulseSource _setUpCameraImpulsSource;
@@ -39,6 +45,14 @@ public class CameraControl : MonoBehaviour
     {
         _setUpCameraSetting.Init(this, _defultCamera);
         _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
+    }
+
+    public void UseAttackChargeCamera()
+    {
+        _attackChargeCamera.Priority = 10;
+        _defultCamera.Priority = 0;
+        _finishCamera.Priority = 0;
+
     }
 
     public void UseDefultCamera(bool isReset)
@@ -76,7 +90,7 @@ public class CameraControl : MonoBehaviour
         }
         else
         {
-            source = _defultCameraImpulsSource;
+            source = _attckChargeCameraImpulsSource;
         }
 
         source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.2f;
@@ -100,7 +114,7 @@ public class CameraControl : MonoBehaviour
             setPowerX = 1f;
             setPowerY = 5f;
             setPowerZ = 0f;
-            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime =2;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 2;
             source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 2f;
         }
         else
@@ -118,6 +132,7 @@ public class CameraControl : MonoBehaviour
 public enum CameraType
 {
     Defult,
+    AttackCharge,
     FinishCamera,
     All,
 }
