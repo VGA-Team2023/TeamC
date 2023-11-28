@@ -25,13 +25,6 @@ public class ColliderCheck
         r.z = 0;
 
         var d = Physics.OverlapBox(new Vector3(posX, posY, posz), size, r, layer);
-        Debug.Log("çıìG:"+d.Length);
-        Debug.Log("ÉåÉCÉÑÅ[:"+layer);
-        foreach (Collider c in d)
-        {
-            Debug.Log("ñºëO:" + c.gameObject.name);
-        }
-
         return d;
     }
 

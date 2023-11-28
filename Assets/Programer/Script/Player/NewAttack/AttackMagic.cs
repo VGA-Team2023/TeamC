@@ -66,11 +66,13 @@ public class AttackMagic
         }
 
         //“G‚ğõ“G
-        Transform[] t = _playerControl.ColliderCheck.EnemySearch(SearchType.AllEnemy, _offset, _size, _targetLayer);
+        // Transform[] t = CheckFinishingEnemy();
+        //“G‚ğõ“G
+        Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size,128);
         if (t.Length == 0)
         {
             //–‚–@‚ÌUŒ‚ˆ—
-            _attackBase.UseMagick(t,attackCount);
+            _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(null);
         }
         else
@@ -80,6 +82,8 @@ public class AttackMagic
             _shortChantingMagicAttackMove.SetEnemy(t[0]);
         }   //ƒ^ƒ‚ª’x‚¢‚Æ‚«s
     }
+
+
 
 
 
