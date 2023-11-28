@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _magicType: 0
-  _lifeTime: 7
-  _speed: 20
+  _lifeTime: 15
+  _speed: 30
   _rb: {fileID: -674572139640730017}
 --- !u!54 &-674572139640730017
 Rigidbody:

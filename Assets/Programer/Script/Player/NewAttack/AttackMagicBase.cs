@@ -89,6 +89,7 @@ public class AttackMagicBase
     public void UseMagick(Transform[] enemys, int attackCount)
     {
         Debug.Log(enemys.Length);
+        _playerControl.PlayerAudio.IceFire(_setUpMagicCount);
         for (int i = 0; i < _setUpMagicCount; i++)
         {
             //–‚–@w‚ðÁ‚·
@@ -99,9 +100,9 @@ public class AttackMagicBase
                 _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
             }
 
-            if (_magickData[attackCount - 1].MagickData[i].UseMagicparticle.Count!=0)
+            if (_magickData[attackCount - 1].MagickData[i].UseMagicparticle.Count != 0)
             {
-                foreach(var a in _magickData[attackCount - 1].MagickData[i].UseMagicparticle)
+                foreach (var a in _magickData[attackCount - 1].MagickData[i].UseMagicparticle)
                 {
                     a.Play();
                 }
@@ -120,7 +121,7 @@ public class AttackMagicBase
             }
             else
             {
-                go.transform.forward = _playerControl.PlayerT.forward;
+                go.transform.forward = enemys[i % enemys.Length].transform.position - go.transform.position;
                 go.TryGetComponent<IMagicble>(out IMagicble magicble);
                 magicble.SetAttack(enemys[i % enemys.Length], _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
             }

@@ -53,6 +53,12 @@ public class Attack2
 
     public void DoAttack()
     {
+        //ÉJÉÅÉâïœçX
+        _playerControl.CameraControl.UseAttackChargeCamera();
+
+        //âπ
+        _playerControl.PlayerAudio.IceCharge(true);
+
         _isAttackNow = true;
         _isCanNextAttack = false;
         _isAttackInput = false;
@@ -81,6 +87,12 @@ public class Attack2
             _attackMagic.MagicBase.SetUpChargeMagic(_attackCount);
             if (_playerControl.InputManager.IsAttackUp)
             {
+                _playerControl.CameraControl.UseDefultCamera(true);
+
+                //âπ
+                _playerControl.PlayerAudio.IceCharge(false);
+
+
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);
                 _isAttackInput = true;

@@ -199,7 +199,7 @@ public class FinishingAttack
         _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
 
 
-        LineSetting();
+       // LineSetting();
 
 
         //アニメーション再生

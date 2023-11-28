@@ -58,7 +58,7 @@ public class AttackMagic
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
         //ƒJƒƒ‰‚ÌU“®
-        _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
+        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
 
         if (attackCount == _magicSetting.Count)
         {
