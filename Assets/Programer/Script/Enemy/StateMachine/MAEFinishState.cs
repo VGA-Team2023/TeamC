@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MAEFinishState : IStateMachine
 {
@@ -13,6 +13,7 @@ public class MAEFinishState : IStateMachine
 
     public void Enter()
     {
+        //タイマーをスタートさせる
         _isTimeStart = true;
         _timer = 0;
     }
@@ -20,7 +21,6 @@ public class MAEFinishState : IStateMachine
     public void Exit()
     {
         _isTimeStart = false;
-        _timer = 0;
         _enemy.StopFinishing();
     }
 
@@ -28,6 +28,7 @@ public class MAEFinishState : IStateMachine
     {
         if (_isTimeStart)
         {
+            //一定時間が経過したらとどめ可能な状態から通常状態に戻る
             _timer += Time.deltaTime;
             if (_timer > _enemy.FinishStopInterval)
             {

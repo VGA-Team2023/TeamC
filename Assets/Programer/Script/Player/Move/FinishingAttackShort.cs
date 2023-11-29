@@ -1,23 +1,23 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class FinishingAttackShort
 {
-    [Header("[-=====‹ß‚¢‹——£‚Ìƒgƒhƒ‚ÌƒGƒtƒFƒNƒgİ’è===-]")]
+    [Header("[-=====è¿‘ã„è·é›¢ã®ãƒˆãƒ‰ãƒ¡ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š===-]")]
     [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
 
-    [Header("ƒgƒhƒ‚ğ‚³‚·ŠÔ_e")]
+    [Header("ãƒˆãƒ‰ãƒ¡ã‚’ã•ã™æ™‚é–“_éŠƒ")]
     [SerializeField] private float _finishTime = 1f;
 
-    [Header("”»’è_Offset_‰“‹——£")]
+    [Header("åˆ¤å®š_Offset_é è·é›¢")]
     [SerializeField] private Vector3 _offset = new Vector3(0, 0, 3);
 
-    [Header("”»’è_Size_‰“‹——£")]
+    [Header("åˆ¤å®š_Size_é è·é›¢")]
     [SerializeField] private Vector3 _boxSize = new Vector3(10, 10, 10);
 
-    [Header("Gizmo‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©")]
+    [Header("Gizmoã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹")]
     [SerializeField] private bool _isDrawGizmo = true;
 
 

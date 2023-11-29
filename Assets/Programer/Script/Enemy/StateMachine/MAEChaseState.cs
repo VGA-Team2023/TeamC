@@ -1,11 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// プレイヤーを発見したらプレイヤーのに向かって移動するステート
+/// </summary>
 public class MAEChaseState : IStateMachine
 {
     MeleeAttackEnemy _enemy;
     PlayerControl _player;
-    float _timer;
-    float _random;
 
     public MAEChaseState(MeleeAttackEnemy enemy, PlayerControl player)
     {
@@ -24,26 +25,21 @@ public class MAEChaseState : IStateMachine
 
     public void Update()
     {
-        _timer += Time.deltaTime;
+        //プレイヤーとの距離を算出
         float distance = Vector3.Distance(_enemy.transform.position, _player.transform.position);
         if(distance < _enemy.ChaseDistance)
         {
+            //アタック可能な距離まで近づいたらアタックステートに移行
             _enemy.StateChange(EnemyBase.MoveState.Attack);
         }
         if(distance > _enemy.SearchRange)
         {
+            //一定距離離れるとフリームーブステートに移行
             _enemy.StateChange(EnemyBase.MoveState.FreeMove);
         }
+        //プレイヤーがいる方向を算出してプレイヤーに近づく
         var dir = (_player.transform.position - _enemy.transform.position).normalized;
         _enemy.transform.forward = new Vector3(dir.x, 0, dir.z);
-        if (_timer > 1f)
-        {
-            _random = Random.Range(-2f, -3f);
-            _timer = 0;
-        }
-        //Debug.Log(Random.Range(0f, _enemy.Random));
         _enemy.Rb.velocity = (_enemy.transform.forward * _enemy.Speed) + new Vector3(0, dir.y , 0);
-        //Vector3.Slerp(_enemy.transform.position, new Vector3(_enemy.transform.position.x, dir.y + _random, _enemy.transform.position.z), 2);
-
     }
 }

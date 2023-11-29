@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class FinishAttackEvent : MonoBehaviour
 
     public void ResetTime()
     {
-        //ŠÔ‚ğ’x‚­‚·‚é
+        //æ™‚é–“ã‚’é…ãã™ã‚‹
        // GameManager.Instance.SlowManager.OnOffSlow(false);
     }
 

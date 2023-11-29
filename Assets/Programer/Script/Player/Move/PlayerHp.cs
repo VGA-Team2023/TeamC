@@ -1,14 +1,14 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerHp
 {
-    [Header("===UIê›íË===")]
+    [Header("===UIË®≠ÂÆö===")]
     [SerializeField] private PlayerHpUI _uiHp;
 
-    [Header("PlayerÇÃHp")]
+    [Header("Player„ÅÆHp")]
     [SerializeField] private float _hp;
 
     private float _nowHp = 0;

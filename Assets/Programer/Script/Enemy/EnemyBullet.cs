@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBullet : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField,Tooltip("弾の速度")]
     float _bulletSpeed;
     Rigidbody _rb;
     Vector3 _shootForward;

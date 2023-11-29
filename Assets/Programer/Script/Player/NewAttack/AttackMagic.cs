@@ -1,26 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class AttackMagic
 {
-    [Header("===–‚–@‚Ìİ’è===")]
+    [Header("===é­”æ³•ã®è¨­å®š===")]
     [SerializeField] private List<AttackMagicBase> _magicSetting = new List<AttackMagicBase>();
 
-    [Header("ˆÚ“®İ’è")]
+    [Header("ç§»å‹•è¨­å®š")]
     [SerializeField] private ShortChantingMagicAttackMove _shortChantingMagicAttackMove;
 
-    [Header("UŒ‚‚Ìí—Ş")]
+    [Header("æ”»æ’ƒã®ç¨®é¡")]
     [SerializeField] private SearchType _searchType = SearchType.NearlestEnemy;
 
-    [Header("“–‚½‚è”»’è_Offset")]
+    [Header("å½“ãŸã‚Šåˆ¤å®š_Offset")]
     [SerializeField] private Vector3 _offset;
 
-    [Header("“–‚½‚è”»’è_Size")]
+    [Header("å½“ãŸã‚Šåˆ¤å®š_Size")]
     [SerializeField] private Vector3 _size;
 
-    [Header("“G‚ÌƒŒƒCƒ„[")]
+    [Header("æ•µã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] private LayerMask _targetLayer;
 
     [SerializeField]
@@ -37,7 +37,7 @@ public class AttackMagic
     public ShortChantingMagicAttackMove ShortChantingMagicAttackMove => _shortChantingMagicAttackMove;
     public void Init(PlayerControl playerControl)
     {
-        Debug.Log("ƒŒƒCƒ„[:" + _targetLayer);
+        Debug.Log("ãƒ¬ã‚¤ãƒ¤ãƒ¼:" + _targetLayer);
         _playerControl = playerControl;
         _shortChantingMagicAttackMove.Init(playerControl);
         _attackBase = _magicSetting[0];
@@ -46,18 +46,18 @@ public class AttackMagic
 
 
     /// <summary>
-    /// ”ÍˆÍ“à‚É‚ ‚éƒRƒ‰ƒCƒ_[‚ğæ“¾‚·‚é
+    /// ç¯„å›²å†…ã«ã‚ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns> ˆÚ“®•ûŒü :³‚Ì’l, •‰‚Ì’l </returns>
+    /// <returns> ç§»å‹•æ–¹å‘ :æ­£ã®å€¤, è² ã®å€¤ </returns>
     public void Attack(int attackCount)
     {
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
         _playerControl.PlayerAnimControl.SetAttackTrigger();
 
-        //ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®
+        //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
-        //ƒJƒƒ‰‚ÌU“®
+        //ã‚«ãƒ¡ãƒ©ã®æŒ¯å‹•
         _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
 
         if (attackCount == _magicSetting.Count)
@@ -65,22 +65,22 @@ public class AttackMagic
             _isCanAttack = false;
         }
 
-        //“G‚ğõ“G
+        //æ•µã‚’ç´¢æ•µ
         // Transform[] t = CheckFinishingEnemy();
-        //“G‚ğõ“G
+        //æ•µã‚’ç´¢æ•µ
         Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size,128);
         if (t.Length == 0)
         {
-            //–‚–@‚ÌUŒ‚ˆ—
+            //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
             _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(null);
         }
         else
         {
-            //–‚–@‚ÌUŒ‚ˆ—
+            //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
             _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(t[0]);
-        }   //ƒ^ƒ‚ª’x‚¢‚Æ‚«s
+        }   //ã‚¿ãƒ¡ãŒé…ã„ã¨ãs
     }
 
 

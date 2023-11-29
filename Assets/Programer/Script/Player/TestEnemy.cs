@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,39 +8,39 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
 
     [SerializeField] private Rigidbody _rb;
 
-    [Header("“®‚«‚Ìƒ^ƒCƒv")]
+    [Header("å‹•ãã®ã‚¿ã‚¤ãƒ—")]
     [SerializeField] private bool _isGun = false;
 
-    [Header("ƒGƒtƒFƒNƒgã")]
+    [Header("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå¼±")]
     [SerializeField] private List<ParticleSystem> pLow = new List<ParticleSystem>();
 
-    [Header("ƒGƒtƒFƒNƒg‹­")]
+    [Header("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå¼·")]
     [SerializeField] private List<ParticleSystem> pHigh = new List<ParticleSystem>();
 
-    [Header("‘Ì—Í")]
+    [Header("ä½“åŠ›")]
     [SerializeField] private int _maxHp = 3;
 
-    [Header("’Êí‚ÌƒŒƒCƒ„[")]
+    [Header("é€šå¸¸ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] private int _defaltLayerNum = 8;
 
-    [Header("ã“_‚Ì‚ÌƒŒƒCƒ„[")]
+    [Header("å¼±ç‚¹æ™‚ã®ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] private int _lowLayerNum = 9;
 
-    [Header("Œ‚”j‚ÌƒGƒtƒFƒNƒg")]
+    [Header("æ’ƒç ´æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private GameObject _downEffect;
 
-    [Header("ƒRƒA")]
+    [Header("ã‚³ã‚¢")]
     [SerializeField] private GameObject _corec;
 
-    [Header("’e")]
+    [Header("å¼¾")]
     [SerializeField] private GameObject _bullet;
 
-    [Header("”­ËƒŒ[ƒg")]
+    [Header("ç™ºå°„ãƒ¬ãƒ¼ãƒˆ")]
     [SerializeField] private float _rate = 7;
 
-    [Header("ƒ}ƒYƒ‹")]
+    [Header("ãƒã‚ºãƒ«")]
     [SerializeField] private Transform _muzzle;
-    [Header("‰ñ“]‘¬“x")]
+    [Header("å›è»¢é€Ÿåº¦")]
     [SerializeField] private float _rotationSpeed = 200;
 
     [SerializeField] private TstWave _wave;

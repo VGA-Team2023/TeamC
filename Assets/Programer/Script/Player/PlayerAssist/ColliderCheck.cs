@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,9 +75,9 @@ public class ColliderCheck
 
 public enum SearchType
 {
-    /// <summary>�͈͓��̑S�Ă̓G</summary>
+    /// <summary>範囲内の全ての敵</summary>
     AllEnemy,
 
-    /// <summary>��ԋ����̋߂��G</summary>
+    /// <summary>一番距離の近い敵</summary>
     NearlestEnemy,
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -6,19 +6,19 @@ using Cinemachine;
 [System.Serializable]
 public class FinishAttackCamera
 {
-    [Header("’Êí‚ÌFOV")]
+    [Header("é€šå¸¸ã®FOV")]
     [SerializeField] private float _defaltFOV = 60;
 
-    [Header("Å‘å‚ÌFOV")]
+    [Header("æœ€å¤§ã®FOV")]
     [SerializeField] private float _maxFOV = 60;
 
-    [Header("Å¬‚ÌFOV")]
+    [Header("æœ€å°ã®FOV")]
     [SerializeField] private float _minFOV = 50;
 
     [Header("FOV")]
     [SerializeField] private float _changeFOVSpeed = 3;
 
-    [Header("Å‘åDutch")]
+    [Header("æœ€å¤§Dutch")]
     [SerializeField] private float _maxDutch = 20;
 
     [SerializeField] private float _changeTime = 0.3f;
@@ -51,7 +51,7 @@ public class FinishAttackCamera
         _finishCameraPov = finishCamera.GetCinemachineComponent<CinemachinePOV>();
     }
 
-    // Šp“x‚ğ-180“x‚©‚ç180“x‚É³‹K‰»‚·‚éŠÖ”
+    // è§’åº¦ã‚’-180åº¦ã‹ã‚‰180åº¦ã«æ­£è¦åŒ–ã™ã‚‹é–¢æ•°
     float NormalizeAngle(float angle)
     {
         while (angle > 180f)
@@ -83,7 +83,7 @@ public class FinishAttackCamera
     }
 
 
-    /// <summary>ƒgƒhƒ‚ğ‚³‚·Û‚ÉƒJƒƒ‰‚ğ“G‚ÉŒü‚¯‚éB‚»‚Ì‰Šúİ’è</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã‚’ã•ã™éš›ã«ã‚«ãƒ¡ãƒ©ã‚’æ•µã«å‘ã‘ã‚‹ã€‚ãã®åˆæœŸè¨­å®š</summary>
     /// <param name="enemyPos"></param>
     public void SetCameraFOVStartFinish(Vector3 enemyPos)
     {
@@ -99,13 +99,13 @@ public class FinishAttackCamera
         _set = NormalizeAngle(_targetRotation.eulerAngles.y);
     }
 
-    /// <summary>ƒgƒhƒ‚ğ‚³‚·Û‚ÉƒJƒƒ‰‚ğ“G‚ÉŒü‚¯‚éB‚»‚ÌÀs</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã‚’ã•ã™éš›ã«ã‚«ãƒ¡ãƒ©ã‚’æ•µã«å‘ã‘ã‚‹ã€‚ãã®å®Ÿè¡Œ</summary>
     public void DoFinishCameraSettingFirst()
     {
         if (_finishCamera.m_Lens.FieldOfView > _minFOV)
         {
             _finishCamera.m_Lens.FieldOfView -= Time.deltaTime * _changeFOVSpeed;
-        }   //ƒJƒƒ‰‚Ì”ÍˆÍ‚ğL‚°‚é
+        }   //ã‚«ãƒ¡ãƒ©ã®ç¯„å›²ã‚’åºƒã’ã‚‹
 
 
 

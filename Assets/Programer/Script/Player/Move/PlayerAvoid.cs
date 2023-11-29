@@ -1,23 +1,23 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerAvoid
 {
-    [Header("‰ñ”ğ‚ÌˆÚ“®İ’è")]
+    [Header("å›é¿ã®ç§»å‹•è¨­å®š")]
     [SerializeField] private PlayerAvoidMove _avoidMove;
 
-    [Header("‰ñ”ğŠÔ")]
+    [Header("å›é¿æ™‚é–“")]
     [SerializeField] private float _avoidTime = 0.5f;
 
-    [Header("’Êí‚ÌƒvƒŒƒCƒ„[‚Ìƒ}ƒeƒŠƒAƒ‹")]
+    [Header("é€šå¸¸ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«")]
     [SerializeField] private Material _defaultMaterial;
 
-    [Header("‰ñ”ğ’†‚ÌƒvƒŒƒCƒ„[‚Ìƒ}ƒeƒŠƒAƒ‹")]
+    [Header("å›é¿ä¸­ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«")]
     [SerializeField] private Material _avoidMaterial;
 
-    [Header("‰ñ”ğI—¹‚ÌƒGƒtƒFƒNƒg")]
+    [Header("å›é¿çµ‚äº†æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private List<ParticleSystem> _endParticle = new List<ParticleSystem>();
 
     [SerializeField] private GameObject _dummy;
@@ -59,7 +59,7 @@ public class PlayerAvoid
     }
 
 
-    /// <summary>‰ñ”ğ‚ğŠJn</summary>
+    /// <summary>å›é¿ã‚’é–‹å§‹</summary>
     public void StartAvoid()
     {
         _isEndAvoid = false;
@@ -74,20 +74,20 @@ public class PlayerAvoid
 
     }
 
-    /// <summary>‰ñ”ğ‚ÌŠJnƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½–‚ğ’Ê’m</summary>
+    /// <summary>å›é¿ã®é–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸäº‹ã‚’é€šçŸ¥</summary>
     public void StartAvoidAnim()
     {
         _playerControl.MeshRenderer.material = _avoidMaterial;
     }
 
-    /// <summary>‰ñ”ğ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½–‚ğ’Ê’m</summary>
+    /// <summary>å›é¿ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸäº‹ã‚’é€šçŸ¥</summary>
     public void EndAvoidAnim()
     {
         _isEndAnimation = true;
     }
 
 
-    /// <summary>‰ñ”ğ‚ğŠ®—¹</summary>
+    /// <summary>å›é¿ã‚’å®Œäº†</summary>
     public void EndMove()
     {
         _playerControl.MeshRenderer.material = _defaultMaterial;
@@ -102,7 +102,7 @@ public class PlayerAvoid
 
     }
 
-    /// <summary>‰ñ”ğ’†‚ÌÀs</summary>
+    /// <summary>å›é¿ä¸­ã®å®Ÿè¡Œ</summary>
     public void DoAvoid()
     {
         if (_isEndAvoid) return;
@@ -114,7 +114,7 @@ public class PlayerAvoid
     }
 
 
-    /// <summary>‰ñ”ğ‚ÌÀsŠÔ‚ğŒv‘ª‚·‚é/summary>
+    /// <summary>å›é¿ã®å®Ÿè¡Œæ™‚é–“ã‚’è¨ˆæ¸¬ã™ã‚‹/summary>
     public void CountAvoidTime()
     {
         if (_isEndAvoid) return;

@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Player‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚éƒCƒ“ƒ^[ƒtƒFƒCƒX
+/// Playerã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 /// </summary>
 public interface IPlayerDamageble
 {
 
-    /// <summary>ƒ_ƒ[ƒW‚ğ—^‚¦‚é </summary>
-    /// <param name="damage">UŒ‚—Í</param>
+    /// <summary>ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹ </summary>
+    /// <param name="damage">æ”»æ’ƒåŠ›</param>
      void Damage(float damage);
 }
