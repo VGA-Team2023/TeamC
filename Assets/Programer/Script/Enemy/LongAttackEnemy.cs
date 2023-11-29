@@ -1,34 +1,40 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
 {
-    [Header("“G‚Ì‹““®‚ÉŠÖ‚·‚é€–Ú")]
-    [SerializeField, Tooltip("ˆÚ“®æ‚ÌêŠ")]
+    [Header("æ•µã®æŒ™å‹•ã«é–¢ã™ã‚‹é …ç›®")]
+    [SerializeField, Tooltip("ç§»å‹•å…ˆã®å ´æ‰€")]
     List<Transform> _movePosition = new List<Transform>();
 
-    [SerializeField, Tooltip("‚Ç‚ê‚­‚ç‚¢ˆÚ“®æ‚É‹ß‚Ã‚¢‚½‚çŸ‚Ì’n“_‚És‚­‚©")]
+    [SerializeField, Tooltip("ã©ã‚Œãã‚‰ã„ç§»å‹•å…ˆã«è¿‘ã¥ã„ãŸã‚‰æ¬¡ã®åœ°ç‚¹ã«è¡Œãã‹")]
     float _changePointDistance = 0.5f;
     public float ChangeDistance => _changePointDistance;
 
-    [SerializeField, Tooltip("ƒXƒ[‚É‚È‚Á‚½‚ÌƒvƒŒƒCƒ„[‚ÌƒXƒs[ƒh")]
+    [SerializeField, Tooltip("ã‚¹ãƒ­ãƒ¼ã«ãªã£ãŸæ™‚ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float _slowSpeed;
     [Header("====================")]
 
-    [Header("’e‚ÉŠÖ‚·‚é€–Ú")]
-    [SerializeField, Tooltip("”­Ë‚·‚é’e‚ÌPrefab")]
+    [Header("å¼¾ã«é–¢ã™ã‚‹é …ç›®")]
+    [SerializeField, Tooltip("ç™ºå°„ã™ã‚‹å¼¾ã®Prefab")]
     GameObject _bulletPrefab;
 
-    [SerializeField, Tooltip("’e‚Ì”­ËˆÊ’u")]
+    [SerializeField, Tooltip("å¼¾ã®ç™ºå°„ä½ç½®")]
     Transform _muzzle;
     [Header("====================")]
 
-    [Header("¶¬‚·‚éƒIƒuƒWƒFƒNƒg")]
-    [SerializeField, Tooltip("•X–‚–@‚Ì’ÊíUŒ‚ƒGƒtƒFƒNƒg")]
+    [Header("ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    [SerializeField, Tooltip("æ°·é­”æ³•ã®é€šå¸¸æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     GameObject _iceAttackEffect;
 
-    [SerializeField, Tooltip("•X–‚–@‚Ì‚Æ‚Ç‚ßUŒ‚ƒGƒtƒFƒNƒg")]
+    [SerializeField, Tooltip("æ°·é­”æ³•ã®ã¨ã©ã‚æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     GameObject _iceFinishEffect;
+
+    [SerializeField, Tooltip("è‰é­”æ³•ã®é€šå¸¸æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
+    GameObject _grassAttackEffect;
+
+    [SerializeField, Tooltip("è‰é­”æ³•ã®ã¨ã©ã‚æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
+    GameObject _grassFinishEffect;
 
     Rigidbody _rb;
     public Rigidbody Rb { get => _rb; set => _rb = value; }
@@ -128,7 +134,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             }
             else if (attackHitTyp == MagickType.Grass)
             {
-
+                GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
+                Destroy(grassAttack, 0.3f);
             }
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
@@ -142,7 +149,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StartFinishing()
     {
-        gameObject.layer = 10;
+        gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
         StateChange(MoveState.Finish);
@@ -151,7 +158,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public void StopFinishing()
     {
         Core.SetActive(false);
-        gameObject.layer = 3;
+        gameObject.layer = DefaultLayer;
         HP = _defaultHp;
     }
 
@@ -164,7 +171,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
         else if (_magicType == MagickType.Grass)
         {
-
+            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(grassAttack, 3f);
         }
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);

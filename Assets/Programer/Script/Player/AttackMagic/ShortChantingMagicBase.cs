@@ -23,11 +23,24 @@ public class ShortChantingMagicBase
     [Header("ための時の魔法陣")]
     [SerializeField] private List<GameObject> _magickTame = new List<GameObject>();
 
-    [Header("魔法陣から魔法を出したときのエフェクト")]
-    [SerializeField] private List<GameObject> _magickEffect = new List<GameObject>();
+
 
     [Header("パーティクル")]
     [SerializeField] private List<ParticleSystem> _particleSystem = new List<ParticleSystem>();
+
+    [Header("魔法陣から魔法を出したときのエフェクト1")]
+    [SerializeField] private List<ParticleSystem> _magickEffect1 = new List<ParticleSystem>();
+
+    [Header("魔法陣から魔法を出したときのエフェクト1")]
+    [SerializeField] private List<ParticleSystem> _magickEffect2 = new List<ParticleSystem>();
+
+    [Header("魔法陣から魔法を出したときのエフェクト1")]
+    [SerializeField] private List<ParticleSystem> _magickEffect3 = new List<ParticleSystem>();
+    [Header("魔法陣から魔法を出したときのエフェクト1")]
+    [SerializeField] private List<ParticleSystem> _magickEffect4 = new List<ParticleSystem>();
+    [Header("魔法陣から魔法を出したときのエフェクト1")]
+    [SerializeField] private List<ParticleSystem> _magickEffect5 = new List<ParticleSystem>();
+
 
     [Header("飛ばす魔法のプレハブ_短い詠唱")]
     [SerializeField] private GameObject _prefab;
@@ -101,7 +114,46 @@ public class ShortChantingMagicBase
 
         if (_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack)
         {
-            _magickEffect[num].SetActive(true);
+            if (num == 0)
+            {
+                foreach (var a in _magickEffect1)
+                {
+                    a.Play();
+                }
+            }
+            else if (num == 1)
+            {
+                foreach (var a in _magickEffect2)
+                {
+                    a.Play();
+                }
+            }
+            else if (num == 2)
+            {
+                foreach (var a in _magickEffect3)
+                {
+                    a.Play();
+                }
+            }
+            else if (num == 3)
+            {
+                foreach (var a in _magickEffect4)
+                {
+                    a.Play();
+                }
+            }
+            else if (num == 4)
+            {
+                foreach (var a in _magickEffect5)
+                {
+                    a.Play();
+                }
+            }
+
+
+
+
+
         }
 
 
@@ -162,10 +214,12 @@ public class ShortChantingMagicBase
     public void UnSetMagick()
     {
         //魔法陣無しの場合、テスト
-        if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
-
-        _magick.ForEach(i => i.SetActive(false));
-        _magickTame.ForEach(i => i.SetActive(false));
+        if (!_playerControl.IsNewAttack)
+        {
+            if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
+            _magick.ForEach(i => i.SetActive(false));
+            _magickTame.ForEach(i => i.SetActive(false));
+        }
     }
 
 

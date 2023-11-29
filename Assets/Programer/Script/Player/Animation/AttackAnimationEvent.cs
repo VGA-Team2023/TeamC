@@ -9,7 +9,21 @@ public class AttackAnimationEvent : MonoBehaviour
 
     public void IsCanNextAttack()
     {
-        _playerControl.Attack.IsCanNextAttack = true;
+        if (_playerControl.IsNewAttack)
+        {
+            _playerControl.Attack2.IsCanNextAttack = true;
+        }
+        else
+        {
+            _playerControl.Attack.IsCanNextAttack = true;
+        }
+    }
+
+    public void CanAttack()
+    {
+        Debug.Log("REEE");
+        _playerControl.Attack2.ResetAttack();
+        IsCanNextAttack();
     }
 
 

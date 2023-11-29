@@ -23,11 +23,12 @@ public class Attack
 
     private bool _isAttackNow = false;
 
-    private bool _isAttackInput = false;
-    public bool IsAttackInput => _isAttackInput;
     private PlayerControl _playerControl;
-    public bool IsPushAttack => _isPushAttack;
+    private bool _isAttackInput = false;
 
+ 
+    public bool IsAttackInput => _isAttackInput;
+    public bool IsPushAttack => _isPushAttack;
     public ShortChantingMagickAttack ShortChantingMagicAttack => _shortChantingMagicAttack;
 
     public bool IsAttackNow { get => _isAttackNow; set => _isAttackNow = value; }
@@ -60,7 +61,7 @@ public class Attack
         {
             _countTime += Time.deltaTime;
 
-            if(_countTime> _shortChantingMagicAttack.TameTime && !_tame.activeSelf)
+            if (_countTime > _shortChantingMagicAttack.TameTime && !_tame.activeSelf)
             {
                 _notame.SetActive(false);
                 _tame.SetActive(true);

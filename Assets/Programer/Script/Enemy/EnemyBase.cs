@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using UnityEditor.Rendering;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    [Header("“G‚ÌƒXƒe[ƒ^ƒX‚ÉŠÖ‚·‚é”’l")]
-    [SerializeField, Tooltip("ƒGƒlƒ~[‚Ì‘Ì—Í")]
+    [Header("æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«é–¢ã™ã‚‹æ•°å€¤")]
+    [SerializeField, Tooltip("ã‚¨ãƒãƒŸãƒ¼ã®ä½“åŠ›")]
     int _hp;
     public int HP
     {
@@ -19,13 +19,13 @@ public abstract class EnemyBase : MonoBehaviour
             }
         }
     }
-    [SerializeField, Tooltip("ƒGƒlƒ~[‚ÌUŒ‚—Í")]
+    [SerializeField, Tooltip("ã‚¨ãƒãƒŸãƒ¼ã®æ”»æ’ƒåŠ›")]
     int _attack;
     public int Attack => _attack;
     [Header("====================")]
 
-    [Header("“G‚Ì‹““®‚ÉŠÖ‚·‚é”’l")]
-    [SerializeField, Tooltip("ƒGƒlƒ~[‚ÌˆÚ“®‘¬“x")]
+    [Header("æ•µã®æŒ™å‹•ã«é–¢ã™ã‚‹æ•°å€¤")]
+    [SerializeField, Tooltip("ã‚¨ãƒãƒŸãƒ¼ã®ç§»å‹•é€Ÿåº¦")]
     float _speed;
     public float Speed
     {
@@ -35,10 +35,10 @@ public abstract class EnemyBase : MonoBehaviour
             _speed = value;
         }
     }
-    [SerializeField, Tooltip("UŒ‚‚ÌŠÔŠu")]
+    [SerializeField, Tooltip("æ”»æ’ƒã®é–“éš”")]
     float _attackInterval;
     public float AttackInterval => _attackInterval;
-    [SerializeField, Tooltip("ƒvƒŒƒCƒ„[‚ğŒŸo‚·‚é”ÍˆÍ(Ô‚¢‰~)"), Range(0, 10)]
+    [SerializeField, Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¤œå‡ºã™ã‚‹ç¯„å›²(èµ¤ã„å††)"), Range(0, 10)]
     float _searchRange;
     public float SearchRange => _searchRange;
     [SerializeField]
@@ -46,23 +46,23 @@ public abstract class EnemyBase : MonoBehaviour
     public float FinishStopInterval => _finishStopInterval;
     [Header("====================")]
 
-    [Header("‚Æ‚Ç‚ß‚ÌUŒ‚‚ğo—ˆ‚é‚©”»’è‚·‚éƒŒƒCƒ„[")]
-    [SerializeField, Tooltip("’Êí‚ÌƒŒƒCƒ„[")]
-    LayerMask _defaultLayer;
-    public LayerMask DefaultLayer => _defaultLayer;
-    [SerializeField, Tooltip("‚Æ‚Ç‚ß‚ª‰Â”\‚ÈƒŒƒCƒ„[")]
-    LayerMask _finishLayer;
-    public LayerMask FinishLayer => _finishLayer;
+    [Header("ã¨ã©ã‚ã®æ”»æ’ƒã‚’å‡ºæ¥ã‚‹ã‹åˆ¤å®šã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
+    [SerializeField, Tooltip("é€šå¸¸ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
+    int _defaultLayer;
+    public int DefaultLayer => _defaultLayer;
+    [SerializeField, Tooltip("ã¨ã©ã‚ãŒå¯èƒ½ãªãƒ¬ã‚¤ãƒ¤ãƒ¼")]
+    int _finishLayer;
+    public int FinishLayer => _finishLayer;
     [Header("====================")]
 
-    [Header("¶¬‚·‚éƒIƒuƒWƒFƒNƒg")]
-    [SerializeField, Tooltip("ƒRƒA‚ÌƒIƒuƒWƒFƒNƒg")]
+    [Header("ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    [SerializeField, Tooltip("ã‚³ã‚¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject _core;
     public GameObject Core => _core;
 
-    //enemy‚ÌHP‚ª0‚É‚È‚Á‚½‚ÉŒÄ‚Î‚ê‚é
+    //enemyã®HPãŒ0ã«ãªã£ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹
     public event Action OnEnemyDestroy;
-    //enemy‚ª”j‰ó‚³‚ê‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”
+    //enemyãŒç ´å£Šã•ã‚ŒãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
     public event Action OnEnemyFinish;
 
     public void EnemyFinish()

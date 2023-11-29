@@ -43,6 +43,9 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
             _moveDir = _foward;
         }
 
+        var r = Random.Range(1, 1.5f);
+        _speed = r * _speed;
+
         Destroy(gameObject, _lifeTime);
     }
 
