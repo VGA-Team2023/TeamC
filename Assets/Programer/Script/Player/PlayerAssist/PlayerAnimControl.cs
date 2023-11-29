@@ -39,6 +39,8 @@ public class PlayerAnimControl
     {
         _playerControl.Animator.SetFloat("Speed", _playerControl.Rb.velocity.magnitude);
         _playerControl.Animator.SetFloat("SpeedY", _playerControl.Rb.velocity.y);
+        _playerControl.Animator.SetFloat("InputX", _playerControl.InputManager.HorizontalInput);
+        _playerControl.Animator.SetFloat("InputY", _playerControl.InputManager.VerticalInput);
         _playerControl.Animator.SetBool("IsGround", _playerControl.GroundCheck.IsHit());
 
         var h = _playerControl.InputManager.HorizontalInput;

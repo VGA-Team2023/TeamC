@@ -77,7 +77,11 @@ public class FinishingAttack
         _playerControl.ControllerVibrationManager.StartVibration();
 
         //短い詠唱の魔法陣を消す
-        _playerControl.Attack.ShortChantingMagicAttack.UnSetMagic();
+        //魔法陣無しの場合、テスト
+        if (!_playerControl.IsNewAttack)
+        {
+            _playerControl.Attack.ShortChantingMagicAttack.UnSetMagic();
+        }
 
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
@@ -195,7 +199,7 @@ public class FinishingAttack
         _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
 
 
-        LineSetting();
+       // LineSetting();
 
 
         //アニメーション再生
