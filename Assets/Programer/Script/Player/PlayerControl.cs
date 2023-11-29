@@ -1,57 +1,57 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
 {
-    [Header("HpÝ’è")]
+    [Header("Hpè¨­å®š")]
     [SerializeField] private PlayerHp _hp;
 
-    [Header("ƒ_ƒ[ƒW")]
+    [Header("ãƒ€ãƒ¡ãƒ¼ã‚¸")]
     [SerializeField] private PlayerDamage _damage;
 
-    [Header("ˆÚ“®Ý’è")]
+    [Header("ç§»å‹•è¨­å®š")]
     [SerializeField] private PlayerMove _playerMove;
 
-    [Header("‰ñ”ð")]
+    [Header("å›žé¿")]
     [SerializeField] private PlayerAvoid _avoid;
 
-    [Header("UŒ‚‚ðVver‚É‚·‚é‚©‚Ç‚¤‚©")]
+    [Header("æ”»æ’ƒã‚’æ–°verã«ã™ã‚‹ã‹ã©ã†ã‹")]
     [SerializeField] private bool _isNewAttack = true;
 
     public bool IsNewAttack => _isNewAttack;
 
-    [Header("UŒ‚QV‚µ‚¢")]
+    [Header("æ”»æ’ƒï¼¿æ–°ã—ã„")]
     [SerializeField] private Attack2 _attack2;
 
     public Attack2 Attack2 => _attack2;
 
-    [Header("UŒ‚")]
+    [Header("æ”»æ’ƒ")]
     [SerializeField] private Attack _attack;
 
-    [Header("•Ší")]
+    [Header("æ­¦å™¨")]
     [SerializeField] private WeaponSetting _weaponSetting;
 
-    [Header("‚Æ‚Ç‚ß")]
+    [Header("ã¨ã©ã‚")]
     [SerializeField] private FinishingAttack _finishingAttack;
 
-    [Header("Ý’u”»’è")]
+    [Header("è¨­ç½®åˆ¤å®š")]
     [SerializeField] private GroundCheck _groundCheck;
 
-    [Header("ƒAƒjƒ[ƒVƒ‡ƒ“Ý’è")]
+    [Header("ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š")]
     [SerializeField] private PlayerAnimControl _playerAnimControl;
 
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
 
     [SerializeField] private GunLine _gunLine;
 
-    [Header("ƒJƒƒ‰Ý’è")]
+    [Header("ã‚«ãƒ¡ãƒ©è¨­å®š")]
     [SerializeField] private CameraControl _cameraControl;
 
-    [Header("ƒvƒŒƒCƒ„[Ž©g")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«")]
     [SerializeField] private Transform _playerT;
 
-    [Header("Player‚ÌƒƒbƒVƒ…")]
+    [Header("Playerã®ãƒ¡ãƒƒã‚·ãƒ¥")]
     [SerializeField] private MeshRenderer _meshRenderer;
 
     [Header("RigidBody")]
@@ -63,7 +63,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
 
-    [Header("‰¹")]
+    [Header("éŸ³")]
     [SerializeField] private PlayerAudio _audio;
 
     public PlayerAudio PlayerAudio => _audio;

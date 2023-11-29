@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +6,16 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerControl _control;
 
-    [Header("KeyBord‘€ì")]
+    [Header("KeyBordæ“ä½œ")]
     [SerializeField] private bool _isKeybord = false;
 
-    /// <summary>\‚¦‰Ÿ‚·</summary>
+    /// <summary>æ§‹ãˆæŠ¼ã™</summary>
     private bool _isSetUpDown = false;
 
-    /// <summary>\‚¦A‰Ÿ‚µ‘±‚¯‚é</summary>
+    /// <summary>æ§‹ãˆã€æŠ¼ã—ç¶šã‘ã‚‹</summary>
     private bool _isSetUp = false;
 
-    /// <summary> \‚¦—£‚· </summary>
+    /// <summary> æ§‹ãˆé›¢ã™ </summary>
     private bool _isSetUpUp = false;
 
     private bool _isFinishAttack = false;
@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
 
     private bool _isAvoid = false;
 
-    /// <summary>ƒWƒƒƒ“ƒv</summary>
+    /// <summary>ã‚¸ãƒ£ãƒ³ãƒ—</summary>
     private bool _isJump;
 
     private bool _isAttack = false;

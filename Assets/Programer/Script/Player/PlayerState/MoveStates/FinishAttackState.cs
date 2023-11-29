@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class FinishAttackState : PlayerStateBase
 
     public override void Exit()
     {
-        //ƒGƒtƒFƒNƒg‚ğÁ‚·‚©‚Ç‚¤‚©Šm”F‚·‚é
+        //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹
         _stateMachine.PlayerController.FinishingAttack.FinishEffectCheck();
 
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimUnderBody(false);
@@ -42,7 +42,7 @@ public class FinishAttackState : PlayerStateBase
     {
         if (!_stateMachine.PlayerController.FinishingAttack.DoFinishing() || _stateMachine.PlayerController.FinishingAttack.IsEndFinishAnim)
         {
-            //–‚–@w‚ğo‚·
+            //é­”æ³•é™£ã‚’å‡ºã™
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.SetMagick();
 
             _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);

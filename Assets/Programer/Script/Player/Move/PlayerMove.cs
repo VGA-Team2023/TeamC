@@ -1,40 +1,40 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerMove 
 {
-    [Header("•à‚­‘¬“x")]
+    [Header("æ­©ãé€Ÿåº¦")]
     [SerializeField] private float _walkSpeed = 4;
 
-    [Header("‘–‚é‘¬“x")]
+    [Header("èµ°ã‚‹é€Ÿåº¦")]
     [SerializeField] private float _runSpeed = 4;
 
-    [Header("‹ó’†‚Å‚Ì‘¬“x")]
+    [Header("ç©ºä¸­ã§ã®é€Ÿåº¦")]
     [SerializeField] private float _airMoveSpeed = 4;
 
-    [Header("ƒWƒƒƒ“ƒvƒpƒ[")]
+    [Header("ã‚¸ãƒ£ãƒ³ãƒ—ãƒ‘ãƒ¯ãƒ¼")]
     [SerializeField] private float _jumpPower = 4;
 
-    [Header("•à‚«‚Ì‚Ì‰ñ“]‘¬“x")]
+    [Header("æ­©ãã®æ™‚ã®å›è»¢é€Ÿåº¦")]
     [SerializeField] private float _walkRotateSpeed = 100;
 
-    [Header("‘–‚è‚Ì‚Ì‰ñ“]‘¬“x")]
+    [Header("èµ°ã‚Šã®æ™‚ã®å›è»¢é€Ÿåº¦")]
     [SerializeField] private float _runRotateSpeed = 100;
 
-    [Header("d—Í")]
+    [Header("é‡åŠ›")]
     [SerializeField] private float _gravity = 0.9f;
 
-    /// <summary>“ü—Í•ûŒü</summary>
+    /// <summary>å…¥åŠ›æ–¹å‘</summary>
     private Vector3 velo;
 
-    /// <summary>Œü‚­‚×‚«ƒvƒŒƒCƒ„[‚Ì‰ñ“]</summary>
+    /// <summary>å‘ãã¹ããƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å›è»¢</summary>
     Quaternion _targetRotation;
 
     private PlayerControl _playerControl = null;
 
-    /// <summary>StateMacine‚ğƒZƒbƒg‚·‚éŠÖ”</summary>
+    /// <summary>StateMacineã‚’ã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°</summary>
     /// <param name="stateMachine"></param>
     public void Init(PlayerControl playerControl)
     {
@@ -51,13 +51,13 @@ public class PlayerMove
   
     public void Move(MoveType moveType)
     {
-        //ˆÚ“®•ûŒü‚Ì“]Š·‘¬“x
+        //ç§»å‹•æ–¹å‘ã®è»¢æ›é€Ÿåº¦
         float turnSpeed = 0;
 
-        //ˆÚ“®‘¬“x
+        //ç§»å‹•é€Ÿåº¦
         float moveSpeed = 0;
 
-        //‘–‚è•û‚É‚æ‚Á‚Ä‘¬“x‚ğ•ÏX
+        //èµ°ã‚Šæ–¹ã«ã‚ˆã£ã¦é€Ÿåº¦ã‚’å¤‰æ›´
         if (moveType == MoveType.Walk)
         {
             turnSpeed = _walkRotateSpeed;
@@ -69,7 +69,7 @@ public class PlayerMove
             moveSpeed = _runSpeed;
         }
 
-        //ˆÚ“®“ü—Í‚ğó‚¯æ‚é
+        //ç§»å‹•å…¥åŠ›ã‚’å—ã‘å–ã‚‹
         float h = _playerControl.InputManager.HorizontalInput;
         float v = _playerControl.InputManager.VerticalInput;
 
@@ -87,14 +87,14 @@ public class PlayerMove
         _playerControl.PlayerT.rotation = Quaternion.RotateTowards(_playerControl.PlayerT.rotation, _targetRotation, rotationSpeed);
 
 
-        //‘¬“x‚ğ‰Á‚¦‚é
+        //é€Ÿåº¦ã‚’åŠ ãˆã‚‹
         _playerControl.Rb.velocity = velo * moveSpeed;
-        //d—Í‚ğ‰Á‚¦‚é
+        //é‡åŠ›ã‚’åŠ ãˆã‚‹
         //_playerControl.Rb.AddForce(Vector3.down * _gravity);
     }
 
 
-    /// <summary>‹ó’†‚Å‚Ì“®‚«</summary>
+    /// <summary>ç©ºä¸­ã§ã®å‹•ã</summary>
     public void AirMove()
     {
         float h = _playerControl.InputManager.HorizontalInput;

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -10,7 +10,7 @@ public abstract class StateMachine
     private IState _currentState = default;
     public IState CurrentState { get => _currentState; private set => _currentState = value; }
 
-    /// <summary>IState(ƒCƒ“ƒ^[ƒtƒFƒCƒX)Œ^‚ÌUpdate‚ğ‰ñ‚·</summary>
+    /// <summary>IState(ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹)å‹ã®Updateã‚’å›ã™</summary>
     public void Update()
     {
         if (CurrentState != null)
@@ -37,7 +37,7 @@ public abstract class StateMachine
 
     public event Action<IState> OnStateChanged = default;
 
-    // Å‰‚ÌƒXƒe[ƒg‚ğİ’è‚·‚éB
+    // æœ€åˆã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’è¨­å®šã™ã‚‹ã€‚
     protected void Initialize(IState startState)
     {
         StateInit();
@@ -45,23 +45,23 @@ public abstract class StateMachine
         CurrentState = startState;
         startState.Enter();
 
-        // ƒXƒe[ƒg•Ï‰»‚ÉÀs‚·‚éƒAƒNƒVƒ‡ƒ“B
-        // ˆø”‚ÉÅ‰‚ÌƒXƒe[ƒg‚ğ“n‚·B
+        // ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰åŒ–æ™‚ã«å®Ÿè¡Œã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã€‚
+        // å¼•æ•°ã«æœ€åˆã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’æ¸¡ã™ã€‚
         OnStateChanged?.Invoke(startState);
     }
 
-    // ƒXƒe[ƒg‚Ì‘JˆÚˆ—Bˆø”‚ÉuŸ‚ÌƒXƒe[ƒg‚ÌQÆv‚ğó‚¯æ‚éB
+    // ã‚¹ãƒ†ãƒ¼ãƒˆã®é·ç§»å‡¦ç†ã€‚å¼•æ•°ã«ã€Œæ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®å‚ç…§ã€ã‚’å—ã‘å–ã‚‹ã€‚
 
-    /// <summary>ƒXƒe[ƒg‚ğ•ÏX‚·‚éŠÖ”</summary>
+    /// <summary>ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°</summary>
     /// <param name="nextState"></param>
     public void TransitionTo(IState nextState)
     {
-        CurrentState.Exit();      // Œ»İƒXƒe[ƒg‚ÌI—¹ˆ—B
-        CurrentState = nextState; // Œ»İ‚ÌƒXƒe[ƒg‚Ì•ÏXˆ—B
-        nextState.Enter();        // •ÏX‚³‚ê‚½uV‚µ‚¢Œ»İƒXƒe[ƒgv‚ÌEnterˆ—B
+        CurrentState.Exit();      // ç¾åœ¨ã‚¹ãƒ†ãƒ¼ãƒˆã®çµ‚äº†å‡¦ç†ã€‚
+        CurrentState = nextState; // ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®å¤‰æ›´å‡¦ç†ã€‚
+        nextState.Enter();        // å¤‰æ›´ã•ã‚ŒãŸã€Œæ–°ã—ã„ç¾åœ¨ã‚¹ãƒ†ãƒ¼ãƒˆã€ã®Enterå‡¦ç†ã€‚
 
-        // ƒXƒe[ƒg•ÏX‚ÌƒAƒNƒVƒ‡ƒ“‚ğÀs‚·‚éB
-        // ˆø”‚ÉuV‚µ‚¢Œ»İƒXƒe[ƒgv‚ğ“n‚·B
+        // ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´æ™‚ã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+        // å¼•æ•°ã«ã€Œæ–°ã—ã„ç¾åœ¨ã‚¹ãƒ†ãƒ¼ãƒˆã€ã‚’æ¸¡ã™ã€‚
         OnStateChanged?.Invoke(nextState);
     }
 

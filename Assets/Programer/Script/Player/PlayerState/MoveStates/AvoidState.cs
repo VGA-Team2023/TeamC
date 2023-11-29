@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +17,10 @@ public class AvoidState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        //ƒJƒƒ‰‚ÌFOVİ’è
+        //ã‚«ãƒ¡ãƒ©ã®FOVè¨­å®š
         _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
 
-        //‰ñ”ğ‚ÌˆÚ“®ˆ—
+        //å›é¿ã®ç§»å‹•å‡¦ç†
         _stateMachine.PlayerController.Avoid.DoAvoid();
     }
 
@@ -31,7 +31,7 @@ public class AvoidState : PlayerStateBase
 
     public override void Update()
     {
-        //‰ñ”ğ‚ÌÀsŠÔ‚ÌŒv‘ª
+        //å›é¿ã®å®Ÿè¡Œæ™‚é–“ã®è¨ˆæ¸¬
         _stateMachine.PlayerController.Avoid.CountAvoidTime();
 
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();

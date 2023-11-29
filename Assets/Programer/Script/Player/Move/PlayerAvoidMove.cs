@@ -1,17 +1,17 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerAvoidMove
 {
-    [Header("‰ñ”ğ‘¬“x")]
+    [Header("å›é¿é€Ÿåº¦")]
     [SerializeField] private float _avoidSpeed = 4f;
 
-    [Header("‰ñ”ğÅ‘å‹——£")]
+    [Header("å›é¿æœ€å¤§è·é›¢")]
     [SerializeField] private float _maxAvoidDistance = 3f;
 
-    /// <summary>‰ñ”ğ‚Ì•ûŒü </summary>
+    /// <summary>å›é¿ã®æ–¹å‘ </summary>
     private Vector3 _avoidDir = default;
 
     private Vector3 _startPos;

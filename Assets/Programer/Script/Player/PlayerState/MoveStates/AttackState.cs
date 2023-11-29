@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ public class AttackState : PlayerStateBase
         {
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
-            //ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚·
+            //ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã™
             _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
         }
         else
@@ -50,7 +50,7 @@ public class AttackState : PlayerStateBase
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
 
-            //ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚·
+            //ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã™
             _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
         }
     }
@@ -76,7 +76,7 @@ public class AttackState : PlayerStateBase
                     _stateMachine.TransitionTo(_stateMachine.AttackState);
                     return;
                 }
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
 
 
 
@@ -104,7 +104,7 @@ public class AttackState : PlayerStateBase
                     _stateMachine.TransitionTo(_stateMachine.AttackState);
                     return;
                 }
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
 
 
 

@@ -1,32 +1,32 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class CameraControl : MonoBehaviour
 {
-    [Header("=====\‚¦‚ÌƒJƒƒ‰‚Ìİ’è=====")]
+    [Header("=====æ§‹ãˆã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š=====")]
     [SerializeField] private DefaultCamera _setUpCameraSetting;
 
-    [Header("===ƒgƒhƒ‚Ì‚ÌƒJƒƒ‰‚Ì“®‚«===")]
+    [Header("===ãƒˆãƒ‰ãƒ¡ã®æ™‚ã®ã‚«ãƒ¡ãƒ©ã®å‹•ã===")]
     [SerializeField] private FinishAttackCamera _finishAttackCamera;
 
-    [Header("’Êí‚ÌƒJƒƒ‰")]
+    [Header("é€šå¸¸æ™‚ã®ã‚«ãƒ¡ãƒ©")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
 
-    [Header("UŒ‚—­‚ß‚ÌƒJƒƒ‰")]
+    [Header("æ”»æ’ƒæºœã‚ã®ã‚«ãƒ¡ãƒ©")]
     [SerializeField] private CinemachineVirtualCamera _attackChargeCamera;
 
-    [Header("ƒgƒhƒ‚Ì‚ÌƒJƒƒ‰")]
+    [Header("ãƒˆãƒ‰ãƒ¡ã®æ™‚ã®ã‚«ãƒ¡ãƒ©")]
     [SerializeField] private CinemachineVirtualCamera _finishCamera;
 
-    [Header("’Êí‚ÌƒJƒƒ‰_U“®")]
+    [Header("é€šå¸¸æ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
     [SerializeField] private CinemachineImpulseSource _defultCameraImpulsSource;
 
-    [Header("UŒ‚‚ÌƒJƒƒ‰_U“®")]
+    [Header("æ”»æ’ƒæ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
     [SerializeField] private CinemachineImpulseSource _attckChargeCameraImpulsSource;
 
-    [Header("\‚¦‚ÌƒJƒƒ‰_U“®")]
+    [Header("æ§‹ãˆæ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
     [SerializeField] private CinemachineImpulseSource _setUpCameraImpulsSource;
 
     [SerializeField] private PlayerControl _playerControl;
