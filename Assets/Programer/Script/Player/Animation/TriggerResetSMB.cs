@@ -31,6 +31,7 @@ public class TriggerResetSMB : StateMachineBehaviour
         {
             _isAttackNow = 0;
             _playerControl.Attack.IsAttackNow = false;
+            _playerControl.Attack2.IsAttackNow = false;
         }
     }
 

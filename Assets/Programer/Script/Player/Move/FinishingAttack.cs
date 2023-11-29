@@ -14,6 +14,11 @@ public class FinishingAttack
     [Header("移動")]
     [SerializeField] private FinishingAttackMove _finishingAttackMove;
 
+    [Header("ための音")]
+    [SerializeField] private AudioSource _audioSource;
+
+    [Header("壊した音")]
+    [SerializeField] private AudioSource _audioSourceBrake;
 
     [Header("レイヤー")]
     [SerializeField] private LayerMask _targetLayer;
@@ -57,6 +62,8 @@ public class FinishingAttack
 
     public void StartFinishingAttack()
     {
+        _audioSource.Play();
+
         _isEndFinishAnim = false;
 
         _isCompletedFinishTime = false;
@@ -70,7 +77,11 @@ public class FinishingAttack
         _playerControl.ControllerVibrationManager.StartVibration();
 
         //短い詠唱の魔法陣を消す
-        _playerControl.Attack.ShortChantingMagicAttack.UnSetMagic();
+        //魔法陣無しの場合、テスト
+        if (!_playerControl.IsNewAttack)
+        {
+            _playerControl.Attack.ShortChantingMagicAttack.UnSetMagic();
+        }
 
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
@@ -155,6 +166,9 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
+        _audioSource.Stop();
+        _audioSourceBrake.Play();
+
         _isCompletedFinishTime = true;
 
         _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
@@ -182,10 +196,10 @@ public class FinishingAttack
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
         //時間を遅くする
-        GameManager.Instance.TimeControl.SetTimeScale(0.3f);
+        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
 
 
-        LineSetting();
+       // LineSetting();
 
 
         //アニメーション再生
@@ -200,6 +214,8 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
+        _audioSource.Stop();
+
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
 
@@ -228,7 +244,6 @@ public class FinishingAttack
     /// アニメーションイベントから呼ぶ。トドメのアニメーションが終わった</summary>
     public void EndFinishAnim()
     {
-        Debug.Log("FF");
         _isEndFinishAnim = true;
 
         _nowFinishEnemy = null;

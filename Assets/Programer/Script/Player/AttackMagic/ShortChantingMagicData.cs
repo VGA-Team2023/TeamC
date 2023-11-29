@@ -28,8 +28,7 @@ public class ShortChantingMagicData
         {
             a.Init(playerControl);
         }
-
-        SetMagick();
+            SetMagick();
     }
 
     /// <summary>
@@ -37,8 +36,11 @@ public class ShortChantingMagicData
     /// </summary>
     public void SetMagick()
     {
-        SetOnlyMagic();
-        CanUseMagic();
+        if (!_playerControl.IsNewAttack)
+        {
+            SetOnlyMagic();
+            CanUseMagic();
+        }
     }
 
     public void SetOnlyMagic()
@@ -73,6 +75,10 @@ public class ShortChantingMagicData
     /// </summary>
     public void ParticleStopUpdata()
     {
+        if(_playerControl.IsNewAttack)
+        {
+            return;
+        }
         _magicBase?.ParticleStopUpdate();
     }
 
@@ -81,13 +87,13 @@ public class ShortChantingMagicData
     {
         //ñÇñ@êwÇè¡Ç∑
         _magicBase.ShowTameMagic(_attackCount, true);
-        Debug.Log(_attackCount);
+        // Debug.Log(_attackCount);
     }
 
     public void AttackOneEnemy(Transform[] enemys)
     {
         //ñÇñ@êwÇè¡Ç∑
-        _magicBase.UseMagick(_attackCount, enemys,AttackType.ShortChantingMagick, false);
+        _magicBase.UseMagick(_attackCount, enemys, AttackType.ShortChantingMagick, false);
         //ñÇñ@êwÇè¡Ç∑
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;
