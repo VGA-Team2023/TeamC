@@ -93,10 +93,10 @@ ProjectSettings/PackageManagerSettings.asset
 
 ############# BAKERY EDITOR ############
 #Ignore Bakery Editor folder
-/[Aa]ssets/Editor/x64/Bakery/*
+/[Aa]ssets/Editor/x64/Bakery/cudnn64_7.dll
 
 #Unignore subdirectories only https://stackoverflow.com/a/18930104/2129422
-!/[Aa]ssets/Editor/x64/Bakery/*/
+#!/[Aa]ssets/Editor/x64/Bakery/*/
 
 #Re-ignore all *files* in subdirectories
 /[Aa]ssets/Editor/x64/Bakery/hwtestdata/*
