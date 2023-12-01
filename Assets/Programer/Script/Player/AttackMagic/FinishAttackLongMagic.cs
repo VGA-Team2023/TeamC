@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class FinishAttackLongMagic
 {
-    [Header("€”õ‚Ì–‚–@")]
+    [Header("æº–å‚™ã®é­”æ³•")]
     [SerializeField] private GameObject _effect;
 
-    [Header("”­“®‚µ‚½‚Ì–‚–@")]
+    [Header("ç™ºå‹•ã—ãŸæ™‚ã®é­”æ³•")]
     [SerializeField] private GameObject _finishEffect;
 
     [SerializeField] private List<ParticleSystem> particleSystems = new List<ParticleSystem>();

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +9,13 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private List<AudioSource> _audioSources;
 
 
-    [Header("UŒ‚‚Ì’e‚ğ”ò‚Î‚·‰¹_•X")]
+    [Header("æ”»æ’ƒã®å¼¾ã‚’é£›ã°ã™éŸ³_æ°·")]
     [SerializeField] private AudioClip _iceFire;
 
-    [Header("•XƒgƒŒƒCƒ‹")]
+    [Header("æ°·ãƒˆãƒ¬ã‚¤ãƒ«")]
     [SerializeField] private AudioClip _iceTrail;
 
-    [Header("UŒ‚‚Ì’e‚ğ”ò‚Î‚·‰¹_•X")]
+    [Header("æ”»æ’ƒã®å¼¾ã‚’é£›ã°ã™éŸ³_æ°·")]
     [SerializeField] private AudioSource _iceCharge;
 
 

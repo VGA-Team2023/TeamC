@@ -1,13 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// “G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚éƒCƒ“ƒ^[ƒtƒFƒCƒX
+/// æ•µã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 /// </summary>
 public interface IEnemyDamageble
 {
-    /// <summary>UŒ‚‚ğ‰Á‚¦‚é</summary>
+    /// <summary>æ”»æ’ƒã‚’åŠ ãˆã‚‹</summary>
     /// <param name="attackType"></param>
     /// <param name="attackHitTyp"></param>
     void Damage(AttackType attackType, MagickType attackHitTyp, float damage);

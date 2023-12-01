@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 public class ControllerVibrationManager : MonoBehaviour
 {
-    [Header("–ˆƒtƒŒ[ƒ€‚Ç‚ê‚­‚ç‚¢‘¬“x‚ğã‚°‚é‚©")]
+    [Header("æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã©ã‚Œãã‚‰ã„é€Ÿåº¦ã‚’ä¸Šã’ã‚‹ã‹")]
     [SerializeField] private float _addSpeed = 0.01f;
 
-    [Header("Å‘åƒpƒ[")]
+    [Header("æœ€å¤§ãƒ‘ãƒ¯ãƒ¼")]
     [SerializeField] private float _maxPower = 0.3f;
 
-    [Header("Å¬ƒpƒ[")]
+    [Header("æœ€å°ãƒ‘ãƒ¯ãƒ¼")]
     [SerializeField] private float _minPower = 0.1f;
 
     private Gamepad gamepad;
@@ -40,7 +40,7 @@ public class ControllerVibrationManager : MonoBehaviour
         if (_nowPower <= _maxPower)
         {
             _nowPower += Time.deltaTime;
-        }   //Max‚Ü‚Å‚¢‚Á‚Ä–³‚©‚Á‚½‚ç’Ç‰Á
+        }   //Maxã¾ã§ã„ã£ã¦ç„¡ã‹ã£ãŸã‚‰è¿½åŠ 
         else
         {
             return;

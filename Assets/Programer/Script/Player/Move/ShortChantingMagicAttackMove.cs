@@ -1,17 +1,17 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ShortChantingMagicAttackMove
 {
-    [Header("ˆÚ“®‘¬“x")]
+    [Header("ç§»å‹•é€Ÿåº¦")]
     [SerializeField] private float _moveSpeed = 5;
 
-    [Header("‰ñ“]‘¬“x")]
+    [Header("å›è»¢é€Ÿåº¦")]
     [SerializeField] private float _rotateSpeed = 300;
 
-    /// <summary>“ü—Í•ûŒü</summary>
+    /// <summary>å…¥åŠ›æ–¹å‘</summary>
     private Vector3 velo;
 
     private Transform _enemy;
@@ -51,14 +51,14 @@ public class ShortChantingMagicAttackMove
 
     public void Move()
     {
-        //ˆÚ“®“ü—Í‚ğó‚¯æ‚é
+        //ç§»å‹•å…¥åŠ›ã‚’å—ã‘å–ã‚‹
         float h = _playerControl.InputManager.HorizontalInput;
         float v = _playerControl.InputManager.VerticalInput;
 
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
         velo = horizontalRotation * new Vector3(h, 0, v).normalized;
 
-        //‘¬“x‚ğ‰Á‚¦‚é
+        //é€Ÿåº¦ã‚’åŠ ãˆã‚‹
         _playerControl.Rb.velocity = velo * _moveSpeed;
     }
 

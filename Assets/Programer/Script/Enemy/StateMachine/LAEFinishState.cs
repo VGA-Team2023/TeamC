@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+//遠距離攻撃のとどめがさせる状態のステート
 public class LAEFinishState : IStateMachine
 {
     LongAttackEnemy _enemy;
@@ -26,6 +27,7 @@ public class LAEFinishState : IStateMachine
 
     public void Update()
     {
+        //一定時間経過したらとどめが指せなくなる
         if (_isTimeStart)
         {
             _timer += Time.deltaTime;

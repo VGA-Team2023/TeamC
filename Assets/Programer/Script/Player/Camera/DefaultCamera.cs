@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -6,13 +6,13 @@ using Cinemachine;
 [System.Serializable]
 public class DefaultCamera
 {
-    [Header("’Êí‚ÌFOV")]
+    [Header("é€šå¸¸ã®FOV")]
     [SerializeField] private float _defaltFOV = 60;
 
-    [Header("Å‘å‚ÌFOV")]
+    [Header("æœ€å¤§ã®FOV")]
     [SerializeField] private float _maxFOV = 60;
 
-    [Header("Å¬‚ÌFOV")]
+    [Header("æœ€å°ã®FOV")]
     [SerializeField] private float _minFOV = 50;
 
     [Header("FOV")]
@@ -38,7 +38,7 @@ public class DefaultCamera
     }
 
     /// <summary>
-    /// \‚¦ˆÚs‚ÌÛ‚ÉAƒJƒƒ‰‚ğ‰“Šª‚«‚É‚·‚é
+    /// æ§‹ãˆç§»è¡Œã®éš›ã«ã€ã‚«ãƒ¡ãƒ©ã‚’é å·»ãã«ã™ã‚‹
     /// </summary>
     public void SetDefaultFOV()
     {

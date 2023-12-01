@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,13 +17,13 @@ public class WalkState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        //ˆÚ“®ˆ—
+        //ç§»å‹•å‡¦ç†
         _stateMachine.PlayerController.Move.Move(PlayerMove.MoveType.Walk);
 
-        //ƒJƒƒ‰‚ÌFOVİ’è
+        //ã‚«ãƒ¡ãƒ©ã®FOVè¨­å®š
         _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
 
-        //ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚·
+        //ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã™
         _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
     }
 
@@ -41,7 +41,7 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
         {
             _stateMachine.TransitionTo(_stateMachine.FinishAttackState);
             return;
-        }   //ƒgƒhƒ
+        }   //ãƒˆãƒ‰ãƒ¡
 
         if (_stateMachine.PlayerController.IsNewAttack)
         {
@@ -49,7 +49,7 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
             {
                 _stateMachine.TransitionTo(_stateMachine.AttackState);
                 return;
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
         }
         else
         {
@@ -57,7 +57,7 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
             {
                 _stateMachine.TransitionTo(_stateMachine.AttackState);
                 return;
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
         }
 
         if (_stateMachine.PlayerController.InputManager.IsAvoid)
@@ -65,7 +65,7 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
             _stateMachine.PlayerController.Avoid.SetAvoidDir();
             _stateMachine.TransitionTo(_stateMachine.AvoidState);
             return;
-        }   //‰ñ”ğ
+        }   //å›é¿
 
         if (_stateMachine.PlayerController.InputManager.HorizontalInput == 0
             && _stateMachine.PlayerController.InputManager.VerticalInput == 0)

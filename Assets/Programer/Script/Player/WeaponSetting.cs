@@ -1,26 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class WeaponSetting
 {
-    [Header("‰Eè")]
+    [Header("å³æ‰‹")]
     [SerializeField] private Transform _rightHand;
 
-    [Header("¶è")]
+    [Header("å·¦æ‰‹")]
     [SerializeField] private Transform _leftHand;
 
-    [Header("e")]
+    [Header("éŠƒ")]
     [SerializeField] private List<GameObject> _guns = new List<GameObject>();
 
-    [Header("e‚ÌƒGƒtƒFƒNƒg")]
+    [Header("éŠƒã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private List<ParticleSystem> _gunsEffects = new List<ParticleSystem>();
 
-    [Header("Œ•")]
+    [Header("å‰£")]
     [SerializeField] private List<GameObject> _sword = new List<GameObject>();
 
-    [Header("Œ•‚ÌƒGƒtƒFƒNƒg")]
+    [Header("å‰£ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private List<ParticleSystem> _swordsEffects = new List<ParticleSystem>();
 
     private PlayerControl _playerControl;
