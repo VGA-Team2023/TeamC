@@ -7,6 +7,10 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     [SerializeField, Tooltip("移動先の場所")]
     List<Transform> _movePosition = new List<Transform>();
 
+    [SerializeField, Tooltip("アニメーション")]
+    Animator _anim;
+    public Animator Animator => _anim;
+
     [SerializeField, Tooltip("どれくらい移動先に近づいたら次の地点に行くか")]
     float _changePointDistance = 0.5f;
     public float ChangeDistance => _changePointDistance;
@@ -44,7 +48,27 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
-    MoveState _nextState = MoveState.Attack;
+    public MoveState State
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            switch (_state)
+            {
+                case MoveState.FreeMove:
+                    _freeMove.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+                case MoveState.Finish:
+                    _finish.Enter();
+                    break;
+            }
+        }
+    }
+
     MagickType _magicType;
 
     LAEFreeMoveState _freeMove;
@@ -92,33 +116,18 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
                 _finish.Update();
                 break;
         }
-        if(_state != _nextState)
-        {
-            switch (_nextState)
-            {
-                case MoveState.FreeMove:
-                    _freeMove.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-                case MoveState.Finish:
-                    _finish.Enter();
-                    break;
-            }
-            _state = _nextState;
-        }
     }
 
     public void StateChange(MoveState changeState)
     {
-        _nextState = changeState;
+        State = changeState;
     }
 
-    public void Attack(Vector3 forward)
+    public void Attack()
     {
-        var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
-        bullet.GetComponent<EnemyBullet>().ShootForward = forward;
+        var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
+        var bullet = Instantiate(_bulletPrefab, dir, Quaternion.identity);
+        bullet.GetComponent<EnemyBullet>().Init((_player.transform.position - transform.position).normalized, base.Attack);
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)

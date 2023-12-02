@@ -28,7 +28,7 @@ public class LAEAttackState : IStateMachine
         _timer += Time.deltaTime;
         if(_timer > _enemy.AttackInterval)
         {
-            _enemy.Attack(_enemy.transform.forward);
+            _enemy.Attack();
             _timer = 0;
             Debug.Log("攻撃");
         }

@@ -22,6 +22,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("エネミーの攻撃力")]
     int _attack;
     public int Attack => _attack;
+    [SerializeField, Tooltip("弱点属性")]
+    MagickType _type;
+    public MagickType Type => _type;
     [Header("====================")]
 
     [Header("敵の挙動に関する数値")]
