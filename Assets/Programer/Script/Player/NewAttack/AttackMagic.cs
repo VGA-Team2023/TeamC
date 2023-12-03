@@ -40,10 +40,21 @@ public class AttackMagic
         Debug.Log("レイヤー:" + _targetLayer);
         _playerControl = playerControl;
         _shortChantingMagicAttackMove.Init(playerControl);
-        _attackBase = _magicSetting[0];
-        _attackBase.Init(playerControl);
+        _magicSetting[0].Init(playerControl);
+        _magicSetting[1].Init(playerControl);
     }
 
+    public void SetMagicBase(PlayerAttribute playerAttribute)
+    {
+        if (playerAttribute == PlayerAttribute.Ice)
+        {
+            _attackBase = _magicSetting[0];
+        }
+        else
+        {
+            _attackBase = _magicSetting[1];
+        }
+    }
 
     /// <summary>
     /// 範囲内にあるコライダーを取得する
@@ -51,24 +62,13 @@ public class AttackMagic
     /// <returns> 移動方向 :正の値, 負の値 </returns>
     public void Attack(int attackCount)
     {
-        //アニメーション再生
-        _playerControl.PlayerAnimControl.SetAttackTrigger();
-
-        //コントローラーの振動
-        _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
-
-        //カメラの振動
-        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
-
         if (attackCount == _magicSetting.Count)
         {
             _isCanAttack = false;
         }
 
         //敵を索敵
-        // Transform[] t = CheckFinishingEnemy();
-        //敵を索敵
-        Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size,128);
+        Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, 128);
         if (t.Length == 0)
         {
             //魔法の攻撃処理
@@ -84,7 +84,10 @@ public class AttackMagic
     }
 
 
-
+    public void StopMagic(int attackCount)
+    {
+        _attackBase.StopMagic(attackCount);
+    }
 
 
 

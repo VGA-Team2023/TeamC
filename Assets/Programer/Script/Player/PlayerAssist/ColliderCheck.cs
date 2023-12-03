@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 [System.Serializable]
 public class ColliderCheck
@@ -20,9 +21,11 @@ public class ColliderCheck
         var posY = _playerControl.PlayerT.position.y + offSet.y;
         var posz = _playerControl.PlayerT.position.z + offSet.z;
 
-        Quaternion r = _playerControl.PlayerT.rotation;
-        r.x = 0;
-        r.z = 0;
+        Quaternion r = Quaternion.Euler(0, _playerControl.PlayerT.eulerAngles.y, 0);
+
+        //Quaternion r = _playerControl.PlayerT.rotation;
+        //r.x = 0;
+        //r.z = 0;
 
         var d = Physics.OverlapBox(new Vector3(posX, posY, posz), size, r, layer);
         return d;
@@ -41,11 +44,23 @@ public class ColliderCheck
 
         if (searchType == SearchType.AllEnemy)
         {
-            Transform[] t = new Transform[hits.Length];
+            List<Collider> colliders = new List<Collider>();
 
-            for (int i = 0; i < hits.Length; i++)
+            foreach (Collider collider in hits)
             {
-                t[i] = hits[i].transform;
+                // カメラに写っているかを判断する
+                if (IsVisibleToCamera(collider))
+                {
+                    colliders.Add(collider);
+                }
+            }
+
+            Transform[] t = new Transform[colliders.Count];
+
+
+            for (int i = 0; i < colliders.Count; i++)
+            {
+                t[i] = colliders[i].transform;
             }
             return t;
         }
@@ -68,6 +83,19 @@ public class ColliderCheck
             t[0] = nearEnemy.transform;
             return t;
         }
+
+
+        bool IsVisibleToCamera(Collider collider)
+        {
+            // カメラの視錘台（View Frustum）で判定
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+
+            // オブジェクトの境界ボックスがカメラの視錘台と交差しているかをチェック
+            return GeometryUtility.TestPlanesAABB(planes, collider.bounds);
+        }
+
+
+
     }
 }
 

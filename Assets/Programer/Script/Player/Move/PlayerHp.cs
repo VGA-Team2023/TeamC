@@ -13,6 +13,10 @@ public class PlayerHp
 
     private float _nowHp = 0;
 
+    private bool _isDead = false;
+
+    public bool IsDead => _isDead;
+
     private PlayerControl _playerControl;
     public void Init(PlayerControl playerControl)
     {
@@ -28,6 +32,7 @@ public class PlayerHp
 
         if (_nowHp < 0)
         {
+            _isDead = true;
             return true;
         }
         return false;
@@ -35,6 +40,10 @@ public class PlayerHp
 
     public void ReVive()
     {
+        GameManager.Instance.SpecialMovingPauseManager.PauseResume(false);
+        _playerControl.PlayerAnimControl.IsDead(false);
+
+        _isDead = false;
         _nowHp = _hp;
         _uiHp.SetValue(_nowHp);
     }

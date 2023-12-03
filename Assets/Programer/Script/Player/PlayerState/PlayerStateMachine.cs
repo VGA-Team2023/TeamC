@@ -25,6 +25,10 @@ public class PlayerStateMachine : StateMachine
     private FinishAttackState _stateFinishAttack = default;
     [SerializeField]
     private AvoidState _stateAvoid = default;
+    [SerializeField]
+    private DeadState _stateDead = default;
+    [SerializeField]
+    private DamageState _stateDamage = default;
 
     public IdleState StateIdle => _stateIdle;
     public WalkState StateWalk => _stateWalk;
@@ -36,10 +40,13 @@ public class PlayerStateMachine : StateMachine
     public AttackState AttackState => _stateAttack;
     public FinishAttackState FinishAttackState => _stateFinishAttack;
     public AvoidState AvoidState => _stateAvoid;
+    public DeadState DeadState => _stateDead;
+    public DamageState DamageState => _stateDamage;
+
 
     private PlayerControl _playerController;
-
     public PlayerControl PlayerController => _playerController;
+
 
     public void Init(PlayerControl playerController)
     {
@@ -59,6 +66,8 @@ public class PlayerStateMachine : StateMachine
         _stateAttack.Init(this);
         _stateFinishAttack.Init(this);
         _stateAvoid.Init(this);
+        _stateDead.Init(this);
+        _stateDamage.Init(this);
     }
 
 }

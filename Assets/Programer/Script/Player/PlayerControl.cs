@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
+public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISpecialMovingPause
 {
+    [Header("マウスで操作するかどうか")]
+    public bool IsMousePlay = false;
+
     [Header("Hp設定")]
     [SerializeField] private PlayerHp _hp;
 
@@ -16,10 +19,14 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("回避")]
     [SerializeField] private PlayerAvoid _avoid;
 
-    [Header("攻撃を新verにするかどうか")]
-    [SerializeField] private bool _isNewAttack = true;
+    private bool _isNewAttack = true;
 
     public bool IsNewAttack => _isNewAttack;
+
+    [Header("ロックオン")]
+    [SerializeField] private PlayerLockOn _lockOn;
+
+    public PlayerLockOn LockOn => _lockOn;
 
     [Header("攻撃＿新しい")]
     [SerializeField] private Attack2 _attack2;
@@ -51,8 +58,10 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("プレイヤー自身")]
     [SerializeField] private Transform _playerT;
 
-    [Header("Playerのメッシュ")]
-    [SerializeField] private MeshRenderer _meshRenderer;
+    [Header("モデル")]
+    [SerializeField] private Transform _playerModelT;
+
+    public Transform PlayerModelT => _playerModelT;
 
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
@@ -66,6 +75,10 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     [Header("音")]
     [SerializeField] private PlayerAudio _audio;
 
+    [Header("HitStop設定")]
+    [SerializeField] private HitStopCall _hitStopCall;
+
+    public HitStopCall HitStopCall => _hitStopCall;
     public PlayerAudio PlayerAudio => _audio;
 
     [SerializeField] private HitStopConrol _hitStopConrol;
@@ -74,9 +87,12 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
 
     [SerializeField] private ColliderCheck _colliderCheck;
 
+    private PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
 
     private Vector3 _savePauseVelocity = default;
 
+
+    public PlayerAttribute PlayerAttribute => _playerAttribute;
     public HitStopConrol HitStopConrol => _hitStopConrol;
     public PlayerDamage PlayerDamage => _damage;
     public PlayerHp PlayerHp => _hp;
@@ -95,7 +111,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
-    public MeshRenderer MeshRenderer => _meshRenderer;
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -110,6 +125,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
         _avoid.Init(this);
         _hp.Init(this);
         _damage.Init(this);
+        _lockOn.Init(this);
     }
 
     void Start()
@@ -120,6 +136,21 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     void Update()
     {
         _stateMachine.Update();
+
+        _damage.CountWaitTime();
+
+
+        if(Input.GetButtonDown("ChangeType"))
+        {
+            if(_playerAttribute ==PlayerAttribute.Ice)
+            {
+                _playerAttribute = PlayerAttribute.Grass;
+            }
+            else
+            {
+                _playerAttribute = PlayerAttribute.Ice;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -152,12 +183,13 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     {
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
 
     private void OnDisable()
     {
         GameManager.Instance.PauseManager.Remove(this);
-        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
     }
 
 
@@ -187,4 +219,22 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
     {
         _anim.speed = 1;
     }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+
+        _savePauseVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = _savePauseVelocity;
+    }
+
 }

@@ -8,6 +8,6 @@ public interface IFinishingDamgeble
 
     void StopFinishing();
 
-    void EndFinishing();
+    void EndFinishing(MagickType attackHitTyp);
 
 }
