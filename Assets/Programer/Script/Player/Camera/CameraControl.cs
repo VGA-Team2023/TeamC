@@ -77,6 +77,11 @@ public class CameraControl : MonoBehaviour
         //ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);
     }
 
+    public void LockOnCamera()
+    {
+        
+    }
+
     public void ShakeCamra(CameraType cameraType, CameraShakeType cameraShakeType)
     {
         CinemachineImpulseSource source = default;

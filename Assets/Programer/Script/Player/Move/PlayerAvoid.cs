@@ -11,19 +11,43 @@ public class PlayerAvoid
     [Header("回避時間")]
     [SerializeField] private float _avoidTime = 0.5f;
 
-    [Header("通常のプレイヤーのマテリアル")]
-    [SerializeField] private Material _defaultMaterial;
 
     [Header("回避中のプレイヤーのマテリアル")]
     [SerializeField] private Material _avoidMaterial;
 
-    [Header("回避終了時のエフェクト")]
-    [SerializeField] private List<ParticleSystem> _endParticle = new List<ParticleSystem>();
+    [Header("Playerの顔のMesh")]
+    [SerializeField] private List<SkinnedMeshRenderer> _meshRendererFace = new List<SkinnedMeshRenderer>();
 
-    [SerializeField] private GameObject _dummy;
+    [Header("通常のプレイヤーのマテリアル_Face")]
+    [SerializeField] private Material _defaultMaterialFace;
 
+    [Header("Playerの体のMesh")]
+    [SerializeField] private List<SkinnedMeshRenderer> _meshRendererBody = new List<SkinnedMeshRenderer>();
+
+    [Header("通常のプレイヤーのマテリアル_Body")]
+    [SerializeField] private Material _defaultMaterialBody;
+
+    [Header("杖のMesh")]
+    [SerializeField] private List<MeshRenderer> _tueMesh = new List<MeshRenderer>();
+
+
+    [Header("回避終了時のエフェクト_氷")]
+    [SerializeField] private List<ParticleSystem> _endParticleIce = new List<ParticleSystem>();
+
+    [Header("回避終了時のエフェクト_草")]
+    [SerializeField] private List<ParticleSystem> _endParticleGrass = new List<ParticleSystem>();
+
+    [Header("ダミー_氷")]
+    [SerializeField] private GameObject _dummyIce;
+
+    [Header("ダミー_草")]
+    [SerializeField] private GameObject _dummyGrass;
+
+    private PlayerAttribute _startAttribute;
 
     private Vector3 _dir = default;
+
+    private bool _isStartAvoid = false;
 
     private float _countAvoidTime = 0;
 
@@ -34,6 +58,7 @@ public class PlayerAvoid
     private PlayerControl _playerControl;
 
 
+    public bool IsStartAvoid => _isStartAvoid;
     public bool IsEndAnim => _isEndAnimation;
 
     public void Init(PlayerControl playerControl)
@@ -62,12 +87,24 @@ public class PlayerAvoid
     /// <summary>回避を開始</summary>
     public void StartAvoid()
     {
+        _startAttribute = _playerControl.PlayerAttribute;
+
+        _isStartAvoid = false;
         _isEndAvoid = false;
         _isEndAnimation = false;
         _countAvoidTime = 0;
 
-        var go = UnityEngine.GameObject.Instantiate(_dummy);
-        go.transform.position = _playerControl.PlayerT.position;
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            var go = UnityEngine.GameObject.Instantiate(_dummyIce);
+            go.transform.position = _playerControl.PlayerT.position;
+        }
+        else
+        {
+            var go = UnityEngine.GameObject.Instantiate(_dummyGrass);
+            go.transform.position = _playerControl.PlayerT.position;
+        }
+
 
         _playerControl.PlayerAnimControl.Avoid(true);
         _avoidMove.StartAvoid(_playerControl.PlayerT.position);
@@ -77,7 +114,17 @@ public class PlayerAvoid
     /// <summary>回避の開始アニメーションが終わった事を通知</summary>
     public void StartAvoidAnim()
     {
-        _playerControl.MeshRenderer.material = _avoidMaterial;
+        foreach (var m in _meshRendererFace)
+        {
+            m.material = _avoidMaterial;
+        }
+
+        foreach (var m in _meshRendererBody)
+        {
+            m.material = _avoidMaterial;
+        }
+
+        _isStartAvoid = true;
     }
 
     /// <summary>回避のアニメーションが終わった事を通知</summary>
@@ -90,14 +137,34 @@ public class PlayerAvoid
     /// <summary>回避を完了</summary>
     public void EndMove()
     {
-        _playerControl.MeshRenderer.material = _defaultMaterial;
+        _avoidMove.MoveEnd();
+
+        foreach (var m in _meshRendererFace)
+        {
+            m.material = _defaultMaterialFace;
+        }
+
+        foreach (var m in _meshRendererBody)
+        {
+            m.material = _defaultMaterialBody;
+        }
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
 
 
-        foreach (var a in _endParticle)
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            a.Play();
+            foreach (var a in _endParticleIce)
+            {
+                a.Play();
+            }
+        }
+        else
+        {
+            foreach (var a in _endParticleGrass)
+            {
+                a.Play();
+            }
         }
 
     }

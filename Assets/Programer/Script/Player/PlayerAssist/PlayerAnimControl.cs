@@ -74,10 +74,37 @@ public class PlayerAnimControl
         }
     }
 
+    public void PlayDead()
+    {
+        _playerControl.Animator.Play("Dead");
+    }
+
+    public void IsDead(bool isDead)
+    {
+        _playerControl.Animator.SetBool("IsDead", isDead);
+    }
+
+    public void PlayDamage()
+    {
+        _playerControl.Animator.Play("Damage");
+    }
+
+    public void IsDamage(bool isDamage)
+    {
+        _playerControl.Animator.SetBool("IsDamage", isDamage);
+    }
+
+
     public void SetBlendAnimUnderBody(bool isOn)
     {
-        _playerControl.Animator.SetBool("IsNoBlendAnimation", isOn);
+        _playerControl.Animator.SetBool("IsBlendLegAnimation", isOn);
     }
+
+    public void SetBlendAnimation(bool isOn)
+    {
+        _playerControl.Animator.SetBool("IsBlendAnimation", isOn);
+    }
+
 
     public void StopFinishAttack()
     {

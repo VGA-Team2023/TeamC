@@ -53,6 +53,9 @@ public class AttackState : PlayerStateBase
             //トドメをさせる敵を探す
             _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
         }
+
+        //LockOnのUI設定
+        _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
     }
 
     public override void LateUpdate()
@@ -62,6 +65,24 @@ public class AttackState : PlayerStateBase
 
     public override void Update()
     {
+        //LockOn機能
+        _stateMachine.PlayerController.LockOn.CheckLockOn();
+
+
+        if (_stateMachine.PlayerController.PlayerHp.IsDead)
+        {
+            _stateMachine.PlayerController.Attack2.StopAttack();
+            _stateMachine.TransitionTo(_stateMachine.DeadState);
+            return;
+        }   //瀕死ステート
+
+        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        {
+            _stateMachine.PlayerController.Attack2.StopAttack();
+            _stateMachine.TransitionTo(_stateMachine.DamageState);
+            return;
+        }   //ダメージ
+
         if (_stateMachine.PlayerController.IsNewAttack)
         {
             _stateMachine.PlayerController.Attack2.AttackInputedCheck();
@@ -82,11 +103,11 @@ public class AttackState : PlayerStateBase
 
             if (_stateMachine.PlayerController.Attack2.IsCanNextAttack && !_stateMachine.PlayerController.Attack2.IsAttackNow && _stateMachine.PlayerController.Attack2.IsAttackInput)
             {
-                    Debug.Log("Attack=>Idle");
-                    _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
-                    _stateMachine.TransitionTo(_stateMachine.StateIdle);
-                    return;
-            }
+                Debug.Log("Attack=>Idle");
+                _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+                _stateMachine.TransitionTo(_stateMachine.StateIdle);
+                return;
+            }   //Idle
         }
         else
         {
