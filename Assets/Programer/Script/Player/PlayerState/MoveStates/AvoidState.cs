@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,20 +8,25 @@ public class AvoidState : PlayerStateBase
     public override void Enter()
     {
         _stateMachine.PlayerController.Avoid.StartAvoid();
+        _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimUnderBody(false);
+        _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimation(false);
     }
 
     public override void Exit()
     {
-
+        _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimation(true);
     }
 
     public override void FixedUpdate()
     {
-        //ƒJƒƒ‰‚ÌFOVİ’è
+        //ã‚«ãƒ¡ãƒ©ã®FOVè¨­å®š
         _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
 
-        //‰ñ”ğ‚ÌˆÚ“®ˆ—
+        //å›é¿ã®ç§»å‹•å‡¦ç†
         _stateMachine.PlayerController.Avoid.DoAvoid();
+
+        //LockOnã®UIè¨­å®š
+        _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
     }
 
     public override void LateUpdate()
@@ -31,7 +36,10 @@ public class AvoidState : PlayerStateBase
 
     public override void Update()
     {
-        //‰ñ”ğ‚ÌÀsŠÔ‚ÌŒv‘ª
+        //LockOnæ©Ÿèƒ½
+        _stateMachine.PlayerController.LockOn.CheckLockOn();
+
+        //å›é¿ã®å®Ÿè¡Œæ™‚é–“ã®è¨ˆæ¸¬
         _stateMachine.PlayerController.Avoid.CountAvoidTime();
 
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();

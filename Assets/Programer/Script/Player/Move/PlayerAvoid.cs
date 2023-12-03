@@ -1,29 +1,53 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerAvoid
 {
-    [Header("‰ñ”ğ‚ÌˆÚ“®İ’è")]
+    [Header("å›é¿ã®ç§»å‹•è¨­å®š")]
     [SerializeField] private PlayerAvoidMove _avoidMove;
 
-    [Header("‰ñ”ğŠÔ")]
+    [Header("å›é¿æ™‚é–“")]
     [SerializeField] private float _avoidTime = 0.5f;
 
-    [Header("’Êí‚ÌƒvƒŒƒCƒ„[‚Ìƒ}ƒeƒŠƒAƒ‹")]
-    [SerializeField] private Material _defaultMaterial;
 
-    [Header("‰ñ”ğ’†‚ÌƒvƒŒƒCƒ„[‚Ìƒ}ƒeƒŠƒAƒ‹")]
+    [Header("å›é¿ä¸­ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«")]
     [SerializeField] private Material _avoidMaterial;
 
-    [Header("‰ñ”ğI—¹‚ÌƒGƒtƒFƒNƒg")]
-    [SerializeField] private List<ParticleSystem> _endParticle = new List<ParticleSystem>();
+    [Header("Playerã®é¡”ã®Mesh")]
+    [SerializeField] private List<SkinnedMeshRenderer> _meshRendererFace = new List<SkinnedMeshRenderer>();
 
-    [SerializeField] private GameObject _dummy;
+    [Header("é€šå¸¸ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«_Face")]
+    [SerializeField] private Material _defaultMaterialFace;
 
+    [Header("Playerã®ä½“ã®Mesh")]
+    [SerializeField] private List<SkinnedMeshRenderer> _meshRendererBody = new List<SkinnedMeshRenderer>();
+
+    [Header("é€šå¸¸ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«_Body")]
+    [SerializeField] private Material _defaultMaterialBody;
+
+    [Header("æ–ã®Mesh")]
+    [SerializeField] private List<MeshRenderer> _tueMesh = new List<MeshRenderer>();
+
+
+    [Header("å›é¿çµ‚äº†æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ_æ°·")]
+    [SerializeField] private List<ParticleSystem> _endParticleIce = new List<ParticleSystem>();
+
+    [Header("å›é¿çµ‚äº†æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ_è‰")]
+    [SerializeField] private List<ParticleSystem> _endParticleGrass = new List<ParticleSystem>();
+
+    [Header("ãƒ€ãƒŸãƒ¼_æ°·")]
+    [SerializeField] private GameObject _dummyIce;
+
+    [Header("ãƒ€ãƒŸãƒ¼_è‰")]
+    [SerializeField] private GameObject _dummyGrass;
+
+    private PlayerAttribute _startAttribute;
 
     private Vector3 _dir = default;
+
+    private bool _isStartAvoid = false;
 
     private float _countAvoidTime = 0;
 
@@ -34,6 +58,7 @@ public class PlayerAvoid
     private PlayerControl _playerControl;
 
 
+    public bool IsStartAvoid => _isStartAvoid;
     public bool IsEndAnim => _isEndAnimation;
 
     public void Init(PlayerControl playerControl)
@@ -59,50 +84,92 @@ public class PlayerAvoid
     }
 
 
-    /// <summary>‰ñ”ğ‚ğŠJn</summary>
+    /// <summary>å›é¿ã‚’é–‹å§‹</summary>
     public void StartAvoid()
     {
+        _startAttribute = _playerControl.PlayerAttribute;
+
+        _isStartAvoid = false;
         _isEndAvoid = false;
         _isEndAnimation = false;
         _countAvoidTime = 0;
 
-        var go = UnityEngine.GameObject.Instantiate(_dummy);
-        go.transform.position = _playerControl.PlayerT.position;
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            var go = UnityEngine.GameObject.Instantiate(_dummyIce);
+            go.transform.position = _playerControl.PlayerT.position;
+        }
+        else
+        {
+            var go = UnityEngine.GameObject.Instantiate(_dummyGrass);
+            go.transform.position = _playerControl.PlayerT.position;
+        }
+
 
         _playerControl.PlayerAnimControl.Avoid(true);
         _avoidMove.StartAvoid(_playerControl.PlayerT.position);
 
     }
 
-    /// <summary>‰ñ”ğ‚ÌŠJnƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½–‚ğ’Ê’m</summary>
+    /// <summary>å›é¿ã®é–‹å§‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸäº‹ã‚’é€šçŸ¥</summary>
     public void StartAvoidAnim()
     {
-        _playerControl.MeshRenderer.material = _avoidMaterial;
+        foreach (var m in _meshRendererFace)
+        {
+            m.material = _avoidMaterial;
+        }
+
+        foreach (var m in _meshRendererBody)
+        {
+            m.material = _avoidMaterial;
+        }
+
+        _isStartAvoid = true;
     }
 
-    /// <summary>‰ñ”ğ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½–‚ğ’Ê’m</summary>
+    /// <summary>å›é¿ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸäº‹ã‚’é€šçŸ¥</summary>
     public void EndAvoidAnim()
     {
         _isEndAnimation = true;
     }
 
 
-    /// <summary>‰ñ”ğ‚ğŠ®—¹</summary>
+    /// <summary>å›é¿ã‚’å®Œäº†</summary>
     public void EndMove()
     {
-        _playerControl.MeshRenderer.material = _defaultMaterial;
+        _avoidMove.MoveEnd();
+
+        foreach (var m in _meshRendererFace)
+        {
+            m.material = _defaultMaterialFace;
+        }
+
+        foreach (var m in _meshRendererBody)
+        {
+            m.material = _defaultMaterialBody;
+        }
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
 
 
-        foreach (var a in _endParticle)
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            a.Play();
+            foreach (var a in _endParticleIce)
+            {
+                a.Play();
+            }
+        }
+        else
+        {
+            foreach (var a in _endParticleGrass)
+            {
+                a.Play();
+            }
         }
 
     }
 
-    /// <summary>‰ñ”ğ’†‚ÌÀs</summary>
+    /// <summary>å›é¿ä¸­ã®å®Ÿè¡Œ</summary>
     public void DoAvoid()
     {
         if (_isEndAvoid) return;
@@ -114,7 +181,7 @@ public class PlayerAvoid
     }
 
 
-    /// <summary>‰ñ”ğ‚ÌÀsŠÔ‚ğŒv‘ª‚·‚é/summary>
+    /// <summary>å›é¿ã®å®Ÿè¡Œæ™‚é–“ã‚’è¨ˆæ¸¬ã™ã‚‹/summary>
     public void CountAvoidTime()
     {
         if (_isEndAvoid) return;

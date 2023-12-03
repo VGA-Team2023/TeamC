@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class MAEDoll : MonoBehaviour
 {
-    [SerializeField, Tooltip("‹@”\‚ª•t‚¢‚½ƒGƒlƒ~[")]
+    [SerializeField, Tooltip("æ©Ÿèƒ½ãŒä»˜ã„ãŸã‚¨ãƒãƒŸãƒ¼")]
     GameObject _enableEnemy;
 
     [SerializeField]

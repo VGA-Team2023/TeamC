@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Attack
 {
-    [Header("’Z‚¢‰r¥‚Ì–‚–@UŒ‚İ’è")]
+    [Header("çŸ­ã„è© å”±ã®é­”æ³•æ”»æ’ƒè¨­å®š")]
     [SerializeField] private ShortChantingMagickAttack _shortChantingMagicAttack;
 
     [SerializeField] private GameObject _notame;
@@ -14,7 +14,7 @@ public class Attack
 
     private float _countTime = 0;
 
-    /// <summary>UŒ‚’†‚ÉUŒ‚ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ç‚¤‚©</summary>
+    /// <summary>æ”»æ’ƒä¸­ã«æ”»æ’ƒãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã©ã†ã‹</summary>
     private bool _isPushAttack = false;
 
     private bool _isCanNextAttack = false;
@@ -76,7 +76,7 @@ public class Attack
     }
 
 
-    /// <summary>UŒ‚’†‚ÉUŒ‚ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ç‚¤‚©‚ğŠm”F‚·‚é</summary>
+    /// <summary>æ”»æ’ƒä¸­ã«æ”»æ’ƒãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹</summary>
     public void AttackInputedCheck()
     {
         if ((_playerControl.InputManager.IsAttacks || _playerControl.InputManager.IsAttack) && _isAttackInput)
@@ -86,7 +86,7 @@ public class Attack
         }
     }
 
-    /// <summary>UŒ‚I‚í‚è‚Ìˆ—</summary>
+    /// <summary>æ”»æ’ƒçµ‚ã‚ã‚Šã®å‡¦ç†</summary>
     public void EndAttack()
     {
         _tame.SetActive(false);
@@ -96,7 +96,7 @@ public class Attack
         _isCanNextAttack = false;
     }
 
-    /// <summary>UŒ‚‚ğŠ®‘S‚ÉI‚¦‚½Û‚Ìˆ—</summary>
+    /// <summary>æ”»æ’ƒã‚’å®Œå…¨ã«çµ‚ãˆãŸéš›ã®å‡¦ç†</summary>
     public void EndAttackNoNextAttack()
     {
 
@@ -105,24 +105,24 @@ public class Attack
 }
 
 /// <summary>
-/// UŒ‚‚Ìƒ^ƒCƒv
+/// æ”»æ’ƒã®ã‚¿ã‚¤ãƒ—
 /// </summary>
 public enum AttackType
 {
-    /// <summary>’Z‚¢‰r¥‚ÌUŒ‚</summary>
+    /// <summary>çŸ­ã„è© å”±ã®æ”»æ’ƒ</summary>
     ShortChantingMagick,
-    /// <summary>’·‚¢‰r¥‚ÌUŒ‚</summary>
+    /// <summary>é•·ã„è© å”±ã®æ”»æ’ƒ</summary>
     LongChantingMagick,
 }
 
 /// <summary>
-/// –‚–@‚Ì‘®«
+/// é­”æ³•ã®å±æ€§
 /// </summary>
 public enum MagickType
 {
-    /// <summary>•X‘®« </summary>
+    /// <summary>æ°·å±æ€§ </summary>
     Ice,
 
-    /// <summary>‘‘®« </summary>
+    /// <summary>è‰å±æ€§ </summary>
     Grass,
 }

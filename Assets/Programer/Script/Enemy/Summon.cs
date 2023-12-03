@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 public class Summon : MonoBehaviour
 {
-    [SerializeField, Tooltip("¢Š«‚µ‚½‚¢Prefab")]
+    [SerializeField, Tooltip("å¬å–šã—ãŸã„Prefab")]
     GameObject _summonPrefab;
-    [SerializeField, Tooltip("¢Š«‚·‚é“G‚ÌYÀ•W")]
+    [SerializeField, Tooltip("å¬å–šã™ã‚‹æ•µã®Yåº§æ¨™")]
     float _summonPositionY;
 
     public void EnemyCreate()

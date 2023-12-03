@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 public class LoadingPanel : MonoBehaviour
 {
@@ -28,6 +28,7 @@ public class LoadingPanel : MonoBehaviour
         }
 
         _leftInd = Random.Range(0, _images.Length);
+
         if (_images.Length > 1)
         {
             while (_rightInd == _leftInd)
@@ -35,14 +36,14 @@ public class LoadingPanel : MonoBehaviour
                 _rightInd = Random.Range(0, _images.Length);
             }
         }
+
         _leftImage = _images[_leftInd];
         _rightImage = _images[_rightInd];
+
         //_leftImage.color = _images[_leftInd].color;
         //_rightImage.color = _images[_rightInd].color;
-    }
-    private void OnDisable()
-    {
 
+        PrintString();
     }
     private void Update()
     {

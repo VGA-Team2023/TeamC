@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerAnimControl
 {
-    [Header("e‚É•ÏX")]
+    [Header("éŠƒã«å¤‰æ›´")]
     [SerializeField] private string _toGunAnim = "Player_ChangeWeapon_ToGun";
-    [Header("Œ•‚ÉˆÚs")]
+    [Header("å‰£ã«ç§»è¡Œ")]
     [SerializeField] private string _toSword = "Player_ChangeWeapon_ToSword";
 
-    [Header("UŒ‚‰ñ”")]
+    [Header("æ”»æ’ƒå›æ•°")]
     [SerializeField] private string _attackNum = "AttackNum";
 
-    [Header("UŒ‚‚ÌTrigger")]
+    [Header("æ”»æ’ƒã®Trigger")]
     [SerializeField] private string _attackTrigger = "";
 
     private PlayerControl _playerControl;
@@ -74,10 +74,37 @@ public class PlayerAnimControl
         }
     }
 
+    public void PlayDead()
+    {
+        _playerControl.Animator.Play("Dead");
+    }
+
+    public void IsDead(bool isDead)
+    {
+        _playerControl.Animator.SetBool("IsDead", isDead);
+    }
+
+    public void PlayDamage()
+    {
+        _playerControl.Animator.Play("Damage");
+    }
+
+    public void IsDamage(bool isDamage)
+    {
+        _playerControl.Animator.SetBool("IsDamage", isDamage);
+    }
+
+
     public void SetBlendAnimUnderBody(bool isOn)
     {
-        _playerControl.Animator.SetBool("IsNoBlendAnimation", isOn);
+        _playerControl.Animator.SetBool("IsBlendLegAnimation", isOn);
     }
+
+    public void SetBlendAnimation(bool isOn)
+    {
+        _playerControl.Animator.SetBool("IsBlendAnimation", isOn);
+    }
+
 
     public void StopFinishAttack()
     {
@@ -119,14 +146,14 @@ public class PlayerAnimControl
     }
 
 
-    /// <summary>UŒ‚‰ñ”‚ğİ’è‚·‚é</summary>
+    /// <summary>æ”»æ’ƒå›æ•°ã‚’è¨­å®šã™ã‚‹</summary>
     /// <param name="num"></param>
     public void SetAttackNum(int num)
     {
         _playerControl.Animator.SetInteger(_attackNum, num);
     }
 
-    /// <summary>UŒ‚‚ğ‚·‚é</summary>
+    /// <summary>æ”»æ’ƒã‚’ã™ã‚‹</summary>
     public void SetAttackTrigger()
     {
         _playerControl.Animator.SetTrigger(_attackTrigger);

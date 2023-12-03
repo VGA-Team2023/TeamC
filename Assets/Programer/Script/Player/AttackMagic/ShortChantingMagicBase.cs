@@ -1,54 +1,54 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ShortChantingMagicBase
 {
-    [Header("UŒ‚‚Ì‰ñ”")]
+    [Header("æ”»æ’ƒã®å›æ•°")]
     [SerializeField] private int _attackMaxNum = 3;
 
-    [Header("UŒ‚—Í_’™‚ß‚é‘O")]
+    [Header("æ”»æ’ƒåŠ›_è²¯ã‚ã‚‹å‰")]
     [SerializeField] private float _powerShortChanting = 1;
 
-    [Header("UŒ‚—Í_’™‚ß‚½")]
+    [Header("æ”»æ’ƒåŠ›_è²¯ã‚ãŸ")]
     [SerializeField] private float _powerLongChanting = 3;
 
-    [Header("UŒ‚‚ÌˆÊ’u(–‚–@w‚ğg‚í‚È‚¢ê‡")]
+    [Header("æ”»æ’ƒã®ä½ç½®(é­”æ³•é™£ã‚’ä½¿ã‚ãªã„å ´åˆ")]
     [SerializeField] private Transform _attackInstanciatePos;
 
-    [Header("–‚–@w")]
+    [Header("é­”æ³•é™£")]
     [SerializeField] private List<GameObject> _magick = new List<GameObject>();
 
-    [Header("‚½‚ß‚Ì‚Ì–‚–@w")]
+    [Header("ãŸã‚ã®æ™‚ã®é­”æ³•é™£")]
     [SerializeField] private List<GameObject> _magickTame = new List<GameObject>();
 
 
 
-    [Header("ƒp[ƒeƒBƒNƒ‹")]
+    [Header("ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«")]
     [SerializeField] private List<ParticleSystem> _particleSystem = new List<ParticleSystem>();
 
-    [Header("–‚–@w‚©‚ç–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg1")]
+    [Header("é­”æ³•é™£ã‹ã‚‰é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ1")]
     [SerializeField] private List<ParticleSystem> _magickEffect1 = new List<ParticleSystem>();
 
-    [Header("–‚–@w‚©‚ç–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg1")]
+    [Header("é­”æ³•é™£ã‹ã‚‰é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ1")]
     [SerializeField] private List<ParticleSystem> _magickEffect2 = new List<ParticleSystem>();
 
-    [Header("–‚–@w‚©‚ç–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg1")]
+    [Header("é­”æ³•é™£ã‹ã‚‰é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ1")]
     [SerializeField] private List<ParticleSystem> _magickEffect3 = new List<ParticleSystem>();
-    [Header("–‚–@w‚©‚ç–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg1")]
+    [Header("é­”æ³•é™£ã‹ã‚‰é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ1")]
     [SerializeField] private List<ParticleSystem> _magickEffect4 = new List<ParticleSystem>();
-    [Header("–‚–@w‚©‚ç–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg1")]
+    [Header("é­”æ³•é™£ã‹ã‚‰é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ1")]
     [SerializeField] private List<ParticleSystem> _magickEffect5 = new List<ParticleSystem>();
 
 
-    [Header("”ò‚Î‚·–‚–@‚ÌƒvƒŒƒnƒu_’Z‚¢‰r¥")]
+    [Header("é£›ã°ã™é­”æ³•ã®ãƒ—ãƒ¬ãƒãƒ–_çŸ­ã„è© å”±")]
     [SerializeField] private GameObject _prefab;
 
-    [Header("”ò‚Î‚·–‚–@‚ÌƒvƒŒƒnƒu_’Z‚¢‰r¥")]
+    [Header("é£›ã°ã™é­”æ³•ã®ãƒ—ãƒ¬ãƒãƒ–_çŸ­ã„è© å”±")]
     [SerializeField] private GameObject _prefabLong;
 
-    [Header("~‚ß‚é‚Ü‚Å‚ÌŠÔ")]
+    [Header("æ­¢ã‚ã‚‹ã¾ã§ã®æ™‚é–“")]
     [SerializeField] private float _time = 1;
 
     private float _countTime = 0;
@@ -70,7 +70,7 @@ public class ShortChantingMagicBase
     }
 
     /// <summary>
-    /// –‚–@w‚ğ€”õ‚·‚é
+    /// é­”æ³•é™£ã‚’æº–å‚™ã™ã‚‹
     /// </summary>
     public void SetUpMagick()
     {
@@ -94,7 +94,7 @@ public class ShortChantingMagicBase
 
     public void ShowTameMagic(int num, bool isOn)
     {
-        //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+        //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
         if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
 
         if (_magickTame.Count <= num) return;
@@ -103,7 +103,7 @@ public class ShortChantingMagicBase
     }
 
     /// <summary>
-    /// –‚–@w‚ğÁ‚·
+    /// é­”æ³•é™£ã‚’æ¶ˆã™
     /// </summary>
     /// <param name="num"></param>
     public void UseMagick(int num, Transform[] enemys, AttackType attackType, bool isAllAttack)
@@ -178,7 +178,7 @@ public class ShortChantingMagicBase
             else
             {
                 go.transform.position = _attackInstanciatePos.position;
-            }  //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+            }  //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
 
 
             go.TryGetComponent<IMagicble>(out IMagicble magicble);
@@ -200,7 +200,7 @@ public class ShortChantingMagicBase
                 {
                     go.transform.forward = e.transform.position - _attackInstanciatePos.position;
                     go.transform.position = _attackInstanciatePos.position;
-                }  //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+                }  //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
 
 
 
@@ -213,7 +213,7 @@ public class ShortChantingMagicBase
 
     public void UnSetMagick()
     {
-        //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+        //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
         if (!_playerControl.IsNewAttack)
         {
             if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
@@ -225,7 +225,7 @@ public class ShortChantingMagicBase
 
     public void ParticleStopUpdate()
     {
-        //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+        //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
         if (!_playerControl.Attack.ShortChantingMagicAttack.IsMahouzinAttack) return;
 
         if (_isStop) return;
