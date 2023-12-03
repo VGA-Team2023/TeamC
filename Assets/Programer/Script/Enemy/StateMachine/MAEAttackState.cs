@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Rendering;
+using UnityEngine;
 
 //アタック可能な距離まで近づいたらアタックする
 public class MAEAttackState : IStateMachine
@@ -34,28 +35,32 @@ public class MAEAttackState : IStateMachine
     {
         //プレイヤーに近づいたらランダムで攻撃を出す
         float distance = Vector3.Distance(_enemy.transform.position, _player.transform.position);
-        if (distance < 1f && !_isHit)
+        if (distance < 2f && !_isHit)
         {
+            PlayerControl player = null;
             _enemy.Rb.velocity = Vector3.zero;
             int random = Random.Range(0, 2);
+            Ray ray = new Ray(_enemy.transform.position, _enemy.transform.forward * 5f);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (_enemy.TryGet(out PlayerControl getObject, hit.collider.gameObject))
+                {
+                    player = getObject;
+                }
+            }
             switch (random)
             {
                 case 0:
                     //タックル攻撃の後後ろにのけぞる
                     _enemy.Rb.AddForce(-_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
-                    _player.Damage(_enemy.Attack);
+                    player.Rb.AddForce(_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
+                    player.Damage(_enemy.Attack);
                     break;
                 case 1:
+                    _enemy.Animator.Play("Attack");
                     //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
-                    Ray ray = new Ray(_enemy.transform.position, _enemy.transform.forward * 1f);
-                    if(Physics.Raycast(ray, out RaycastHit hit))
-                    {
-                        if (_enemy.TryGet(out PlayerControl getObject, hit.collider.gameObject))
-                        {
-                            Debug.Log("ひっかき攻撃");
-                            getObject.Damage(10);
-                        }
-                    }
+                    player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
+                    player.Damage(_enemy.Attack);
                     break;
             }
             _isHit = true;
