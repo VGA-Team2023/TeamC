@@ -7,6 +7,9 @@ public class FinishAttackState : PlayerStateBase
 {
     public override void Enter()
     {
+        //LockOnのUIを非表示に
+        _stateMachine.PlayerController.LockOn.PlayerLockOnUI.LockOn(false);
+
         _stateMachine.PlayerController.FinishingAttack.StartFinishingAttack();
 
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimUnderBody(true);

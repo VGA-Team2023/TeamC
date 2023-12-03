@@ -178,7 +178,7 @@ public class TestEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble
         }
     }
 
-    public void EndFinishing()
+    public void EndFinishing(MagickType attackHitTyp)
     {
         _rb.velocity = Vector3.zero;
         pLow.ForEach(i => i.Play());
