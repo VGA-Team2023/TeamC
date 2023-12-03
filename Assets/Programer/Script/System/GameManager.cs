@@ -117,6 +117,8 @@ public enum GameState
 {
     /// <summary>タイトル</summary>
     Title,
+    /// <summary>チュートリアル</summary>
+    Tutorial,
     /// <summary>ゲーム中</summary>
     Game,
     /// <summary>敵生成中</summary>
