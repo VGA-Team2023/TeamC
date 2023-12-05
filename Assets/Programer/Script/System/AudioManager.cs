@@ -1,20 +1,20 @@
 ﻿using CriWare;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static CriWare.CriProfiler;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class AudioManager : MonoBehaviour
 {
     /// <summary>シングルトン化</summary>
     public static AudioManager _instance;
+    [Header("設定")]
+    [SerializeField, Tooltip("BGMのボリューム"), Range(0, 1)] int _bgmVolume = 1;
+    [SerializeField, Tooltip("SEのボリューム"), Range(0, 1)] int _seVolume = 1;
     [SerializeField, Tooltip("PlayerおよびEnemyのSEに3D機能をつけるかどうか")] bool _is3DPositioning;
+    [SerializeField, Tooltip("現在のシーン(BGM)")] BGMState _sceneBGMState;
+    [Space]
+    [Space]
+    [Header("値固定(以下の値は固定のままで)")]
     [Header("BGM")]
-        [SerializeField, Tooltip("現在のシーン(BGM)")] BGMState _sceneBGMState;
     [SerializeField, Tooltip("各シーン用のBGMデータ")] BGM[] bgms;
     [Header("Player")]
     [SerializeField, Tooltip("PlayerのSEデータ")] PlayerSE[] playerSEDates;
@@ -23,7 +23,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField, Tooltip("EnemyのSEデータ")] EnemyHitSE[] enemyHitSEDates;
     [Header("System")]
     [SerializeField, Tooltip("ボタン音のSEデータ")] ButtonPushSEProperty[] buttonPushSE;
-
     /// <summary>BGM専用</summary>
     CriAtomSource _bgmSource;
     /// <summary>システム専用</summary>
@@ -58,7 +57,8 @@ public class AudioManager : MonoBehaviour
             BGMPlay(this._sceneBGMState);
             DontDestroyOnLoad(this);
         }
-        else
+
+        if(_instance != this)
         {
             PlayerAttributeSet();
             //シーン遷移した後のBGM切り替え
@@ -91,6 +91,7 @@ public class AudioManager : MonoBehaviour
                 cueName = playerSEDates[index].AttributeSE.GrassSoundCueName;
                 break;
         }
+        _playerSeSource.volume = _seVolume;
         _playerSeSource.Play(cueName);
     }
     /// <summary>再生中のPlayerのSEを停止するもの</summary>
@@ -144,6 +145,7 @@ public class AudioManager : MonoBehaviour
         {
             _seSource.use3dPositioning = true;
         }
+        _seSource.volume = _seVolume;
         return _seSource;
     }
 
@@ -171,7 +173,18 @@ public class AudioManager : MonoBehaviour
         {
             _systemSeSource = transform.GetChild(1).GetComponent<CriAtomSource>();
         }
+        _systemSeSource.volume = _seVolume;
         _systemSeSource.Play(buttonPushSE[index].SoundCueName);
     }
 
+    public void BGMVolumeChange(int volume)
+    {
+        _bgmVolume = volume;
+        _bgmSource.volume = _bgmVolume;
+    }
+
+    public void SEVolumeChnage(int volume)
+    {
+        _seVolume = volume;
+    }
 }
