@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour,IPlayerDamageble
+public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow
 {
     [Header("HpÝ’è")]
     [SerializeField] private PlayerHp _hp;
@@ -15,6 +15,16 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
 
     [Header("‰ñ”ð")]
     [SerializeField] private PlayerAvoid _avoid;
+
+    [Header("UŒ‚‚ðVver‚É‚·‚é‚©‚Ç‚¤‚©")]
+    [SerializeField] private bool _isNewAttack = true;
+
+    public bool IsNewAttack => _isNewAttack;
+
+    [Header("UŒ‚QV‚µ‚¢")]
+    [SerializeField] private Attack2 _attack2;
+
+    public Attack2 Attack2 => _attack2;
 
     [Header("UŒ‚")]
     [SerializeField] private Attack _attack;
@@ -42,7 +52,7 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     [SerializeField] private Transform _playerT;
 
     [Header("Player‚ÌƒƒbƒVƒ…")]
-    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
+    [SerializeField] private MeshRenderer _meshRenderer;
 
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
@@ -53,10 +63,21 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
 
+    [Header("‰¹")]
+    [SerializeField] private PlayerAudio _audio;
+
+    public PlayerAudio PlayerAudio => _audio;
+
+    [SerializeField] private HitStopConrol _hitStopConrol;
+
     [SerializeField] private PlayerStateMachine _stateMachine = default;
 
     [SerializeField] private ColliderCheck _colliderCheck;
 
+
+    private Vector3 _savePauseVelocity = default;
+
+    public HitStopConrol HitStopConrol => _hitStopConrol;
     public PlayerDamage PlayerDamage => _damage;
     public PlayerHp PlayerHp => _hp;
     public ControllerVibrationManager ControllerVibrationManager => _controllerVibrationManager;
@@ -74,7 +95,7 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     public PlayerAvoid Avoid => _avoid;
     public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
-    public SkinnedMeshRenderer MeshRenderer => _meshRenderer;
+    public MeshRenderer MeshRenderer => _meshRenderer;
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -82,6 +103,7 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
         _playerMove.Init(this);
         _playerAnimControl.Init(this);
         _attack.Init(this);
+        _attack2.Init(this);
         _weaponSetting.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
@@ -95,11 +117,9 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         _stateMachine.Update();
-
     }
 
     private void FixedUpdate()
@@ -118,11 +138,53 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     {
         _groundCheck.OnDrawGizmos(PlayerT);
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
+        _attack2.AttackMagic.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
 
     public void Damage(float damage)
     {
         _damage.Damage(damage);
+    }
+
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+    }
+
+
+    public void Pause()
+    {
+        _anim.speed = 0;
+
+        _savePauseVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    public void Resume()
+    {
+        _anim.speed = 1;
+
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = _savePauseVelocity;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _anim.speed = slowSpeedRate;
+    }
+
+    public void OffSlow()
+    {
+        _anim.speed = 1;
     }
 }

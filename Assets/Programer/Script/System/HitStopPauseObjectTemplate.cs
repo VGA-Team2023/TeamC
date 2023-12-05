@@ -7,7 +7,7 @@ using UnityEngine;
 /// 下記にヒットストップや一時停止に切り替えたいときの呼び出し方記載
 /// ヒットストップと一時停止の実装したもの(テンプレート)
 /////////////////////////////////////////////////////////////////////////
-public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
+public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause,ISpecialMovingPause
 {
     Rigidbody _rb;
     Animator _anim;
@@ -22,11 +22,13 @@ public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
         _gaManager = GameManager.Instance;
         _gaManager.SlowManager.Add(this);　//ヒットストップの登録
         _gaManager.PauseManager.Add(this);  //一時停止の登録
+        _gaManager.SpecialMovingPauseManager.Add(this); //必殺技時の一時停止の登録
     }
     private void OnDisable()
     {
         _gaManager.SlowManager.Remove(this);　//ヒットストップの解除
         _gaManager.PauseManager.Remove(this);  //一時停止の解除
+        _gaManager.SpecialMovingPauseManager.Resume(this); //必殺技時の一時停止の解除
     }
     void Start()
     {
@@ -72,6 +74,23 @@ public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
         _rb.isKinematic = false;
         _rb.WakeUp();
     }
+    //////////////////////////////////必殺技時の一時停止///////////////////////////////////////
+    void ISpecialMovingPause.Pause()
+    {
+        //一時停止時の処理を書く
+        _anim.speed = 0;
+        //Rigidbodyの停止のさせ方は各々で決めてもらう？
+        _rb.Sleep();
+        _rb.isKinematic = true;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        //通常時の処理を書く
+        _anim.speed = 1;
+        _rb.isKinematic = false;
+        _rb.WakeUp();
+    }
 
     ///////////////////////////////呼び出し方////////////////////////////////////////
     //ヒットストップ
@@ -80,4 +99,7 @@ public class HitStopPauseObjectTemplate : MonoBehaviour, ISlow,IPause
     //一時停止
     //GameManager.Instance.PauseManager.PauseResume(true); で停止に切り替わる
     //GameManager.Instance.PauseManager.PauseResume(false); で通常に戻る
+    //必殺技時の一時停止
+    //GameManager.Instance.SpecialMovingPauseManager.PauseResume(true); で停止に切り替わる
+    //GameManager.Instance.SpecialMovingPauseManager.PauseResume(false); で通常に戻る
 }

@@ -41,11 +41,23 @@ _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
         }   //ƒgƒhƒ
 
 
-        if (_stateMachine.PlayerController.InputManager.IsAttack && !_stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.IsEndMagic)
+        if (_stateMachine.PlayerController.IsNewAttack)
         {
-            _stateMachine.TransitionTo(_stateMachine.AttackState);
-            return;
-        }   //UŒ‚
+            if (_stateMachine.PlayerController.InputManager.IsAttack && _stateMachine.PlayerController.Attack2.IsCanTransitionAttackState)
+            {
+                _stateMachine.TransitionTo(_stateMachine.AttackState);
+                return;
+            }   //UŒ‚
+        }
+        else
+        {
+            if (_stateMachine.PlayerController.InputManager.IsAttack && !_stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.IsEndMagic)
+            {
+                _stateMachine.TransitionTo(_stateMachine.AttackState);
+                return;
+            }   //UŒ‚
+        }
+
 
         if (_stateMachine.PlayerController.InputManager.IsAvoid)
         {

@@ -22,7 +22,7 @@ public class FinishAttackNearMagic
 
     public void SetEffect()
     {
-        _effect.SetActive(true);
+        _effect?.SetActive(true);
         foreach (var a in _setUpparticleSystems)
         {
             a.Play();
@@ -39,12 +39,12 @@ public class FinishAttackNearMagic
 
     public void Stop()
     {
-        _effect.SetActive(false);
+        _effect?.SetActive(false);
     }
 
     public void End()
     {
-        _effect.SetActive(false);
+        _effect?.SetActive(false);
     }
 
 }

@@ -11,11 +11,8 @@ public class FinishingAttackUI
     [Header("とどめをさしている間のUIのプレハブ")]
     [SerializeField] private GameObject _finishUIPrefab;
 
-
-
     [Header("敵の最大数")]
     [SerializeField] private int _enemyMaxNum = 10;
-
 
     [Header("トドメを促すUI")]
     [SerializeField] private GameObject _finishingUI;

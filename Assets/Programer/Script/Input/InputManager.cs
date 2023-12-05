@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField] private PlayerControl _control;
+
+    [Header("KeyBord‘€ì")]
+    [SerializeField] private bool _isKeybord = false;
+
     /// <summary>\‚¦‰Ÿ‚·</summary>
     private bool _isSetUpDown = false;
 
@@ -44,6 +49,8 @@ public class InputManager : MonoBehaviour
     public bool IsFinishAttackDown => _isFinishAttackDown;
     public bool IsAvoid => _isAvoid;
 
+    private float _saveTrigger;
+
     private void Update()
     {
         // _isSetUpDown = Input.GetButtonDown("SetUp");
@@ -53,17 +60,59 @@ public class InputManager : MonoBehaviour
 
         _isJump = Input.GetButtonDown("Jump");
 
-        _isAttack = Input.GetButtonDown("Attack");
-        _isAttackUp = Input.GetButtonUp("Attack");
-        _isAttacks = Input.GetButton("Attack");
+        if (_control.IsNewAttack && !_isKeybord)
+        {
+            float v = Input.GetAxis("Trigger");
+            if (v > 0)
+            {
+                _isAttacks = true;
+            }
+            else
+            {
+                _isAttacks = false;
+            }
+
+
+            if (_saveTrigger <= 0 && v > 0)
+            {
+                _isAttack = true;
+            }
+            else
+            {
+                _isAttack = false;
+            }
+
+            if (_saveTrigger > 0 && v <= 0)
+            {
+                _isAttackUp = true;
+            }
+            else
+            {
+                _isAttackUp = false;
+            }
+
+            _saveTrigger = v;
+        }
+        else
+        {
+            _isAttack = Input.GetButtonDown("Attack");
+            _isAttackUp = Input.GetButtonUp("Attack");
+            _isAttacks = Input.GetButton("Attack");
+        }
+
+
+
 
         _isFinishAttack = Input.GetButton("FinishAttack");
 
         _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
-        _isAvoid = Input.GetButtonDown("Avoid");
+        // _isAvoid = Input.GetButtonDown("Avoid");
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
+
+
+
     }
 
 }

@@ -24,7 +24,8 @@ public class ColliderCheck
         r.x = 0;
         r.z = 0;
 
-        return Physics.OverlapBox(new Vector3(posX, posY, posz), size, r, layer);
+        var d = Physics.OverlapBox(new Vector3(posX, posY, posz), size, r, layer);
+        return d;
     }
 
     public Transform[] EnemySearch(SearchType searchType, Vector3 offSet, Vector3 size, LayerMask layer)
