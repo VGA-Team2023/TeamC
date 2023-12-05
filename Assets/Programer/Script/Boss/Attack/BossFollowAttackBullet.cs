@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossFollowAttackBullet : MonoBehaviour
+public class BossFollowAttackBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 {
     [Header("攻撃の柱のエフェクト")]
     [SerializeField] private List<ParticleSystem> _attackP = new List<ParticleSystem>();
@@ -53,6 +53,8 @@ public class BossFollowAttackBullet : MonoBehaviour
 
     void Update()
     {
+        if (_isPause || _isMoviePause) return;
+
         if (!_isPlayEffect)
         {
             _countWaitTime += Time.deltaTime;
@@ -108,4 +110,52 @@ public class BossFollowAttackBullet : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + _offset, _size / 2);
     }
 
+
+    private bool _isPause = false;
+    private bool _isMoviePause = false;
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
+
+    public void Pause()
+    {
+        _isPause = true;
+    }
+
+    public void Resume()
+    {
+        _isPause = false;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+
+    }
+
+    public void OffSlow()
+    {
+
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _isMoviePause = true;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _isMoviePause = false;
+    }
 }

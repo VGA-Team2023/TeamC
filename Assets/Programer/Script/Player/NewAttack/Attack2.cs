@@ -58,7 +58,16 @@ public class Attack2
         _playerControl.CameraControl.UseAttackChargeCamera();
 
         //音
-        _playerControl.PlayerAudio.IceCharge(true);
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AttackCharge(true, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AttackCharge(true, false);
+        }
+
+        //AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
 
         _isAttackNow = true;
         _isCanNextAttack = false;
@@ -101,7 +110,16 @@ public class Attack2
                 _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
                 //音
-                _playerControl.PlayerAudio.IceCharge(false);
+                if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+                {
+                    _playerControl.PlayerAudio.AttackCharge(false, true);
+                }
+                else
+                {
+                    _playerControl.PlayerAudio.AttackCharge(false, false);
+                }
+
+                // AudioManager.Instance.PlayerSEStop(PlayerAttackSEState.Charge);
 
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);

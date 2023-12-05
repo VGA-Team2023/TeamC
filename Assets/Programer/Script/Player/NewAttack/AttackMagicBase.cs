@@ -90,7 +90,15 @@ public class AttackMagicBase
     /// </summary>
     public void UseMagick(Transform[] enemys, int attackCount)
     {
-        _playerControl.PlayerAudio.IceFire(_setUpMagicCount);
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, false);
+        }
+
         for (int i = 0; i < _setUpMagicCount; i++)
         {
             //魔法陣を消す

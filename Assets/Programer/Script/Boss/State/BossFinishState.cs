@@ -28,6 +28,15 @@ public class BossFinishState : BossStateBase
 
     public override void Update()
     {
+        //ƒ_ƒEƒ“ó‘Ô‚ÌŠÔŒv‘ª
+        _stateMachine.BossController.BossHp.CountKnockDownTime();
+
+        if (_stateMachine.BossController.IsDeath)
+        {
+            _stateMachine.TransitionTo(_stateMachine.StateDeath);
+            return;
+        }//€–S
+
         if (!_stateMachine.BossController.BossHp.IsKnockDown)
         {
             _stateMachine.TransitionTo(_stateMachine.StateIdle);

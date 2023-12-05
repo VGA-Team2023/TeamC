@@ -12,6 +12,10 @@ public class BossAnimControl
         _bossControl = bossControl;
     }
 
+    public void DeathPlay()
+    {
+        _bossControl.Animator.Play("Death");
+    }
 
     public void IsDown(bool isDown)
     {

@@ -58,10 +58,12 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [SerializeField] private HitStopConrol _hitStopConrol;
     [SerializeField] private PlayerStateMachine _stateMachine = default;
     [SerializeField] private ColliderCheck _colliderCheck;
-    [SerializeField]private Attack _attack;
+    [SerializeField] private Attack _attack;
 
 
     private bool _isNewAttack = true;
+
+    private bool _isPause = false;
 
     private PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
 
@@ -117,6 +119,12 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
         _damage.CountWaitTime();
 
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            _isPause = !_isPause;
+            GameManager.Instance.PauseManager.PauseResume(_isPause);
+        }
 
         if (Input.GetButtonDown("ChangeType"))
         {
@@ -184,7 +192,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     {
         _anim.speed = 1;
 
-        _rigidbody.isKinematic = true;
+        _rigidbody.isKinematic = false;
         _rigidbody.velocity = _savePauseVelocity;
     }
 

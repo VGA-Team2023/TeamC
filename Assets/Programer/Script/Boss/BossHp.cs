@@ -9,6 +9,9 @@ public class BossHp
     [Header("ボスの体力_各Wave")]
     [SerializeField] private List<float> _waveHp = new List<float>();
 
+    [Header("トドメ可能なダウン時間")]
+    [SerializeField] private float _knockDownTIme = 8f;
+
     [Header("トドメ可能のダウンエフェクト")]
     [SerializeField] private List<ParticleSystem> _knockDownEffect = new List<ParticleSystem>();
 
@@ -35,6 +38,8 @@ public class BossHp
     [Header("通常レイヤー")]
     [SerializeField] private int _enemyLayer;
 
+    private float _countKnockDownTime = 0;
+
     private int _waveCount = 0;
 
     private float _nowHp = 0;
@@ -45,6 +50,8 @@ public class BossHp
     /// <summary>一度、トドメをさす状態に持って行けたかどうか</summary>
     private bool _isKnockDowned = false;
 
+    private bool _isFinishNow = false;
+
     public bool IsKnockDown => _isKnockDown;
 
 
@@ -54,6 +61,17 @@ public class BossHp
     {
         _bossControl = bossControl;
         SetNewHp();
+    }
+
+    public void CountKnockDownTime()
+    {
+        if (_isFinishNow) return;
+        _countKnockDownTime += Time.deltaTime;
+        if (_countKnockDownTime > _knockDownTIme)
+        {
+            _countKnockDownTime = 0;
+            StopFinishAttack();
+        }
     }
 
     /// <summary>新しい体力を設定</summary>
@@ -68,7 +86,7 @@ public class BossHp
 
     public void StartFinishAttack()
     {
-        _isKnockDowned = true;
+        _isFinishNow = true;
     }
 
     public void StopFinishAttack()
@@ -82,20 +100,21 @@ public class BossHp
         }   //ダウンエフェクトを停止
 
         _isKnockDown = false;
+        _isFinishNow = false;
         _nowHp = _waveHp[_waveCount] / 2;
         _bossControl.gameObject.layer = _enemyLayer;
     }
 
     /// <summary>トドメを刺された場合</summary>
-    public void CompleteFinishAttack(MagickType magickType)
+    public bool CompleteFinishAttack(MagickType magickType)
     {
         if (_waveCount < 2)
         {
             _effectDark[_waveCount].Stop();
         }
-
-
         _waveCount++;
+        _isKnockDown = false;
+        _isFinishNow = false;
 
         //アニメーション設定
         _bossControl.BossAnimControl.IsDown(false);
@@ -108,6 +127,7 @@ public class BossHp
         if (_waveCount == _waveHp.Count)
         {
             _bossControl.gameObject.layer = _endFinishLayer;
+            return true;
         }
         else
         {
@@ -129,7 +149,7 @@ public class BossHp
                 i.Play();
             }
         }
-
+        return false;
 
     }
 
@@ -150,6 +170,7 @@ public class BossHp
             {
                 i.Play();
             }
+
         }
 
         if (_nowHp < 0)
@@ -165,7 +186,6 @@ public class BossHp
             _isKnockDown = true;
             _bossControl.gameObject.layer = _canFinishLayer;
         }
-
     }
 
 }

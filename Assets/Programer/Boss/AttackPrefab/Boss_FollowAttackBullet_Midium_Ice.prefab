@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2828932307928926824}
   - component: {fileID: 5619210297302056738}
+  - component: {fileID: -3967816751238349920}
   m_Layer: 0
   m_Name: Boss_FollowAttackBullet_Midium_Ice
   m_TagString: Untagged
@@ -87,6 +88,54 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _isDrowGizmo: 1
+--- !u!114 &-3967816751238349920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102180365500606189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a59f610b880b3240b87cd1fa3749346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDestroy: 0
+  _destroyTime: 1
+  _effects:
+  - _name: 
+    _effects:
+    - {fileID: 647634258850219680}
+    - {fileID: 3299817281033833624}
+    - {fileID: 23617037315902695}
+    - {fileID: 8461795292990008710}
+    - {fileID: 2930070069562456300}
+    - {fileID: 8365094756503198950}
+    - {fileID: 4422520644457802218}
+    - {fileID: 5318187582457603559}
+    - {fileID: 8925604557049568038}
+    - {fileID: 4514870007398271040}
+    - {fileID: 2680889706770887813}
+    - {fileID: 5341668204336432930}
+    - {fileID: 2892206570161746692}
+    - {fileID: 298397048561276137}
+    - {fileID: 8685929653193170274}
+    - {fileID: 598862256041897178}
+    - {fileID: 7882708216612485053}
+    - {fileID: 7176839059296716853}
+  - _name: 
+    _effects:
+    - {fileID: 6615488455386383138}
+    - {fileID: 6615488455779481294}
+    - {fileID: 8821616622099451636}
+    - {fileID: 8933427096458639743}
+    - {fileID: 8821616623002598275}
+    - {fileID: 6615488456034249670}
+    - {fileID: 8764550614655620794}
+    - {fileID: 8764550614726231437}
+    - {fileID: 8764550612887406517}
+    - {fileID: 8764550613267599238}
+    - {fileID: 6078562547768857434}
 --- !u!1001 &5840327974392859633
 PrefabInstance:
   m_ObjectHideFlags: 0

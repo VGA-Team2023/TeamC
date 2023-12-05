@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8896230649492488102}
   - component: {fileID: 3756378373172375374}
+  - component: {fileID: 6527124985333528772}
   m_Layer: 0
   m_Name: Boss_FollowAttackBullet_Big_Grass
   m_TagString: Untagged
@@ -74,6 +75,41 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _isDrowGizmo: 1
+--- !u!114 &6527124985333528772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565279911394243090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a59f610b880b3240b87cd1fa3749346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDestroy: 0
+  _destroyTime: 1
+  _effects:
+  - _name: MagicCircle
+    _effects:
+    - {fileID: 497569538014273013}
+    - {fileID: 497569538159372313}
+    - {fileID: 2829943904794497059}
+    - {fileID: 2829943903487370580}
+    - {fileID: 497569537386607889}
+    - {fileID: 2632537807219804269}
+    - {fileID: 2632537807298878298}
+    - {fileID: 2632537808450066786}
+    - {fileID: 2632537808758821201}
+  - _name: Ice
+    _effects:
+    - {fileID: 2145235004921114354}
+    - {fileID: 148914903948017206}
+    - {fileID: 9202282787424488520}
+    - {fileID: 7789747771995314168}
+    - {fileID: 3401834367068319355}
+    - {fileID: 6366100414475195100}
+    - {fileID: 1256515418702356916}
 --- !u!1001 &7968790952155345249
 PrefabInstance:
   m_ObjectHideFlags: 0
