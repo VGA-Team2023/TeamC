@@ -242,7 +242,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d99d06523c469e4cab5c609af6dc910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bgmVolume: 1
+  _seVolume: 1
   _is3DPositioning: 1
+  _sceneBGMState: 0
   bgms:
   - bgmState: 0
     soundCueName: BGM_Title
@@ -276,8 +279,7 @@ MonoBehaviour:
       iceSoundCueName: SE_PL_ice_Finish
       grassSoundCueName: SE_PL_grass_Finish
   buttonPushSE:
-  - bgmState: 0
+  - buttonPushSE: 0
     soundCueName: SE_Sys_select
-  - bgmState: 1
+  - buttonPushSE: 0
     soundCueName: SE_Sys_cancel
-  _sceneBGMState: 0
