@@ -40,6 +40,8 @@ public class PlayerDamage
 
     public void Damage()
     {
+        //アニメーション
+        _playerControl.PlayerAnimControl.PlayDamage();
         //カメラ変更
         _playerControl.CameraControl.UseDefultCamera(true);
         //カメラの振動
@@ -94,7 +96,6 @@ public class PlayerDamage
         else
         {
             _isDamage = true;
-            _playerControl.PlayerAnimControl.PlayDamage();
             _playerControl.PlayerAnimControl.IsDamage(true);
         }
 
