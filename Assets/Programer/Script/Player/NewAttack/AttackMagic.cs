@@ -5,26 +5,28 @@ using UnityEngine;
 [System.Serializable]
 public class AttackMagic
 {
-    [Header("===魔法の設定===")]
+    [Header("---@魔法の設定---")]
     [SerializeField] private List<AttackMagicBase> _magicSetting = new List<AttackMagicBase>();
 
-    [Header("移動設定")]
+    [Header("---@移動設定---")]
     [SerializeField] private ShortChantingMagicAttackMove _shortChantingMagicAttackMove;
 
-    [Header("攻撃の種類")]
-    [SerializeField] private SearchType _searchType = SearchType.NearlestEnemy;
-
-    [Header("当たり判定_Offset")]
+    [Header("@敵の探索範囲の_Offset")]
     [SerializeField] private Vector3 _offset;
 
-    [Header("当たり判定_Size")]
+    [Header("@敵の探索範囲の_Size")]
     [SerializeField] private Vector3 _size;
+
+    [Header("@Gizmoを表示するかどうか")]
+    [SerializeField] private bool _isDrawGizmo = true;
 
     [Header("敵のレイヤー")]
     [SerializeField] private LayerMask _targetLayer;
 
-    [SerializeField]
-    private bool _isDrawGizmo = true;
+
+    private SearchType _searchType = SearchType.AllEnemy;
+
+
 
     private bool _isCanAttack = false;
 

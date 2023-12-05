@@ -7,39 +7,25 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [Header("マウスで操作するかどうか")]
     public bool IsMousePlay = false;
 
-    [Header("Hp設定")]
+    [Header("@Hp設定")]
     [SerializeField] private PlayerHp _hp;
 
-    [Header("ダメージ")]
+    [Header("@ダメージ処理設定")]
     [SerializeField] private PlayerDamage _damage;
 
-    [Header("移動設定")]
+    [Header("@移動設定")]
     [SerializeField] private PlayerMove _playerMove;
 
-    [Header("回避")]
+    [Header("@回避")]
     [SerializeField] private PlayerAvoid _avoid;
 
-    private bool _isNewAttack = true;
-
-    public bool IsNewAttack => _isNewAttack;
-
-    [Header("ロックオン")]
+    [Header("@ロックオン")]
     [SerializeField] private PlayerLockOn _lockOn;
 
-    public PlayerLockOn LockOn => _lockOn;
-
-    [Header("攻撃＿新しい")]
+    [Header("@攻撃")]
     [SerializeField] private Attack2 _attack2;
 
-    public Attack2 Attack2 => _attack2;
-
-    [Header("攻撃")]
-    [SerializeField] private Attack _attack;
-
-    [Header("武器")]
-    [SerializeField] private WeaponSetting _weaponSetting;
-
-    [Header("とどめ")]
+    [Header("@とどめ")]
     [SerializeField] private FinishingAttack _finishingAttack;
 
     [Header("設置判定")]
@@ -48,50 +34,47 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [Header("アニメーション設定")]
     [SerializeField] private PlayerAnimControl _playerAnimControl;
 
+
+
+
+
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
-
-    [SerializeField] private GunLine _gunLine;
-
     [Header("カメラ設定")]
     [SerializeField] private CameraControl _cameraControl;
-
     [Header("プレイヤー自身")]
     [SerializeField] private Transform _playerT;
-
     [Header("モデル")]
     [SerializeField] private Transform _playerModelT;
-
-    public Transform PlayerModelT => _playerModelT;
-
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
-
     [Header("Animator")]
     [SerializeField] private Animator _anim;
-
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
-
     [Header("音")]
     [SerializeField] private PlayerAudio _audio;
-
     [Header("HitStop設定")]
     [SerializeField] private HitStopCall _hitStopCall;
-
-    public HitStopCall HitStopCall => _hitStopCall;
-    public PlayerAudio PlayerAudio => _audio;
-
     [SerializeField] private HitStopConrol _hitStopConrol;
-
     [SerializeField] private PlayerStateMachine _stateMachine = default;
-
     [SerializeField] private ColliderCheck _colliderCheck;
+    [SerializeField] private Attack _attack;
+
+
+    private bool _isNewAttack = true;
+
+    private bool _isPause = false;
 
     private PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
 
     private Vector3 _savePauseVelocity = default;
 
-
+    public Transform PlayerModelT => _playerModelT;
+    public bool IsNewAttack => _isNewAttack;
+    public PlayerLockOn LockOn => _lockOn;
+    public Attack2 Attack2 => _attack2;
+    public HitStopCall HitStopCall => _hitStopCall;
+    public PlayerAudio PlayerAudio => _audio;
     public PlayerAttribute PlayerAttribute => _playerAttribute;
     public HitStopConrol HitStopConrol => _hitStopConrol;
     public PlayerDamage PlayerDamage => _damage;
@@ -105,11 +88,9 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public InputManager InputManager => _inputManager;
     public PlayerMove Move => _playerMove;
     public GroundCheck GroundCheck => _groundCheck;
-    public WeaponSetting WeaponSetting => _weaponSetting;
     public Attack Attack => _attack;
     public FinishingAttack FinishingAttack => _finishingAttack;
     public PlayerAvoid Avoid => _avoid;
-    public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
     private void Awake()
     {
@@ -119,7 +100,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         _playerAnimControl.Init(this);
         _attack.Init(this);
         _attack2.Init(this);
-        _weaponSetting.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
         _avoid.Init(this);
@@ -140,9 +120,15 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         _damage.CountWaitTime();
 
 
-        if(Input.GetButtonDown("ChangeType"))
+        if (Input.GetButtonDown("Pause"))
         {
-            if(_playerAttribute ==PlayerAttribute.Ice)
+            _isPause = !_isPause;
+            GameManager.Instance.PauseManager.PauseResume(_isPause);
+        }
+
+        if (Input.GetButtonDown("ChangeType"))
+        {
+            if (_playerAttribute == PlayerAttribute.Ice)
             {
                 _playerAttribute = PlayerAttribute.Grass;
             }
@@ -206,7 +192,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     {
         _anim.speed = 1;
 
-        _rigidbody.isKinematic = true;
+        _rigidbody.isKinematic = false;
         _rigidbody.velocity = _savePauseVelocity;
     }
 

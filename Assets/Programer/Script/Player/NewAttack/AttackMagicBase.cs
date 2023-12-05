@@ -6,23 +6,25 @@ using UnityEngine;
 [System.Serializable]
 public class AttackMagicBase
 {
-    [Header("魔法の属性")]
+    [Header("@魔法の属性")]
     [SerializeField] private MagickType _magicType = MagickType.Ice;
 
-    [Header("魔法の位置と、時間設定")]
+    [Header("@魔法の位置と、時間設定")]
     [SerializeField] private List<Magic> _magickData = new List<Magic>();
 
-    [Header("攻撃の回数")]
-    [SerializeField] private int _attackMaxNum = 3;
 
-    [Header("攻撃力_貯める前")]
+
+    [Header("攻撃力")]
     [SerializeField] private float _powerShortChanting = 1;
 
-    [Header("攻撃力_貯めた")]
-    [SerializeField] private float _powerLongChanting = 3;
+    // [Header("攻撃力_貯めた")]
+    //[SerializeField] private float _powerLongChanting = 3;
 
-    [Header("飛ばす魔法のプレハブ_短い詠唱")]
+    [Header("飛ばす魔法の弾プレハブ")]
     [SerializeField] private GameObject _prefab;
+
+
+    private int _attackMaxNum = 3;
 
     /// <summary>ための時間を計測</summary>
     private float _countChargeTime = 2f;
@@ -88,16 +90,24 @@ public class AttackMagicBase
     /// </summary>
     public void UseMagick(Transform[] enemys, int attackCount)
     {
-        _playerControl.PlayerAudio.IceFire(_setUpMagicCount);
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, false);
+        }
+
         for (int i = 0; i < _setUpMagicCount; i++)
         {
             //魔法陣を消す
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
 
-            if (_magickData[attackCount - 1].MagickData[i].Effect != null)
-            {
-                _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
-            }
+            //if (_magickData[attackCount - 1].MagickData[i].Effect != null)
+            //{
+            //    _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
+            //}
 
             if (_magickData[attackCount - 1].MagickData[i].UseMagicparticle.Count != 0)
             {
@@ -110,7 +120,7 @@ public class AttackMagicBase
 
             //魔法のプレハブを出す
             var go = UnityEngine.GameObject.Instantiate(_prefab);
-            go.transform.position = _magickData[attackCount - 1].MagickData[i].MuzzlePos.position;
+            go.transform.position = _magickData[attackCount - 1].MagickData[i].MagicCircle.transform.position;
 
             if (_playerControl.LockOn.IsLockOn)
             {
@@ -162,23 +172,28 @@ public class Magic
 [System.Serializable]
 public class MagickData
 {
-    [Header("魔法陣1つ出すのにかける時間")]
+    [Header("@魔法陣1つ出すのにかける時間")]
     [SerializeField] private float _chargeTime = 0.3f;
 
-    [Header("魔法陣のオブジェクト")]
+    [Header("@魔法陣のオブジェクト")]
     [SerializeField] private GameObject _magickCircle;
 
-    [Header("魔法を出す位置")]
-    [SerializeField] private Transform _muzzlePos;
-
-    [Header("魔法陣のパーティクル")]
-    [SerializeField] private List<ParticleSystem> _particles = new List<ParticleSystem>();
-
-    [Header("魔法を出したときのエフェクト")]
+    [Header("@魔法を出したときのエフェクト")]
     [SerializeField] private List<ParticleSystem> _particlesUseMagic = new List<ParticleSystem>();
 
-    [Header("魔法陣を出したときのエフェクトオブジェクト")]
-    [SerializeField] private GameObject _effect;
+    //[Header("魔法を出す位置()")]
+    //  [SerializeField] 
+    private Transform _muzzlePos;
+
+    // [Header("魔法陣のパーティクル")]
+    //  [SerializeField]
+    private List<ParticleSystem> _particles = new List<ParticleSystem>();
+
+
+
+    // [Header("魔法陣を出したときのエフェクトオブジェクト")]
+    // [SerializeField]
+    private GameObject _effect;
 
     public GameObject Effect => _effect;
     public List<ParticleSystem> UseMagicparticle => _particlesUseMagic;

@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class ShortChantingMagicAttackMove
 {
-    [Header("移動速度")]
+    [Header("@移動速度")]
     [SerializeField] private float _moveSpeed = 5;
 
-    [Header("回転速度")]
+    [Header("@回転速度")]
     [SerializeField] private float _rotateSpeed = 300;
 
     /// <summary>入力方向</summary>

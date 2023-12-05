@@ -5,12 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerAvoid
 {
-    [Header("回避の移動設定")]
+    [Header("---@回避の移動設定---")]
     [SerializeField] private PlayerAvoidMove _avoidMove;
 
-    [Header("回避時間")]
+    [Header("@回避時間")]
     [SerializeField] private float _avoidTime = 0.5f;
-
 
     [Header("回避中のプレイヤーのマテリアル")]
     [SerializeField] private Material _avoidMaterial;
@@ -29,6 +28,9 @@ public class PlayerAvoid
 
     [Header("杖のMesh")]
     [SerializeField] private List<MeshRenderer> _tueMesh = new List<MeshRenderer>();
+
+    [Header("杖のマテリアル")]
+    [SerializeField] private List<Material> _tueMaterial = new List<Material>();
 
 
     [Header("回避終了時のエフェクト_氷")]
@@ -124,6 +126,11 @@ public class PlayerAvoid
             m.material = _avoidMaterial;
         }
 
+        foreach(var m in _tueMesh)
+        {
+            m.material = _avoidMaterial;
+        }
+
         _isStartAvoid = true;
     }
 
@@ -148,6 +155,12 @@ public class PlayerAvoid
         {
             m.material = _defaultMaterialBody;
         }
+
+        for(int i =0; i<_tueMesh.Count;i++)
+        {
+            _tueMesh[i].material = _tueMaterial[i];
+        }
+
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
 
