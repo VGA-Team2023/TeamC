@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -53,7 +54,8 @@ public class FinishingAttack
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
-        _finishingAttackUI.Init(playerControl,_finishingAttackShort.FinishTime);
+
+        _finishingAttackUI.Init(playerControl, _finishingAttackShort.FinishTime);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -90,10 +92,9 @@ public class FinishingAttack
         _playerControl.PlayerAnimControl.StartFinishAttack(AttackType.LongChantingMagick);
 
 
+
         //敵を索敵
         _nowFinishEnemy = CheckFinishingEnemy();
-
-        _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -104,8 +105,32 @@ public class FinishingAttack
         //トドメ用のカメラを使う
         _playerControl.CameraControl.UseFinishCamera();
 
-        //カメラを敵の方向に向ける
-        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
+
+
+        for (int i = 0; i < _nowFinishEnemy.Length; i++)
+        {
+            if (_nowFinishEnemy[i].gameObject == _playerControl.LockOn.NowLockOnEnemy)
+            {
+                //移動視点
+                _finishingAttackMove.SetEnemy(_playerControl.LockOn.NowLockOnEnemy.transform);
+                //カメラを敵の方向に向ける
+                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_playerControl.LockOn.NowLockOnEnemy.transform.position);
+                break;
+            }
+
+            if (i == _nowFinishEnemy.Length - 1)
+            {
+                //移動視点
+                _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
+                //カメラを敵の方向に向ける
+                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
+            }
+        }
+
+
+
+
+
 
         //UIを出す
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
@@ -199,7 +224,7 @@ public class FinishingAttack
         _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
 
 
-       // LineSetting();
+        // LineSetting();
 
 
         //アニメーション再生
@@ -208,7 +233,17 @@ public class FinishingAttack
         foreach (var e in _nowFinishEnemy)
         {
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
-            damgeble?.EndFinishing();
+
+            if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+            {
+                damgeble?.EndFinishing(MagickType.Ice);
+            }
+            else
+            {
+                damgeble?.EndFinishing(MagickType.Grass);
+            }
+
+
         }
     }
 

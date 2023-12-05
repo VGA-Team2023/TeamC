@@ -88,7 +88,6 @@ public class AttackMagicBase
     /// </summary>
     public void UseMagick(Transform[] enemys, int attackCount)
     {
-        Debug.Log(enemys.Length);
         _playerControl.PlayerAudio.IceFire(_setUpMagicCount);
         for (int i = 0; i < _setUpMagicCount; i++)
         {
@@ -113,6 +112,17 @@ public class AttackMagicBase
             var go = UnityEngine.GameObject.Instantiate(_prefab);
             go.transform.position = _magickData[attackCount - 1].MagickData[i].MuzzlePos.position;
 
+            if (_playerControl.LockOn.IsLockOn)
+            {
+                if (_playerControl.LockOn.NowLockOnEnemy != null)
+                {
+                    go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                    continue;
+                }
+            }
+
             if (enemys.Length == 0)
             {
                 go.transform.forward = _playerControl.PlayerT.forward;
@@ -125,6 +135,16 @@ public class AttackMagicBase
                 go.TryGetComponent<IMagicble>(out IMagicble magicble);
                 magicble.SetAttack(enemys[i % enemys.Length], _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
             }
+        }
+    }
+
+    /// <summary>現在出している魔法を中断させる</summary>
+    public void StopMagic(int attackCount)
+    {
+        for (int i = 0; i < _setUpMagicCount; i++)
+        {
+            //魔法陣を消す
+            _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
         }
     }
 }

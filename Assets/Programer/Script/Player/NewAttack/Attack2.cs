@@ -42,6 +42,7 @@ public class Attack2
     {
         _playerControl = playerControl;
         _attackMagic.Init(playerControl);
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
         _maxAttackCount = _attackMagic.MagicBase.MagickData.Count;
     }
 
@@ -77,6 +78,7 @@ public class Attack2
             _isCanTransitionAttackState = false;
         }
 
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
         _attackMagic.MagicBase.SetUpMagick();
     }
 
@@ -87,11 +89,19 @@ public class Attack2
             _attackMagic.MagicBase.SetUpChargeMagic(_attackCount);
             if (_playerControl.InputManager.IsAttackUp)
             {
+                //アニメーション再生
+                _playerControl.PlayerAnimControl.SetAttackTrigger();
+
+                //カメラ変更
                 _playerControl.CameraControl.UseDefultCamera(true);
+                //カメラの振動
+                _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
+
+                //コントローラーの振動
+                _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
                 //音
                 _playerControl.PlayerAudio.IceCharge(false);
-
 
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);
@@ -116,6 +126,13 @@ public class Attack2
     {
         _isPushAttack = false;
         _isCanNextAttack = false;
+    }
+
+    /// <summary>攻撃の中断処理</summary>
+    public void StopAttack()
+    {
+        _attackMagic.StopMagic(_attackCount);
+        _attackCount = 0;
     }
 
 }

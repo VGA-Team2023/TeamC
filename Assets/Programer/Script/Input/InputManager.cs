@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private PlayerControl _control;
 
-    [Header("KeyBord操作")]
-    [SerializeField] private bool _isKeybord = false;
+    private bool _isKeybord = false;
 
     /// <summary>構え押す</summary>
     private bool _isSetUpDown = false;
@@ -36,6 +36,12 @@ public class InputManager : MonoBehaviour
 
     private float _verticalInput;
 
+    private bool _isLockOn = false;
+
+    private float _isChangeLockOnEnemy = 0;
+
+    public float IsChangeLockOnEney => _isChangeLockOnEnemy;
+    public bool IsLockOn => _isLockOn;
     public float HorizontalInput => _horizontalInput;
     public float VerticalInput => _verticalInput;
     public bool IsJumping => _isJump;
@@ -50,6 +56,19 @@ public class InputManager : MonoBehaviour
     public bool IsAvoid => _isAvoid;
 
     private float _saveTrigger;
+
+    private void Awake()
+    {
+        if (_control.IsMousePlay)
+        {
+            _isKeybord = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            _isKeybord = false;
+        }
+    }
 
     private void Update()
     {
@@ -101,12 +120,22 @@ public class InputManager : MonoBehaviour
         }
 
 
+        if (_control.IsMousePlay)
+        {
+            _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
+        }
+        else
+        {
+            _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
+        }
 
+
+        _isLockOn = Input.GetButtonDown("LockOn");
 
         _isFinishAttack = Input.GetButton("FinishAttack");
 
         _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
-        // _isAvoid = Input.GetButtonDown("Avoid");
+        _isAvoid = Input.GetButtonDown("Avoid");
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");

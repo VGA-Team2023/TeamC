@@ -28,6 +28,7 @@ public class FinishingAttackShort
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
+        _finishAttackNearMagic.Init(playerControl);
     }
 
     public float FinishTime => _finishTime;

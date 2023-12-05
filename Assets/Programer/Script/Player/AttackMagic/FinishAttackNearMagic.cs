@@ -5,13 +5,23 @@ using UnityEngine;
 [System.Serializable]
 public class FinishAttackNearMagic
 {
-    [Header("準備の魔法")]
-    [SerializeField] private GameObject _effect;
+    [Header("準備の魔法_氷")]
+    [SerializeField] private GameObject _effectIce;
 
-    [Header("発動した時の魔法")]
+    [Header("発動した時の魔法_氷")]
     [SerializeField] private List<ParticleSystem> _setUpparticleSystems = new List<ParticleSystem>();
 
+    [Header("発動した時の魔法_氷")]
     [SerializeField] private List<ParticleSystem> particleSystems = new List<ParticleSystem>();
+
+    [Header("準備の魔法_草")]
+    [SerializeField] private GameObject _effectGrass;
+
+    [Header("発動した時の魔法_草")]
+    [SerializeField] private List<ParticleSystem> _setUpparticleSystemsGrass = new List<ParticleSystem>();
+
+    [Header("発動した時の魔法_草")]
+    [SerializeField] private List<ParticleSystem> particleSystemsGrass = new List<ParticleSystem>();
 
     private PlayerControl _playerControl;
 
@@ -22,29 +32,51 @@ public class FinishAttackNearMagic
 
     public void SetEffect()
     {
-        _effect?.SetActive(true);
-        foreach (var a in _setUpparticleSystems)
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
         {
-            a.Play();
+            _effectIce?.SetActive(true);
+            //foreach (var a in _setUpparticleSystems)
+            //{
+            //    a.Play();
+            //}
+        }
+        else
+        {
+            _effectGrass?.SetActive(true);
+            //foreach (var a in _setUpparticleSystemsGrass)
+            //{
+            //    a.Play();
+            //}
         }
     }
 
     public void SetFinishEffect()
     {
-        foreach (var a in particleSystems)
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
         {
-            a.Play();
+            foreach (var a in particleSystems)
+            {
+                a.Play();
+            }
+        }
+        else
+        {
+            foreach (var a in particleSystemsGrass)
+            {
+                a.Play();
+            }
         }
     }
 
     public void Stop()
     {
-        _effect?.SetActive(false);
+        _effectIce?.SetActive(false);
+        _effectGrass?.SetActive(false);
     }
 
     public void End()
     {
-        _effect?.SetActive(false);
+        _effectIce?.SetActive(false);
     }
 
 }

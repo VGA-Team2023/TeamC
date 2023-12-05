@@ -25,6 +25,9 @@ public class WalkState : PlayerStateBase
 
         //トドメをさせる敵を探す
         _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
+
+        //LockOnのUI設定
+        _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
     }
 
     public override void LateUpdate()
@@ -34,10 +37,24 @@ public class WalkState : PlayerStateBase
 
     public override void Update()
     {
+        //LockOn機能
+        _stateMachine.PlayerController.LockOn.CheckLockOn();
+
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
 
-        if (_stateMachine.PlayerController.FinishingAttack.IsCanFinishing &&
-_stateMachine.PlayerController.InputManager.IsFinishAttackDown)
+        if (_stateMachine.PlayerController.PlayerHp.IsDead)
+        {
+            _stateMachine.TransitionTo(_stateMachine.DeadState);
+            return;
+        }   //瀕死ステート
+
+        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        {
+            _stateMachine.TransitionTo(_stateMachine.DamageState);
+            return;
+        }   //ダメージ
+
+        if (_stateMachine.PlayerController.FinishingAttack.IsCanFinishing && _stateMachine.PlayerController.InputManager.IsFinishAttackDown)
         {
             _stateMachine.TransitionTo(_stateMachine.FinishAttackState);
             return;

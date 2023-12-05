@@ -41,7 +41,7 @@ public class FinishingAttackUI
 
     private PlayerControl _playerControl;
 
-    public void Init(PlayerControl playerControl,float finishTime)
+    public void Init(PlayerControl playerControl, float finishTime)
     {
         _playerControl = playerControl;
         _parentUI = _canvas.GetComponent<RectTransform>();
@@ -67,17 +67,17 @@ public class FinishingAttackUI
         _finishingUI.SetActive(isON);
     }
 
-    public void SetFinishUI(float max,int _enemyNum)
+    public void SetFinishUI(float max, int _enemyNum)
     {
         for (int i = 0; i < _enemyNum; i++)
         {
             _finishUI[i].SetActive(true);
         }
 
-        foreach(var a in _canFinishUI)
+        foreach (var a in _canFinishUI)
         {
             a.SetActive(false);
-  
+
         }
 
         _dofinishingUI.SetActive(true);
@@ -91,13 +91,19 @@ public class FinishingAttackUI
         {
             _finishUI[i].SetActive(false);
         }
+
+        foreach (var a in _canFinishUI)
+        {
+            a.SetActive(false);
+        }
+
         _dofinishingUI.SetActive(false);
     }
 
 
     public void ChangeValue(float time)
     {
-        _finishingSliderUI.fillAmount += time/_finishTime;
+        _finishingSliderUI.fillAmount += time / _finishTime;
     }
 
 
@@ -125,7 +131,7 @@ public class FinishingAttackUI
         var cameraDir = cameraTransform.forward;
 
         // オブジェクトの位置
-        var targetWorldPos = t.position ;
+        var targetWorldPos = t.position;
 
         // カメラからターゲットへのベクトル
         var targetDir = targetWorldPos - cameraTransform.position;
