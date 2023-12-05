@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Attack2
 {
-    [Header("短い詠唱の魔法攻撃設定")]
+    [Header("@詳細設定")]
     [SerializeField] private AttackMagic _attackMagic;
 
     private int _attackCount = 0;

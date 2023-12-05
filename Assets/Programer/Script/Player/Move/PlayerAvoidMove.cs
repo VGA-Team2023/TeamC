@@ -5,16 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerAvoidMove
 {
-    [Header("回避速度")]
+    [Header("@回避速度")]
     [SerializeField] private float _avoidSpeed = 4f;
 
-    [Header("回避最大距離")]
+    [Header("@回避最大距離")]
     [SerializeField] private float _maxAvoidDistance = 3f;
 
-    [Header("回避後の追加速度")]
+    [Header("@回避後の追加速度")]
     [SerializeField] private float _endAddSpeed = 3f;
 
-    [Header("回避開始時に移動速度を0にするかどうか")]
+    [Header("@回避開始時に移動速度を0にするかどうか")]
     [SerializeField] private bool _isZero = false;
 
     /// <summary>回避の方向 </summary>

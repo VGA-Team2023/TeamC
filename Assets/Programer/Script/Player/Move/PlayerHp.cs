@@ -5,11 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerHp
 {
-    [Header("===UI設定===")]
+    [Header("@PlayerのHp")]
+    [SerializeField] private float _hp;
+
+    [Header("---UI設定---")]
     [SerializeField] private PlayerHpUI _uiHp;
 
-    [Header("PlayerのHp")]
-    [SerializeField] private float _hp;
+
+
 
     private float _nowHp = 0;
 

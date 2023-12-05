@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class FinishingAttackMove
 {
-    [Header("移動速度")]
+    [Header("@移動速度")]
     [SerializeField] private float _moveSpeed = 3f;
 
-    [Header("回転速度")]
+    [Header("@回転速度")]
     [SerializeField] private float _rotateSepeed = 200f;
 
     private PlayerControl _playerControl;

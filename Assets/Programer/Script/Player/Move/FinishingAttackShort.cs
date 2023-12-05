@@ -5,21 +5,21 @@ using UnityEngine;
 [System.Serializable]
 public class FinishingAttackShort
 {
-    [Header("[-=====近い距離のトドメのエフェクト設定===-]")]
-    [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
-
-    [Header("トドメをさす時間_銃")]
+    [Header("@トドメをさすのに必要な時間")]
     [SerializeField] private float _finishTime = 1f;
 
-    [Header("判定_Offset_遠距離")]
+    [Header("@探知判定_Offset")]
     [SerializeField] private Vector3 _offset = new Vector3(0, 0, 3);
 
-    [Header("判定_Size_遠距離")]
+    [Header("@探知判定_Size")]
     [SerializeField] private Vector3 _boxSize = new Vector3(10, 10, 10);
 
     [Header("Gizmoを表示するかどうか")]
     [SerializeField] private bool _isDrawGizmo = true;
 
+
+    [Header("---エフェクト設定---")]
+    [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
 
     public Vector3 Offset => _offset;
     public Vector3 BoxSize => _boxSize;

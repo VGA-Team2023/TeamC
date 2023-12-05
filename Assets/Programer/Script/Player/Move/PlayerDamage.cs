@@ -6,14 +6,20 @@ using UnityEngine.Playables;
 [System.Serializable]
 public class PlayerDamage
 {
+    [Header("@ダメージを受ける時間(無敵時間)")]
+    [SerializeField] private float _damageTime = 1f;
+
+    [Header("Playerを無敵にするか_Debug用設定")]
+    [SerializeField] private bool _isMuteki = false;
+
     [Header("蘇生のTimeLine")]
     [SerializeField] private PlayableDirector _reviveMovie;
 
     [Header("ムービーを流すまでの待機時間")]
     [SerializeField] private float _waitTime = 0;
 
-    [Header("ダメージを浮ける時間")]
-    [SerializeField] private float _damageTime = 1f;
+    [Header("攻撃を受けた時のエフェクト")]
+    [SerializeField] private List<ParticleSystem> _damageEffects = new List<ParticleSystem>();
 
     private float _countDeadTime = 0;
 
@@ -42,6 +48,8 @@ public class PlayerDamage
 
     public void CountDamageTime()
     {
+        if (!_isDamage) return;
+
         _countDamageTime += Time.deltaTime;
 
         if (_countDamageTime > _damageTime)
@@ -72,6 +80,9 @@ public class PlayerDamage
     /// <param name="damage">体力が0になったかどうか</param>
     public void Damage(float damage)
     {
+        //無敵時間中はダメージを受けない
+        if (_isDamage || _isDead || _isMuteki) return;
+
         if (_playerControl.PlayerHp.AddDamage(damage))
         {
             _isDead = true;
@@ -86,6 +97,12 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.PlayDamage();
             _playerControl.PlayerAnimControl.IsDamage(true);
         }
+
+        foreach(var e in _damageEffects)
+        {
+            e.Play();
+        }   //エフェクトを再生
+
     }
 
 
