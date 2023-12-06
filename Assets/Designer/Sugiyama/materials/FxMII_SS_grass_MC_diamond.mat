@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
+  - _EMISSION_AREA_MAP
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _PARALLAX_MAP_MODE_2D
@@ -189,7 +190,7 @@ Material:
     - _DissolveSharpness: 0.162
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionAreaType: 0
+    - _EmissionAreaType: 2
     - _EmissionColorType: 0
     - _EmissionIntensity: 1
     - _EmissionIntensityCoord: 0
@@ -275,7 +276,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TintColor: {r: 4, g: 4, b: 4, a: 1}
   m_BuildTextureStacks: []
