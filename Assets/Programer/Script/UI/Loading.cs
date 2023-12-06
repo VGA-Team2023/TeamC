@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Loading : MonoBehaviour
-{
-    private LoadingPanel _loadingPanel = null;
+{    
     [SerializeField] string _nextSceneName = "";
     [SerializeField] private float _waitTimer;
+    private LoadingPanel _loadingPanel = null;
     private void Start()
     {
         if (_loadingPanel != null)
