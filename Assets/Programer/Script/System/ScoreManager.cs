@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>主にスコアの計算をするClass</summary>
+/// <summary>主にスコアの保存をしておくクラス</summary>
+[System.Serializable]
 public class ScoreManager
 {
-    /// <summary>クリア時間をもとにスコア値を求めるメソッド</summary>
-    /// <param name="time">ゲームクリア時間</param>
-    /// /// <param name="count">撃破数</param>
-    /// <returns></returns>
-    public int ScoreCaster(float time, int count)
+    MinutesSecondsVer _clearTime = new();
+    int _enemyDefeatedNum = 0;
+    int _playerDownNum = 0;
+
+    /// <summary>クリア時間</summary>
+    public MinutesSecondsVer ClearTime { get { return _clearTime; }set { _clearTime = value; } }
+    /// <summary>敵撃破数</summary>
+    public int EnemyDefeatedNum { get { return _enemyDefeatedNum; } set { _enemyDefeatedNum = value; } }
+    /// <summary>Playerのダウン数</summary>
+    public int PlayerDownNum { get { return _playerDownNum; } set { _playerDownNum = value; } }
+
+    public void ScoreReset()
     {
-        int resultScore = count - (count *  (int)(time / 1000)); 
-        return resultScore;
+        _clearTime = new();
+        _enemyDefeatedNum = 0;
+        _playerDownNum = 0;
     }
 }
