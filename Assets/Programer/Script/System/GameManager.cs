@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,20 +90,11 @@ public class GameManager : MonoBehaviour
         sceneControlle?.SceneChange();
     }
 
-    /// <summary>選択したPlayerの属性を保存する処理を行うメソッド</summary>
-    /// <param name="isEnumNumber">属性のenumの代わりとなる数値(０は氷１は草)</param>
-    public void PlayerAttributeSelect(int isEnumNumber)
+    /// <summary>Playerの属性を変える処理を行うメソッド</summary>
+    /// <param name="isEnumNumber">変えたい属性</param>
+    public void PlayerAttributeChange(PlayerAttribute attributes)
     {
-        if (isEnumNumber > -1 && isEnumNumber < 2)
-        {
-            _playerAttribute = (PlayerAttribute)isEnumNumber;
-        }
-        else
-        {
-            //エラーを出す
-            Debug.LogError("下記を呼んだうえで0 ～ 1までの数字を入れてください\n" +
-                " 氷属性は 0   草属性は 1 ");
-        }
+        _playerAttribute = attributes;
     }
 
     /// <summary>現在のゲームの状態を変える処理をおこなう</summary>
