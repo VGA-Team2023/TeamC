@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
+public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("敵の挙動に関する数値")]
     [SerializeField, Tooltip("移動の範囲(黄色の円)"), Range(0, 10)]
@@ -20,11 +20,12 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     float _slowSpeed;
     [Header("====================")]
 
-    //[SerializeField]
-    //float _radius;
+    [Header("モーション関係")]
+    [SerializeField, Tooltip("近接敵のアニメーター")]
+    Animator _anim;
+    public Animator Animator => _anim;
 
-    //[SerializeField]
-    //float _thetaSpeed;
+    [Header("====================")]
 
     [Header("生成するオブジェクト")]
     [SerializeField, Tooltip("氷魔法の通常攻撃エフェクト")]
@@ -46,8 +47,26 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     int _defaultHp = 0;
 
     MoveState _state = MoveState.FreeMove;
-    MoveState _nextState = MoveState.FreeMove;
-    MagickType _magicType;
+    public MoveState State
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            switch (_state)
+            {
+                case MoveState.FreeMove:
+                    _freeMoveState.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+                case MoveState.Finish:
+                    _finish.Enter();
+                    break;
+            }
+        }
+    }
     PlayerControl _player;
 
     MAEFreeMoveState _freeMoveState;
@@ -71,26 +90,6 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     void Update()
     {
-        //float x = transform.position.x + _radius * Mathf.Cos(Time.time * _thetaSpeed);
-        //float y = transform.position.y + _radius * Mathf.Sin(Time.time * _thetaSpeed) * Mathf.Cos(Time.time * _thetaSpeed);
-        //float z = 0;
-        //transform.position = new Vector3(x, y, z);
-        if (_state != _nextState)
-        {
-            switch (_nextState)
-            {
-                case MoveState.FreeMove:
-                    _freeMoveState.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-                case MoveState.Finish:
-                    _finish.Enter();
-                    break;
-            }
-            _state = _nextState;
-        }
         switch (_state)
         {
             case MoveState.FreeMove:
@@ -100,7 +99,6 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
                 _attack.Update(); 
                 break;
             case MoveState.Finish:
-                Debug.Log("FinishState");
                 _finish.Update();
                 break;
             case MoveState.Chase:
@@ -124,13 +122,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void StateChange(MoveState changeState)
     {
-        _nextState = changeState;
+        State = changeState;
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
+        if (Type != attackHitTyp) return;
         _rb.velocity = Vector3.zero;
-        _magicType  = attackHitTyp;
+        TestAudio(EnemyHitSEState.Hit);
         if (attackType == AttackType.ShortChantingMagick)
         {
             if(attackHitTyp == MagickType.Ice)
@@ -168,14 +167,15 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         HP = _defaultHp;
     }
 
-    public void EndFinishing()
+    public void EndFinishing(MagickType attackHitTyp)
     {
-        if(_magicType == MagickType.Ice)
+        TestAudio(EnemyHitSEState.SpecialHit);
+        if (attackHitTyp == MagickType.Ice)
         {
             GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(iceAttack, 3f);
         }
-        else if(_magicType == MagickType.Grass)
+        else if (attackHitTyp == MagickType.Grass)
         {
             GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(grassAttack, 3f);
@@ -209,5 +209,13 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     public void OffSlow()
     {
         Speed = _defaultSpeed;
+    }
+
+    public void TestAudio(EnemyHitSEState playSe)
+    {
+        if(IsTestAudio)
+        {
+            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
+        }
     }
 }

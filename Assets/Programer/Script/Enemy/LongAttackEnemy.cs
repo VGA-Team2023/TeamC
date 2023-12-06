@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
+public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("敵の挙動に関する項目")]
     [SerializeField, Tooltip("移動先の場所")]
     List<Transform> _movePosition = new List<Transform>();
+
+    [SerializeField, Tooltip("アニメーション")]
+    Animator _anim;
+    public Animator Animator => _anim;
 
     [SerializeField, Tooltip("どれくらい移動先に近づいたら次の地点に行くか")]
     float _changePointDistance = 0.5f;
@@ -44,7 +48,27 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
-    MoveState _nextState = MoveState.Attack;
+    public MoveState State
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            switch (_state)
+            {
+                case MoveState.FreeMove:
+                    _freeMove.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+                case MoveState.Finish:
+                    _finish.Enter();
+                    break;
+            }
+        }
+    }
+
     MagickType _magicType;
 
     LAEFreeMoveState _freeMove;
@@ -92,39 +116,25 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
                 _finish.Update();
                 break;
         }
-        if(_state != _nextState)
-        {
-            switch (_nextState)
-            {
-                case MoveState.FreeMove:
-                    _freeMove.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-                case MoveState.Finish:
-                    _finish.Enter();
-                    break;
-            }
-            _state = _nextState;
-        }
     }
 
     public void StateChange(MoveState changeState)
     {
-        _nextState = changeState;
+        State = changeState;
     }
 
-    public void Attack(Vector3 forward)
+    public void Attack()
     {
-        var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
-        bullet.GetComponent<EnemyBullet>().ShootForward = forward;
+        var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
+        var bullet = Instantiate(_bulletPrefab, dir, Quaternion.identity);
+        bullet.GetComponent<EnemyBullet>().Init((_player.transform.position - transform.position).normalized, base.Attack);
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         _rb.velocity = Vector3.zero;
         _magicType = attackHitTyp;
+        TestAudio(EnemyHitSEState.Hit);
         if (attackType == AttackType.ShortChantingMagick)
         {
             if (attackHitTyp == MagickType.Ice)
@@ -162,14 +172,15 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         HP = _defaultHp;
     }
 
-    public void EndFinishing()
+    public void EndFinishing(MagickType attackHitTyp)
     {
-        if (_magicType == MagickType.Ice)
+        TestAudio(EnemyHitSEState.SpecialHit);
+        if (attackHitTyp == MagickType.Ice)
         {
             GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(iceAttack, 3f);
         }
-        else if (_magicType == MagickType.Grass)
+        else if (attackHitTyp == MagickType.Grass)
         {
             GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(grassAttack, 3f);
@@ -185,12 +196,27 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void Pause()
     {
+        _anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
     public void Resume()
     {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
@@ -203,5 +229,13 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public void OffSlow()
     {
         Speed = _defaultSpeed;
+    }
+
+    public void TestAudio(EnemyHitSEState playSe)
+    {
+        if (IsTestAudio)
+        {
+            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
+        }
     }
 }

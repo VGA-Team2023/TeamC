@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -9,7 +9,7 @@ public abstract class PlayerStateBase : IState
     [NonSerialized]
     protected PlayerStateMachine _stateMachine = null;
 
-    /// <summary>StateMacine‚ğƒZƒbƒg‚·‚éŠÖ”</summary>
+    /// <summary>StateMacineã‚’ã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°</summary>
     /// <param name="stateMachine"></param>
     public void Init(PlayerStateMachine stateMachine)
     {

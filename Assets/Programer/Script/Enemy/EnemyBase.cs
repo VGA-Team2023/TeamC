@@ -1,9 +1,13 @@
 ﻿using System;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    [Header("テスト用")]
+    [SerializeField, Tooltip("仮でAudioを再生する")]
+    bool _isTestAudio;
+    public bool IsTestAudio => _isTestAudio;
+
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]
     int _hp;
@@ -22,6 +26,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("エネミーの攻撃力")]
     int _attack;
     public int Attack => _attack;
+    [SerializeField, Tooltip("弱点属性")]
+    MagickType _type;
+    public MagickType Type => _type;
     [Header("====================")]
 
     [Header("敵の挙動に関する数値")]

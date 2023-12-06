@@ -1,15 +1,15 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestParticleStop : MonoBehaviour
 {
-    [Header("–‚–@l")]
+    [Header("é­”æ³•äºº")]
     [SerializeField] private List<GameObject> _magick = new List<GameObject>();
 
     [SerializeField] private List<ParticleSystem> _particleSystem = new List<ParticleSystem>();
 
-    [Header("~‚ß‚é‚Ü‚Å‚ÌŠÔ")]
+    [Header("æ­¢ã‚ã‚‹ã¾ã§ã®æ™‚é–“")]
     [SerializeField] private float _time = 1;
 
     private float _countTime = 0;
@@ -28,7 +28,7 @@ public class TestParticleStop : MonoBehaviour
     }
 
     /// <summary>
-    /// –‚–@w‚ğÁ‚·
+    /// é­”æ³•é™£ã‚’æ¶ˆã™
     /// </summary>
     /// <param name="num"></param>
     public void UseMagick(int num)

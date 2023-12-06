@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,6 @@ public interface IFinishingDamgeble
 
     void StopFinishing();
 
-    void EndFinishing();
+    void EndFinishing(MagickType attackHitTyp);
 
 }

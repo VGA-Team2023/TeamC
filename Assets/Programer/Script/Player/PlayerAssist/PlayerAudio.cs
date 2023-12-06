@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,23 +9,34 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private List<AudioSource> _audioSources;
 
 
-    [Header("�U���̒e���΂���_�X")]
+    [Header("攻撃の弾を飛ばす音_氷")]
     [SerializeField] private AudioClip _iceFire;
 
-    [Header("�X�g���C��")]
+    [Header("氷トレイル")]
     [SerializeField] private AudioClip _iceTrail;
 
-    [Header("�U���̒e���΂���_�X")]
+    [Header("攻撃の弾を飛ばす音_氷")]
     [SerializeField] private AudioSource _iceCharge;
 
+    [Header("====草属性===")]
+    [Header("攻撃の弾を飛ばす音_草")]
+    [SerializeField] private AudioClip _grassFire;
 
-    public void IceFire(int num)
+    [Header("草トレイル")]
+    [SerializeField] private AudioClip _grassTrail;
+
+    [Header("攻撃の弾を飛ばす音_草")]
+    [SerializeField] private AudioSource _grassCharge;
+
+
+
+    public void Fire(int num, bool isIce)
     {
-        StartCoroutine(IceFires(num));
-        StartCoroutine(IceTrails(num));
+        StartCoroutine(IceFires(num,isIce));
+        StartCoroutine(IceTrails(num, isIce));
     }
 
-    public IEnumerator IceFires(int num)
+    public IEnumerator IceFires(int num, bool isIce)
     {
         for (int i = 0; i < num; i++)
         {
@@ -33,7 +44,15 @@ public class PlayerAudio : MonoBehaviour
             {
                 if (!source.isPlaying)
                 {
-                    source.PlayOneShot(_iceFire);
+                    if (isIce)
+                    {
+                        source.PlayOneShot(_iceFire);
+                    }
+                    else
+                    {
+                        source.PlayOneShot(_grassFire);
+                    }
+
                     break;
                 }
             }
@@ -41,7 +60,7 @@ public class PlayerAudio : MonoBehaviour
         }
     }
 
-    public IEnumerator IceTrails(int num)
+    public IEnumerator IceTrails(int num, bool isIce)
     {
         for (int i = 0; i < num; i++)
         {
@@ -49,7 +68,15 @@ public class PlayerAudio : MonoBehaviour
             {
                 if (!source.isPlaying)
                 {
-                    source.PlayOneShot(_iceTrail);
+                    if (isIce)
+                    {
+                    //    source.PlayOneShot(_iceTrail);
+                    }
+                    else
+                    {
+                      //  source.PlayOneShot(_grassTrail);
+                    }
+
                     break;
                 }
             }
@@ -58,16 +85,31 @@ public class PlayerAudio : MonoBehaviour
     }
 
 
-    public void IceCharge(bool isPlay)
+    public void AttackCharge(bool isPlay, bool isIce)
     {
-        if (isPlay)
+        if (isIce)
         {
-            _iceCharge.Play();
+            if (isPlay)
+            {
+                _iceCharge.Play();
+            }
+            else
+            {
+                _iceCharge.Stop();
+            }
         }
         else
         {
-            _iceCharge.Stop();
+            if (isPlay)
+            {
+                _grassCharge.Play();
+            }
+            else
+            {
+                _grassCharge.Stop();
+            }
         }
+
     }
 
 }

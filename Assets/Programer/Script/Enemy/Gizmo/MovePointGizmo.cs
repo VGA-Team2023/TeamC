@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 public class MovePointGizmo : MonoBehaviour
@@ -8,6 +8,7 @@ public class MovePointGizmo : MonoBehaviour
         var enemy = GetComponent<LongAttackEnemy>();
         if (enemy)
         {
+            //周回情報を描画
             Gizmos.color = Color.blue;
             var movePosition = enemy.SetMovePoint();
             for(int i = 0; i < movePosition.Count; i++)

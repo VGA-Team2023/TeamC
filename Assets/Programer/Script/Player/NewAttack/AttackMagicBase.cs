@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,30 +6,32 @@ using UnityEngine;
 [System.Serializable]
 public class AttackMagicBase
 {
-    [Header("–‚–@‚Ì‘®«")]
+    [Header("@é­”æ³•ã®å±æ€§")]
     [SerializeField] private MagickType _magicType = MagickType.Ice;
 
-    [Header("–‚–@‚ÌˆÊ’u‚ÆAŠÔİ’è")]
+    [Header("@é­”æ³•ã®ä½ç½®ã¨ã€æ™‚é–“è¨­å®š")]
     [SerializeField] private List<Magic> _magickData = new List<Magic>();
 
-    [Header("UŒ‚‚Ì‰ñ”")]
-    [SerializeField] private int _attackMaxNum = 3;
 
-    [Header("UŒ‚—Í_’™‚ß‚é‘O")]
+
+    [Header("æ”»æ’ƒåŠ›")]
     [SerializeField] private float _powerShortChanting = 1;
 
-    [Header("UŒ‚—Í_’™‚ß‚½")]
-    [SerializeField] private float _powerLongChanting = 3;
+    // [Header("æ”»æ’ƒåŠ›_è²¯ã‚ãŸ")]
+    //[SerializeField] private float _powerLongChanting = 3;
 
-    [Header("”ò‚Î‚·–‚–@‚ÌƒvƒŒƒnƒu_’Z‚¢‰r¥")]
+    [Header("é£›ã°ã™é­”æ³•ã®å¼¾ãƒ—ãƒ¬ãƒãƒ–")]
     [SerializeField] private GameObject _prefab;
 
-    /// <summary>‚½‚ß‚ÌŠÔ‚ğŒv‘ª</summary>
+
+    private int _attackMaxNum = 3;
+
+    /// <summary>ãŸã‚ã®æ™‚é–“ã‚’è¨ˆæ¸¬</summary>
     private float _countChargeTime = 2f;
 
     private int _setUpMagicCount = 0;
 
-    /// <summary>İ’è‚³‚ê‚Ä‚¢‚é‘S‚Ä‚Ì–‚–@w‚ğo‚µ‚½‚©‚Ç‚¤‚©</summary>
+    /// <summary>è¨­å®šã•ã‚Œã¦ã„ã‚‹å…¨ã¦ã®é­”æ³•é™£ã‚’å‡ºã—ãŸã‹ã©ã†ã‹</summary>
     private bool _isChantingAllMagic = false;
 
     private PlayerControl _playerControl;
@@ -45,7 +47,7 @@ public class AttackMagicBase
     }
 
     /// <summary>
-    /// –‚–@w‚ğ€”õ‚·‚éBUŒ‚n‚ß‚ÉŒÄ‚Ô
+    /// é­”æ³•é™£ã‚’æº–å‚™ã™ã‚‹ã€‚æ”»æ’ƒå§‹ã‚ã«å‘¼ã¶
     /// </summary>
     public void SetUpMagick()
     {
@@ -55,20 +57,20 @@ public class AttackMagicBase
     }
 
     /// <summary>
-    /// ’·‰Ÿ‚µŠÔ‚É‰‚¶‚Ä–‚–@w‚ğo‚µ‚Ä‚¢‚­
+    /// é•·æŠ¼ã—æ™‚é–“ã«å¿œã˜ã¦é­”æ³•é™£ã‚’å‡ºã—ã¦ã„ã
     /// </summary>
     public void SetUpChargeMagic(int attackCount)
     {
-        //–‚–@w‚ğ‘S‚Äo‚µ‚Ä‚¢‚½‚ç‚±‚êˆÈã‰½‚à‚µ‚È‚¢
+        //é­”æ³•é™£ã‚’å…¨ã¦å‡ºã—ã¦ã„ãŸã‚‰ã“ã‚Œä»¥ä¸Šä½•ã‚‚ã—ãªã„
         if (_isChantingAllMagic || attackCount > _magickData.Count) return;
 
-        //ƒ{ƒ^ƒ“‚Ì‰Ÿ‚µ‚İŠÔ‚ğŒv‘ª
+        //ãƒœã‚¿ãƒ³ã®æŠ¼ã—è¾¼ã¿æ™‚é–“ã‚’è¨ˆæ¸¬
         _countChargeTime += Time.deltaTime;
 
-        //–‚–@w‚ğ1‚Âo‚·
+        //é­”æ³•é™£ã‚’1ã¤å‡ºã™
         if (_countChargeTime > _magickData[attackCount - 1].MagickData[_setUpMagicCount].ChargeTime)
         {
-            //–‚–@w‚ğoŒ»‚³‚¹‚é
+            //é­”æ³•é™£ã‚’å‡ºç¾ã•ã›ã‚‹
             _magickData[attackCount - 1].MagickData[_setUpMagicCount].MagicCircle.SetActive(true);
 
             _setUpMagicCount++;
@@ -84,21 +86,28 @@ public class AttackMagicBase
 
 
     /// <summary>
-    /// –‚–@‚ğ”­“®
+    /// é­”æ³•ã‚’ç™ºå‹•
     /// </summary>
     public void UseMagick(Transform[] enemys, int attackCount)
     {
-        Debug.Log(enemys.Length);
-        _playerControl.PlayerAudio.IceFire(_setUpMagicCount);
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.Fire(_setUpMagicCount, false);
+        }
+
         for (int i = 0; i < _setUpMagicCount; i++)
         {
-            //–‚–@w‚ğÁ‚·
+            //é­”æ³•é™£ã‚’æ¶ˆã™
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
 
-            if (_magickData[attackCount - 1].MagickData[i].Effect != null)
-            {
-                _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
-            }
+            //if (_magickData[attackCount - 1].MagickData[i].Effect != null)
+            //{
+            //    _magickData[attackCount - 1].MagickData[i].Effect.SetActive(true);
+            //}
 
             if (_magickData[attackCount - 1].MagickData[i].UseMagicparticle.Count != 0)
             {
@@ -109,9 +118,20 @@ public class AttackMagicBase
             }
 
 
-            //–‚–@‚ÌƒvƒŒƒnƒu‚ğo‚·
+            //é­”æ³•ã®ãƒ—ãƒ¬ãƒãƒ–ã‚’å‡ºã™
             var go = UnityEngine.GameObject.Instantiate(_prefab);
-            go.transform.position = _magickData[attackCount - 1].MagickData[i].MuzzlePos.position;
+            go.transform.position = _magickData[attackCount - 1].MagickData[i].MagicCircle.transform.position;
+
+            if (_playerControl.LockOn.IsLockOn)
+            {
+                if (_playerControl.LockOn.NowLockOnEnemy != null)
+                {
+                    go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                    continue;
+                }
+            }
 
             if (enemys.Length == 0)
             {
@@ -127,12 +147,22 @@ public class AttackMagicBase
             }
         }
     }
+
+    /// <summary>ç¾åœ¨å‡ºã—ã¦ã„ã‚‹é­”æ³•ã‚’ä¸­æ–­ã•ã›ã‚‹</summary>
+    public void StopMagic(int attackCount)
+    {
+        for (int i = 0; i < _setUpMagicCount; i++)
+        {
+            //é­”æ³•é™£ã‚’æ¶ˆã™
+            _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
+        }
+    }
 }
 
 [System.Serializable]
 public class Magic
 {
-    [Header("–‚–@ŒQ")]
+    [Header("é­”æ³•ç¾¤")]
     [SerializeField] private List<MagickData> _magickDatas = new List<MagickData>();
 
     public List<MagickData> MagickData => _magickDatas;
@@ -142,23 +172,28 @@ public class Magic
 [System.Serializable]
 public class MagickData
 {
-    [Header("–‚–@w1‚Âo‚·‚Ì‚É‚©‚¯‚éŠÔ")]
+    [Header("@é­”æ³•é™£1ã¤å‡ºã™ã®ã«ã‹ã‘ã‚‹æ™‚é–“")]
     [SerializeField] private float _chargeTime = 0.3f;
 
-    [Header("–‚–@w‚ÌƒIƒuƒWƒFƒNƒg")]
+    [Header("@é­”æ³•é™£ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private GameObject _magickCircle;
 
-    [Header("–‚–@‚ğo‚·ˆÊ’u")]
-    [SerializeField] private Transform _muzzlePos;
-
-    [Header("–‚–@w‚Ìƒp[ƒeƒBƒNƒ‹")]
-    [SerializeField] private List<ParticleSystem> _particles = new List<ParticleSystem>();
-
-    [Header("–‚–@‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg")]
+    [Header("@é­”æ³•ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     [SerializeField] private List<ParticleSystem> _particlesUseMagic = new List<ParticleSystem>();
 
-    [Header("–‚–@w‚ğo‚µ‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg")]
-    [SerializeField] private GameObject _effect;
+    //[Header("é­”æ³•ã‚’å‡ºã™ä½ç½®()")]
+    //  [SerializeField] 
+    private Transform _muzzlePos;
+
+    // [Header("é­”æ³•é™£ã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«")]
+    //  [SerializeField]
+    private List<ParticleSystem> _particles = new List<ParticleSystem>();
+
+
+
+    // [Header("é­”æ³•é™£ã‚’å‡ºã—ãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    // [SerializeField]
+    private GameObject _effect;
 
     public GameObject Effect => _effect;
     public List<ParticleSystem> UseMagicparticle => _particlesUseMagic;

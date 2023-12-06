@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class GroundCheck
 {
-    [Header("İ’uŠm”F_Offset")]
+    [Header("è¨­ç½®ç¢ºèª_Offset")]
     [SerializeField]  private Vector3 _offset;
 
-    [Header("İ’uŠm”F_Size")]
+    [Header("è¨­ç½®ç¢ºèª_Size")]
     [SerializeField]  private Vector3 _size;
 
     [SerializeField]
@@ -20,19 +20,19 @@ public class GroundCheck
     private PlayerControl _playerControl;
 
     /// <summary>
-    /// ‰Šú‰»ˆ—A‚±‚ÌƒNƒ‰ƒX‚ğg—p‚·‚é‚Æ‚«‚ÍA
-    /// Å‰‚É‚±‚Ìˆ—‚ğÀs‚·‚éB
+    /// åˆæœŸåŒ–å‡¦ç†ã€ã“ã®ã‚¯ãƒ©ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹ã¨ãã¯ã€
+    /// æœ€åˆã«ã“ã®å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
     /// </summary>
-    /// <param name="origin"> Œ´“_ </param>
+    /// <param name="origin"> åŸç‚¹ </param>
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
     }
 
     /// <summary>
-    /// ”ÍˆÍ“à‚É‚ ‚éƒRƒ‰ƒCƒ_[‚ğæ“¾‚·‚é
+    /// ç¯„å›²å†…ã«ã‚ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns> ˆÚ“®•ûŒü :³‚Ì’l, •‰‚Ì’l </returns>
+    /// <returns> ç§»å‹•æ–¹å‘ :æ­£ã®å€¤, è² ã®å€¤ </returns>
     public Collider[] GetCollider()
     {
         var posX = _playerControl.PlayerT.position.x + _offset.x;
@@ -43,9 +43,9 @@ public class GroundCheck
     }
 
     /// <summary>
-    /// ”ÍˆÍ“à‚É‚ ‚éƒRƒ‰ƒCƒ_[‚ğæ“¾‚·‚é
+    /// ç¯„å›²å†…ã«ã‚ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns> ˆÚ“®•ûŒü :³‚Ì’l, •‰‚Ì’l </returns>
+    /// <returns> ç§»å‹•æ–¹å‘ :æ­£ã®å€¤, è² ã®å€¤ </returns>
     public bool IsHit()
     {
         if (GetCollider().Length > 0)
@@ -59,9 +59,9 @@ public class GroundCheck
     }
 
     /// <summary>
-    /// Gizmo‚É”ÍˆÍ‚ğ•`‰æ‚·‚é
+    /// Gizmoã«ç¯„å›²ã‚’æç”»ã™ã‚‹
     /// </summary>
-    /// <param name="origin"> “–‚½‚è”»’è‚Ì’†‰›‚ğ•\‚·Transform </param>
+    /// <param name="origin"> å½“ãŸã‚Šåˆ¤å®šã®ä¸­å¤®ã‚’è¡¨ã™Transform </param>
     public void OnDrawGizmos(Transform origin)
     {
         if (_isDrawGizmo)

@@ -1,25 +1,25 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class FinishingAttackShort
 {
-    [Header("[-=====‹ß‚¢‹——£‚Ìƒgƒhƒ‚ÌƒGƒtƒFƒNƒgÝ’è===-]")]
-    [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
-
-    [Header("ƒgƒhƒ‚ð‚³‚·ŽžŠÔ_e")]
+    [Header("@ãƒˆãƒ‰ãƒ¡ã‚’ã•ã™ã®ã«å¿…è¦ãªæ™‚é–“")]
     [SerializeField] private float _finishTime = 1f;
 
-    [Header("”»’è_Offset_‰“‹——£")]
+    [Header("@æŽ¢çŸ¥åˆ¤å®š_Offset")]
     [SerializeField] private Vector3 _offset = new Vector3(0, 0, 3);
 
-    [Header("”»’è_Size_‰“‹——£")]
+    [Header("@æŽ¢çŸ¥åˆ¤å®š_Size")]
     [SerializeField] private Vector3 _boxSize = new Vector3(10, 10, 10);
 
-    [Header("Gizmo‚ð•\Ž¦‚·‚é‚©‚Ç‚¤‚©")]
+    [Header("Gizmoã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹")]
     [SerializeField] private bool _isDrawGizmo = true;
 
+
+    [Header("---ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š---")]
+    [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
 
     public Vector3 Offset => _offset;
     public Vector3 BoxSize => _boxSize;
@@ -28,6 +28,7 @@ public class FinishingAttackShort
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
+        _finishAttackNearMagic.Init(playerControl);
     }
 
     public float FinishTime => _finishTime;
