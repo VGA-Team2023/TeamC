@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using CriWare;
 
 //遠距離攻撃敵の弾を出す攻撃
 public class LAEAttackState : IStateMachine
@@ -39,5 +40,9 @@ public class LAEAttackState : IStateMachine
             Exit();
             _enemy.StateChange(EnemyBase.MoveState.FreeMove);
         }
+
+        CriAtomExPlayer criAtomExPlayer = new CriAtomExPlayer();
+
+        criAtomExPlayer.Stop(false);
     }
 }
