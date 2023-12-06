@@ -7,8 +7,8 @@ public class AudioManager : MonoBehaviour
     /// <summary>シングルトン化</summary>
     public static AudioManager _instance;
     [Header("設定")]
-    [SerializeField, Tooltip("BGMのボリューム"), Range(0, 1)] int _bgmVolume = 1;
-    [SerializeField, Tooltip("SEのボリューム"), Range(0, 1)] int _seVolume = 1;
+    [SerializeField, Tooltip("BGMのボリューム"), Range(0, 1)] float _bgmVolume;
+    [SerializeField, Tooltip("SEのボリューム"), Range(0, 1)] float _seVolume;
     [SerializeField, Tooltip("PlayerおよびEnemyのSEに3D機能をつけるかどうか")] bool _is3DPositioning;
     [SerializeField, Tooltip("現在のシーン(BGM)")] BGMState _sceneBGMState;
     [Space]
@@ -45,6 +45,11 @@ public class AudioManager : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    private void Update()
+    {
+        _bgmSource.volume = _bgmVolume;
     }
 
     private void Awake()
