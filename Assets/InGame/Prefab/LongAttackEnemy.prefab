@@ -304,7 +304,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6969211064611718547}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LongeEnemyPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,6 +690,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad034f785cb59e141a490d988739587e,
         type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad034f785cb59e141a490d988739587e,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -811,15 +816,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd7b1bbdd02d5249842d13b771519f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 10
+  _isTestAudio: 0
+  _hp: 2
   _attack: 5
   _type: 0
   _speed: 1
   _attackInterval: 0.5
   _searchRange: 3.96
   _finishStopInterval: 5
-  _defaultLayer: 0
-  _finishLayer: 0
+  _defaultLayer: 7
+  _finishLayer: 10
   _core: {fileID: 7589460673985063193}
   _movePosition:
   - {fileID: 595101213906702086}
@@ -839,8 +845,10 @@ MonoBehaviour:
     type: 3}
   _iceFinishEffect: {fileID: 8565715187832649081, guid: 5a07250db38b03345a5fccfaaa2735fb,
     type: 3}
-  _grassAttackEffect: {fileID: 0}
-  _grassFinishEffect: {fileID: 0}
+  _grassAttackEffect: {fileID: 923676356984606698, guid: 771fe16c33d2339429d3d2e8e9c62a06,
+    type: 3}
+  _grassFinishEffect: {fileID: 1523254171359619560, guid: 844265fc9f2842241a7a746fcd7839f7,
+    type: 3}
 --- !u!114 &2055263460055057829
 MonoBehaviour:
   m_ObjectHideFlags: 0

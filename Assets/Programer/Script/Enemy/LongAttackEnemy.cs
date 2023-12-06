@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
+public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("敵の挙動に関する項目")]
     [SerializeField, Tooltip("移動先の場所")]
@@ -134,6 +134,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     {
         _rb.velocity = Vector3.zero;
         _magicType = attackHitTyp;
+        TestAudio(EnemyHitSEState.Hit);
         if (attackType == AttackType.ShortChantingMagick)
         {
             if (attackHitTyp == MagickType.Ice)
@@ -171,51 +172,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         HP = _defaultHp;
     }
 
-    //public void EndFinishing()
-    //{
-    //    if (_magicType == MagickType.Ice)
-    //    {
-    //        GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-    //        Destroy(iceAttack, 3f);
-    //    }
-    //    else if (_magicType == MagickType.Grass)
-    //    {
-    //        GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-    //        Destroy(grassAttack, 3f);
-    //    }
-    //    Vector3 dir = transform.position - _player.transform.position;
-    //    _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-    //    base.OnEnemyDestroy -= StartFinishing;
-    //    EnemyFinish();
-    //    GameManager.Instance.PauseManager.Remove(this);
-    //    GameManager.Instance.SlowManager.Remove(this);
-    //    Destroy(gameObject, 1f);
-    //}
-
-    public void Pause()
-    {
-        _defaultSpeed = Speed;
-        Speed = 0;
-    }
-
-    public void Resume()
-    {
-        Speed = _defaultSpeed;
-    }
-
-    public void OnSlow(float slowSpeedRate)
-    {
-        _defaultSpeed = Speed;
-        Speed += _slowSpeed * Speed;
-    }
-
-    public void OffSlow()
-    {
-        Speed = _defaultSpeed;
-    }
-
     public void EndFinishing(MagickType attackHitTyp)
     {
+        TestAudio(EnemyHitSEState.SpecialHit);
         if (attackHitTyp == MagickType.Ice)
         {
             GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
@@ -233,5 +192,50 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         GameManager.Instance.PauseManager.Remove(this);
         GameManager.Instance.SlowManager.Remove(this);
         Destroy(gameObject, 1f);
+    }
+
+    public void Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    public void Resume()
+    {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _defaultSpeed = Speed;
+        Speed += _slowSpeed * Speed;
+    }
+
+    public void OffSlow()
+    {
+        Speed = _defaultSpeed;
+    }
+
+    public void TestAudio(EnemyHitSEState playSe)
+    {
+        if (IsTestAudio)
+        {
+            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
+        }
     }
 }
