@@ -7,14 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FxMii_Ivy_01
+  m_Name: FxMii_EN_RolledIvy_01
   m_Shader: {fileID: 4800000, guid: 1bc5c6a70411243779ce486a98012125, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
-  - _BASE_MAP_ROTATION_ENABLED
   - _DISSOLVE_TRANSITION_ENABLED
   - _EMISSION_AREA_ALPHA
   - _EMISSION_COLOR_COLOR
@@ -171,7 +170,7 @@ Material:
     - _BaseMapOffsetYCoord: 0
     - _BaseMapProgress: 0
     - _BaseMapProgressCoord: 0
-    - _BaseMapRotation: 0.4
+    - _BaseMapRotation: 0
     - _BaseMapRotationCoord: 0
     - _BaseMapSliceCount: 4
     - _Blend: 0
@@ -279,9 +278,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.3870497, g: 7.326294, b: 0.63488054, a: 1}
+    - _EmissionColor: {r: 0, g: 1.2760488, b: 6.4592676, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 61.23868, g: 61.23868, b: 61.23868, a: 1}
+    - _TintColor: {r: 30.61934, g: 30.61934, b: 30.61934, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8933328508202125923
 MonoBehaviour:
