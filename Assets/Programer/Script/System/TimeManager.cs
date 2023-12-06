@@ -4,15 +4,15 @@ using UnityEngine;
 
 [System.Serializable]
 /// <summary>ゲームの経過時間を操作するClass</summary>
-public class TimeManager : ISlow,IPause
+public class TimeManager : ISlow,IPause,ISpecialMovingPause
 {
     float _currentTimeSpeedRate = 1;
-    /// <summary>ゲームのプレイ時間</summary>
-    [SerializeField] float _gamePlayTime = 60;
-    /// <summary>ゲーム中の経過時間</summary>
+    [SerializeField,Tooltip("プレイ時間")] float _gamePlayTime = 60;
     float _gamePlayElapsedTime = 0;
+    /// <summary>ゲームのプレイ時間</summary>
+    public float GamePlayTime => _gamePlayTime;
+    /// <summary>ゲーム中の経過時間</summary>
     public float GamePlayElapsedTime => _gamePlayElapsedTime;
-    public float GamePlayTime { get { return _gamePlayTime; } set { _gamePlayTime = value; } }
     public TimeManager(float time)
     {
         _gamePlayTime = time;
@@ -20,18 +20,29 @@ public class TimeManager : ISlow,IPause
     public void Start()
     {
         TimerReset();
+        _currentTimeSpeedRate = 1;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
     /// <summary>主にタイムの時間を減らす処理を行う関数</summary>
     public void Update()
     {
-        _gamePlayElapsedTime -= Time.deltaTime * _currentTimeSpeedRate;
+        _gamePlayElapsedTime += Time.deltaTime * _currentTimeSpeedRate;
     }
     /// <summary>ゲーム時間のリセット</summary>
     public void TimerReset()
     {
-        _gamePlayElapsedTime = _gamePlayTime;
+        _gamePlayElapsedTime = 0;
+    }
+
+    /// <summary>float型のタイマーを分と秒に計算する関数</summary>
+    /// <returns></returns>
+    public MinutesSecondsVer MinutesSecondsCast()
+    {
+        float minutes = _gamePlayElapsedTime / 60;
+        float seconds = _gamePlayElapsedTime - Mathf.Floor(minutes) * 60;
+        return new MinutesSecondsVer((int)minutes, (int)seconds);
     }
 
     void IPause.Pause()
@@ -52,5 +63,28 @@ public class TimeManager : ISlow,IPause
     void ISlow.OnSlow(float slowSpeedRate)
     {
         _currentTimeSpeedRate = slowSpeedRate;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _currentTimeSpeedRate = 0;
+    }
+    void ISpecialMovingPause.Resume()
+    {
+        _currentTimeSpeedRate = 1;
+    }
+}
+public struct MinutesSecondsVer
+{
+    int minutes;
+    int seconds;
+    /// <summary>分</summary>
+    public int Minutes => minutes;
+    /// <summary>秒</summary>
+    public int Seconds => seconds;
+    public MinutesSecondsVer(int m, int s)
+    {
+        minutes = m;
+        seconds = s;
     }
 }

@@ -1,24 +1,24 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackMagicPrefab : MonoBehaviour, IMagicble
 {
-    [Header("–‚–@‚Ì‘®«")]
+    [Header("é­”æ³•ã®å±æ€§")]
     [SerializeField] MagickType _magicType = MagickType.Ice;
 
-    [Header("Á‚¦‚é‚Ü‚Å‚ÌŠÔ")]
+    [Header("æ¶ˆãˆã‚‹ã¾ã§ã®æ™‚é–“")]
     [SerializeField] private float _lifeTime = 7;
 
-    [Header("‹…‚Ì‘¬“x")]
+    [Header("çƒã®é€Ÿåº¦")]
     [SerializeField] private float _speed = 10;
 
     [SerializeField] private Rigidbody _rb;
 
-    /// <summary>UŒ‚—Í</summary>
+    /// <summary>æ”»æ’ƒåŠ›</summary>
     private float _attackPower = 1;
 
-    /// <summary>–‚–@‚Ìƒ^ƒCƒv</summary>
+    /// <summary>é­”æ³•ã®ã‚¿ã‚¤ãƒ—</summary>
     private AttackType _attackType = AttackType.ShortChantingMagick;
 
     private Vector3 _moveDir;
@@ -42,6 +42,9 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
         {
             _moveDir = _foward;
         }
+
+        var r = Random.Range(1, 1.5f);
+        _speed = r * _speed;
 
         Destroy(gameObject, _lifeTime);
     }
@@ -71,7 +74,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
 
     public void Move()
     {
-        //“G‚ªnull‚Å‚Í‚È‚¢A—­‚ß–‚–@‚Ì‚Í’Ç”ö‚·‚é
+        //æ•µãŒnullã§ã¯ãªã„ã€æºœã‚é­”æ³•ã®æ™‚ã¯è¿½å°¾ã™ã‚‹
         if (_attackType == AttackType.LongChantingMagick && _enemy != null)
         {
             _moveDir = _enemy.position - transform.position;

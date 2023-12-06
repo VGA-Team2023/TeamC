@@ -1,17 +1,24 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlayerHp
 {
-    [Header("===UIÝ’è===")]
-    [SerializeField] private PlayerHpUI _uiHp;
-
-    [Header("Player‚ÌHp")]
+    [Header("@Playerã®Hp")]
     [SerializeField] private float _hp;
 
+    [Header("---UIè¨­å®š---")]
+    [SerializeField] private PlayerHpUI _uiHp;
+
+
+
+
     private float _nowHp = 0;
+
+    private bool _isDead = false;
+
+    public bool IsDead => _isDead;
 
     private PlayerControl _playerControl;
     public void Init(PlayerControl playerControl)
@@ -28,6 +35,7 @@ public class PlayerHp
 
         if (_nowHp < 0)
         {
+            _isDead = true;
             return true;
         }
         return false;
@@ -35,6 +43,10 @@ public class PlayerHp
 
     public void ReVive()
     {
+        GameManager.Instance.SpecialMovingPauseManager.PauseResume(false);
+        _playerControl.PlayerAnimControl.IsDead(false);
+
+        _isDead = false;
         _nowHp = _hp;
         _uiHp.SetValue(_nowHp);
     }

@@ -1,12 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>スロー処理を行うインターフェイス</summary>
 public interface ISlow
 {
-    /// <summary>�ʏ킩��X���[�ɐ؂�ւ�鎞�Ɏ��s����</summary>
-    /// <param name="slowSpeedRate">�X���[���̑��x�̊���</param>
+    /// <summary>通常からスローに切り替わる時に実行する</summary>
+    /// <param name="slowSpeedRate">スロー時の速度の割合</param>
     public void OnSlow(float slowSpeedRate);
-    /// <summary>�X���[����ʏ�ɐ؂�ւ�鎞�Ɏ��s����</summary>
+    /// <summary>スローから通常に切り替わる時に実行する</summary>
     public void OffSlow();
 }

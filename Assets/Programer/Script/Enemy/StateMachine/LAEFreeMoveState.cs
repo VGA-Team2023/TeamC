@@ -1,24 +1,21 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 遠距離攻撃の通常行動ステート
+/// </summary>
 public class LAEFreeMoveState : IStateMachine
 {
     LongAttackEnemy _enemy;
     PlayerControl _player;
     List<Vector3> _patrolPoint = new List<Vector3>();
-    float _distance;
-    float _speed;
-    float _playerDis;
     int _index;
 
-    public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint, float distance, float playerDis, float speed)
-    {
+    public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint)
+    { 
         _enemy = enemy;
         _player = player;
         _patrolPoint = patrolPoint;
-        _distance = distance;
-        _playerDis = playerDis;
-        _speed = speed;
     }
     public void Enter()
     {
@@ -32,18 +29,20 @@ public class LAEFreeMoveState : IStateMachine
 
     public void Update()
     {
+        //敵がサーチ範囲に入ったら攻撃を始める(遠距離攻撃)
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
-        if(playerDistance < _playerDis)
+        if(playerDistance < _enemy.SearchRange)
         {
             Exit();
             _enemy.StateChange(EnemyBase.MoveState.Attack);
         }
+        //基本は決められた地点を周回する
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);
-        if (distance < _distance)
+        if (distance < _enemy.ChangeDistance)
         {
             _index++;
         }
         _enemy.transform.forward = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
-        _enemy.Rb.velocity = _enemy.transform.forward * _speed;
+        _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
     }
 }

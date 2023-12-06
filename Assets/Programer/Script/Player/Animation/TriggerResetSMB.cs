@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>StateMachineBehaviour‚ÅƒXƒe[ƒg‚©‚ç”²‚¯‚½‚ç
-/// ƒgƒŠƒK[‚ğOFF‚Éİ’è‚·‚éƒR[ƒh</summary>
+/// <summary>StateMachineBehaviourã§ã‚¹ãƒ†ãƒ¼ãƒˆã‹ã‚‰æŠœã‘ãŸã‚‰
+/// ãƒˆãƒªã‚¬ãƒ¼ã‚’OFFã«è¨­å®šã™ã‚‹ã‚³ãƒ¼ãƒ‰</summary>
 public class TriggerResetSMB : StateMachineBehaviour
 {
-    [Header("Off‚É‚µ‚½‚¢Trigger‚Ì–¼‘O")]
+    [Header("Offã«ã—ãŸã„Triggerã®åå‰")]
     [SerializeField] private string _triggerName;
 
     PlayerControl _playerControl;
@@ -24,19 +24,20 @@ public class TriggerResetSMB : StateMachineBehaviour
     {
         animator.ResetTrigger(_triggerName);
 
-        //ƒJƒEƒ“ƒg‚ğŒ¸‚ç‚·
+        //ã‚«ã‚¦ãƒ³ãƒˆã‚’æ¸›ã‚‰ã™
         _isAttackNow--;
 
         if (_isAttackNow <= 0)
         {
             _isAttackNow = 0;
             _playerControl.Attack.IsAttackNow = false;
+            _playerControl.Attack2.IsAttackNow = false;
         }
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //ƒJƒEƒ“ƒg‚ğ‘‚â‚·
+        //ã‚«ã‚¦ãƒ³ãƒˆã‚’å¢—ã‚„ã™
         _isAttackNow++;
     }
 }

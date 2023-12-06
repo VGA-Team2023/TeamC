@@ -1,16 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    /// <summary>\‚¦‰Ÿ‚·</summary>
+    [SerializeField] private PlayerControl _control;
+
+    private bool _isKeybord = false;
+
+    /// <summary>æ§‹ãˆæŠ¼ã™</summary>
     private bool _isSetUpDown = false;
 
-    /// <summary>\‚¦A‰Ÿ‚µ‘±‚¯‚é</summary>
+    /// <summary>æ§‹ãˆã€æŠ¼ã—ç¶šã‘ã‚‹</summary>
     private bool _isSetUp = false;
 
-    /// <summary> \‚¦—£‚· </summary>
+    /// <summary> æ§‹ãˆé›¢ã™ </summary>
     private bool _isSetUpUp = false;
 
     private bool _isFinishAttack = false;
@@ -19,7 +24,7 @@ public class InputManager : MonoBehaviour
 
     private bool _isAvoid = false;
 
-    /// <summary>ƒWƒƒƒ“ƒv</summary>
+    /// <summary>ã‚¸ãƒ£ãƒ³ãƒ—</summary>
     private bool _isJump;
 
     private bool _isAttack = false;
@@ -31,6 +36,12 @@ public class InputManager : MonoBehaviour
 
     private float _verticalInput;
 
+    private bool _isLockOn = false;
+
+    private float _isChangeLockOnEnemy = 0;
+
+    public float IsChangeLockOnEney => _isChangeLockOnEnemy;
+    public bool IsLockOn => _isLockOn;
     public float HorizontalInput => _horizontalInput;
     public float VerticalInput => _verticalInput;
     public bool IsJumping => _isJump;
@@ -44,6 +55,21 @@ public class InputManager : MonoBehaviour
     public bool IsFinishAttackDown => _isFinishAttackDown;
     public bool IsAvoid => _isAvoid;
 
+    private float _saveTrigger;
+
+    private void Awake()
+    {
+        if (_control.IsMousePlay)
+        {
+            _isKeybord = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            _isKeybord = false;
+        }
+    }
+
     private void Update()
     {
         // _isSetUpDown = Input.GetButtonDown("SetUp");
@@ -53,9 +79,58 @@ public class InputManager : MonoBehaviour
 
         _isJump = Input.GetButtonDown("Jump");
 
-        _isAttack = Input.GetButtonDown("Attack");
-        _isAttackUp = Input.GetButtonUp("Attack");
-        _isAttacks = Input.GetButton("Attack");
+        if (_control.IsNewAttack && !_isKeybord)
+        {
+            float v = Input.GetAxis("Trigger");
+            if (v > 0)
+            {
+                _isAttacks = true;
+            }
+            else
+            {
+                _isAttacks = false;
+            }
+
+
+            if (_saveTrigger <= 0 && v > 0)
+            {
+                _isAttack = true;
+            }
+            else
+            {
+                _isAttack = false;
+            }
+
+            if (_saveTrigger > 0 && v <= 0)
+            {
+                _isAttackUp = true;
+            }
+            else
+            {
+                _isAttackUp = false;
+            }
+
+            _saveTrigger = v;
+        }
+        else
+        {
+            _isAttack = Input.GetButtonDown("Attack");
+            _isAttackUp = Input.GetButtonUp("Attack");
+            _isAttacks = Input.GetButton("Attack");
+        }
+
+
+        if (_control.IsMousePlay)
+        {
+            _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
+        }
+        else
+        {
+            _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
+        }
+
+
+        _isLockOn = Input.GetButtonDown("LockOn");
 
         _isFinishAttack = Input.GetButton("FinishAttack");
 
@@ -64,6 +139,9 @@ public class InputManager : MonoBehaviour
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
+
+
+
     }
 
 }

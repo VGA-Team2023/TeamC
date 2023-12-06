@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ShortChantingMagicData
 {
-    [Header("–‚–@")]
+    [Header("é­”æ³•")]
     [SerializeField] private List<ShortChantingMagicBase> _magick = new List<ShortChantingMagicBase>();
 
     ShortChantingMagicBase _magicBase = new ShortChantingMagicBase();
@@ -28,17 +28,19 @@ public class ShortChantingMagicData
         {
             a.Init(playerControl);
         }
-
-        SetMagick();
+            SetMagick();
     }
 
     /// <summary>
-    /// –‚–@‚ğ€”õ‚·‚é
+    /// é­”æ³•ã‚’æº–å‚™ã™ã‚‹
     /// </summary>
     public void SetMagick()
     {
-        SetOnlyMagic();
-        CanUseMagic();
+        if (!_playerControl.IsNewAttack)
+        {
+            SetOnlyMagic();
+            CanUseMagic();
+        }
     }
 
     public void SetOnlyMagic()
@@ -59,7 +61,7 @@ public class ShortChantingMagicData
 
 
     /// <summary>
-    /// –‚–@‚ğI‚¦‚é
+    /// é­”æ³•ã‚’çµ‚ãˆã‚‹
     /// </summary>
     public void UnSetMagick()
     {
@@ -69,26 +71,30 @@ public class ShortChantingMagicData
     }
 
     /// <summary>
-    /// ƒp[ƒeƒBƒNƒ‹‚ğ~‚ß‚é—p
+    /// ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’æ­¢ã‚ã‚‹ç”¨
     /// </summary>
     public void ParticleStopUpdata()
     {
+        if(_playerControl.IsNewAttack)
+        {
+            return;
+        }
         _magicBase?.ParticleStopUpdate();
     }
 
 
     public void SetTame()
     {
-        //–‚–@w‚ğÁ‚·
+        //é­”æ³•é™£ã‚’æ¶ˆã™
         _magicBase.ShowTameMagic(_attackCount, true);
-        Debug.Log(_attackCount);
+        // Debug.Log(_attackCount);
     }
 
     public void AttackOneEnemy(Transform[] enemys)
     {
-        //–‚–@w‚ğÁ‚·
-        _magicBase.UseMagick(_attackCount, enemys,AttackType.ShortChantingMagick, false);
-        //–‚–@w‚ğÁ‚·
+        //é­”æ³•é™£ã‚’æ¶ˆã™
+        _magicBase.UseMagick(_attackCount, enemys, AttackType.ShortChantingMagick, false);
+        //é­”æ³•é™£ã‚’æ¶ˆã™
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;
 
@@ -104,9 +110,9 @@ public class ShortChantingMagicData
 
     public void AttackAllEnemy(Transform[] enemys)
     {
-        //–‚–@w‚ğÁ‚·
+        //é­”æ³•é™£ã‚’æ¶ˆã™
         _magicBase.UseMagick(_attackCount, enemys, AttackType.LongChantingMagick, true);
-        //–‚–@w‚ğÁ‚·
+        //é­”æ³•é™£ã‚’æ¶ˆã™
         _magicBase.ShowTameMagic(_attackCount, false);
         _attackCount++;
 

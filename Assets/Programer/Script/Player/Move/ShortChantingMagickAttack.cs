@@ -1,32 +1,36 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class ShortChantingMagickAttack
 {
-    [Header("===–‚–@‚Ìİ’è===")]
+    [Header("æ”»æ’ƒæ–¹æ³•")]
+    [SerializeField] private bool _isMahouzinAttack = false;
+
+    public bool IsMahouzinAttack => _isMahouzinAttack;
+
+    [Header("===é­”æ³•ã®è¨­å®š===")]
     [SerializeField] private ShortChantingMagicData _shortChantingMagicData;
 
-    [Header("‚½‚ß‚ÌŠÔ")]
+    [Header("ãŸã‚ã®æ™‚é–“")]
     [SerializeField] private float _time = 1;
-
 
     public float TameTime => _time;
 
-    [Header("ˆÚ“®İ’è")]
+    [Header("ç§»å‹•è¨­å®š")]
     [SerializeField] private ShortChantingMagicAttackMove _shortChantingMagicAttackMove;
 
-    [Header("UŒ‚‚Ìí—Ş")]
+    [Header("æ”»æ’ƒã®ç¨®é¡")]
     [SerializeField] private SearchType _searchType = SearchType.NearlestEnemy;
 
-    [Header("“–‚½‚è”»’è_Offset")]
+    [Header("å½“ãŸã‚Šåˆ¤å®š_Offset")]
     [SerializeField] private Vector3 _offset;
 
-    [Header("“–‚½‚è”»’è_Size")]
+    [Header("å½“ãŸã‚Šåˆ¤å®š_Size")]
     [SerializeField] private Vector3 _size;
 
-    [Header("“G‚ÌƒŒƒCƒ„[")]
+    [Header("æ•µã®ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] private LayerMask _targetLayer;
 
     [SerializeField]
@@ -47,18 +51,18 @@ public class ShortChantingMagickAttack
     }
 
     /// <summary>
-    /// ”ÍˆÍ“à‚É‚ ‚éƒRƒ‰ƒCƒ_[‚ğæ“¾‚·‚é
+    /// ç¯„å›²å†…ã«ã‚ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns> ˆÚ“®•ûŒü :³‚Ì’l, •‰‚Ì’l </returns>
+    /// <returns> ç§»å‹•æ–¹å‘ :æ­£ã®å€¤, è² ã®å€¤ </returns>
     public void Attack(float time)
     {
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
         _playerControl.PlayerAnimControl.SetAttackTrigger();
 
-        //ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®
+        //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
-        //ƒJƒƒ‰‚ÌU“®
+        //ã‚«ãƒ¡ãƒ©ã®æŒ¯å‹•
         _playerControl.CameraControl.ShakeCamra(CameraType.All, CameraShakeType.AttackNomal);
 
         _attackCount++;
@@ -66,11 +70,13 @@ public class ShortChantingMagickAttack
 
         if (time < _time)
         {
-            //“G‚ğõ“G
+            //æ•µã‚’ç´¢æ•µ
             Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, _targetLayer);
+            Debug.Log("Offset:" + _offset + "Size:" + _size + "Layer:" + _targetLayer.value);
+            Debug.Log("æ•µã®æ•°:"+t.Length);
             if (t.Length == 0)
             {
-                //–‚–@‚ÌUŒ‚ˆ—
+                //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
                 _shortChantingMagicData.AttackOneEnemy(t);
                 _shortChantingMagicAttackMove.SetEnemy(null);
             }
@@ -78,17 +84,17 @@ public class ShortChantingMagickAttack
             {
                 _shortChantingMagicAttackMove.SetEnemy(t[0]);
 
-                //–‚–@‚ÌUŒ‚ˆ—
+                //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
                 _shortChantingMagicData.AttackOneEnemy(t);
             }
-        }   //ƒ^ƒ‚ª‘‚¢
+        }   //ã‚¿ãƒ¡ãŒæ—©ã„æ™‚
         else
         {
-            //“G‚ğõ“G
+            //æ•µã‚’ç´¢æ•µ
             Transform[] t = _playerControl.ColliderCheck.EnemySearch(SearchType.AllEnemy, _offset, _size, _targetLayer);
             if (t.Length == 0)
             {
-                //–‚–@‚ÌUŒ‚ˆ—
+                //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
                 _shortChantingMagicData.AttackOneEnemy(t);
                 _shortChantingMagicAttackMove.SetEnemy(null);
             }
@@ -96,21 +102,26 @@ public class ShortChantingMagickAttack
             {
                 _shortChantingMagicAttackMove.SetEnemy(t[0]);
 
-                //–‚–@‚ÌUŒ‚ˆ—
+                //é­”æ³•ã®æ”»æ’ƒå‡¦ç†
                 _shortChantingMagicData.AttackAllEnemy(t);
-            }   //ƒ^ƒ‚ª’x‚¢‚Æ‚«
+            }   //ã‚¿ãƒ¡ãŒé…ã„ã¨ã
         }
     }
 
 
 
     /// <summary>
-    /// •Ší•ÏX‚ÉŒÄ‚Ô
+    /// æ­¦å™¨å¤‰æ›´æ™‚ã«å‘¼ã¶
     /// </summary>
     public void UnSetMagic()
     {
-        //–‚–@w‚ğÁ‚·
-        _shortChantingMagicData.UnSetMagick();
+        //é­”æ³•é™£ã‚’æ¶ˆã™
+
+        if (_isMahouzinAttack)
+        {
+            _shortChantingMagicData.UnSetMagick();
+        }
+
         _attackCount = 0;
     }
 

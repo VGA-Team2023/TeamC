@@ -1,63 +1,101 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ウェーブを管理するクラス
+/// </summary>
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("Wave��Prefab")]
+    [SerializeField, Tooltip("WaveのPrefab")]
     List<WaveSetting> _waveSettings = new List<WaveSetting>();
     IEnumerator _waveCoroutine;
+    int _waveCount;
+    int _destroyCount = 0;
+    public int DestroyCount
+    {
+        get => _destroyCount;
+        set
+        {
+            //敵が消えた時に呼ばれる
+            _destroyCount = value;
+            //Waveに設定した敵が全部消えたら
+            if (_destroyCount <= 0)
+            {
+                //設定してるWaveが全て呼ばれたらシーン遷移
+                _waveCount++;
+                _waveCoroutine.MoveNext();
+                if (_waveCount == _waveSettings.Count)
+                {
+                    //リザルト状態に変更
+                    var _gameManager = FindObjectOfType<GameManager>();
+                    _gameManager.ChangeGameState(GameState.Result);
+                    //スコアの計算をここに記述
+                    //シーン遷移のメソッドを呼ぶ
+                    Loading sceneControlle = FindObjectOfType<Loading>();
+                    sceneControlle?.LoadingScene();
+                }
+            }
+        }
+    }
 
     void Start()
     {
+        //スタート時に一度呼ぶ
         _waveCoroutine = NextWave();
-        Next();
-    }
-
-    void Update()
-    {
-        //�e�X�g�p���N���b�N������Wave���i��
-        if(Input.GetMouseButtonDown(0))
-        {
-            Next();
-        }
-    }
-
-    public void Next()
-    {
         _waveCoroutine.MoveNext();
     }
 
+    //MoveNextを呼ばれるごとに呼び出すWaveの配列が変わる
     IEnumerator NextWave()
     {
-        Debug.Log("Wave1");
-        foreach(var summon in _waveSettings[0].Enemys)
+        DestroyCount = _waveSettings[0].EnemyCount;
+        _waveSettings[0].Enemy.SetActive(true);
+        foreach (var summon in _waveSettings[0].Enemys)
         {
-            summon.EnemyCreate();
+            //Observerで敵がやられたか監視する
+            summon.OnEnemyFinish += EnemyDestroy;
+            summon.gameObject.SetActive(false);
         }
         yield return 1;
-        Debug.Log("Wave2");
+        DestroyCount = _waveSettings[1].EnemyCount;
+        _waveSettings[1].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[1].Enemys)
         {
-            summon.EnemyCreate();
+            summon.OnEnemyFinish += EnemyDestroy;
+            summon.gameObject.SetActive(false);
         }
         yield return 2;
-        Debug.Log("Wave3");
+        DestroyCount = _waveSettings[2].EnemyCount;
+        Debug.Log(DestroyCount);
+        _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)
         {
-            summon.EnemyCreate();
+            summon.OnEnemyFinish += EnemyDestroy;
+            summon.gameObject.SetActive(false);
         }
         yield return 3;
     }
+
+    //敵が消えた時に呼ばれる関数
+    public void EnemyDestroy()
+    {
+        DestroyCount--;
+    }
 }
 
+/// <summary>
+/// 子オブジェクトに敵が格納されているWavePrefabを設定する
+/// </summary>
 [Serializable]
 class WaveSetting
 {
-    [SerializeField, Tooltip("�G��z�u���Ă���e�I�u�W�F�N�g")]
+    [SerializeField, Tooltip("敵を配置している親オブジェクト")]
     GameObject _enemys;
 
-    public Summon[] Enemys => _enemys.GetComponentsInChildren<Summon>();
+    //設定されたWavePrefabから各情報を引き出す
+    public GameObject Enemy => _enemys;
+    public EnemyBase[] Enemys => _enemys.GetComponentsInChildren<EnemyBase>();
     public int EnemyCount => Enemys.Length;
 }

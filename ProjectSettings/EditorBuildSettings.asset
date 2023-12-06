@@ -5,7 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/InGame/Scene/Title.unity
+    guid: a3df0739ce9309f4d8cb5f6d708c9509
+  - enabled: 1
+    path: Assets/Programer/Scene/TestCharactorPick.unity
+    guid: 699bf17184ad9ac46ab6b9688f4db04f
+  - enabled: 1
+    path: Assets/Programer/Scene/TestGame.unity
+    guid: 0e5824327d66ea043a5f13b03c9c89be
+  - enabled: 1
+    path: Assets/InGame/Scene/Result.unity
+    guid: 5e8b7760809e6c64a8ae0214f836d653
+  - enabled: 1
+    path: Assets/Programer/Scene/GameScene_1.unity
+    guid: 814844506a4fb4547b84749773761744
   - enabled: 0
-    path: Assets/UnitySetting/Scenes/SampleScene.unity
+    path: Assets/Programer/WorkSpace/Scene/GameScene_Houki.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/InGame/Scene/GameScene.unity
+    guid: 2dfe1ff890af93c4c9a1e1f052ee430b
   m_configObjects: {}

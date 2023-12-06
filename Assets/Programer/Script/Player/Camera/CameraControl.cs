@@ -1,26 +1,32 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class CameraControl : MonoBehaviour
 {
-    [Header("=====\‚¦‚ÌƒJƒƒ‰‚Ìİ’è=====")]
+    [Header("=====æ§‹ãˆã®ã‚«ãƒ¡ãƒ©ã®è¨­å®š=====")]
     [SerializeField] private DefaultCamera _setUpCameraSetting;
 
-    [Header("===ƒgƒhƒ‚Ì‚ÌƒJƒƒ‰‚Ì“®‚«===")]
+    [Header("===ãƒˆãƒ‰ãƒ¡ã®æ™‚ã®ã‚«ãƒ¡ãƒ©ã®å‹•ã===")]
     [SerializeField] private FinishAttackCamera _finishAttackCamera;
 
-    [Header("’Êí‚ÌƒJƒƒ‰")]
+    [Header("é€šå¸¸æ™‚ã®ã‚«ãƒ¡ãƒ©")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
 
-    [Header("ƒgƒhƒ‚Ì‚ÌƒJƒƒ‰")]
+    [Header("æ”»æ’ƒæºœã‚ã®ã‚«ãƒ¡ãƒ©")]
+    [SerializeField] private CinemachineVirtualCamera _attackChargeCamera;
+
+    [Header("ãƒˆãƒ‰ãƒ¡ã®æ™‚ã®ã‚«ãƒ¡ãƒ©")]
     [SerializeField] private CinemachineVirtualCamera _finishCamera;
 
-    [Header("’Êí‚ÌƒJƒƒ‰_U“®")]
+    [Header("é€šå¸¸æ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
     [SerializeField] private CinemachineImpulseSource _defultCameraImpulsSource;
 
-    [Header("\‚¦‚ÌƒJƒƒ‰_U“®")]
+    [Header("æ”»æ’ƒæ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
+    [SerializeField] private CinemachineImpulseSource _attckChargeCameraImpulsSource;
+
+    [Header("æ§‹ãˆæ™‚ã®ã‚«ãƒ¡ãƒ©_æŒ¯å‹•")]
     [SerializeField] private CinemachineImpulseSource _setUpCameraImpulsSource;
 
     [SerializeField] private PlayerControl _playerControl;
@@ -39,6 +45,14 @@ public class CameraControl : MonoBehaviour
     {
         _setUpCameraSetting.Init(this, _defultCamera);
         _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
+    }
+
+    public void UseAttackChargeCamera()
+    {
+        _attackChargeCamera.Priority = 10;
+        _defultCamera.Priority = 0;
+        _finishCamera.Priority = 0;
+
     }
 
     public void UseDefultCamera(bool isReset)
@@ -63,6 +77,11 @@ public class CameraControl : MonoBehaviour
         //ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);
     }
 
+    public void LockOnCamera()
+    {
+        
+    }
+
     public void ShakeCamra(CameraType cameraType, CameraShakeType cameraShakeType)
     {
         CinemachineImpulseSource source = default;
@@ -76,7 +95,7 @@ public class CameraControl : MonoBehaviour
         }
         else
         {
-            source = _defultCameraImpulsSource;
+            source = _attckChargeCameraImpulsSource;
         }
 
         source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 0.2f;
@@ -97,10 +116,10 @@ public class CameraControl : MonoBehaviour
         }
         else if (cameraShakeType == CameraShakeType.EndFinishAttack)
         {
-            setPowerX = 1f;
-            setPowerY = 2f;
+            setPowerX = 5f;
+            setPowerY = 5f;
             setPowerZ = 0f;
-            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime =1;
+            source.m_ImpulseDefinition.m_TimeEnvelope.m_AttackTime = 1;
             source.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = 1f;
         }
         else
@@ -118,6 +137,7 @@ public class CameraControl : MonoBehaviour
 public enum CameraType
 {
     Defult,
+    AttackCharge,
     FinishCamera,
     All,
 }

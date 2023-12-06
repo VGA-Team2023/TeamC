@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestEnemyAttack : MonoBehaviour,IEnemyDamageble
 {
-    [Header("UŒ‚—Í")]
+    [Header("æ”»æ’ƒåŠ›")]
     [SerializeField] private float _damage;
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)

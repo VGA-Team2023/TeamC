@@ -1,62 +1,82 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour,IPlayerDamageble
+public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISpecialMovingPause
 {
-    [Header("HpÝ’è")]
+    [Header("ãƒžã‚¦ã‚¹ã§æ“ä½œã™ã‚‹ã‹ã©ã†ã‹")]
+    public bool IsMousePlay = false;
+
+    [Header("@Hpè¨­å®š")]
     [SerializeField] private PlayerHp _hp;
 
-    [Header("ƒ_ƒ[ƒW")]
+    [Header("@ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†è¨­å®š")]
     [SerializeField] private PlayerDamage _damage;
 
-    [Header("ˆÚ“®Ý’è")]
+    [Header("@ç§»å‹•è¨­å®š")]
     [SerializeField] private PlayerMove _playerMove;
 
-    [Header("‰ñ”ð")]
+    [Header("@å›žé¿")]
     [SerializeField] private PlayerAvoid _avoid;
 
-    [Header("UŒ‚")]
-    [SerializeField] private Attack _attack;
+    [Header("@ãƒ­ãƒƒã‚¯ã‚ªãƒ³")]
+    [SerializeField] private PlayerLockOn _lockOn;
 
-    [Header("•Ší")]
-    [SerializeField] private WeaponSetting _weaponSetting;
+    [Header("@æ”»æ’ƒ")]
+    [SerializeField] private Attack2 _attack2;
 
-    [Header("‚Æ‚Ç‚ß")]
+    [Header("@ã¨ã©ã‚")]
     [SerializeField] private FinishingAttack _finishingAttack;
 
-    [Header("Ý’u”»’è")]
+    [Header("è¨­ç½®åˆ¤å®š")]
     [SerializeField] private GroundCheck _groundCheck;
 
-    [Header("ƒAƒjƒ[ƒVƒ‡ƒ“Ý’è")]
+    [Header("ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š")]
     [SerializeField] private PlayerAnimControl _playerAnimControl;
 
+
+
+
+
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
-
-    [SerializeField] private GunLine _gunLine;
-
-    [Header("ƒJƒƒ‰Ý’è")]
+    [Header("ã‚«ãƒ¡ãƒ©è¨­å®š")]
     [SerializeField] private CameraControl _cameraControl;
-
-    [Header("ƒvƒŒƒCƒ„[Ž©g")]
+    [Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«")]
     [SerializeField] private Transform _playerT;
-
-    [Header("Player‚ÌƒƒbƒVƒ…")]
-    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
-
+    [Header("ãƒ¢ãƒ‡ãƒ«")]
+    [SerializeField] private Transform _playerModelT;
     [Header("RigidBody")]
     [SerializeField] private Rigidbody _rigidbody;
-
     [Header("Animator")]
     [SerializeField] private Animator _anim;
-
     [Header("Input")]
     [SerializeField] private InputManager _inputManager;
-
+    [Header("éŸ³")]
+    [SerializeField] private PlayerAudio _audio;
+    [Header("HitStopè¨­å®š")]
+    [SerializeField] private HitStopCall _hitStopCall;
+    [SerializeField] private HitStopConrol _hitStopConrol;
     [SerializeField] private PlayerStateMachine _stateMachine = default;
-
     [SerializeField] private ColliderCheck _colliderCheck;
+    [SerializeField] private Attack _attack;
 
+
+    private bool _isNewAttack = true;
+
+    private bool _isPause = false;
+
+    private PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
+
+    private Vector3 _savePauseVelocity = default;
+
+    public Transform PlayerModelT => _playerModelT;
+    public bool IsNewAttack => _isNewAttack;
+    public PlayerLockOn LockOn => _lockOn;
+    public Attack2 Attack2 => _attack2;
+    public HitStopCall HitStopCall => _hitStopCall;
+    public PlayerAudio PlayerAudio => _audio;
+    public PlayerAttribute PlayerAttribute => _playerAttribute;
+    public HitStopConrol HitStopConrol => _hitStopConrol;
     public PlayerDamage PlayerDamage => _damage;
     public PlayerHp PlayerHp => _hp;
     public ControllerVibrationManager ControllerVibrationManager => _controllerVibrationManager;
@@ -68,13 +88,10 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     public InputManager InputManager => _inputManager;
     public PlayerMove Move => _playerMove;
     public GroundCheck GroundCheck => _groundCheck;
-    public WeaponSetting WeaponSetting => _weaponSetting;
     public Attack Attack => _attack;
     public FinishingAttack FinishingAttack => _finishingAttack;
     public PlayerAvoid Avoid => _avoid;
-    public GunLine GunLine => _gunLine;
     public ColliderCheck ColliderCheck => _colliderCheck;
-    public SkinnedMeshRenderer MeshRenderer => _meshRenderer;
     private void Awake()
     {
         _stateMachine.Init(this);
@@ -82,12 +99,13 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
         _playerMove.Init(this);
         _playerAnimControl.Init(this);
         _attack.Init(this);
-        _weaponSetting.Init(this);
+        _attack2.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
         _avoid.Init(this);
         _hp.Init(this);
         _damage.Init(this);
+        _lockOn.Init(this);
     }
 
     void Start()
@@ -95,11 +113,30 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         _stateMachine.Update();
 
+        _damage.CountWaitTime();
+
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            _isPause = !_isPause;
+            GameManager.Instance.PauseManager.PauseResume(_isPause);
+        }
+
+        if (Input.GetButtonDown("ChangeType"))
+        {
+            if (_playerAttribute == PlayerAttribute.Ice)
+            {
+                _playerAttribute = PlayerAttribute.Grass;
+            }
+            else
+            {
+                _playerAttribute = PlayerAttribute.Ice;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -118,6 +155,7 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     {
         _groundCheck.OnDrawGizmos(PlayerT);
         _attack.ShortChantingMagicAttack.OnDrwowGizmo(PlayerT);
+        _attack2.AttackMagic.OnDrwowGizmo(PlayerT);
         _finishingAttack.OnDrwowGizmo(PlayerT);
     }
 
@@ -125,4 +163,64 @@ public class PlayerControl : MonoBehaviour,IPlayerDamageble
     {
         _damage.Damage(damage);
     }
+
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
+
+    public void Pause()
+    {
+        _anim.speed = 0;
+
+        _savePauseVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    public void Resume()
+    {
+        _anim.speed = 1;
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = _savePauseVelocity;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _anim.speed = slowSpeedRate;
+    }
+
+    public void OffSlow()
+    {
+        _anim.speed = 1;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+
+        _savePauseVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector3.zero;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = _savePauseVelocity;
+    }
+
 }

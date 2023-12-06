@@ -1,25 +1,79 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class LongAttackEnemy : EnemyBase
+public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
-    [SerializeField, Tooltip("�ړ���̏ꏊ")]
+    [Header("敵の挙動に関する項目")]
+    [SerializeField, Tooltip("移動先の場所")]
     List<Transform> _movePosition = new List<Transform>();
-    [SerializeField, Tooltip("�ǂꂭ�炢�ړ���ɋ߂Â����玟�̒n�_�ɍs����")]
+
+    [SerializeField, Tooltip("アニメーション")]
+    Animator _anim;
+    public Animator Animator => _anim;
+
+    [SerializeField, Tooltip("どれくらい移動先に近づいたら次の地点に行くか")]
     float _changePointDistance = 0.5f;
-    [SerializeField, Tooltip("���˂���e��Prefab")]
+    public float ChangeDistance => _changePointDistance;
+
+    [SerializeField, Tooltip("スローになった時のプレイヤーのスピード")]
+    float _slowSpeed;
+    [Header("====================")]
+
+    [Header("弾に関する項目")]
+    [SerializeField, Tooltip("発射する弾のPrefab")]
     GameObject _bulletPrefab;
-    [SerializeField, Tooltip("�e�̔��ˈʒu")]
+
+    [SerializeField, Tooltip("弾の発射位置")]
     Transform _muzzle;
+    [Header("====================")]
+
+    [Header("生成するオブジェクト")]
+    [SerializeField, Tooltip("氷魔法の通常攻撃エフェクト")]
+    GameObject _iceAttackEffect;
+
+    [SerializeField, Tooltip("氷魔法のとどめ攻撃エフェクト")]
+    GameObject _iceFinishEffect;
+
+    [SerializeField, Tooltip("草魔法の通常攻撃エフェクト")]
+    GameObject _grassAttackEffect;
+
+    [SerializeField, Tooltip("草魔法のとどめ攻撃エフェクト")]
+    GameObject _grassFinishEffect;
 
     Rigidbody _rb;
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
+    float _defaultSpeed = 0;
+    int _defaultHp = 0;
+
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
-    MoveState _nextState = MoveState.Attack;
+    public MoveState State
+    {
+        get => _state;
+        set
+        {
+            _state = value;
+            switch (_state)
+            {
+                case MoveState.FreeMove:
+                    _freeMove.Enter();
+                    break;
+                case MoveState.Attack:
+                    _attack.Enter();
+                    break;
+                case MoveState.Finish:
+                    _finish.Enter();
+                    break;
+            }
+        }
+    }
+
+    MagickType _magicType;
+
     LAEFreeMoveState _freeMove;
     LAEAttackState _attack;
+    LAEFinishState _finish;
 
     public List<Vector3> SetMovePoint()
     {
@@ -34,13 +88,18 @@ public class LongAttackEnemy : EnemyBase
     {
         _player = FindObjectOfType<PlayerControl>();
         _rb = GetComponent<Rigidbody>();
+        _defaultHp = HP;
         List<Vector3> patrolPoint = new List<Vector3> { transform.position};
         foreach(var point in _movePosition)
         {
             patrolPoint.Add(point.position);
         }
-        _freeMove = new LAEFreeMoveState(this, _player, patrolPoint, _changePointDistance, SearchRange, Speed);
-        _attack = new LAEAttackState(this, _player, SearchRange, AttackInterval);
+        _freeMove = new LAEFreeMoveState(this, _player, patrolPoint);
+        _attack = new LAEAttackState(this, _player);
+        _finish = new LAEFinishState(this);
+        base.OnEnemyDestroy += StartFinishing;
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
     }
 
     void Update()
@@ -53,30 +112,130 @@ public class LongAttackEnemy : EnemyBase
             case MoveState.Attack:
                 _attack.Update();
                 break;
-        }
-        if(_state != _nextState)
-        {
-            switch (_nextState)
-            {
-                case MoveState.FreeMove:
-                    _freeMove.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-            }
-            _state = _nextState;
+            case MoveState.Finish:
+                _finish.Update();
+                break;
         }
     }
 
     public void StateChange(MoveState changeState)
     {
-        _nextState = changeState;
+        State = changeState;
     }
 
-    public void Attack(Vector3 forward)
+    public void Attack()
     {
-        var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
-        bullet.GetComponent<EnemyBullet>().ShootForward = forward;
+        var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
+        var bullet = Instantiate(_bulletPrefab, dir, Quaternion.identity);
+        bullet.GetComponent<EnemyBullet>().Init((_player.transform.position - transform.position).normalized, base.Attack);
+    }
+
+    public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
+    {
+        _rb.velocity = Vector3.zero;
+        _magicType = attackHitTyp;
+        TestAudio(EnemyHitSEState.Hit);
+        if (attackType == AttackType.ShortChantingMagick)
+        {
+            if (attackHitTyp == MagickType.Ice)
+            {
+                GameObject iceAttack = Instantiate(_iceAttackEffect, transform.position, Quaternion.identity);
+                Destroy(iceAttack, 0.3f);
+            }
+            else if (attackHitTyp == MagickType.Grass)
+            {
+                GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
+                Destroy(grassAttack, 0.3f);
+            }
+            Vector3 dir = transform.position - _player.transform.position;
+            _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
+            HP--;
+        }
+        else
+        {
+            HP -= (int)damage;
+        }
+    }
+
+    public void StartFinishing()
+    {
+        gameObject.layer = FinishLayer;
+        _rb.velocity = Vector3.zero;
+        Core.SetActive(true);
+        StateChange(MoveState.Finish);
+    }
+
+    public void StopFinishing()
+    {
+        Core.SetActive(false);
+        gameObject.layer = DefaultLayer;
+        HP = _defaultHp;
+    }
+
+    public void EndFinishing(MagickType attackHitTyp)
+    {
+        TestAudio(EnemyHitSEState.SpecialHit);
+        if (attackHitTyp == MagickType.Ice)
+        {
+            GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(iceAttack, 3f);
+        }
+        else if (attackHitTyp == MagickType.Grass)
+        {
+            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(grassAttack, 3f);
+        }
+        Vector3 dir = transform.position - _player.transform.position;
+        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        base.OnEnemyDestroy -= StartFinishing;
+        EnemyFinish();
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        Destroy(gameObject, 1f);
+    }
+
+    public void Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    public void Resume()
+    {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _defaultSpeed = Speed;
+        Speed += _slowSpeed * Speed;
+    }
+
+    public void OffSlow()
+    {
+        Speed = _defaultSpeed;
+    }
+
+    public void TestAudio(EnemyHitSEState playSe)
+    {
+        if (IsTestAudio)
+        {
+            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
+        }
     }
 }

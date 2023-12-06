@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+/// <summary>スローを管理するクラス</summary>
 [System.Serializable]
 public class SlowManager
 {
-    [SerializeField] float _slowSpeedRate = 0.05f;
+    [SerializeField,Tooltip("スロー速度の割合"),Range(0,1)] float _slowSpeedRate = 0.05f;
     bool _isSlow = false;
     List<ISlow> _slows = new List<ISlow>();
-    public float SlowSpeedRate { get { return _slowSpeedRate; } set { _slowSpeedRate = value; } }
  
     /// <summary>スローの切り替え処理を行う</summary>
     /// <param name="isSlow">スローにするかどうか</param>
