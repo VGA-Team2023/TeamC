@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Loading : MonoBehaviour
 {
-    [SerializeField] LoadingPanel _loadingPanel = null;
+    private LoadingPanel _loadingPanel = null;
     [SerializeField] string _nextSceneName = "";
     [SerializeField] private float _waitTimer;
     private void Start()
@@ -44,7 +44,6 @@ public class Loading : MonoBehaviour
             yield return new WaitForSeconds(_waitTimer);
 
             async.allowSceneActivation = true;
-            //_loadingPanel.SetActive(false);
         }
     }
 }
