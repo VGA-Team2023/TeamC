@@ -1,39 +1,36 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
 public class FinishingAttack
 {
-    [Header("[-=====UI‚Ìİ’è=====-]")]
-    [SerializeField] private FinishingAttackUI _finishingAttackUI;
-
-    [Header("[-=====’Z‚¢‰r¥‚Ìƒgƒhƒ=====-]")]
+    [Header("---@è©³ç´°è¨­å®š---")]
     [SerializeField] private FinishingAttackShort _finishingAttackShort;
 
-    [Header("ˆÚ“®")]
+    [Header("---@ç§»å‹•è¨­å®š---")]
     [SerializeField] private FinishingAttackMove _finishingAttackMove;
 
-    [Header("‚½‚ß‚Ì‰¹")]
+    [Header("---UIã®è¨­å®š---")]
+    [SerializeField] private FinishingAttackUI _finishingAttackUI;
+
+    [Header("ãŸã‚ã®éŸ³")]
     [SerializeField] private AudioSource _audioSource;
 
-    [Header("‰ó‚µ‚½‰¹")]
+    [Header("å£Šã—ãŸéŸ³")]
     [SerializeField] private AudioSource _audioSourceBrake;
 
-    [Header("ƒŒƒCƒ„[")]
+    [Header("ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     [SerializeField] private LayerMask _targetLayer;
 
-    [SerializeField] private Transform _muzzle;
-
-    [SerializeField] private GameObject line;
-
-    /// <summary>ƒgƒhƒ‚ğ‚³‚¹‚é‚©‚Ç‚¤‚©</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹ã‹ã©ã†ã‹</summary>
     private bool _isCanFinishing = false;
 
-    /// <summary>ƒgƒhƒ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğI‚¦‚½‚©‚Ç‚¤‚©</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚ãˆãŸã‹ã©ã†ã‹</summary>
     private bool _isEndFinishAnim = false;
 
-    /// <summary>ƒgƒhƒ‚ÌŠÔ‚Ü‚Åo—ˆ‚½‚©‚Ç‚¤‚©</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã®æ™‚é–“ã¾ã§å‡ºæ¥ãŸã‹ã©ã†ã‹</summary>
     private bool _isCompletedFinishTime = false;
 
     private float _setFinishTime = 0;
@@ -53,7 +50,8 @@ public class FinishingAttack
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
-        _finishingAttackUI.Init(playerControl,_finishingAttackShort.FinishTime);
+
+        _finishingAttackUI.Init(playerControl, _finishingAttackShort.FinishTime);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -70,30 +68,29 @@ public class FinishingAttack
 
         _countFinishTime = 0;
 
-        //ƒgƒhƒ‚ÌŠÔ‚ğİ’è
+        //ãƒˆãƒ‰ãƒ¡ã®æ™‚é–“ã‚’è¨­å®š
         _setFinishTime = _finishingAttackShort.FinishTime;
 
-        //ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®
+        //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•
         _playerControl.ControllerVibrationManager.StartVibration();
 
-        //’Z‚¢‰r¥‚Ì–‚–@w‚ğÁ‚·
-        //–‚–@w–³‚µ‚Ìê‡AƒeƒXƒg
+        //çŸ­ã„è© å”±ã®é­”æ³•é™£ã‚’æ¶ˆã™
+        //é­”æ³•é™£ç„¡ã—ã®å ´åˆã€ãƒ†ã‚¹ãƒˆ
         if (!_playerControl.IsNewAttack)
         {
             _playerControl.Attack.ShortChantingMagicAttack.UnSetMagic();
         }
 
-        //ƒGƒtƒFƒNƒg‚ğİ’è
+        //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¨­å®š
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
         _playerControl.PlayerAnimControl.StartFinishAttack(AttackType.LongChantingMagick);
 
 
-        //“G‚ğõ“G
-        _nowFinishEnemy = CheckFinishingEnemy();
 
-        _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
+        //æ•µã‚’ç´¢æ•µ
+        _nowFinishEnemy = CheckFinishingEnemy();
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -101,13 +98,37 @@ public class FinishingAttack
             damgeble?.StartFinishing();
         }
 
-        //ƒgƒhƒ—p‚ÌƒJƒƒ‰‚ğg‚¤
+        //ãƒˆãƒ‰ãƒ¡ç”¨ã®ã‚«ãƒ¡ãƒ©ã‚’ä½¿ã†
         _playerControl.CameraControl.UseFinishCamera();
 
-        //ƒJƒƒ‰‚ğ“G‚Ì•ûŒü‚ÉŒü‚¯‚é
-        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
 
-        //UI‚ğo‚·
+
+        for (int i = 0; i < _nowFinishEnemy.Length; i++)
+        {
+            if (_nowFinishEnemy[i].gameObject == _playerControl.LockOn.NowLockOnEnemy)
+            {
+                //ç§»å‹•è¦–ç‚¹
+                _finishingAttackMove.SetEnemy(_playerControl.LockOn.NowLockOnEnemy.transform);
+                //ã‚«ãƒ¡ãƒ©ã‚’æ•µã®æ–¹å‘ã«å‘ã‘ã‚‹
+                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_playerControl.LockOn.NowLockOnEnemy.transform.position);
+                break;
+            }
+
+            if (i == _nowFinishEnemy.Length - 1)
+            {
+                //ç§»å‹•è¦–ç‚¹
+                _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
+                //ã‚«ãƒ¡ãƒ©ã‚’æ•µã®æ–¹å‘ã«å‘ã‘ã‚‹
+                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
+            }
+        }
+
+
+
+
+
+
+        //UIã‚’å‡ºã™
         _finishingAttackUI.SetFinishUI(_setFinishTime, _nowFinishEnemy.Length);
     }
 
@@ -122,20 +143,8 @@ public class FinishingAttack
         }
     }
 
-    public void LineSetting()
-    {
-        for (int i = 0; i < _nowFinishEnemy.Length; i++)
-        {
-            var go = UnityEngine.GameObject.Instantiate(line);
-            var lineRendrer = go.GetComponent<LineRenderer>();
-            lineRendrer.SetPosition(0, _muzzle.position);
-            lineRendrer.SetPosition(1, _nowFinishEnemy[i].transform.position);
-        }
-
-    }
-
     /// <summary>
-    /// ƒgƒhƒ‚ğ‚³‚µ‚Ä‚¢‚éŠÔ‚ğŒv‘ªA“ü—Í‚ğŠÏ‘ª
+    /// ãƒˆãƒ‰ãƒ¡ã‚’ã•ã—ã¦ã„ã‚‹æ™‚é–“ã‚’è¨ˆæ¸¬ã€å…¥åŠ›ã‚’è¦³æ¸¬
     /// </summary>
     /// <returns></returns>
     public bool DoFinishing()
@@ -163,7 +172,7 @@ public class FinishingAttack
         }
     }
 
-    /// <summary>ƒgƒhƒ‚ğ‚µI‚¦‚½‚Ìˆ—</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã‚’ã—çµ‚ãˆãŸæ™‚ã®å‡¦ç†</summary>
     private void CompleteAttack()
     {
         _audioSource.Stop();
@@ -173,42 +182,52 @@ public class FinishingAttack
 
         _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
 
-        //ƒJƒƒ‰I‚í‚è
+        //ã‚«ãƒ¡ãƒ©çµ‚ã‚ã‚Š
         _playerControl.CameraControl.FinishAttackCamera.EndFinish();
 
-        //’Êí‚ÌƒJƒƒ‰‚É–ß‚·
+        //é€šå¸¸ã®ã‚«ãƒ¡ãƒ©ã«æˆ»ã™
         _playerControl.CameraControl.UseDefultCamera(false);
 
-        //ƒJƒƒ‰‚ÌU“®
+        //ã‚«ãƒ¡ãƒ©ã®æŒ¯å‹•
         _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
         _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
 
-        //ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®‚ğ’â~
+        //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•ã‚’åœæ­¢
         _playerControl.ControllerVibrationManager.StopVibration();
 
-        //ƒXƒ‰ƒCƒ_[UI‚ğ”ñ•\¦‚É‚·‚é
+        //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼UIã‚’éè¡¨ç¤ºã«ã™ã‚‹
         _finishingAttackUI.UnSetFinishUI();
 
-        //ƒgƒhƒŠ®—¹‚ÌUI‚ğ•\¦
+        //ãƒˆãƒ‰ãƒ¡å®Œäº†ã®UIã‚’è¡¨ç¤º
         _finishingAttackUI.ShowCompleteFinishUI(true);
 
-        //ƒGƒtƒFƒNƒg‚ğİ’è
+        //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¨­å®š
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
-        //ŠÔ‚ğ’x‚­‚·‚é
+        //æ™‚é–“ã‚’é…ãã™ã‚‹
         _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
 
 
-       // LineSetting();
+        // LineSetting();
 
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
         _playerControl.PlayerAnimControl.EndFinishAttack(AttackType.LongChantingMagick);
 
         foreach (var e in _nowFinishEnemy)
         {
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
-            damgeble?.EndFinishing();
+
+            if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+            {
+                damgeble?.EndFinishing(MagickType.Ice);
+            }
+            else
+            {
+                damgeble?.EndFinishing(MagickType.Grass);
+            }
+
+
         }
     }
 
@@ -216,15 +235,15 @@ public class FinishingAttack
     {
         _audioSource.Stop();
 
-        //ƒXƒ‰ƒCƒ_[UI‚ğ”ñ•\¦‚É‚·‚é
+        //ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼UIã‚’éè¡¨ç¤ºã«ã™ã‚‹
         _finishingAttackUI.UnSetFinishUI();
 
-        //’Êí‚ÌƒJƒƒ‰‚É–ß‚·
+        //é€šå¸¸ã®ã‚«ãƒ¡ãƒ©ã«æˆ»ã™
         _playerControl.CameraControl.UseDefultCamera(false);
 
         _playerControl.CameraControl.FinishAttackCamera.EndFinish();
 
-        //ƒGƒtƒFƒNƒg‚ğİ’è
+        //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¨­å®š
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
         foreach (var e in _nowFinishEnemy)
@@ -235,24 +254,24 @@ public class FinishingAttack
 
         _playerControl.PlayerAnimControl.StopFinishAttack();
 
-        //ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®
+        //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•
         _playerControl.ControllerVibrationManager.StopVibration();
     }
 
 
-    /// <summary>ƒgƒhƒ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½B
-    /// ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚©‚çŒÄ‚ÔBƒgƒhƒ‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸã€‚
+    /// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å‘¼ã¶ã€‚ãƒˆãƒ‰ãƒ¡ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸ</summary>
     public void EndFinishAnim()
     {
         _isEndFinishAnim = true;
 
         _nowFinishEnemy = null;
 
-        //ƒgƒhƒŠ®—¹‚ÌUI‚ğ”ñ•\¦
+        //ãƒˆãƒ‰ãƒ¡å®Œäº†ã®UIã‚’éè¡¨ç¤º
         _finishingAttackUI.ShowCompleteFinishUI(false);
     }
 
-    /// <summary>ƒgƒhƒ‚ğI‚¦‚½ÛAƒGƒtƒFƒNƒg‚ğÁ‚·‚©‚Ç‚¤‚©‚ğ”»’f‚·‚é</summary>
+    /// <summary>ãƒˆãƒ‰ãƒ¡ã‚’çµ‚ãˆãŸéš›ã€ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™ã‹ã©ã†ã‹ã‚’åˆ¤æ–­ã™ã‚‹</summary>
     public void FinishEffectCheck()
     {
         if (!_isCompletedFinishTime)
@@ -262,7 +281,7 @@ public class FinishingAttack
     }
 
     /// <summary>
-    /// ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚µAUi‚ğ•\¦‚·‚é
+    /// ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã—ã€Uiã‚’è¡¨ç¤ºã™ã‚‹
     /// </summary>
     public void SearchFinishingEnemy()
     {
@@ -290,9 +309,9 @@ public class FinishingAttack
 
 
     /// <summary>
-    /// ”ÍˆÍ“à‚É‚ ‚éƒRƒ‰ƒCƒ_[‚ğæ“¾‚·‚é
+    /// ç¯„å›²å†…ã«ã‚ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’å–å¾—ã™ã‚‹
     /// </summary>
-    /// <returns> ˆÚ“®•ûŒü :³‚Ì’l, •‰‚Ì’l </returns>
+    /// <returns> ç§»å‹•æ–¹å‘ :æ­£ã®å€¤, è² ã®å€¤ </returns>
     public Collider[] CheckFinishingEnemy()
     {
         Vector3 setOffset = _finishingAttackShort.Offset;

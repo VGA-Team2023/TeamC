@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TstWave : MonoBehaviour
 {
-    [Header("Wave1‚Ì“G")]
+    [Header("Wave1ã®æ•µ")]
     [SerializeField] private List<GameObject> _wave1Enemys = new List<GameObject>();
 
-    [Header("Wave2‚Ì“G")]
+    [Header("Wave2ã®æ•µ")]
     [SerializeField] private List<GameObject> _wave1Enemys2 = new List<GameObject>();
 
-    [Header("Wave3‚Ì“G")]
+    [Header("Wave3ã®æ•µ")]
     [SerializeField] private List<GameObject> _wave1Enemys3 = new List<GameObject>();
 
-    [Header("Ÿ‚ÌScene–¼‘O")]
+    [Header("æ¬¡ã®Sceneåå‰")]
     [SerializeField] private string _name;
 
     private int _wave1 = 0;

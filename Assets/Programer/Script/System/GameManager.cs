@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
     /// <summary>現在のゲームの状態</summary>
-    [SerializeField,Header("現在のシーン")] GameState _currentGameState;
-    [SerializeField,HideInInspector] TimeControl _timeControl;
-    [SerializeField,HideInInspector] SlowManager _slowManager;
-    [SerializeField,HideInInspector] TimeManager _timeManager;
+    [SerializeField, Header("現在のシーン")] GameState _currentGameState;
+    [SerializeField, HideInInspector] TimeControl _timeControl;
+    [SerializeField, HideInInspector] SlowManager _slowManager;
+    [SerializeField, HideInInspector] TimeManager _timeManager;
     ScoreManager _scoreManager = new ScoreManager();
     PauseManager _pauseManager = new PauseManager();
     SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
             _timeManager.Start();
             DontDestroyOnLoad(this);
         }
-        else
+        else if (_instance != null && _instance != this)
         {
             _instance.ChangeGameState(this._currentGameState);
             //二回目以降のゲームシーンに遷移したら
-            if(_currentGameState == GameState.Game)
+            if (_currentGameState == GameState.Game)
             {
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
@@ -70,11 +70,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //インゲーム中だったら
-        if(_currentGameState == GameState.Game)
+        if (_currentGameState == GameState.Game)
         {
             _timeManager.Update();
             //インゲームが終わったら
-            if(_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
+            if (_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
                 ResultProcess();
             }
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
     /// <param name="isEnumNumber">属性のenumの代わりとなる数値(０は氷１は草)</param>
     public void PlayerAttributeSelect(int isEnumNumber)
     {
-        if(isEnumNumber > -1 && isEnumNumber < 2)
+        if (isEnumNumber > -1 && isEnumNumber < 2)
         {
             _playerAttribute = (PlayerAttribute)isEnumNumber;
         }
@@ -117,6 +117,8 @@ public enum GameState
 {
     /// <summary>タイトル</summary>
     Title,
+    /// <summary>チュートリアル</summary>
+    Tutorial,
     /// <summary>ゲーム中</summary>
     Game,
     /// <summary>敵生成中</summary>

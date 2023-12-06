@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitStopConrol : MonoBehaviour
 {
-    [Header("ƒqƒbƒgƒXƒgƒbƒv‚Ìƒf[ƒ^")]
+    [Header("ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã®ãƒ‡ãƒ¼ã‚¿")]
     [SerializeField] private List<HitStopData> _hitStopData = new List<HitStopData>();
 
     private float _countTime = 0;
@@ -22,7 +22,7 @@ public class HitStopConrol : MonoBehaviour
     }
 
 
-    /// <summary>ƒqƒbƒgƒXƒgƒbƒv‚ÌÀsŠÔ‚ğŒv‘ª</summary>
+    /// <summary>ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã®å®Ÿè¡Œæ™‚é–“ã‚’è¨ˆæ¸¬</summary>
     private void CountHitStopTime()
     {
         if (!_isHitStop) return;
@@ -59,7 +59,7 @@ public class HitStopConrol : MonoBehaviour
         _countTime = 0;
     }
 
-    /// <summary>ƒqƒbƒgƒXƒgƒbƒv‚ÌŠÔ‚ğİ’è</summary>
+    /// <summary>ãƒ’ãƒƒãƒˆã‚¹ãƒˆãƒƒãƒ—ã®æ™‚é–“ã‚’è¨­å®š</summary>
     /// <param name="setTime"></param>
     public void ResetHitStopTime(float setTime)
     {
@@ -72,13 +72,13 @@ public class HitStopConrol : MonoBehaviour
 [System.Serializable]
 public class HitStopData
 {
-    [Header("HitStop‚Ìí—Ş")]
+    [Header("HitStopã®ç¨®é¡")]
     [SerializeField] private HitStopKind _hitStopKind;
 
-    [Header("HitƒXƒgƒbƒv‚ÌÀsŠÔ")]
+    [Header("Hitã‚¹ãƒˆãƒƒãƒ—ã®å®Ÿè¡Œæ™‚é–“")]
     [SerializeField] private float _hitStopTime = 0.3f;
 
-    [Header("HitStop‚ÌÄ¶‘¬“x")]
+    [Header("HitStopã®å†ç”Ÿé€Ÿåº¦")]
     [SerializeField] private float _hitstopScale = 0.3f;
 
     public HitStopKind HitStopKind => _hitStopKind;

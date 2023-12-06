@@ -1,21 +1,21 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Attack2
 {
-    [Header("’Z‚¢‰r¥‚Ì–‚–@UŒ‚İ’è")]
+    [Header("@è©³ç´°è¨­å®š")]
     [SerializeField] private AttackMagic _attackMagic;
 
     private int _attackCount = 0;
 
     private int _maxAttackCount = 0;
 
-    /// <summary>UŒ‚’†‚ÉUŒ‚ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ç‚¤‚©</summary>
+    /// <summary>æ”»æ’ƒä¸­ã«æ”»æ’ƒãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã©ã†ã‹</summary>
     private bool _isPushAttack = false;
 
-    /// <summary>UŒ‚‰Â”\‚©‚Ç‚¤‚©</summary>
+    /// <summary>æ”»æ’ƒå¯èƒ½ã‹ã©ã†ã‹</summary>
     private bool _isCanNextAttack = false;
 
     private bool _isAttackFirstSetUp = false;
@@ -24,7 +24,7 @@ public class Attack2
 
     private bool _isAttackInput = true;
 
-    /// <summary>–‚–@‚Ì˜A‘±UŒ‚”‚É‚æ‚èAUŒ‚‰Â”\‚©‚Ç‚¤‚©</summary>
+    /// <summary>é­”æ³•ã®é€£ç¶šæ”»æ’ƒæ•°ã«ã‚ˆã‚Šã€æ”»æ’ƒå¯èƒ½ã‹ã©ã†ã‹</summary>
     private bool _isCanTransitionAttackState = true;
 
     public bool IsCanTransitionAttackState { get => _isCanTransitionAttackState; set => _isCanTransitionAttackState = value; }
@@ -42,6 +42,7 @@ public class Attack2
     {
         _playerControl = playerControl;
         _attackMagic.Init(playerControl);
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
         _maxAttackCount = _attackMagic.MagicBase.MagickData.Count;
     }
 
@@ -53,11 +54,20 @@ public class Attack2
 
     public void DoAttack()
     {
-        //ƒJƒƒ‰•ÏX
+        //ã‚«ãƒ¡ãƒ©å¤‰æ›´
         _playerControl.CameraControl.UseAttackChargeCamera();
 
-        //‰¹
-        _playerControl.PlayerAudio.IceCharge(true);
+        //éŸ³
+        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AttackCharge(true, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AttackCharge(true, false);
+        }
+
+        //AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
 
         _isAttackNow = true;
         _isCanNextAttack = false;
@@ -77,6 +87,7 @@ public class Attack2
             _isCanTransitionAttackState = false;
         }
 
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
         _attackMagic.MagicBase.SetUpMagick();
     }
 
@@ -87,11 +98,28 @@ public class Attack2
             _attackMagic.MagicBase.SetUpChargeMagic(_attackCount);
             if (_playerControl.InputManager.IsAttackUp)
             {
+                //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
+                _playerControl.PlayerAnimControl.SetAttackTrigger();
+
+                //ã‚«ãƒ¡ãƒ©å¤‰æ›´
                 _playerControl.CameraControl.UseDefultCamera(true);
+                //ã‚«ãƒ¡ãƒ©ã®æŒ¯å‹•
+                _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
 
-                //‰¹
-                _playerControl.PlayerAudio.IceCharge(false);
+                //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•
+                _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
+                //éŸ³
+                if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+                {
+                    _playerControl.PlayerAudio.AttackCharge(false, true);
+                }
+                else
+                {
+                    _playerControl.PlayerAudio.AttackCharge(false, false);
+                }
+
+                // AudioManager.Instance.PlayerSEStop(PlayerAttackSEState.Charge);
 
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);
@@ -102,7 +130,7 @@ public class Attack2
     }
 
 
-    /// <summary>UŒ‚’†‚ÉUŒ‚ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ç‚¤‚©‚ğŠm”F‚·‚é</summary>
+    /// <summary>æ”»æ’ƒä¸­ã«æ”»æ’ƒãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹</summary>
     public void AttackInputedCheck()
     {
         if ((_playerControl.InputManager.IsAttacks || _playerControl.InputManager.IsAttack) && _isAttackInput)
@@ -111,11 +139,18 @@ public class Attack2
         }
     }
 
-    /// <summary>UŒ‚I‚í‚è‚Ìˆ—</summary>
+    /// <summary>æ”»æ’ƒçµ‚ã‚ã‚Šã®å‡¦ç†</summary>
     public void EndAttack()
     {
         _isPushAttack = false;
         _isCanNextAttack = false;
+    }
+
+    /// <summary>æ”»æ’ƒã®ä¸­æ–­å‡¦ç†</summary>
+    public void StopAttack()
+    {
+        _attackMagic.StopMagic(_attackCount);
+        _attackCount = 0;
     }
 
 }

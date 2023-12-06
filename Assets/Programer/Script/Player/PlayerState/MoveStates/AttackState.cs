@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ public class AttackState : PlayerStateBase
         {
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
-            //ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚·
+            //ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã™
             _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
         }
         else
@@ -50,9 +50,12 @@ public class AttackState : PlayerStateBase
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
 
-            //ƒgƒhƒ‚ğ‚³‚¹‚é“G‚ğ’T‚·
+            //ãƒˆãƒ‰ãƒ¡ã‚’ã•ã›ã‚‹æ•µã‚’æ¢ã™
             _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
         }
+
+        //LockOnã®UIè¨­å®š
+        _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
     }
 
     public override void LateUpdate()
@@ -62,6 +65,24 @@ public class AttackState : PlayerStateBase
 
     public override void Update()
     {
+        //LockOnæ©Ÿèƒ½
+        _stateMachine.PlayerController.LockOn.CheckLockOn();
+
+
+        if (_stateMachine.PlayerController.PlayerHp.IsDead)
+        {
+            _stateMachine.PlayerController.Attack2.StopAttack();
+            _stateMachine.TransitionTo(_stateMachine.DeadState);
+            return;
+        }   //ç€•æ­»ã‚¹ãƒ†ãƒ¼ãƒˆ
+
+        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        {
+            _stateMachine.PlayerController.Attack2.StopAttack();
+            _stateMachine.TransitionTo(_stateMachine.DamageState);
+            return;
+        }   //ãƒ€ãƒ¡ãƒ¼ã‚¸
+
         if (_stateMachine.PlayerController.IsNewAttack)
         {
             _stateMachine.PlayerController.Attack2.AttackInputedCheck();
@@ -76,17 +97,17 @@ public class AttackState : PlayerStateBase
                     _stateMachine.TransitionTo(_stateMachine.AttackState);
                     return;
                 }
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
 
 
 
             if (_stateMachine.PlayerController.Attack2.IsCanNextAttack && !_stateMachine.PlayerController.Attack2.IsAttackNow && _stateMachine.PlayerController.Attack2.IsAttackInput)
             {
-                    Debug.Log("Attack=>Idle");
-                    _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
-                    _stateMachine.TransitionTo(_stateMachine.StateIdle);
-                    return;
-            }
+                Debug.Log("Attack=>Idle");
+                _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+                _stateMachine.TransitionTo(_stateMachine.StateIdle);
+                return;
+            }   //Idle
         }
         else
         {
@@ -104,7 +125,7 @@ public class AttackState : PlayerStateBase
                     _stateMachine.TransitionTo(_stateMachine.AttackState);
                     return;
                 }
-            }   //UŒ‚
+            }   //æ”»æ’ƒ
 
 
 

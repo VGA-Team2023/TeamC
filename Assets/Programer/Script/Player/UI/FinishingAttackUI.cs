@@ -1,32 +1,32 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
 public class FinishingAttackUI
 {
-    [Header("‚Æ‚Ç‚ß‰Â”\‚È‚±‚Æ‚ğ¦‚·UI‚ÌƒvƒŒƒnƒu")]
+    [Header("ã¨ã©ã‚å¯èƒ½ãªã“ã¨ã‚’ç¤ºã™UIã®ãƒ—ãƒ¬ãƒãƒ–")]
     [SerializeField] private GameObject _canFinishUIPrefab;
 
-    [Header("‚Æ‚Ç‚ß‚ğ‚³‚µ‚Ä‚¢‚éŠÔ‚ÌUI‚ÌƒvƒŒƒnƒu")]
+    [Header("ã¨ã©ã‚ã‚’ã•ã—ã¦ã„ã‚‹é–“ã®UIã®ãƒ—ãƒ¬ãƒãƒ–")]
     [SerializeField] private GameObject _finishUIPrefab;
 
-    [Header("“G‚ÌÅ‘å”")]
+    [Header("æ•µã®æœ€å¤§æ•°")]
     [SerializeField] private int _enemyMaxNum = 10;
 
-    [Header("ƒgƒhƒ‚ğ‘£‚·UI")]
+    [Header("ãƒˆãƒ‰ãƒ¡ã‚’ä¿ƒã™UI")]
     [SerializeField] private GameObject _finishingUI;
 
-    [Header("ƒgƒhƒ‚ÌUI")]
+    [Header("ãƒˆãƒ‰ãƒ¡ã®UI")]
     [SerializeField] private GameObject _dofinishingUI;
 
-    [Header("ƒgƒhƒŠ®—¹‚ÌUI")]
+    [Header("ãƒˆãƒ‰ãƒ¡å®Œäº†ã®UI")]
     [SerializeField] private GameObject _completeFinishUI;
 
-    [Header("ƒgƒhƒ‚Ìƒp[ƒZƒ“ƒe[ƒW‚ğ•\¦")]
+    [Header("ãƒˆãƒ‰ãƒ¡ã®ãƒ‘ãƒ¼ã‚»ãƒ³ãƒ†ãƒ¼ã‚¸ã‚’è¡¨ç¤º")]
     [SerializeField] private Image _finishingSliderUI;
 
-    // ƒIƒuƒWƒFƒNƒgˆÊ’u‚ÌƒIƒtƒZƒbƒg
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½ç½®ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
     [SerializeField] private Vector3 _worldOffset;
 
     [SerializeField] private Canvas _canvas;
@@ -41,7 +41,7 @@ public class FinishingAttackUI
 
     private PlayerControl _playerControl;
 
-    public void Init(PlayerControl playerControl,float finishTime)
+    public void Init(PlayerControl playerControl, float finishTime)
     {
         _playerControl = playerControl;
         _parentUI = _canvas.GetComponent<RectTransform>();
@@ -67,17 +67,17 @@ public class FinishingAttackUI
         _finishingUI.SetActive(isON);
     }
 
-    public void SetFinishUI(float max,int _enemyNum)
+    public void SetFinishUI(float max, int _enemyNum)
     {
         for (int i = 0; i < _enemyNum; i++)
         {
             _finishUI[i].SetActive(true);
         }
 
-        foreach(var a in _canFinishUI)
+        foreach (var a in _canFinishUI)
         {
             a.SetActive(false);
-  
+
         }
 
         _dofinishingUI.SetActive(true);
@@ -91,13 +91,19 @@ public class FinishingAttackUI
         {
             _finishUI[i].SetActive(false);
         }
+
+        foreach (var a in _canFinishUI)
+        {
+            a.SetActive(false);
+        }
+
         _dofinishingUI.SetActive(false);
     }
 
 
     public void ChangeValue(float time)
     {
-        _finishingSliderUI.fillAmount += time/_finishTime;
+        _finishingSliderUI.fillAmount += time / _finishTime;
     }
 
 
@@ -116,31 +122,31 @@ public class FinishingAttackUI
         }
     }
 
-    // UI‚ÌˆÊ’u‚ğXV‚·‚é
+    // UIã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
     public void UpdateFinishingUIPosition(Transform t, int num)
     {
         var cameraTransform = Camera.main.transform;
 
-        // ƒJƒƒ‰‚ÌŒü‚«ƒxƒNƒgƒ‹
+        // ã‚«ãƒ¡ãƒ©ã®å‘ããƒ™ã‚¯ãƒˆãƒ«
         var cameraDir = cameraTransform.forward;
 
-        // ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u
-        var targetWorldPos = t.position ;
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®
+        var targetWorldPos = t.position;
 
-        // ƒJƒƒ‰‚©‚çƒ^[ƒQƒbƒg‚Ö‚ÌƒxƒNƒgƒ‹
+        // ã‚«ãƒ¡ãƒ©ã‹ã‚‰ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
         var targetDir = targetWorldPos - cameraTransform.position;
 
-        // “àÏ‚ğg‚Á‚ÄƒJƒƒ‰‘O•û‚©‚Ç‚¤‚©‚ğ”»’è
+        // å†…ç©ã‚’ä½¿ã£ã¦ã‚«ãƒ¡ãƒ©å‰æ–¹ã‹ã©ã†ã‹ã‚’åˆ¤å®š
         var isFront = Vector3.Dot(cameraDir, targetDir) > 0;
 
-        // ƒJƒƒ‰‘O•û‚È‚çUI•\¦AŒã•û‚È‚ç”ñ•\¦
+        // ã‚«ãƒ¡ãƒ©å‰æ–¹ãªã‚‰UIè¡¨ç¤ºã€å¾Œæ–¹ãªã‚‰éè¡¨ç¤º
         _finishUI[num].gameObject.SetActive(isFront);
         if (!isFront) return;
 
-        // ƒIƒuƒWƒFƒNƒg‚Ìƒ[ƒ‹ƒhÀ•W¨ƒXƒNƒŠ[ƒ“À•W•ÏŠ·
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™â†’ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›
         var targetScreenPos = Camera.main.WorldToScreenPoint(targetWorldPos);
 
-        // ƒXƒNƒŠ[ƒ“À•W•ÏŠ·¨UIƒ[ƒJƒ‹À•W•ÏŠ·
+        // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›â†’UIãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™å¤‰æ›
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _parentUI,
             targetScreenPos,
@@ -148,37 +154,37 @@ public class FinishingAttackUI
             out var uiLocalPos
         );
 
-        // RectTransform‚Ìƒ[ƒJƒ‹À•W‚ğXV
+        // RectTransformã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’æ›´æ–°
         _finishUI[num].transform.localPosition = uiLocalPos;
     }
 
-    // UI‚ÌˆÊ’u‚ğXV‚·‚é
+    // UIã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
     private void UpdateCanFinishingUIPosition(Transform t, int num)
     {
         _canFinishUI[num].SetActive(true);
 
         var cameraTransform = Camera.main.transform;
 
-        // ƒJƒƒ‰‚ÌŒü‚«ƒxƒNƒgƒ‹
+        // ã‚«ãƒ¡ãƒ©ã®å‘ããƒ™ã‚¯ãƒˆãƒ«
         var cameraDir = cameraTransform.forward;
 
-        // ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®
         var targetWorldPos = t.position + _worldOffset;
 
-        // ƒJƒƒ‰‚©‚çƒ^[ƒQƒbƒg‚Ö‚ÌƒxƒNƒgƒ‹
+        // ã‚«ãƒ¡ãƒ©ã‹ã‚‰ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
         var targetDir = targetWorldPos - cameraTransform.position;
 
-        // “àÏ‚ğg‚Á‚ÄƒJƒƒ‰‘O•û‚©‚Ç‚¤‚©‚ğ”»’è
+        // å†…ç©ã‚’ä½¿ã£ã¦ã‚«ãƒ¡ãƒ©å‰æ–¹ã‹ã©ã†ã‹ã‚’åˆ¤å®š
         var isFront = Vector3.Dot(cameraDir, targetDir) > 0;
 
-        // ƒJƒƒ‰‘O•û‚È‚çUI•\¦AŒã•û‚È‚ç”ñ•\¦
+        // ã‚«ãƒ¡ãƒ©å‰æ–¹ãªã‚‰UIè¡¨ç¤ºã€å¾Œæ–¹ãªã‚‰éè¡¨ç¤º
         _canFinishUI[num].gameObject.SetActive(isFront);
         if (!isFront) return;
 
-        // ƒIƒuƒWƒFƒNƒg‚Ìƒ[ƒ‹ƒhÀ•W¨ƒXƒNƒŠ[ƒ“À•W•ÏŠ·
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™â†’ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›
         var targetScreenPos = Camera.main.WorldToScreenPoint(targetWorldPos);
 
-        // ƒXƒNƒŠ[ƒ“À•W•ÏŠ·¨UIƒ[ƒJƒ‹À•W•ÏŠ·
+        // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™å¤‰æ›â†’UIãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™å¤‰æ›
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _parentUI,
             targetScreenPos,
@@ -186,7 +192,7 @@ public class FinishingAttackUI
             out var uiLocalPos
         );
 
-        // RectTransform‚Ìƒ[ƒJƒ‹À•W‚ğXV
+        // RectTransformã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã‚’æ›´æ–°
         _canFinishUI[num].transform.localPosition = uiLocalPos;
     }
 

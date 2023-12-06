@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class FinishingAttackMove
 {
-    [Header("ˆÚ“®‘¬“x")]
+    [Header("@ç§»å‹•é€Ÿåº¦")]
     [SerializeField] private float _moveSpeed = 3f;
 
-    [Header("‰ñ“]‘¬“x")]
+    [Header("@å›è»¢é€Ÿåº¦")]
     [SerializeField] private float _rotateSepeed = 200f;
 
     private PlayerControl _playerControl;
@@ -28,14 +28,14 @@ public class FinishingAttackMove
 
     public void Move()
     {
-        //ˆÚ“®“ü—Í‚ğó‚¯æ‚é
+        //ç§»å‹•å…¥åŠ›ã‚’å—ã‘å–ã‚‹
         float h = _playerControl.InputManager.HorizontalInput;
         float v = _playerControl.InputManager.VerticalInput;
 
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
         Vector3 velo = horizontalRotation * new Vector3(h, 0, v).normalized;
 
-        //‘¬“x‚ğ‰Á‚¦‚é
+        //é€Ÿåº¦ã‚’åŠ ãˆã‚‹
         _playerControl.Rb.velocity = velo * _moveSpeed;
     }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 public class PlayerSearchRangeGizmo : MonoBehaviour
@@ -8,6 +8,7 @@ public class PlayerSearchRangeGizmo : MonoBehaviour
         var enemy = GetComponent<EnemyBase>();
         if (enemy)
         {
+            //プレイヤーを検出する範囲を描画
             Gizmos.color = Color.red;
             GizmosExtensions.DrawWireCircle(transform.position, enemy.SearchRange);
         }
