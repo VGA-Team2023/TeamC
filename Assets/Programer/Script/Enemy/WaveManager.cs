@@ -68,6 +68,7 @@ public class WaveManager : MonoBehaviour
         }
         yield return 2;
         DestroyCount = _waveSettings[2].EnemyCount;
+        Debug.Log(DestroyCount);
         _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)
         {

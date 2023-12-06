@@ -6,14 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public class FinishingAttack
 {
-    [Header("[-=====UIの設定=====-]")]
-    [SerializeField] private FinishingAttackUI _finishingAttackUI;
-
-    [Header("[-=====短い詠唱のトドメ=====-]")]
+    [Header("---@詳細設定---")]
     [SerializeField] private FinishingAttackShort _finishingAttackShort;
 
-    [Header("移動")]
+    [Header("---@移動設定---")]
     [SerializeField] private FinishingAttackMove _finishingAttackMove;
+
+    [Header("---UIの設定---")]
+    [SerializeField] private FinishingAttackUI _finishingAttackUI;
 
     [Header("ための音")]
     [SerializeField] private AudioSource _audioSource;
@@ -23,10 +23,6 @@ public class FinishingAttack
 
     [Header("レイヤー")]
     [SerializeField] private LayerMask _targetLayer;
-
-    [SerializeField] private Transform _muzzle;
-
-    [SerializeField] private GameObject line;
 
     /// <summary>トドメをさせるかどうか</summary>
     private bool _isCanFinishing = false;
@@ -145,18 +141,6 @@ public class FinishingAttack
                 _finishingAttackUI.UpdateFinishingUIPosition(_nowFinishEnemy[i].transform, i);
             }
         }
-    }
-
-    public void LineSetting()
-    {
-        for (int i = 0; i < _nowFinishEnemy.Length; i++)
-        {
-            var go = UnityEngine.GameObject.Instantiate(line);
-            var lineRendrer = go.GetComponent<LineRenderer>();
-            lineRendrer.SetPosition(0, _muzzle.position);
-            lineRendrer.SetPosition(1, _nowFinishEnemy[i].transform.position);
-        }
-
     }
 
     /// <summary>

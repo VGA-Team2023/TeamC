@@ -6,20 +6,20 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerLockOn
 {
-    [Header("Uiİ’è")]
-    [SerializeField] private PlayerLockOnUI _lockOnUI;
-
-    [Header("“–‚½‚è”»’è_Offset")]
+    [Header("@“G‚Ì’T’m”ÍˆÍ_Offset")]
     [SerializeField] private Vector3 _offset;
 
-    [Header("“–‚½‚è”»’è_Size")]
+    [Header("@“G‚Ì’T’m”ÍˆÍ_Size")]
     [SerializeField] private Vector3 _size;
+
+    [Header("@Gizmo‚ğ•\¦‚·‚é‚©‚Ç‚¤‚©")]
+    [SerializeField]  private bool _isDrawGizmo = true;
 
     [Header("“G‚ÌƒŒƒCƒ„[")]
     [SerializeField] private LayerMask _targetLayer;
 
-    [SerializeField]
-    private bool _isDrawGizmo = true;
+    [Header("Uiİ’è")]
+    [SerializeField] private PlayerLockOnUI _lockOnUI;
 
     private bool _isLockOn = false;
 

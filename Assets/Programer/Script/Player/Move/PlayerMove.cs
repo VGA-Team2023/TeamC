@@ -3,28 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerMove 
+public class PlayerMove
 {
-    [Header("歩く速度")]
+    [Header("@移動速度")]
     [SerializeField] private float _walkSpeed = 4;
 
-    [Header("走る速度")]
-    [SerializeField] private float _runSpeed = 4;
+    //[Header("走る速度")]
+    // [SerializeField]    
+    private float _runSpeed = 4;
 
-    [Header("空中での速度")]
-    [SerializeField] private float _airMoveSpeed = 4;
+    // [Header("空中での速度")]
+    // [SerializeField]
+    private float _airMoveSpeed = 4;
 
-    [Header("ジャンプパワー")]
-    [SerializeField] private float _jumpPower = 4;
+    // [Header("ジャンプパワー")]
+    //[SerializeField]
+    private float _jumpPower = 4;
 
-    [Header("歩きの時の回転速度")]
-    [SerializeField] private float _walkRotateSpeed = 100;
+    [Header("@移動時の回転速度")]    [SerializeField] private float _walkRotateSpeed = 100;
 
-    [Header("走りの時の回転速度")]
-    [SerializeField] private float _runRotateSpeed = 100;
+    // [Header("走りの時の回転速度")]
+    //  [SerializeField]
+    private float _runRotateSpeed = 100;
 
-    [Header("重力")]
-    [SerializeField] private float _gravity = 0.9f;
+    //  [Header("重力")]
+    // [SerializeField] 
+    private float _gravity = 0.9f;
 
     /// <summary>入力方向</summary>
     private Vector3 velo;
@@ -48,7 +52,7 @@ public class PlayerMove
         Run,
     }
 
-  
+
     public void Move(MoveType moveType)
     {
         //移動方向の転換速度

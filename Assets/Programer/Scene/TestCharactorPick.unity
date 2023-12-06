@@ -735,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21435070fa6edf4f80671af6c649423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextSceneName: TestGame
+  _nextSceneName: GameScene
 --- !u!114 &1178314895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,7 +749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingPanel: {fileID: 0}
-  _nextSceneName: GameScene_NewAttack
+  _nextSceneName: GameScene
   _waitTimer: 2
 --- !u!1 &1264349547
 GameObject:
