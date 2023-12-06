@@ -14,18 +14,21 @@ public class LoadingPanel : MonoBehaviour
     private int _totalRotate = 0;
     private void OnEnable()
     {
+        
         if (FindObjectsOfType<LoadingPanel>().Length < 2)
         {
             if (_instance == null)
             {
-                _instance = this;
-                DontDestroyOnLoad(this);
+                _instance = this;               
             }
         }
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        DontDestroyOnLoad(this);
 
         _leftInd = Random.Range(0, _images.Length);
 
@@ -37,20 +40,17 @@ public class LoadingPanel : MonoBehaviour
             }
         }
 
-        _leftImage = _images[_leftInd];
-        _rightImage = _images[_rightInd];
+        _leftImage.sprite = _images[_leftInd].sprite;
+        _rightImage.sprite = _images[_rightInd].sprite;
 
-        //_leftImage.color = _images[_leftInd].color;
-        //_rightImage.color = _images[_rightInd].color;
-
-        PrintString();
+        PrintTips();
     }
     private void Update()
     {
         _totalRotate += 1;
         _rotatateObj.transform.rotation = Quaternion.Euler(0, 0, _totalRotate);
     }
-    public void PrintString()
+    public void PrintTips()
     {
         int random = Random.Range(0, _tipsData.Length);
         _tips.text = _tipsData[random];
