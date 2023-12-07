@@ -15,12 +15,6 @@ public class FinishingAttack
     [Header("---UIの設定---")]
     [SerializeField] private FinishingAttackUI _finishingAttackUI;
 
-    [Header("ための音")]
-    [SerializeField] private AudioSource _audioSource;
-
-    [Header("壊した音")]
-    [SerializeField] private AudioSource _audioSourceBrake;
-
     [Header("レイヤー")]
     [SerializeField] private LayerMask _targetLayer;
 
@@ -60,7 +54,7 @@ public class FinishingAttack
 
     public void StartFinishingAttack()
     {
-        _audioSource.Play();
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, true);
 
         _isEndFinishAnim = false;
 
@@ -175,8 +169,8 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
-        _audioSource.Stop();
-        _audioSourceBrake.Play();
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, false);
+        _playerControl.PlayerAudio.Finish(_playerControl.PlayerAttribute); 
 
         _isCompletedFinishTime = true;
 
@@ -233,7 +227,7 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
-        _audioSource.Stop();
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, false);    
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
