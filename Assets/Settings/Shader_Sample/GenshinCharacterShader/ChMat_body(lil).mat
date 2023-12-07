@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ChMat_body(lil)
-  m_Shader: {fileID: 4800000, guid: efa77a80ca0344749b4f19fdd5891cbe, type: 3}
+  m_Shader: {fileID: 4800000, guid: df12117ecd77c31469c224178886498e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -65,11 +65,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: c049ef1bd4857dc4295fb8de1725ec24, type: 3}
+        m_Texture: {fileID: 2800000, guid: fccd365c570768e44a0afe50e84106de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: c049ef1bd4857dc4295fb8de1725ec24, type: 3}
+        m_Texture: {fileID: 2800000, guid: fccd365c570768e44a0afe50e84106de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BloomMap:
@@ -193,7 +193,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c049ef1bd4857dc4295fb8de1725ec24, type: 3}
+        m_Texture: {fileID: 2800000, guid: fccd365c570768e44a0afe50e84106de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap2ndBlendMask:
@@ -492,8 +492,8 @@ Material:
     - _IgnoreEncryption: 0
     - _IgnoreLightY: 0
     - _Invisible: 0
-    - _LightMaxLimit: 1
-    - _LightMinLimit: 0.05
+    - _LightMaxLimit: 0.61
+    - _LightMinLimit: 0
     - _Main2ndDissolveNoiseStrength: 0.1
     - _Main2ndEnableLighting: 1
     - _Main2ndTexAlphaMode: 0
@@ -655,7 +655,7 @@ Material:
     - _ShadowPostAO: 0
     - _ShadowReceive: 0
     - _ShadowSmooth: 1
-    - _ShadowStrength: 0.8
+    - _ShadowStrength: 0.793
     - _ShadowStrengthMaskLOD: 0
     - _ShiftBackfaceUV: 0
     - _Shininess: 18.1
