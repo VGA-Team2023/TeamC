@@ -18,6 +18,17 @@ public class PlayerAudio : MonoBehaviour
     [Header("攻撃の弾を飛ばす音_氷")]
     [SerializeField] private AudioSource _iceCharge;
 
+    [Header("ための音")]
+    [SerializeField] private AudioSource _audioSource;
+
+    [Header("ための音")]
+    [SerializeField] private AudioSource _iceFinishCharge;
+
+    [Header("トドメをさし終えた音_Ice")]
+    [SerializeField] private AudioSource _audioSourceBrakeIce;
+
+
+
     [Header("====草属性===")]
     [Header("攻撃の弾を飛ばす音_草")]
     [SerializeField] private AudioClip _grassFire;
@@ -28,11 +39,50 @@ public class PlayerAudio : MonoBehaviour
     [Header("攻撃の弾を飛ばす音_草")]
     [SerializeField] private AudioSource _grassCharge;
 
-
+    [Header("ための音")]
+    [SerializeField] private AudioSource _grassFinishCharge;
+    [Header("トドメをさし終えた音_Grass")]
+    [SerializeField] private AudioSource _audioSourceBrakeGrass;
+    public void Finish(PlayerAttribute attribute)
+    {
+        if (attribute == PlayerAttribute.Ice)
+        {
+            _audioSourceBrakeIce.Play();
+        }
+        else
+        {
+            _audioSourceBrakeGrass.Play();
+        }
+    }
+    public void FinishCharge(PlayerAttribute attribute, bool isPlay)
+    {
+        if (attribute == PlayerAttribute.Ice)
+        {
+            if (isPlay)
+            {
+                _iceFinishCharge.Play();
+            }
+            else
+            {
+                _iceFinishCharge.Stop();
+            }
+        }
+        else
+        {
+            if (isPlay)
+            {
+                _grassFinishCharge.Play();
+            }
+            else
+            {
+                _grassFinishCharge.Stop();
+            }
+        }
+    }
 
     public void Fire(int num, bool isIce)
     {
-        StartCoroutine(IceFires(num,isIce));
+        StartCoroutine(IceFires(num, isIce));
         StartCoroutine(IceTrails(num, isIce));
     }
 
@@ -70,11 +120,11 @@ public class PlayerAudio : MonoBehaviour
                 {
                     if (isIce)
                     {
-                    //    source.PlayOneShot(_iceTrail);
+                        //    source.PlayOneShot(_iceTrail);
                     }
                     else
                     {
-                      //  source.PlayOneShot(_grassTrail);
+                        //  source.PlayOneShot(_grassTrail);
                     }
 
                     break;

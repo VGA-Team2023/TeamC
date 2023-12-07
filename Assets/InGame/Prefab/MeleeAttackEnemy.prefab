@@ -14620,7 +14620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dcd10a421750645bf91fe8d6f5a7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 2
+  _isTestAudio: 1
+  _hp: 10
   _attack: 5
   _type: 0
   _speed: 1
@@ -14639,8 +14640,10 @@ MonoBehaviour:
     type: 3}
   _iceFinishEffect: {fileID: 8565715187832649081, guid: 5a07250db38b03345a5fccfaaa2735fb,
     type: 3}
-  _grassAttackEffect: {fileID: 0}
-  _grassFinishEffect: {fileID: 0}
+  _grassAttackEffect: {fileID: 923676356984606698, guid: 771fe16c33d2339429d3d2e8e9c62a06,
+    type: 3}
+  _grassFinishEffect: {fileID: 1523254171359619560, guid: 844265fc9f2842241a7a746fcd7839f7,
+    type: 3}
 --- !u!114 &6413185969038328674
 MonoBehaviour:
   m_ObjectHideFlags: 0

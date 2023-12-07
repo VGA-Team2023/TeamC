@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow
+public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("敵の挙動に関する数値")]
     [SerializeField, Tooltip("移動の範囲(黄色の円)"), Range(0, 10)]
@@ -25,10 +25,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     Animator _anim;
     public Animator Animator => _anim;
 
+    [Header("====================")]
+
     [Header("生成するオブジェクト")]
     [SerializeField, Tooltip("氷魔法の通常攻撃エフェクト")]
     GameObject _iceAttackEffect;
-    [Header("====================")]
 
     [SerializeField, Tooltip("氷魔法のとどめ攻撃エフェクト")]
     GameObject _iceFinishEffect;
@@ -66,8 +67,6 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             }
         }
     }
-
-    MagickType _magicType;
     PlayerControl _player;
 
     MAEFreeMoveState _freeMoveState;
@@ -130,7 +129,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     {
         if (Type != attackHitTyp) return;
         _rb.velocity = Vector3.zero;
-        _magicType  = attackHitTyp;
+        TestAudio(EnemyHitSEState.Hit);
         if (attackType == AttackType.ShortChantingMagick)
         {
             if(attackHitTyp == MagickType.Ice)
@@ -168,26 +167,27 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         HP = _defaultHp;
     }
 
-    //public void EndFinishing()
-    //{
-    //    //if(_magicType == MagickType.Ice)
-    //    //{
-    //    //    GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-    //    //    Destroy(iceAttack, 3f);
-    //    //}
-    //    //else if(_magicType == MagickType.Grass)
-    //    //{
-    //    //    GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-    //    //    Destroy(grassAttack, 3f);
-    //    //}
-    //    //Vector3 dir = transform.position - _player.transform.position;
-    //    //_rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-    //    //base.OnEnemyDestroy -= StartFinishing;
-    //    //EnemyFinish();
-    //    //GameManager.Instance.PauseManager.Remove(this);
-    //    //GameManager.Instance.SlowManager.Remove(this);
-    //    //Destroy(gameObject, 1f);
-    //}
+    public void EndFinishing(MagickType attackHitTyp)
+    {
+        TestAudio(EnemyHitSEState.SpecialHit);
+        if (attackHitTyp == MagickType.Ice)
+        {
+            GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(iceAttack, 3f);
+        }
+        else if (attackHitTyp == MagickType.Grass)
+        {
+            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
+            Destroy(grassAttack, 3f);
+        }
+        Vector3 dir = transform.position - _player.transform.position;
+        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        base.OnEnemyDestroy -= StartFinishing;
+        EnemyFinish();
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        Destroy(gameObject, 1f);
+    }
 
     public void Pause()
     {
@@ -211,24 +211,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         Speed = _defaultSpeed;
     }
 
-    public void EndFinishing(MagickType attackHitTyp)
+    public void TestAudio(EnemyHitSEState playSe)
     {
-        if (attackHitTyp == MagickType.Ice)
+        if(IsTestAudio)
         {
-            GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-            Destroy(iceAttack, 3f);
+            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
         }
-        else if (attackHitTyp == MagickType.Grass)
-        {
-            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-            Destroy(grassAttack, 3f);
-        }
-        Vector3 dir = transform.position - _player.transform.position;
-        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        base.OnEnemyDestroy -= StartFinishing;
-        EnemyFinish();
-        GameManager.Instance.PauseManager.Remove(this);
-        GameManager.Instance.SlowManager.Remove(this);
-        Destroy(gameObject, 1f);
     }
 }

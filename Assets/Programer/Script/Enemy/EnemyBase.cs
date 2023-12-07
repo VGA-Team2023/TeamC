@@ -1,9 +1,13 @@
 ﻿using System;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
+    [Header("テスト用")]
+    [SerializeField, Tooltip("仮でAudioを再生する")]
+    bool _isTestAudio;
+    public bool IsTestAudio => _isTestAudio;
+
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]
     int _hp;

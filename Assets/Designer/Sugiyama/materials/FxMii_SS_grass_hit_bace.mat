@@ -26,7 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
-  - _BASE_MAP_MODE_2D
+  - _BASE_MAP_MODE_3D
   - _EMISSION_AREA_ALL
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
@@ -48,7 +48,7 @@ Material:
     m_TexEnvs:
     - _AlphaTransitionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
         m_Texture: {fileID: 0}
@@ -173,11 +173,11 @@ Material:
     - _AlphaTransitionMapProgress: 0
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
-    - _AlphaTransitionMode: 2
-    - _AlphaTransitionProgress: 0.04
+    - _AlphaTransitionMode: 0
+    - _AlphaTransitionProgress: 0.34
     - _AlphaTransitionProgressCoord: 0
     - _BaseMapMirrorSampling: 0
-    - _BaseMapMode: 0
+    - _BaseMapMode: 2
     - _BaseMapOffsetXCoord: 0
     - _BaseMapOffsetYCoord: 0
     - _BaseMapProgress: 0
@@ -201,12 +201,12 @@ Material:
     - _DepthFadeWidth: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DissolveSharpness: 0
+    - _DissolveSharpness: 0.255
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionAreaType: 1
     - _EmissionColorType: 0
-    - _EmissionIntensity: 2.58
+    - _EmissionIntensity: 0
     - _EmissionIntensityCoord: 0
     - _EmissionMapChannelsX: 0
     - _EmissionMapMode: 0
@@ -290,7 +290,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.028461456, g: 1, b: 0, a: 1}
+    - _EmissionColor: {r: 0.6710329, g: 21.361254, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 0.15686274, g: 1, b: 0, a: 1}
+    - _TintColor: {r: 0.123587094, g: 2.3796897, b: 0, a: 1}
   m_BuildTextureStacks: []

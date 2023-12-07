@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public SlowManager SlowManager => _slowManager;
     public PauseManager PauseManager => _pauseManager;
     public TimeManager TimeManager => _timeManager;
+    public ScoreManager ScoreManager => _scoreManager;
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
@@ -49,13 +50,22 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        //何もなかったら
         if (_instance == null)
         {
             _instance = this;
             _timeManager.Start();
             DontDestroyOnLoad(this);
+            Debug.Log("あ");
         }
-        else if (_instance != null && _instance != this)
+        //先に読み取りが発生した時
+        else if(_instance == this)
+        {
+            _timeManager.Start();
+            DontDestroyOnLoad(this);
+        }
+        //すでにある場合
+        else if (_instance != null)
         {
             _instance.ChangeGameState(this._currentGameState);
             //二回目以降のゲームシーンに遷移したら
@@ -63,7 +73,9 @@ public class GameManager : MonoBehaviour
             {
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
+                _instance._scoreManager.ScoreReset();
             }
+            Debug.Log("あ");
             Destroy(this);
         }
     }
@@ -85,7 +97,7 @@ public class GameManager : MonoBehaviour
     /// <summary>リザルトシーン遷移処理</summary>
     public void ResultProcess()
     {
-        _clearTime = _timeManager.MinutesSecondsCast();
+        _scoreManager.ClearTime = _timeManager.MinutesSecondsCast();
         SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
         sceneControlle?.SceneChange();
     }
