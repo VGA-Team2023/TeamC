@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
             BGMPlay(this._sceneBGMState);
             DontDestroyOnLoad(this);
         }
-        if(_instance != null)
+        else if(_instance != null)
         {
             PlayerAttributeSet();
             //シーン遷移した後のBGM切り替え
