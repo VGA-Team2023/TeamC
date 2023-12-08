@@ -13,8 +13,7 @@ public class LoadingPanel : MonoBehaviour
     private int _rightInd = 0;
     private int _totalRotate = 0;
     private void OnEnable()
-    {
-        
+    {      
         if (FindObjectsOfType<LoadingPanel>().Length < 2)
         {
             if (_instance == null)

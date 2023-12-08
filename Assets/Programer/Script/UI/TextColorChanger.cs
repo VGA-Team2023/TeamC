@@ -23,17 +23,34 @@ public class TextColorChanger : MonoBehaviour
         _target.GetComponentInChildren<Text>().color = _selectedColor;
     }
     private void Update()
-    {
+    {        
         GameObject selectedObj = _eventSystem.currentSelectedGameObject?.gameObject;
-
+ 
         if (_target != selectedObj)
         {
-            if (_target.GetComponentInChildren<Text>() != null)
-            {
-                _target.GetComponentInChildren<Text>().color = _defaultColor;
-            }
+            SetTextColor(_target, _defaultColor);
             _target = selectedObj;
-            _target.GetComponentInChildren<Text>().color = _selectedColor;
+            SetTextColor(_target, _selectedColor);
+        }
+    }
+    private void OnPointerEnter(BaseEventData eventData)
+    {
+        SetTextColor(_target, _selectedColor);
+    }
+
+    private void OnPointerExit(BaseEventData eventData)
+    {
+        SetTextColor(_target, _defaultColor);
+    }
+    private void SetTextColor(GameObject target, Color color)
+    {
+        if (target != null)
+        {
+            Text textComponent = target.GetComponentInChildren<Text>();
+            if (textComponent != null)
+            {
+                textComponent.color = color;
+            }
         }
     }
 }
