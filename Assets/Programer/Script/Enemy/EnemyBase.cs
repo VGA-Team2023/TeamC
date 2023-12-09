@@ -26,9 +26,6 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("エネミーの攻撃力")]
     int _attack;
     public int Attack => _attack;
-    [SerializeField, Tooltip("弱点属性")]
-    MagickType _type;
-    public MagickType Type => _type;
     [Header("====================")]
 
     [Header("敵の挙動に関する数値")]
@@ -45,7 +42,7 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("攻撃の間隔")]
     float _attackInterval;
     public float AttackInterval => _attackInterval;
-    [SerializeField, Tooltip("プレイヤーを検出する範囲(赤い円)"), Range(0, 10)]
+    [SerializeField, Tooltip("プレイヤーを検出する範囲(赤い円)"), Range(0, 30)]
     float _searchRange;
     public float SearchRange => _searchRange;
     [SerializeField]

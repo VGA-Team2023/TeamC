@@ -125,9 +125,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void Attack()
     {
-        var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
-        var bullet = Instantiate(_bulletPrefab, dir, Quaternion.identity);
-        bullet.GetComponent<EnemyBullet>().Init((_player.transform.position - transform.position).normalized, base.Attack);
+        //var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
+        var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
+        bullet.GetComponent<EnemyBullet>().Init(_player.transform.position, base.Attack);
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
