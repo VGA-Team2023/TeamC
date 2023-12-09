@@ -4,7 +4,7 @@
 public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("敵の挙動に関する数値")]
-    [SerializeField, Tooltip("移動の範囲(黄色の円)"), Range(0, 10)]
+    [SerializeField, Tooltip("移動の範囲(黄色の円)"), Range(0, 30)]
     float _moveRange;
     public float MoveRange => _moveRange;
 
@@ -127,7 +127,6 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
-        if (Type != attackHitTyp) return;
         _rb.velocity = Vector3.zero;
         TestAudio(EnemyHitSEState.Hit);
         if (attackType == AttackType.ShortChantingMagick)
@@ -191,12 +190,27 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void Pause()
     {
+        _anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
     public void Resume()
     {
+        _anim.speed = 1;
+        Speed = _defaultSpeed;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _anim.speed = 0;
+        _defaultSpeed = Speed;
+        Speed = 0;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
