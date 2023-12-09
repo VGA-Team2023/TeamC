@@ -44,7 +44,7 @@ public class LoadingPanel : MonoBehaviour
     }
     private void Update()
     {
-        _totalRotate += 1;
+        _totalRotate = (_totalRotate + 1) % 360;
         _rotatateObj.transform.rotation = Quaternion.Euler(0, 0, _totalRotate);
     }
     public void PrintTips()

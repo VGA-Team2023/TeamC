@@ -16,12 +16,12 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField,Tooltip("クリアタイムの目標値")] private int  _idealClearTimeSeconds = 150;
     [SerializeField, Tooltip("敵の撃破数の目標値")] private int _idealEnemyDefeatedNum = 20;
     [SerializeField, Tooltip("プレイヤーの倒れた回数の目標値")] private int _idealPlayerDownNum = 0;
-    [SerializeField] private int _hightScoreClearTimeGap = 20;
-    [SerializeField] private int _normalScoreClearTimeGap = 40;
-    [SerializeField] private int _hightScoreEnemyDefeatedGap = 0;
-    [SerializeField] private int _normalScoreEnemyDefeatedGap = 3;
-    [SerializeField] private int _passingScore = 5;
-
+    [SerializeField,Tooltip("最高スコアとして扱うクリアタイムの目標値からの範囲")] private int _hightScoreClearTimeGap = 20;
+    [SerializeField, Tooltip("普通のスコアとして扱うクリアタイムの目標値からの範囲")] private int _normalScoreClearTimeGap = 40;
+    [SerializeField, Tooltip("最高スコアとして扱う撃破数の目標値からの範囲")] private int _hightScoreEnemyDefeatedGap = 0;
+    [SerializeField, Tooltip("普通のスコアとして扱うクリアタイムの目標値からの範囲")] private int _normalScoreEnemyDefeatedGap = 3;
+    [SerializeField, Tooltip("合格基準値")] private int _passingScore = 5;
+    [SerializeField, Tooltip("改行が行われる文字数")] private int _lineLength = 25;
     private void Start()
     {
         TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
@@ -60,10 +60,7 @@ public class ResultPrinter : MonoBehaviour
             .OnUpdate(() =>
             {
                 string currentText = displayText.Substring(0, index);
-
-                // 25字ごとに改行する
-                int lineLength = 25;
-                for (int i = lineLength; i < currentText.Length; i += lineLength + 1)
+                for (int i = _lineLength; i < currentText.Length; i += _lineLength + 1)
                 {
                     currentText = currentText.Insert(i, "\n");
                 }
