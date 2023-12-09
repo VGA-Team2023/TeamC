@@ -16,12 +16,15 @@ public class Loading : MonoBehaviour
         else
         {
             Loading[] lis = FindObjectsOfType<Loading>();
-            LoadingPanel LP = FindObjectOfType<LoadingPanel>();
+            LoadingPanel[] LP = FindObjectsOfType<LoadingPanel>();
             foreach (var target in lis)
             {
-                target._loadingPanel = LP;
+                target._loadingPanel = LP[0];
             }
-            _loadingPanel.gameObject.SetActive(false);
+            foreach (var LoadingPanel in LP)
+            {
+                LoadingPanel.gameObject.SetActive(false);
+            }
         }
     }
     public void LoadingScene()
