@@ -11,16 +11,15 @@ public class EnemyBullet : MonoBehaviour
     Vector3 _shootForward;
     int _damage;
 
-    public void Init(Vector2 forward, int damage)
+    public void Init(Vector3 forward, int damage)
     {
-        _shootForward = forward;
+        _shootForward = (forward - transform.position).normalized;
         _damage = damage;
     }
 
     void Start()
     {
         transform.forward = _shootForward;
-        //GetComponent<Rigidbody>().AddForce(new Vector3(_shootForward.x, 0, _shootForward.z) * _bulletSpeed, ForceMode.Impulse);
         GetComponent<Rigidbody>().AddForce(_shootForward * _bulletSpeed, ForceMode.Impulse);
     }
 
