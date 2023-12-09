@@ -1,53 +1,53 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 
 public interface ICustomChannel<TState> where TState : Enum
 {
-    /// <summary>‚P‚Â‚Ì‰¹‚ğÄ¶‚·‚éŠÖ”(Player‚Ì‘®«‚É‚æ‚Á‚ÄÄ¶‰¹‚ª•Ï‚í‚é)</summary>
-    /// <param name="se">—¬‚µ‚½‚¢‰¹(enum‚Å‘I‘ğ)</param>
-    /// <param name="attribute">Player‚Ì‘®«(enum‚Å‘I‘ğ)</param>
+    /// <summary>ï¼‘ã¤ã®éŸ³ã‚’å†ç”Ÿã™ã‚‹é–¢æ•°(Playerã®å±æ€§ã«ã‚ˆã£ã¦å†ç”ŸéŸ³ãŒå¤‰ã‚ã‚‹)</summary>
+    /// <param name="se">æµã—ãŸã„éŸ³(enumã§é¸æŠ)</param>
+    /// <param name="attribute">Playerã®å±æ€§(enumã§é¸æŠ)</param>
     public void Play(TState se);
 
-    /// <summary>‚P‚Â‚Ì‰¹‚ğÄ¶‚·‚éŠÖ”(3D)(Player‚Ì‘®«‚É‚æ‚Á‚ÄÄ¶‰¹‚ª•Ï‚í‚é)</summary>
-    /// <param name="se">—¬‚µ‚½‚¢‰¹(enum‚Å‘I‘ğ)</param>
-    /// <param name="soundPlayPos">—¬‚·Position‚ÌWorldSpace</param>
-    /// <param name="attribute">Player‚Ì‘®«(enum‚Å‘I‘ğ)</param>
+    /// <summary>ï¼‘ã¤ã®éŸ³ã‚’å†ç”Ÿã™ã‚‹é–¢æ•°(3D)(Playerã®å±æ€§ã«ã‚ˆã£ã¦å†ç”ŸéŸ³ãŒå¤‰ã‚ã‚‹)</summary>
+    /// <param name="se">æµã—ãŸã„éŸ³(enumã§é¸æŠ)</param>
+    /// <param name="soundPlayPos">æµã™Positionã®WorldSpace</param>
+    /// <param name="attribute">Playerã®å±æ€§(enumã§é¸æŠ)</param>
     public void Play3D(TState se, Vector3 soundPlayPos);
 
-    /// <summary>3D‚Ì—¬‚·Position‚ğXV‚·‚é</summary>
-    /// <param name="playSoundWorldPos">XV‚·‚éPosition</param>
-    /// <param name="index">•ÏX‚·‚é‰¹(enum‚Å‘I‘ğ)</param>
+    /// <summary>3Dã®æµã™Positionã‚’æ›´æ–°ã™ã‚‹</summary>
+    /// <param name="playSoundWorldPos">æ›´æ–°ã™ã‚‹Position</param>
+    /// <param name="index">å¤‰æ›´ã™ã‚‹éŸ³(enumã§é¸æŠ)</param>
     public void Update3DPos(TState se,Vector3 soundPlayPos);
 
-    /// <summary>‚P‚Â‚Ì‰¹‚ğ’â~‚·‚éŠÖ”</summary>
-    /// <param name="se">’â~‚µ‚½‚¢‰¹(enum‚Å‘I‘ğ)</param>
+    /// <summary>ï¼‘ã¤ã®éŸ³ã‚’åœæ­¢ã™ã‚‹é–¢æ•°</summary>
+    /// <param name="se">åœæ­¢ã—ãŸã„éŸ³(enumã§é¸æŠ)</param>
     public void Stop(TState se);
 
-    /// <summary>‘S‚Ä‚Ì‰¹‚ğ’â~‚·‚éŠÖ”</summary>
+    /// <summary>å…¨ã¦ã®éŸ³ã‚’åœæ­¢ã™ã‚‹é–¢æ•°</summary>
     public void StopAll();
 
-    /// <summary>‘S‚Ä‚Ì‰¹‚ğˆê’â~</summary>
+    /// <summary>å…¨ã¦ã®éŸ³ã‚’ä¸€æ™‚åœæ­¢</summary>
     public void PauseAll();
 
-    /// <summary>‚P‚Â‚Ì‰¹‚ğˆê’â~‚·‚éŠÖ”</summary>
-    /// <param name="se">ˆê’â~‚µ‚½‚¢‰¹(enum‚Å‘I‘ğ)</param>
+    /// <summary>ï¼‘ã¤ã®éŸ³ã‚’ä¸€æ™‚åœæ­¢ã™ã‚‹é–¢æ•°</summary>
+    /// <param name="se">ä¸€æ™‚åœæ­¢ã—ãŸã„éŸ³(enumã§é¸æŠ)</param>
     public void Pause(TState se);
 
-    /// <summary>ˆê’â~‚µ‚½‰¹‚Ì’†‚Å‚P‚Â‚Ì‰¹‚ğÄ¶‚·‚éŠÖ”(Player‚Ì‘®«‚É‚æ‚Á‚ÄÄ¶‰¹‚ª•Ï‚í‚é)</summary>
-    /// <param name="se">Ä¶‚µ‚½‚¢‰¹(enum‚Å‘I‘ğ)</param>
-    /// <param name="attribute">Player‚Ì‘®«(enum‚Å‘I‘ğ)</param>
+    /// <summary>ä¸€æ™‚åœæ­¢ã—ãŸéŸ³ã®ä¸­ã§ï¼‘ã¤ã®éŸ³ã‚’å†ç”Ÿã™ã‚‹é–¢æ•°(Playerã®å±æ€§ã«ã‚ˆã£ã¦å†ç”ŸéŸ³ãŒå¤‰ã‚ã‚‹)</summary>
+    /// <param name="se">å†ç”Ÿã—ãŸã„éŸ³(enumã§é¸æŠ)</param>
+    /// <param name="attribute">Playerã®å±æ€§(enumã§é¸æŠ)</param>
     public void Resume(TState se);
 
     public void ResumeAll();
 }
 
-/// <summary>State‚²‚Æ‚ÌCueName‚ğ•Û‚·‚é\‘¢‘Ì</summary>
-/// <typeparam name="TState">‚Ç‚ÌSE‚ÌState‚©</typeparam>
+/// <summary>Stateã”ã¨ã®CueNameã‚’ä¿æŒã™ã‚‹æ§‹é€ ä½“</summary>
+/// <typeparam name="TState">ã©ã®SEã®Stateã‹</typeparam>
 [System.Serializable]
 public struct Sound<TState> where TState : Enum
 {
-    [SerializeField,Tooltip("ƒTƒEƒ“ƒh‚Ìƒ^ƒCƒv")] TState state;
-    [SerializeField,Tooltip("ƒLƒ…[‚Ì–¼‘O")] string soundCueName;
+    [SerializeField,Tooltip("ã‚µã‚¦ãƒ³ãƒ‰ã®ã‚¿ã‚¤ãƒ—")] TState state;
+    [SerializeField,Tooltip("ã‚­ãƒ¥ãƒ¼ã®åå‰")] string soundCueName;
     int playID;
     public string SoundCueName => soundCueName;
     public int PlayID { get { return playID; } set { playID = value; } }

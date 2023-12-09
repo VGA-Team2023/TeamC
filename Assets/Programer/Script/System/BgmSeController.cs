@@ -1,10 +1,10 @@
-using CriWare;
+ï»¿using CriWare;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-/// <summary>Player‚ÌSE‚ÌAudio‘€ì</summary>
+/// <summary>Playerã®SEã®Audioæ“ä½œ</summary>
 [System.Serializable]
 public struct SEAudioControlle : ICustomChannel<SEState>
 {
@@ -25,6 +25,9 @@ public struct SEAudioControlle : ICustomChannel<SEState>
     {
         CriAudioManager.Instance.SE.PauseAll();
     }
+    /// <summary>SEå†ç”Ÿï¼“Då¯¾å¿œ</summary>
+    /// <param name="se">å†ç”Ÿã•ã›ãŸã„SE</param>
+    /// <param name="soundPlayPos">è‡ªåˆ†ã®ä½ç½®</param>
     public void Play3D(SEState se, Vector3 soundPlayPos)
     {
         int index = (int)se;
@@ -65,7 +68,7 @@ public struct SEAudioControlle : ICustomChannel<SEState>
         CriAudioManager.Instance.SE.ResumeAll();
     }
 }
-/// <summary>BGM—p‚ÌAudio‘€ì</summary>
+/// <summary>BGMç”¨ã®Audioæ“ä½œ</summary>
 [System.Serializable]
 public struct BGMAudioControlle
 {
@@ -97,7 +100,7 @@ public struct BGMAudioControlle
     }
 }
 
-/// <summary>Voice‚ÌSE—p‚ÌAudio‘€ì</summary>
+/// <summary>Voiceã®SEç”¨ã®Audioæ“ä½œ</summary>
 [System.Serializable]
 public class Voice : ICustomChannel<VoiceState>
 {

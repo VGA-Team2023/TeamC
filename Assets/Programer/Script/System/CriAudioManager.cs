@@ -1,4 +1,4 @@
-using CriWare;
+ï»¿using CriWare;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class CriAudioManager
 {
-    /// <summary>ƒCƒ“ƒXƒ^ƒ“ƒX</summary>
+    /// <summary>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</summary>
     private static CriAudioManager _instance = null;
 
-    /// <summary>ƒCƒ“ƒXƒ^ƒ“ƒX</summary>
+    /// <summary>ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹</summary>
     public static CriAudioManager Instance
     {
         get
@@ -29,31 +29,31 @@ public class CriAudioManager
         _se = new CriMultiChannel(_masterVolume);
     }
 
-    /// <summary> ƒ}ƒXƒ^[‚Ìƒ{ƒŠƒ…[ƒ€ </summary>
+    /// <summary> ãƒã‚¹ã‚¿ãƒ¼ã®ãƒœãƒªãƒ¥ãƒ¼ãƒ  </summary>
     private readonly Volume _masterVolume = default;
 
-    /// <summary> BGM‚ğ—¬‚·ƒ`ƒƒƒ“ƒlƒ‹ </summary>
+    /// <summary> BGMã‚’æµã™ãƒãƒ£ãƒ³ãƒãƒ« </summary>
     private readonly CriSingleChannel _bgm = default;
 
-    /// <summary> SE‚ğ—¬‚·ƒ`ƒƒƒ“ƒlƒ‹ </summary>
+    /// <summary> SEã‚’æµã™ãƒãƒ£ãƒ³ãƒãƒ« </summary>
     private readonly CriMultiChannel _se = default;
 
-    /// <summary>ƒ}ƒXƒ^[ƒ{ƒŠƒ…[ƒ€</summary>
+    /// <summary>ãƒã‚¹ã‚¿ãƒ¼ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
     public IVolume MasterVolume => _masterVolume;
 
-    /// <summary>BGM‚Ìƒ`ƒƒƒ“ƒlƒ‹</summary>
+    /// <summary>BGMã®ãƒãƒ£ãƒ³ãƒãƒ«</summary>
     public ICustomChannel BGM => _bgm;
 
-    /// <summary>SE‚Ìƒ`ƒƒƒ“ƒlƒ‹</summary>
+    /// <summary>SEã®ãƒãƒ£ãƒ³ãƒãƒ«</summary>
     public ICustomChannel SE => _se;
 
-    /// <summary>SE‚ÌPlayer‚ÆPlayback</summary>
+    /// <summary>SEã®Playerã¨Playback</summary>
     private struct CriPlayerData
     {
-        /// <summary>Ä¶’†‚Ì‰¹º‚ÌPlayback</summary>
+        /// <summary>å†ç”Ÿä¸­ã®éŸ³å£°ã®Playback</summary>
         public CriAtomExPlayback Playback { get; set; }
 
-        /// <summary>Ä¶’†‚ÌCue‚ÉŠÖ‚·‚éî•ñ</summary>
+        /// <summary>å†ç”Ÿä¸­ã®Cueã«é–¢ã™ã‚‹æƒ…å ±</summary>
         public CriAtomEx.CueInfo CueInfo { get; set; }
 
         public CriAtomEx3dSource Source { get; set; }
@@ -62,15 +62,15 @@ public class CriAudioManager
 
         public readonly bool IsLoop => CueInfo.length < 0;
 
-        /// <summary>ƒ|ƒWƒVƒ‡ƒ“‚ğXV‚·‚é & is•ûŒü‚Ì—\‘zƒxƒNƒgƒ‹‚ğ•Ô‚·</summary>
-        /// <param name="nextPos">Ÿ‚Ìƒ|ƒWƒVƒ‡ƒ“</param>
-        /// <returns>ˆê•bŠÔ‚Éi‚Ş—\‘zƒxƒNƒgƒ‹</returns>
+        /// <summary>ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’æ›´æ–°ã™ã‚‹ & é€²è¡Œæ–¹å‘ã®äºˆæƒ³ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¿”ã™</summary>
+        /// <param name="nextPos">æ¬¡ã®ãƒã‚¸ã‚·ãƒ§ãƒ³</param>
+        /// <returns>ä¸€ç§’é–“ã«é€²ã‚€äºˆæƒ³ãƒ™ã‚¯ãƒˆãƒ«</returns>
         public void UpdateCurrentVector(Vector3 nextPos)
         {
-            //‘O‰ñ‚ÌƒAƒbƒvƒf[ƒg‚©‚ç‚ÌŒo‰ßŠÔ
+            //å‰å›ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‹ã‚‰ã®çµŒéæ™‚é–“
             var elapsed = Playback.GetTime() - LastUpdateTime;
 
-            //ƒ|ƒWƒVƒ‡ƒ“‚©‚çƒxƒNƒgƒ‹‚ğZo
+            //ãƒã‚¸ã‚·ãƒ§ãƒ³ã‹ã‚‰ãƒ™ã‚¯ãƒˆãƒ«ã‚’ç®—å‡º
             CriAtomEx.NativeVector nativePos = Source.GetPosition();
             Vector3 currentPos = new Vector3(nativePos.x, nativePos.y, nativePos.z);
             Vector3 movedVec = nextPos - currentPos;
@@ -85,28 +85,28 @@ public class CriAudioManager
         public CancellationTokenSource CancellationTokenSource { get; set; }
     }
 
-    /// <summary>ƒ`ƒƒƒ“ƒlƒ‹‚ğì‚é‚½‚ß‚É•K—v‚Èî•ñ‚ğ‚Ü‚Æ‚ß‚½ƒNƒ‰ƒX</summary>
+    /// <summary>ãƒãƒ£ãƒ³ãƒãƒ«ã‚’ä½œã‚‹ãŸã‚ã«å¿…è¦ãªæƒ…å ±ã‚’ã¾ã¨ã‚ãŸã‚¯ãƒ©ã‚¹</summary>
     private abstract class AbstractCriChannel
     {
         /// <summary>AudioPlayer</summary>
         protected CriAtomExPlayer _player = new();
 
-        /// <summary>ƒLƒ…[‚ÌPlayback</summary>
+        /// <summary>ã‚­ãƒ¥ãƒ¼ã®Playback</summary>
         protected ConcurrentDictionary<int, CriPlayerData> _cueData = new();
 
-        /// <summary>Œ»İ‚Ü‚Å‚ÌÅ‘å‚Ì_cuData‚ÌƒJƒEƒ“ƒg</summary>
+        /// <summary>ç¾åœ¨ã¾ã§ã®æœ€å¤§ã®_cuDataã®ã‚«ã‚¦ãƒ³ãƒˆ</summary>
         protected int _currentMaxCount = 0;
 
-        /// <summary>_cueData‚ÌƒŠƒ€[ƒu‚³‚ê‚½ƒCƒ“ƒfƒbƒNƒX</summary>
+        /// <summary>_cueDataã®ãƒªãƒ ãƒ¼ãƒ–ã•ã‚ŒãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</summary>
         protected ConcurrentBag<int> _removedCueDataIndex = new();
 
-        /// <summary>ƒŠƒXƒi[</summary>
+        /// <summary>ãƒªã‚¹ãƒŠãƒ¼</summary>
         protected CriAtomEx3dListener _listener = default;
 
-        /// <summary>ƒ{ƒŠƒ…[ƒ€</summary>
+        /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
         protected Volume _volume = new();
 
-        /// <summary>ƒ}ƒXƒ^[ƒ{ƒŠƒ…[ƒ€</summary>
+        /// <summary>ãƒã‚¹ã‚¿ãƒ¼ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
         protected Volume _masterVolume = null;
 
         /// <summary>CancellationTokenSource</summary>
@@ -198,7 +198,7 @@ public class CriAudioManager
 
         protected async void PlaybackDestroyWaitForPlayEnd(int index, CancellationToken cancellationToken)
         {
-            // ƒ‹[ƒv‚µ‚Ä‚¢‚½‚ç”²‚¯‚é
+            // ãƒ«ãƒ¼ãƒ—ã—ã¦ã„ãŸã‚‰æŠœã‘ã‚‹
             if (_cueData[index].IsLoop) { return; }
 
             if (cancellationToken.IsCancellationRequested) { return; }
@@ -218,79 +218,79 @@ public class CriAudioManager
         }
     }
 
-    /// <summary>‰¹Šy‚ğŠÇ—‚·‚é‚½‚ß‚Ì‹@”\‚ğ‚Á‚½Interface</summary>
+    /// <summary>éŸ³æ¥½ã‚’ç®¡ç†ã™ã‚‹ãŸã‚ã®æ©Ÿèƒ½ã‚’æŒã£ãŸInterface</summary>
     public interface ICustomChannel
     {
-        /// <summary>ƒ{ƒŠƒ…[ƒ€</summary>
+        /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
         public IVolume Volume { get; }
 
-        /// <summary>‰¹Šy‚ğ—¬‚·ŠÖ”</summary>
-        /// <param name="cueSheetName">—¬‚µ‚½‚¢ƒLƒ…[ƒV[ƒg‚Ì–¼‘O</param>
-        /// <param name="cueName">—¬‚µ‚½‚¢ƒLƒ…[‚Ì–¼‘O</param>
-        /// <param name="volume">ƒ{ƒŠƒ…[ƒ€</param>
-        /// <returns>‘€ì‚·‚éÛ‚É•K—v‚ÈIndex</returns>
+        /// <summary>éŸ³æ¥½ã‚’æµã™é–¢æ•°</summary>
+        /// <param name="cueSheetName">æµã—ãŸã„ã‚­ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒˆã®åå‰</param>
+        /// <param name="cueName">æµã—ãŸã„ã‚­ãƒ¥ãƒ¼ã®åå‰</param>
+        /// <param name="volume">ãƒœãƒªãƒ¥ãƒ¼ãƒ </param>
+        /// <returns>æ“ä½œã™ã‚‹éš›ã«å¿…è¦ãªIndex</returns>
         public int Play(string cueSheetName, string cueName, float volume = 1.0F);
 
-        /// <summary>‰¹Šy‚ğ—¬‚·ŠÖ”(3D)</summary>
-        /// <param name="playSoundWorldPos">—¬‚·Position‚ÌWorldSpace</param>
-        /// <param name="cueSheetName">—¬‚µ‚½‚¢ƒLƒ…[ƒV[ƒg‚Ì–¼‘O</param>
-        /// <param name="cueName">—¬‚µ‚½‚¢ƒLƒ…[‚Ì–¼‘O</param>
-        /// <param name="volume">ƒ{ƒŠƒ…[ƒ€</param>
-        /// <returns>‘€ì‚·‚éÛ‚É•K—v‚ÈIndex</returns>
+        /// <summary>éŸ³æ¥½ã‚’æµã™é–¢æ•°(3D)</summary>
+        /// <param name="playSoundWorldPos">æµã™Positionã®WorldSpace</param>
+        /// <param name="cueSheetName">æµã—ãŸã„ã‚­ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒˆã®åå‰</param>
+        /// <param name="cueName">æµã—ãŸã„ã‚­ãƒ¥ãƒ¼ã®åå‰</param>
+        /// <param name="volume">ãƒœãƒªãƒ¥ãƒ¼ãƒ </param>
+        /// <returns>æ“ä½œã™ã‚‹éš›ã«å¿…è¦ãªIndex</returns>
         public int Play3D(Vector3 playSoundWorldPos, string cueSheetName, string cueName, float volume = 1.0F);
 
-        /// <summary>3D‚Ì—¬‚·Position‚ğXV‚·‚é</summary>
-        /// <param name="playSoundWorldPos">XV‚·‚éPosition</param>
-        /// <param name="index">•ÏX‚·‚é‰¹º‚ÌPlay‚Ì–ß‚è’l(Index)</param>
+        /// <summary>3Dã®æµã™Positionã‚’æ›´æ–°ã™ã‚‹</summary>
+        /// <param name="playSoundWorldPos">æ›´æ–°ã™ã‚‹Position</param>
+        /// <param name="index">å¤‰æ›´ã™ã‚‹éŸ³å£°ã®Playæ™‚ã®æˆ»ã‚Šå€¤(Index)</param>
         public void Update3DPos(Vector3 playSoundWorldPos, int index);
 
-        /// <summary>‰¹º‚ğPause‚³‚¹‚é</summary>
-        /// <param name="index">Pause‚³‚¹‚½‚¢‰¹º‚ÌPlay‚Ì–ß‚è’l(Index)</param>
+        /// <summary>éŸ³å£°ã‚’Pauseã•ã›ã‚‹</summary>
+        /// <param name="index">Pauseã•ã›ãŸã„éŸ³å£°ã®Playæ™‚ã®æˆ»ã‚Šå€¤(Index)</param>
         public void Pause(int index);
 
-        /// <summary>Pause‚³‚¹‚½‰¹º‚ğResume‚³‚¹‚é</summary>
-        /// <param name="index">Resume‚³‚¹‚½‚¢‰¹º‚ÌPlay‚Ì–ß‚è’l(Index)</param>
+        /// <summary>Pauseã•ã›ãŸéŸ³å£°ã‚’Resumeã•ã›ã‚‹</summary>
+        /// <param name="index">Resumeã•ã›ãŸã„éŸ³å£°ã®Playæ™‚ã®æˆ»ã‚Šå€¤(Index)</param>
         public void Resume(int index);
 
-        /// <summary>Pause‚³‚¹‚½‘S‚Ä‚Ì‰¹º‚ğÄ¶‚³‚¹‚é</summary>
+        /// <summary>Pauseã•ã›ãŸå…¨ã¦ã®éŸ³å£°ã‚’å†ç”Ÿã•ã›ã‚‹</summary>
         public void ResumeAll();
 
-        /// <summary>‰¹º‚ğStop‚³‚¹‚é</summary>
-        /// <param name="index">Stop‚³‚¹‚½‚¢‰¹º‚ÌPlay‚Ì–ß‚è’l(Index)</param>
+        /// <summary>éŸ³å£°ã‚’Stopã•ã›ã‚‹</summary>
+        /// <param name="index">Stopã•ã›ãŸã„éŸ³å£°ã®Playæ™‚ã®æˆ»ã‚Šå€¤(Index)</param>
         public void Stop(int index);
 
         public void PauseAll();
 
-        /// <summary>‚·‚×‚Ä‚Ì‰¹º‚ğStop‚³‚¹‚é</summary>
+        /// <summary>ã™ã¹ã¦ã®éŸ³å£°ã‚’Stopã•ã›ã‚‹</summary>
         public void StopAll();
 
-        /// <summary>ƒ‹[ƒv‚µ‚Ä‚¢‚é‰¹º‚·‚×‚Ä‚ğStop‚³‚¹‚é</summary>
+        /// <summary>ãƒ«ãƒ¼ãƒ—ã—ã¦ã„ã‚‹éŸ³å£°ã™ã¹ã¦ã‚’Stopã•ã›ã‚‹</summary>
         public void StopLoopCue();
 
-        /// <summary>‚·‚×‚Ä‚ÌƒŠƒXƒi[‚ğİ’è‚·‚é</summary>
-        /// <param name="listener">ƒŠƒXƒi[</param>
+        /// <summary>ã™ã¹ã¦ã®ãƒªã‚¹ãƒŠãƒ¼ã‚’è¨­å®šã™ã‚‹</summary>
+        /// <param name="listener">ãƒªã‚¹ãƒŠãƒ¼</param>
         public void SetListenerAll(CriAtomListener listener);
 
-        /// <summary>ƒŠƒXƒi[‚ğİ’è‚·‚é</summary>
-        /// <param name="listener">ƒŠƒXƒi[</param>
-        /// <param name="index">ƒŠƒXƒi[‚ğ•ÏX‚µ‚½‚¢‰¹º‚ÌPlay‚Ì–ß‚è’l</param>
+        /// <summary>ãƒªã‚¹ãƒŠãƒ¼ã‚’è¨­å®šã™ã‚‹</summary>
+        /// <param name="listener">ãƒªã‚¹ãƒŠãƒ¼</param>
+        /// <param name="index">ãƒªã‚¹ãƒŠãƒ¼ã‚’å¤‰æ›´ã—ãŸã„éŸ³å£°ã®Playæ™‚ã®æˆ»ã‚Šå€¤</param>
         public void SetListener(CriAtomListener listener, int index);
     }
 
-    /// <summary>BGM‚È‚Ç‚Ég—p‚·‚éˆê‚Â‚Ì‰¹‚Ì‚İ‚ğo—Í‚·‚éƒ`ƒƒƒ“ƒlƒ‹</summary>
+    /// <summary>BGMãªã©ã«ä½¿ç”¨ã™ã‚‹ä¸€ã¤ã®éŸ³ã®ã¿ã‚’å‡ºåŠ›ã™ã‚‹ãƒãƒ£ãƒ³ãƒãƒ«</summary>
     private class CriSingleChannel : AbstractCriChannel, ICustomChannel
     {
-        /// <summary>Œ»İÄ¶’†‚ÌAcb</summary>
+        /// <summary>ç¾åœ¨å†ç”Ÿä¸­ã®Acb</summary>
         private readonly CriAtomExAcb _currentAcb = null;
 
-        /// <summary>Œ»İÄ¶’†‚ÌCueSheetName</summary>
+        /// <summary>ç¾åœ¨å†ç”Ÿä¸­ã®CueSheetName</summary>
         private readonly string _currentCueName = "";
 
-        /// <summary>ƒRƒ“ƒXƒgƒ‰ƒNƒ^|</summary>
-        /// <param name="masterVolume">ƒ}ƒXƒ^[ƒ{ƒŠƒ…[ƒ€</param>
+        /// <summary>ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼</summary>
+        /// <param name="masterVolume">ãƒã‚¹ã‚¿ãƒ¼ãƒœãƒªãƒ¥ãƒ¼ãƒ </param>
         public CriSingleChannel(Volume masterVolume) : base(masterVolume)
         {
-            // TODO - Add‚É¸”s‚µ‚½‚¢Û‚Ìˆ—‚ğ’Ç‰Á‚·‚é
+            // TODO - Addã«å¤±æ•—ã—ãŸã„éš›ã®å‡¦ç†ã‚’è¿½åŠ ã™ã‚‹
             _cueData.TryAdd(0, new CriPlayerData());
         }
 
@@ -298,7 +298,7 @@ public class CriAudioManager
 
         public int Play(string cueSheetName, string cueName, float volume = 1.0F)
         {
-            // CueSheet‚©‚çî•ñ‚ğæ“¾
+            // CueSheetã‹ã‚‰æƒ…å ±ã‚’å–å¾—
             var tempAcb = CriAtom.GetAcb(cueSheetName);
             var tempPlayerData = new CriPlayerData();
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
@@ -312,7 +312,7 @@ public class CriAudioManager
 
             Stop(_cueData.Count - 1);
 
-            // î•ñ‚ğƒZƒbƒg‚µ‚ÄÄ¶
+            // æƒ…å ±ã‚’ã‚»ãƒƒãƒˆã—ã¦å†ç”Ÿ
             _player.SetCue(tempAcb, cueName);
             _player.SetVolume(_volume * _masterVolume * volume);
             _player.Set3dSource(null);
@@ -327,7 +327,7 @@ public class CriAudioManager
 
         public int Play3D(Vector3 playSoundWorldPos, string cueSheetName, string cueName, float volume = 1.0F)
         {
-            // CueSheet‚©‚çî•ñ‚ğæ“¾
+            // CueSheetã‹ã‚‰æƒ…å ±ã‚’å–å¾—
             var tempAcb = CriAtom.GetAcb(cueSheetName);
             var tempPlayerData = new CriPlayerData();
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
@@ -341,11 +341,11 @@ public class CriAudioManager
 
             Stop(_cueData.Count - 1);
 
-            // À•Wî•ñ‚ğƒZƒbƒg‚µ‚ÄÄ¶
+            // åº§æ¨™æƒ…å ±ã‚’ã‚»ãƒƒãƒˆã—ã¦å†ç”Ÿ
             var temp3dData = new CriAtomEx3dSource();
 
             temp3dData.SetPosition(playSoundWorldPos.x, playSoundWorldPos.y, playSoundWorldPos.z);
-            // ƒŠƒXƒi[‚Æƒ\[ƒX‚ğİ’è
+            // ãƒªã‚¹ãƒŠãƒ¼ã¨ã‚½ãƒ¼ã‚¹ã‚’è¨­å®š
             _player.Set3dListener(_listener);
             _player.Set3dSource(temp3dData);
             tempPlayerData.Source = temp3dData;
@@ -440,17 +440,17 @@ public class CriAudioManager
 
         public int Play3D(Vector3 playSoundWorldPos, string cueSheetName, string cueName, float volume)
         {
-            // CueSheet‚©‚çî•ñ‚ğæ“¾
+            // CueSheetã‹ã‚‰æƒ…å ±ã‚’å–å¾—
             var tempAcb = CriAtom.GetAcb(cueSheetName);
             var tempPlayerData = new CriPlayerData();
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
             tempPlayerData.CueInfo = tempInfo;
 
-            // À•Wî•ñ‚ğƒZƒbƒg‚µ‚ÄÄ¶
+            // åº§æ¨™æƒ…å ±ã‚’ã‚»ãƒƒãƒˆã—ã¦å†ç”Ÿ
             var temp3dData = new CriAtomEx3dSource();
 
             temp3dData.SetPosition(playSoundWorldPos.x, playSoundWorldPos.y, playSoundWorldPos.z);
-            // ƒŠƒXƒi[‚Æƒ\[ƒX‚ğİ’è
+            // ãƒªã‚¹ãƒŠãƒ¼ã¨ã‚½ãƒ¼ã‚¹ã‚’è¨­å®š
             _player.Set3dListener(_listener);
             _player.Set3dSource(temp3dData);
             tempPlayerData.Source = temp3dData;
@@ -569,13 +569,13 @@ public class CriAudioManager
         public static IVolume operator +(IVolume volume, IVolume volume2) => volume;
     }
 
-    /// <summary>ƒ{ƒŠƒ…[ƒ€</summary>
+    /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
     private class Volume : IVolume
     {
-        /// <summary>ƒ{ƒŠƒ…[ƒ€</summary>
+        /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary>
         private float _value = 1.0F;
 
-        /// <summary>‰¹—Ê‚ª•ÏX‚³‚ê‚½Û‚Ìˆ—</summary>
+        /// <summary>éŸ³é‡ãŒå¤‰æ›´ã•ã‚ŒãŸéš›ã®å‡¦ç†</summary>
         private event Action<float> _onVolumeChanged = default;
 
         public event Action<float> OnVolumeChanged
@@ -584,10 +584,10 @@ public class CriAudioManager
             remove => _onVolumeChanged -= value;
         }
 
-        /// <summary>ƒCƒxƒ“ƒg‚ªŒÄ‚Î‚ê‚éÛ‚ÌŠî€‚Ì·</summary>
+        /// <summary>ã‚¤ãƒ™ãƒ³ãƒˆãŒå‘¼ã°ã‚Œã‚‹éš›ã®åŸºæº–ã®å·®</summary>
         private const float DIFF = 0.01F;
 
-        /// <summary>ƒ{ƒŠƒ…[ƒ€</summary> 
+        /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ </summary> 
         public float Value
         {
             get => _value;

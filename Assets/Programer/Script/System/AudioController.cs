@@ -1,21 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using CriWare;
 using System;
 using System.Reflection;
 
-/// <summary>CueName‚Ìƒf[ƒ^‚Æ‰¹‚ğ‚ÌÄ¶‚·‚é‹@”\‚ğ•ÛEŠÇ—‚·‚éƒNƒ‰ƒX</summary>
+/// <summary>CueNameã®ãƒ‡ãƒ¼ã‚¿ã¨éŸ³ã‚’ã®å†ç”Ÿã™ã‚‹æ©Ÿèƒ½ã‚’ä¿æŒãƒ»ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹</summary>
 public class AudioController : MonoBehaviour
 {
-    /// <summary>ƒVƒ“ƒOƒ‹ƒgƒ“‰»</summary>
+    /// <summary>ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åŒ–</summary>
     static AudioController _instance;
 
-    [SerializeField,Tooltip("ƒLƒ…[ƒV[ƒg‚Ì–¼‘O")] string _cueSheetName = "Sound";
-    [SerializeField,Tooltip("SE‚ÌCueName‚Ìƒf[ƒ^")] SEAudioControlle _se;
-    [SerializeField,Tooltip("BGM‚ÌCueName‚Ìƒf[ƒ^")] BGMAudioControlle _bgm;
-    [SerializeField,Tooltip("Voice‚ÌCueName‚Ìƒf[ƒ^")] Voice _voice;
+    [SerializeField,Tooltip("ã‚­ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒˆã®åå‰")] string _cueSheetName = "Sound";
+    [SerializeField,Tooltip("SEã®CueNameã®ãƒ‡ãƒ¼ã‚¿")] SEAudioControlle _se;
+    [SerializeField,Tooltip("BGMã®CueNameã®ãƒ‡ãƒ¼ã‚¿")] BGMAudioControlle _bgm;
+    [SerializeField,Tooltip("Voiceã®CueNameã®ãƒ‡ãƒ¼ã‚¿")] Voice _voice;
 
-    /// <summary>ƒV[ƒ“ã‚É‚ ‚éƒŠƒXƒi[ƒRƒ“ƒ|[ƒlƒ“ƒg</summary>
+    /// <summary>ã‚·ãƒ¼ãƒ³ä¸Šã«ã‚ã‚‹ãƒªã‚¹ãƒŠãƒ¼ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ</summary>
     CriAtomListener _listener = null;
 
     VolumeChange volumeChange = new();
@@ -23,7 +23,7 @@ public class AudioController : MonoBehaviour
     public SEAudioControlle SE => _se;
     public BGMAudioControlle BGM => _bgm;
     public Voice Voice => _voice;
-    /// <summary>ƒ{ƒŠƒ…[ƒ€İ’è</summary>
+    /// <summary>ãƒœãƒªãƒ¥ãƒ¼ãƒ è¨­å®š</summary>
     public VolumeChange VolumeChange => volumeChange;
     public static AudioController Instance
     {
@@ -34,7 +34,7 @@ public class AudioController : MonoBehaviour
                 _instance = FindObjectOfType<AudioController>();
                 if (!_instance)
                 {
-                    Debug.LogError("Scene“à‚É" + typeof(AudioController).Name + "‚ğƒAƒ^ƒbƒ`‚µ‚Ä‚¢‚éGameObject‚ª‚ ‚è‚Ü‚¹‚ñ");
+                    Debug.LogError("Sceneå†…ã«" + typeof(AudioController).Name + "ã‚’ã‚¢ã‚¿ãƒƒãƒã—ã¦ã„ã‚‹GameObjectãŒã‚ã‚Šã¾ã›ã‚“");
                 }
             }
             return _instance;
