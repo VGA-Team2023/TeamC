@@ -414,7 +414,7 @@ public class CriAudioManager
 
         public void SetListenerAll(CriAtomListener listener)
         {
-            _player.Set3dListener(listener.nativeListener);
+            //_player.Set3dListener(listener.nativeListener);
             _player.UpdateAll();
         }
 
@@ -422,7 +422,7 @@ public class CriAudioManager
         {
             if (_cueData[index].Playback.GetStatus() == CriAtomExPlayback.Status.Removed || index <= -1) return;
 
-            _player.Set3dListener(listener.nativeListener);
+            //_player.Set3dListener(listener.nativeListener);
             _player.Update(_cueData[index].Playback);
         }
     }

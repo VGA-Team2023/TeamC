@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using CriWare;
-using System;
-using System.Reflection;
 
 /// <summary>CueNameのデータと音をの再生する機能を保持・管理するクラス</summary>
 public class AudioController : MonoBehaviour
@@ -32,6 +29,8 @@ public class AudioController : MonoBehaviour
             if (!_instance)
             {
                 _instance = FindObjectOfType<AudioController>();
+                _instance.CueSheetNameSet();
+                _instance.SetListener();
                 if (!_instance)
                 {
                     Debug.LogError("Scene内に" + typeof(AudioController).Name + "をアタッチしているGameObjectがありません");
@@ -51,8 +50,6 @@ public class AudioController : MonoBehaviour
         }
         else if (_instance == this)
         {
-            CueSheetNameSet();
-            SetListener();
             DontDestroyOnLoad(this);
         }
         else
@@ -72,8 +69,9 @@ public class AudioController : MonoBehaviour
     public void SetListener()
     {
         _instance._listener = Camera.main.GetComponent<CriAtomListener>();
-        CriAudioManager.Instance.SE.SetListenerAll(_listener);
-        CriAudioManager.Instance.Voice.SetListenerAll(_listener);
+        CriAudioManager.Instance.BGM.SetListenerAll(_instance._listener);
+        CriAudioManager.Instance.SE.SetListenerAll(_instance._listener);
+        CriAudioManager.Instance.Voice.SetListenerAll(_instance._listener);
     }
 }
 
