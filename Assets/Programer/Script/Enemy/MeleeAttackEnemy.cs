@@ -185,6 +185,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         EnemyFinish();
         GameManager.Instance.PauseManager.Remove(this);
         GameManager.Instance.SlowManager.Remove(this);
+        gameObject.layer = DeadLayer;
         Destroy(gameObject, 1f);
     }
 

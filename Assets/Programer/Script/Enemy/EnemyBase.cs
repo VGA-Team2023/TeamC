@@ -57,6 +57,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("とどめが可能なレイヤー")]
     int _finishLayer;
     public int FinishLayer => _finishLayer;
+    [SerializeField, Tooltip("倒された敵のレイヤー")]
+    int _deadLayer;
+    public int DeadLayer => _deadLayer;
     [Header("====================")]
 
     [Header("生成するオブジェクト")]
