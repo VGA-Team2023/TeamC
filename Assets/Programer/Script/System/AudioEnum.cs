@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
-public enum BGMState
+﻿public enum BGMState
 {
     /// <summary>タイトル</summary>
     Title,
