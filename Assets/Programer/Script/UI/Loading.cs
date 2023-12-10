@@ -3,30 +3,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Loading : MonoBehaviour
-{
-    private LoadingPanel _loadingPanel = null;
+{    
     [SerializeField] string _nextSceneName = "";
     [SerializeField] private float _waitTimer;
+    private static LoadingPanel _loadingPanelInstance;
     private void Start()
     {
-        if (_loadingPanel != null)
+        if (_loadingPanelInstance == null)
         {
-            return;
-        }
-        else
-        {
-            Loading[] lis = FindObjectsOfType<Loading>();
-            LoadingPanel LP = FindObjectOfType<LoadingPanel>();
-            foreach (var target in lis)
+            _loadingPanelInstance = FindObjectOfType<LoadingPanel>();
+
+            if (_loadingPanelInstance == null)
             {
-                target._loadingPanel = LP;
+                return;
             }
-            _loadingPanel.gameObject.SetActive(false);
         }
+
+        _loadingPanelInstance.gameObject.SetActive(false);
     }
     public void LoadingScene()
     {
-        _loadingPanel.gameObject.SetActive(true);
+        _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
     }
 
