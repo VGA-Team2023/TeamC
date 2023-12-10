@@ -44,7 +44,7 @@ public interface ICustomChannel<TState> where TState : Enum
 /// <summary>StateごとのCueNameを保持する構造体</summary>
 /// <typeparam name="TState">どのSEのStateか</typeparam>
 [System.Serializable]
-public struct Sound<TState> where TState : Enum
+public class Sound<TState> where TState : Enum
 {
     [SerializeField,Tooltip("サウンドのタイプ")] TState state;
     [SerializeField,Tooltip("キューの名前")] string soundCueName;

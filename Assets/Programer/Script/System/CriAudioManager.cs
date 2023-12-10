@@ -474,7 +474,7 @@ public class CriAudioManager
 
         public void Update3DPos(Vector3 playSoundWorldPos, int index)
         {
-            //if(!_cueData.TryGetValue(index, out var cueData)) return;
+            if(!_cueData.TryGetValue(index, out var cueData)) return;
             if (index <= -1 || _cueData[index].Source == null) { return; }
 
             _cueData[index].UpdateCurrentVector(playSoundWorldPos);
@@ -482,7 +482,7 @@ public class CriAudioManager
 
         public void Pause(int index)
         {
-            if (index <= -1) { return; }
+            if (index <= -1 || !_cueData.TryGetValue(index, out var cueData)) return;
 
             _cueData[index].Playback.Pause();
         }
@@ -493,7 +493,7 @@ public class CriAudioManager
         }
         public void Resume(int index)
         {
-            if (index <= -1) { return; }
+             if (index <= -1 || !_cueData.TryGetValue(index, out var cueData)) return;
 
             _cueData[index].Playback.Resume(CriAtomEx.ResumeMode.AllPlayback);
         }

@@ -55,12 +55,14 @@ public class AudioController : MonoBehaviour
         {
             CueSheetNameSet();
             _listener = Camera.main.GetComponent<CriAtomListener>();
+            CriAudioManager.Instance.SE.SetListenerAll(_listener);
             DontDestroyOnLoad(this);
         }
         else
         {
             CueSheetNameSet();
             _instance._listener = Camera.main.GetComponent<CriAtomListener>();
+            CriAudioManager.Instance.SE.SetListenerAll(_listener);
             Destroy(this);
         }
     }
