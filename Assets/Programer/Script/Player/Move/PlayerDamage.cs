@@ -91,7 +91,8 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.PlayDead();
             _playerControl.PlayerAnimControl.IsDead(true);
 
-            _playerControl.HitStopCall.HitStopCalld(_waitTime);
+            //時間を遅くする
+            _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
         }
         else
         {

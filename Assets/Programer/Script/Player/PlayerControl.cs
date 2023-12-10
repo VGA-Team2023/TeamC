@@ -34,8 +34,8 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [Header("アニメーション設定")]
     [SerializeField] private PlayerAnimControl _playerAnimControl;
 
-
-
+    [Header("属性変更")]
+    [SerializeField] private PlayerChangeAttribute _playerChangeAttribute;
 
 
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
@@ -65,7 +65,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     private bool _isPause = false;
 
-    private PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
+    public PlayerChangeAttribute PlayerAttributeControl => _playerChangeAttribute;
 
     private Vector3 _savePauseVelocity = default;
 
@@ -75,7 +75,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public Attack2 Attack2 => _attack2;
     public HitStopCall HitStopCall => _hitStopCall;
     public PlayerAudio PlayerAudio => _audio;
-    public PlayerAttribute PlayerAttribute => _playerAttribute;
+
     public HitStopConrol HitStopConrol => _hitStopConrol;
     public PlayerDamage PlayerDamage => _damage;
     public PlayerHp PlayerHp => _hp;
@@ -94,6 +94,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public ColliderCheck ColliderCheck => _colliderCheck;
     private void Awake()
     {
+        _playerChangeAttribute.Init(this);
         _stateMachine.Init(this);
         _groundCheck.Init(this);
         _playerMove.Init(this);
@@ -115,37 +116,32 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     void Update()
     {
-        _stateMachine.Update();
-
-        _damage.CountWaitTime();
-
-
         if (Input.GetButtonDown("Pause"))
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);
         }
 
-        if (Input.GetButtonDown("ChangeType"))
-        {
-            if (_playerAttribute == PlayerAttribute.Ice)
-            {
-                _playerAttribute = PlayerAttribute.Grass;
-            }
-            else
-            {
-                _playerAttribute = PlayerAttribute.Ice;
-            }
-        }
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+
+
+        _stateMachine.Update();
+
+        _damage.CountWaitTime();
+
+
+
     }
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
         _stateMachine.FixedUpdate();
     }
 
     private void LateUpdate()
     {
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
         _stateMachine.LateUpdate();
         _playerAnimControl.AnimSet();
     }
