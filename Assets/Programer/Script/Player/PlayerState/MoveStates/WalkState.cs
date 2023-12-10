@@ -40,7 +40,8 @@ public class WalkState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
-        _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
+        //属性変更確認
+        _stateMachine.PlayerController.PlayerAttributeControl.CheckChangeAttribute();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {

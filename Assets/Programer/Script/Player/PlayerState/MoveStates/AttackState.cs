@@ -37,7 +37,7 @@ public class AttackState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        Debug.Log("FFFFF");
+
         if (_stateMachine.PlayerController.IsNewAttack)
         {
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
@@ -68,6 +68,9 @@ public class AttackState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
+        _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.UseMagics();
+
+        _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.CountCoolTime();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {

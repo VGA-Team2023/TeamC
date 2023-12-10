@@ -71,19 +71,28 @@ public class AttackMagic
 
         //敵を索敵
         Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, 128);
+        _attackBase.Enemys = t;
+
+        _attackBase.IsAttackNow = true;
+        _attackBase.AttackCount=attackCount;
+
         if (t.Length == 0)
         {
             //魔法の攻撃処理
-            _attackBase.UseMagick(t, attackCount);
+            // _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(null);
         }
         else
         {
             //魔法の攻撃処理
-            _attackBase.UseMagick(t, attackCount);
+            // _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(t[0]);
-        }   //タメが遅いときs
+        }   //タメが遅いとき
+
+
+
     }
+
 
 
     public void StopMagic(int attackCount)

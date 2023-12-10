@@ -32,7 +32,7 @@ public class FinishAttackNearMagic
 
     public void SetEffect()
     {
-        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             _effectIce?.SetActive(true);
             //foreach (var a in _setUpparticleSystems)
@@ -52,7 +52,7 @@ public class FinishAttackNearMagic
 
     public void SetFinishEffect()
     {
-        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             foreach (var a in particleSystems)
             {
