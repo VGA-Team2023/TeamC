@@ -40,6 +40,9 @@ public class InputManager : MonoBehaviour
 
     private float _isChangeLockOnEnemy = 0;
 
+    /// <summary>属性変更ボタンを押したかどうか </summary>
+    private bool _isChangeAttribute = false;
+    public bool IsChangeAttribute => _isChangeAttribute;
     public float IsChangeLockOnEney => _isChangeLockOnEnemy;
     public bool IsLockOn => _isLockOn;
     public float HorizontalInput => _horizontalInput;
@@ -129,6 +132,8 @@ public class InputManager : MonoBehaviour
             _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
         }
 
+        //属性変更
+        _isChangeAttribute = Input.GetButtonDown("ChangeType");
 
         _isLockOn = Input.GetButtonDown("LockOn");
 

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEditor.Rendering;
 
-public class CameraControl : MonoBehaviour
+public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 {
     [Header("=====構えのカメラの設定=====")]
     [SerializeField] private DefaultCamera _setUpCameraSetting;
 
     [Header("===トドメの時のカメラの動き===")]
     [SerializeField] private FinishAttackCamera _finishAttackCamera;
+
+    [Header("カメラ感度設定")]
+    [SerializeField] private CameraSpeed _cameraSpeed;
 
     [Header("通常時のカメラ")]
     [SerializeField] private CinemachineVirtualCamera _defultCamera;
@@ -43,8 +47,16 @@ public class CameraControl : MonoBehaviour
 
     private void Awake()
     {
+        _cameraSpeed.Init(this, _defultCamera, _attackChargeCamera, _finishCamera);
         _setUpCameraSetting.Init(this, _defultCamera);
         _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
+        SetCameraSpeed(1);
+    }
+
+    /// <summary>カメラ感度を設定する</summary>
+    public void SetCameraSpeed(float speed)
+    {
+        _cameraSpeed.ChangeCameraSpeed(speed);
     }
 
     public void UseAttackChargeCamera()
@@ -71,7 +83,14 @@ public class CameraControl : MonoBehaviour
     public void UseFinishCamera()
     {
         _finishAttackCamera.ResetCamera();
-        _finishCamera.transform.eulerAngles = _defultCamera.transform.eulerAngles;
+
+        // カメラAの向いている方向を取得
+        Vector3 direction = _defultCamera.State.FinalOrientation * Vector3.forward;
+
+        // カメラBのAimターゲットをカメラAの向いている方向に設定
+        _finishCamera.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value = direction.x;
+        _finishCamera.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.Value = direction.y;
+
         _defultCamera.Priority = 0;
         _finishCamera.Priority = 10;
         //ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);
@@ -79,7 +98,7 @@ public class CameraControl : MonoBehaviour
 
     public void LockOnCamera()
     {
-        
+
     }
 
     public void ShakeCamra(CameraType cameraType, CameraShakeType cameraShakeType)
@@ -127,9 +146,51 @@ public class CameraControl : MonoBehaviour
             setPowerY = 1f;
         }
 
-
-
         source.GenerateImpulse(new Vector3(setPowerX, setPowerY, setPowerZ));
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
+
+    public void Pause()
+    {
+        _cameraSpeed.Pause();
+    }
+
+    public void Resume()
+    {
+        _cameraSpeed.Resume();
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _cameraSpeed.OnSlow(slowSpeedRate);
+    }
+
+    public void OffSlow()
+    {
+        _cameraSpeed.OffSlow();
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _cameraSpeed.ISpecialMovingPausePause();
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _cameraSpeed.ISpecialMovingPauseResume();
     }
 
 }

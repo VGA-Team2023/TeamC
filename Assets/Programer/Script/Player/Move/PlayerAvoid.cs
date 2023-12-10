@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -26,12 +25,17 @@ public class PlayerAvoid
     [Header("通常のプレイヤーのマテリアル_Body")]
     [SerializeField] private Material _defaultMaterialBody;
 
-    [Header("杖のMesh")]
-    [SerializeField] private List<MeshRenderer> _tueMesh = new List<MeshRenderer>();
+    [Header("杖のMesh_氷")]
+    [SerializeField] private List<MeshRenderer> _tueMeshIce = new List<MeshRenderer>();
 
-    [Header("杖のマテリアル")]
-    [SerializeField] private List<Material> _tueMaterial = new List<Material>();
+    [Header("杖のマテリアル_氷")]
+    [SerializeField] private List<Material> _tueMaterialIce = new List<Material>();
 
+    [Header("杖のMesh_草")]
+    [SerializeField] private List<MeshRenderer> _tueMeshGrass = new List<MeshRenderer>();
+
+    [Header("杖のマテリアル_草")]
+    [SerializeField] private List<Material> _tueMaterialGrass = new List<Material>();
 
     [Header("回避終了時のエフェクト_氷")]
     [SerializeField] private List<ParticleSystem> _endParticleIce = new List<ParticleSystem>();
@@ -89,7 +93,7 @@ public class PlayerAvoid
     /// <summary>回避を開始</summary>
     public void StartAvoid()
     {
-        _startAttribute = _playerControl.PlayerAttribute;
+        _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
         _isStartAvoid = false;
         _isEndAvoid = false;
@@ -126,10 +130,23 @@ public class PlayerAvoid
             m.material = _avoidMaterial;
         }
 
-        foreach(var m in _tueMesh)
+        //杖のマテリアル変更
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            m.material = _avoidMaterial;
+            foreach (var m in _tueMeshIce)
+            {
+                m.material = _avoidMaterial;
+            }
         }
+        else
+        {
+            foreach (var m in _tueMeshGrass)
+            {
+                m.material = _avoidMaterial;
+            }
+        }
+
+
 
         _isStartAvoid = true;
     }
@@ -156,11 +173,20 @@ public class PlayerAvoid
             m.material = _defaultMaterialBody;
         }
 
-        for(int i =0; i<_tueMesh.Count;i++)
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            _tueMesh[i].material = _tueMaterial[i];
+            for (int i = 0; i < _tueMeshIce.Count; i++)
+            {
+                _tueMeshIce[i].material = _tueMaterialIce[i];
+            }
         }
-
+        else
+        {
+            for (int i = 0; i < _tueMeshGrass.Count; i++)
+            {
+                _tueMeshGrass[i].material = _tueMaterialGrass[i];
+            }
+        }
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
 

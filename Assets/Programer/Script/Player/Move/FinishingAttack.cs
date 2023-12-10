@@ -54,7 +54,7 @@ public class FinishingAttack
 
     public void StartFinishingAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, true);
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, true);
 
         _isEndFinishAnim = false;
 
@@ -96,6 +96,10 @@ public class FinishingAttack
         _playerControl.CameraControl.UseFinishCamera();
 
 
+        //移動視点
+        _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
+        //カメラを敵の方向に向ける
+        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
 
         for (int i = 0; i < _nowFinishEnemy.Length; i++)
         {
@@ -106,14 +110,6 @@ public class FinishingAttack
                 //カメラを敵の方向に向ける
                 _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_playerControl.LockOn.NowLockOnEnemy.transform.position);
                 break;
-            }
-
-            if (i == _nowFinishEnemy.Length - 1)
-            {
-                //移動視点
-                _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
-                //カメラを敵の方向に向ける
-                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
             }
         }
 
@@ -169,8 +165,8 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, false);
-        _playerControl.PlayerAudio.Finish(_playerControl.PlayerAttribute); 
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, false);
+        _playerControl.PlayerAudio.Finish(_playerControl.PlayerAttributeControl.PlayerAttribute);
 
         _isCompletedFinishTime = true;
 
@@ -212,7 +208,7 @@ public class FinishingAttack
         {
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
 
-            if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+            if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
             {
                 damgeble?.EndFinishing(MagickType.Ice);
             }
@@ -227,7 +223,7 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttribute, false);    
+        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, false);
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
@@ -292,13 +288,13 @@ public class FinishingAttack
 
         _finishingAttackUI.ShowCanFinishingUI(true);
 
-        Transform[] d = new Transform[enemys.Length];
+        //Transform[] d = new Transform[enemys.Length];
 
-        for (int i = 0; i < enemys.Length; i++)
-        {
-            d[i] = enemys[i].transform;
-        }
-        _finishingAttackUI.ShowUI(d);
+        //for (int i = 0; i < enemys.Length; i++)
+        //{
+        //    d[i] = enemys[i].transform;
+        //}
+        _finishingAttackUI.ShowUI(enemys);
     }
 
 
