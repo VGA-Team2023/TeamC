@@ -13,7 +13,7 @@ public class AudioController : MonoBehaviour
     [SerializeField,Tooltip("キューシートの名前")] string _cueSheetName = "Sound";
     [SerializeField,Tooltip("SEのCueNameのデータ")] SEAudioControlle _se;
     [SerializeField,Tooltip("BGMのCueNameのデータ")] BGMAudioControlle _bgm;
-    [SerializeField,Tooltip("VoiceのCueNameのデータ")] Voice _voice;
+    [SerializeField,Tooltip("VoiceのCueNameのデータ")] VoiceAudioControlle _voice;
 
     /// <summary>シーン上にあるリスナーコンポーネント</summary>
     CriAtomListener _listener = null;
@@ -22,7 +22,7 @@ public class AudioController : MonoBehaviour
     
     public SEAudioControlle SE => _se;
     public BGMAudioControlle BGM => _bgm;
-    public Voice Voice => _voice;
+    public VoiceAudioControlle Voice => _voice;
     /// <summary>ボリューム設定</summary>
     public VolumeChange VolumeChange => volumeChange;
     public static AudioController Instance
@@ -46,31 +46,34 @@ public class AudioController : MonoBehaviour
         {
             _instance = this;
             CueSheetNameSet();
-            _listener = Camera.main.GetComponent<CriAtomListener>();
-            CriAudioManager.Instance.SE.SetListenerAll(_listener);
-            //_bgm.Play(BGMState.Battle);
+            SetListener();
             DontDestroyOnLoad(this);
         }
         else if (_instance == this)
         {
             CueSheetNameSet();
-            _listener = Camera.main.GetComponent<CriAtomListener>();
-            CriAudioManager.Instance.SE.SetListenerAll(_listener);
+            SetListener();
             DontDestroyOnLoad(this);
         }
         else
         {
             CueSheetNameSet();
-            _instance._listener = Camera.main.GetComponent<CriAtomListener>();
-            CriAudioManager.Instance.SE.SetListenerAll(_listener);
+            SetListener();
             Destroy(this);
         }
     }
     public void CueSheetNameSet()
     {
-        _bgm.CueSheetName = _cueSheetName;
-        _se.CueSheetName = _cueSheetName;
-        _voice.CueSheetName = _cueSheetName;
+        _instance._bgm.CueSheetName = _cueSheetName;
+        _instance._se.CueSheetName = _cueSheetName;
+        _instance._voice.CueSheetName = _cueSheetName;
+    }
+
+    public void SetListener()
+    {
+        _instance._listener = Camera.main.GetComponent<CriAtomListener>();
+        CriAudioManager.Instance.SE.SetListenerAll(_listener);
+        CriAudioManager.Instance.Voice.SetListenerAll(_listener);
     }
 }
 
@@ -80,21 +83,21 @@ public class VolumeChange
     {
         Master,
         BGM,
-        SE
+        SE,
+        Voice,
     }
     public void OnVolumeChange(float value, Type type)
     {
         switch (type)
         {
             case Type.Master:
-                CriAudioManager.Instance.MasterVolume.Value = value;
-                break;
+                CriAudioManager.Instance.MasterVolume.Value = value; break;
             case Type.BGM:
-                CriAudioManager.Instance.BGM.Volume.Value = value;
-                break;
+                CriAudioManager.Instance.BGM.Volume.Value = value; break;
             case Type.SE:
-                CriAudioManager.Instance.SE.Volume.Value = value;
-                break;
+                CriAudioManager.Instance.SE.Volume.Value = value; break;
+            case Type.Voice:
+                CriAudioManager.Instance.Voice.Volume.Value = value; break;
         }
     }
 }

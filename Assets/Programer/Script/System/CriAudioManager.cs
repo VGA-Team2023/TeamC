@@ -2,10 +2,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class CriAudioManager
@@ -28,6 +26,7 @@ public class CriAudioManager
         _masterVolume = new Volume();
         _bgm = new CriSingleChannel(_masterVolume);
         _se = new CriMultiChannel(_masterVolume);
+        _voice = new CriMultiChannel(_masterVolume);
     }
 
     /// <summary> マスターのボリューム </summary>
@@ -39,6 +38,9 @@ public class CriAudioManager
     /// <summary> SEを流すチャンネル </summary>
     private readonly CriMultiChannel _se = default;
 
+    /// <summary>Voiceを流すチャンネル</summary>
+    private readonly CriMultiChannel _voice = default;
+
     /// <summary>マスターボリューム</summary>
     public IVolume MasterVolume => _masterVolume;
 
@@ -47,6 +49,9 @@ public class CriAudioManager
 
     /// <summary>SEのチャンネル</summary>
     public ICustomChannel SE => _se;
+
+    /// <summary>Voiceのチャンネル</summary>
+    public ICustomChannel Voice => _voice;
 
     /// <summary>SEのPlayerとPlayback</summary>
     private struct CriPlayerData

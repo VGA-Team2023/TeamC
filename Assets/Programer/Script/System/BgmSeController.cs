@@ -102,7 +102,7 @@ public struct BGMAudioControlle
 
 /// <summary>VoiceのSE用のAudio操作</summary>
 [System.Serializable]
-public class Voice : ICustomChannel<VoiceState>
+public struct VoiceAudioControlle : ICustomChannel<VoiceState>
 {
     [SerializeField] Sound<VoiceState>[] _voiceData;
     string _cueSheetName;
@@ -110,7 +110,7 @@ public class Voice : ICustomChannel<VoiceState>
     public void Pause(VoiceState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.SE.Pause(_voiceData[index].PlayID);
+        CriAudioManager.Instance.Voice.Pause(_voiceData[index].PlayID);
     }
 
     public void PauseAll()
@@ -128,34 +128,34 @@ public class Voice : ICustomChannel<VoiceState>
     {
         int index = (int)se;
         _voiceData[index].PlayID = CriAudioManager.Instance.SE.Play3D(soundPlayPos, _cueSheetName, _voiceData[index].SoundCueName);
-        CriAudioManager.Instance.SE.Update3DPos(soundPlayPos, _voiceData[index].PlayID);
+        CriAudioManager.Instance.Voice.Update3DPos(soundPlayPos, _voiceData[index].PlayID);
     }
     public void Update3DPos(VoiceState se, Vector3 soundPlayPos)
     {
         int index = (int)se;
-        CriAudioManager.Instance.SE.Update3DPos(soundPlayPos, _voiceData[index].PlayID);
+        CriAudioManager.Instance.Voice.Update3DPos(soundPlayPos, _voiceData[index].PlayID);
     }
 
     public void Resume(VoiceState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.BGM.Resume(_voiceData[index].PlayID);
+        CriAudioManager.Instance.Voice.Resume(_voiceData[index].PlayID);
     }
 
     public void Stop(VoiceState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.SE.Stop(_voiceData[index].PlayID);
+        CriAudioManager.Instance.Voice.Stop(_voiceData[index].PlayID);
     }
 
     public void StopAll()
     {
-        CriAudioManager.Instance.SE.StopAll();
+        CriAudioManager.Instance.Voice.StopAll();
     }
 
     public void ResumeAll()
     {
-        CriAudioManager.Instance.SE.ResumeAll();
+        CriAudioManager.Instance.Voice.ResumeAll();
     }
 }
 
