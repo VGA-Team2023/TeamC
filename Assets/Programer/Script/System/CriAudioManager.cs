@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class CriAudioManager
@@ -203,6 +204,14 @@ public class CriAudioManager
 
             if (cancellationToken.IsCancellationRequested) { return; }
 
+            try
+            {
+                await Task.Delay((int)_cueData[index].CueInfo.length, cancellationToken);
+            }
+            catch (Exception ex) when (ex is OperationCanceledException)
+            {
+                return;
+            }
             await Task.Delay((int)_cueData[index].CueInfo.length, cancellationToken);
 
             while (true)
@@ -496,7 +505,7 @@ public class CriAudioManager
 
         public void Stop(int index)
         {
-            if (index <= -1) { return; }
+            if (index <= -1 || !_cueData.TryGetValue(index, out var data)) { return; }
 
             _cueData[index].Playback.Stop(false);
 
