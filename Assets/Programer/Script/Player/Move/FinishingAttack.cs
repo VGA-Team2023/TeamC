@@ -31,6 +31,8 @@ public class FinishingAttack
 
     private float _countFinishTime = 0;
 
+    private PlayerAttribute _startAttribute = PlayerAttribute.Ice;
+
     private PlayerControl _playerControl;
 
     private Collider[] _nowFinishEnemy;
@@ -54,6 +56,7 @@ public class FinishingAttack
 
     public void StartFinishingAttack()
     {
+        _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
         _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, true);
 
         _isEndFinishAnim = false;
@@ -224,6 +227,8 @@ public class FinishingAttack
     private void StopFinishingAttack()
     {
         _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, false);
+
+        _playerControl.FinishingAttack.FinishingAttackShort.FinishAttackNearMagic.Stop(_startAttribute);
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();

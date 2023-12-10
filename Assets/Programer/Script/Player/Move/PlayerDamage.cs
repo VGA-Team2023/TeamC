@@ -45,7 +45,7 @@ public class PlayerDamage
         //カメラ変更
         _playerControl.CameraControl.UseDefultCamera(true);
         //カメラの振動
-        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
+        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.Damage);
     }
 
     public void CountDamageTime()
@@ -83,7 +83,7 @@ public class PlayerDamage
     public void Damage(float damage)
     {
         //無敵時間中はダメージを受けない
-        if (_isDamage || _isDead || _isMuteki) return;
+        if (_isDamage || _isDead || _isMuteki || _playerControl.Avoid.isAvoid) return;
 
         if (_playerControl.PlayerHp.AddDamage(damage))
         {

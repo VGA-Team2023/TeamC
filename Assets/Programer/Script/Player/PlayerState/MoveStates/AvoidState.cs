@@ -19,8 +19,16 @@ public class AvoidState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        //カメラのFOV設定
-        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
+        if (_stateMachine.PlayerController.Avoid.IsEndAvoid)
+        {
+            _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.SetDefaultFOV();
+        }
+        else
+        {
+            //カメラのFOV設定
+            _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.AvoidFov();
+        }
+
 
         //回避の移動処理
         _stateMachine.PlayerController.Avoid.DoAvoid();
