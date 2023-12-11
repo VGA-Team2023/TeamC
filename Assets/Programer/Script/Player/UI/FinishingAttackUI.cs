@@ -108,7 +108,7 @@ public class FinishingAttackUI
 
 
 
-    public void ShowUI(Transform[] pos)
+    public void ShowUI(Collider[] pos)
     {
         for (int i = 0; i < _enemyMaxNum; i++)
         {
@@ -159,8 +159,12 @@ public class FinishingAttackUI
     }
 
     // UIの位置を更新する
-    private void UpdateCanFinishingUIPosition(Transform t, int num)
+    private void UpdateCanFinishingUIPosition(Collider t, int num)
     {
+        if(t==null)
+        {
+            return;
+        }
         _canFinishUI[num].SetActive(true);
 
         var cameraTransform = Camera.main.transform;
@@ -169,7 +173,7 @@ public class FinishingAttackUI
         var cameraDir = cameraTransform.forward;
 
         // オブジェクトの位置
-        var targetWorldPos = t.position + _worldOffset;
+        var targetWorldPos = t.gameObject.transform.position + _worldOffset;
 
         // カメラからターゲットへのベクトル
         var targetDir = targetWorldPos - cameraTransform.position;

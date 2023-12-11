@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackMagicPrefab : MonoBehaviour, IMagicble
+public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("魔法の属性")]
     [SerializeField] MagickType _magicType = MagickType.Ice;
@@ -11,7 +11,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
     [SerializeField] private float _lifeTime = 7;
 
     [Header("球の速度")]
-    [SerializeField] private float _speed = 10;
+    [SerializeField] private float _moveSpeed = 10;
 
     [SerializeField] private Rigidbody _rb;
 
@@ -21,11 +21,20 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
     /// <summary>魔法のタイプ</summary>
     private AttackType _attackType = AttackType.ShortChantingMagick;
 
+    private float _countLifeTime = 0;
+
     private Vector3 _moveDir;
 
     private Transform _enemy;
 
     private Vector3 _foward;
+
+    enum PlayMagicAudioType
+    {
+        Play,
+        Stop,
+        Updata,
+    }
 
     public void SetAttack(Transform enemy, Vector3 foward, AttackType attackType, float attackPower)
     {
@@ -44,14 +53,28 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
         }
 
         var r = Random.Range(1, 1.5f);
-        _speed = r * _speed;
+        _moveSpeed = r * _moveSpeed;
 
+
+
+        AudioSet(PlayMagicAudioType.Play);
         Destroy(gameObject, _lifeTime);
     }
 
+
+
     void Update()
     {
+        _countLifeTime += Time.deltaTime;
 
+        if (_countLifeTime > _lifeTime)
+        {
+            AudioSet(PlayMagicAudioType.Stop);
+            Destroy(gameObject);
+        }
+
+        //音源の更新
+        AudioSet(PlayMagicAudioType.Updata);
     }
 
     private void FixedUpdate()
@@ -68,6 +91,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
         }
         if (Vector3.Distance(transform.position, _enemy.position) < 0.2f)
         {
+            AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
         }
     }
@@ -79,14 +103,116 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble
         {
             _moveDir = _enemy.position - transform.position;
         }
-        _rb.velocity = _moveDir.normalized * _speed;
+        _rb.velocity = _moveDir.normalized * _moveSpeed;
     }
+
+    /// <summary>音を流す</summary>
+    /// <param name="isPlay"></param>
+    private void AudioSet(PlayMagicAudioType audioType)
+    {
+        SEState state = default;
+
+        //属性に応じて鳴らす音を分ける
+        if (_magicType == MagickType.Ice)
+        {
+            if (_attackType == AttackType.ShortChantingMagick)
+            {
+                state = SEState.PlayerTrailIcePatternA;
+            }
+            else
+            {
+                state = SEState.PlayerTrailIcePatternB;
+            }
+        }
+        else
+        {
+            if (_attackType == AttackType.ShortChantingMagick)
+            {
+                state = SEState.PlayerTrailGrassPatternA;
+            }
+            else
+            {
+                state = SEState.PlayerTrailGrassPatternB;
+            }
+        }
+
+        //音の再生方法に応じて分ける
+        if (audioType == PlayMagicAudioType.Play)
+        {
+            AudioController.Instance.SE.Play3D(state,transform.position);
+        }
+        else if (audioType == PlayMagicAudioType.Stop)
+        {
+            AudioController.Instance.SE.Stop(state);
+        }
+        else if (audioType == PlayMagicAudioType.Updata)
+        {
+            AudioController.Instance.SE.Update3DPos(state,transform.position);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
         damageble?.Damage(_attackType, _magicType, _attackPower);
+        AudioSet(PlayMagicAudioType.Stop);
         Destroy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
+    private Vector3 _savePauseVelocity = default;
+    private Vector3 _saveMoviePauseVelocity = default;
+    private float _saveSpeed = default;
+
+    public void Pause()
+    {
+        _savePauseVelocity = _rb.velocity;
+        _rb.isKinematic = true;
+        _rb.velocity = Vector3.zero;
+    }
+
+    public void Resume()
+    {
+        _rb.isKinematic = false;
+        _rb.velocity = _savePauseVelocity;
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _saveSpeed = _moveSpeed;
+        _moveSpeed = _saveSpeed * slowSpeedRate;
+    }
+
+    public void OffSlow()
+    {
+        _moveSpeed = _saveSpeed;
+    }
+
+    void ISpecialMovingPause.Pause()
+    {
+        _saveMoviePauseVelocity = _rb.velocity;
+        _rb.isKinematic = true;
+        _rb.velocity = Vector3.zero;
+    }
+
+    void ISpecialMovingPause.Resume()
+    {
+        _rb.isKinematic = false;
+        _rb.velocity = _saveMoviePauseVelocity;
     }
 
 }

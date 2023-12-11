@@ -40,14 +40,13 @@ public class InputManager : MonoBehaviour
 
     private float _isChangeLockOnEnemy = 0;
 
+    /// <summary>属性変更ボタンを押したかどうか </summary>
+    private bool _isChangeAttribute = false;
+    public bool IsChangeAttribute => _isChangeAttribute;
     public float IsChangeLockOnEney => _isChangeLockOnEnemy;
     public bool IsLockOn => _isLockOn;
     public float HorizontalInput => _horizontalInput;
     public float VerticalInput => _verticalInput;
-    public bool IsJumping => _isJump;
-    public bool IsSetUpDown => _isSetUpDown;
-    public bool IsSetUpUp => _isSetUpUp;
-    public bool IsSetUp => _isSetUp;
     public bool IsAttack => _isAttack;
     public bool IsAttacks => _isAttacks;
     public bool IsAttackUp => _isAttackUp;
@@ -56,6 +55,10 @@ public class InputManager : MonoBehaviour
     public bool IsAvoid => _isAvoid;
 
     private float _saveTrigger;
+
+    private bool _isTutorial = false;
+
+    public bool IsTutorial { get => _isTutorial; set => _isTutorial = value; }
 
     private void Awake()
     {
@@ -72,13 +75,19 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        // _isSetUpDown = Input.GetButtonDown("SetUp");
-        // _isSetUpUp = Input.GetButtonUp("SetUp");
+        if (!_isTutorial)
+        {
+            DefultInput();
+        }
+        else
+        {
 
-        //  _isSetUp = Input.GetButton("SetUp");
+        }
 
-        _isJump = Input.GetButtonDown("Jump");
+    }
 
+    public void DefultInput()
+    {
         if (_control.IsNewAttack && !_isKeybord)
         {
             float v = Input.GetAxis("Trigger");
@@ -129,19 +138,33 @@ public class InputManager : MonoBehaviour
             _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
         }
 
+        //属性変更
+        _isChangeAttribute = Input.GetButtonDown("ChangeType");
 
+        //ロックオン
         _isLockOn = Input.GetButtonDown("LockOn");
 
+        //トドメ
         _isFinishAttack = Input.GetButton("FinishAttack");
 
         _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
+
+        //回避
         _isAvoid = Input.GetButtonDown("Avoid");
 
+        //横入力
         _horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        //縦入力
         _verticalInput = Input.GetAxisRaw("Vertical");
+    }
 
 
+
+    public void Tutorial()
+    {
 
     }
+
 
 }

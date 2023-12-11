@@ -42,7 +42,8 @@ public class LAEFreeMoveState : IStateMachine
         {
             _index++;
         }
-        _enemy.transform.forward = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
+        var nextPoint = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
+        _enemy.transform.forward = new Vector3(nextPoint.x, 0, nextPoint.z);
         _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
     }
 }

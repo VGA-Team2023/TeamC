@@ -37,7 +37,11 @@ public class IdleState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
-        _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
+        //属性変更確認
+        _stateMachine.PlayerController.PlayerAttributeControl.CheckChangeAttribute();
+
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {
@@ -76,7 +80,7 @@ public class IdleState : PlayerStateBase
         }
 
 
-        if (_stateMachine.PlayerController.InputManager.IsAvoid)
+        if (_stateMachine.PlayerController.InputManager.IsAvoid && _stateMachine.PlayerController.Avoid.IsCanAvoid)
         {
             _stateMachine.PlayerController.Avoid.SetAvoidDir();
             _stateMachine.TransitionTo(_stateMachine.AvoidState);
