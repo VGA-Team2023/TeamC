@@ -14658,7 +14658,8 @@ MonoBehaviour:
     type: 3}
   _grassAttackEffect: {fileID: 8718737715375223622, guid: 771fe16c33d2339429d3d2e8e9c62a06,
     type: 3}
-  _grassFinishEffect: {fileID: 0}
+  _grassFinishEffect: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
+    type: 3}
 --- !u!114 &6413185969038328674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14695,9 +14696,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfb83e44c58ecb41831ad9d34a54db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testOn: 1
   _meleeEnemy: {fileID: 5733100072342957415}
   _longEnemy: {fileID: 0}
-  _testOn: 1
+  _magicType: 0
+  _hitType: 0
 --- !u!114 &1829331482464064712
 MonoBehaviour:
   m_ObjectHideFlags: 0
