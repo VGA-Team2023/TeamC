@@ -43,6 +43,9 @@ public class WalkState : PlayerStateBase
         //属性変更確認
         _stateMachine.PlayerController.PlayerAttributeControl.CheckChangeAttribute();
 
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
+
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {
             _stateMachine.TransitionTo(_stateMachine.DeadState);
@@ -78,7 +81,7 @@ public class WalkState : PlayerStateBase
             }   //攻撃
         }
 
-        if (_stateMachine.PlayerController.InputManager.IsAvoid)
+        if (_stateMachine.PlayerController.InputManager.IsAvoid　&& _stateMachine.PlayerController.Avoid.IsCanAvoid)
         {
             _stateMachine.PlayerController.Avoid.SetAvoidDir();
             _stateMachine.TransitionTo(_stateMachine.AvoidState);

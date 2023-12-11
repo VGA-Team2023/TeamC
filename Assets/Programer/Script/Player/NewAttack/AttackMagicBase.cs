@@ -18,13 +18,8 @@ public class AttackMagicBase
     [Header("飛ばす魔法の弾プレハブ")]
     [SerializeField] private GameObject _prefab;
 
-    [Header("連撃の実行時間")]
-    [SerializeField] private List<float> _attackContinueTimes = new List<float>();
-
     /// <summary>連撃の実行時間を計測</summary>
     private float _countAttackContinueTime = 0;
-
-    private float _countOneAttackTime = 0;
 
     private float _countCoolTime = 0;
 
