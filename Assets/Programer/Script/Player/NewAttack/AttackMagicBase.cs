@@ -258,7 +258,7 @@ public class AttackMagicBase
                 {
                     _playerControl.PlayerAudio.Fire(1, false);
                 }
-                AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
+              //  AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
                 //AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Trail);
             }
             _isFireNow = false;
