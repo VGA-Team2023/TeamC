@@ -1504,11 +1504,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5733100072342957415, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: _hp
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5942810071869200230, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1613,6 +1608,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5733100072342957415, guid: 448687a05971e7a47ba22d9a5838f86f,
+        type: 3}
+      propertyPath: _grassFinishEffect
+      value: 
+      objectReference: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
+        type: 3}
     - target: {fileID: 5942810071869200230, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -1898,6 +1899,12 @@ PrefabInstance:
       propertyPath: _hp
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5733100072342957415, guid: 448687a05971e7a47ba22d9a5838f86f,
+        type: 3}
+      propertyPath: _grassFinishEffect
+      value: 
+      objectReference: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
+        type: 3}
     - target: {fileID: 5942810071869200230, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -2521,6 +2528,12 @@ PrefabInstance:
       propertyPath: _isTestAudio
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5733100072342957415, guid: 448687a05971e7a47ba22d9a5838f86f,
+        type: 3}
+      propertyPath: _grassFinishEffect
+      value: 
+      objectReference: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
+        type: 3}
     - target: {fileID: 5942810071869200230, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_LocalPosition.y

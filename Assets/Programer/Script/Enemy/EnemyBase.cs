@@ -4,9 +4,13 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("テスト用")]
-    [SerializeField, Tooltip("仮でAudioを再生する")]
-    bool _isTestAudio;
-    public bool IsTestAudio => _isTestAudio;
+    [SerializeField, Tooltip("Audioを再生する")]
+    bool _isAudio;
+    public bool IsAudio => _isAudio;
+
+    [SerializeField, Tooltip("敵をDemoモードにする")]
+    bool _isDemo;
+    public bool IsDemo => _isDemo;
 
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]

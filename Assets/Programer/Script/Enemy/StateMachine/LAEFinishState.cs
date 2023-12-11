@@ -30,6 +30,7 @@ public class LAEFinishState : IStateMachine
         //一定時間経過したらとどめが指せなくなる
         if (_isTimeStart)
         {
+            _enemy.Audio(SEState.EnemyStan);
             _timer += Time.deltaTime;
             if (_timer > _enemy.FinishStopInterval)
             {

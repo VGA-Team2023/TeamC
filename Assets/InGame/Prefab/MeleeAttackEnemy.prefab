@@ -9665,6 +9665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5918778514570327211}
+  - component: {fileID: 5053880815812080415}
   m_Layer: 0
   m_Name: Doll
   m_TagString: Untagged
@@ -9689,6 +9690,19 @@ Transform:
   - {fileID: 4521256664681574015}
   m_Father: {fileID: 2734145460482076405}
   m_LocalEulerAnglesHint: {x: -106.183, y: 0, z: 0}
+--- !u!114 &5053880815812080415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645313789138378725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5718644f6dfb3044b68ccbcc789c79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playState: 24
 --- !u!1 &3624844378844753367
 GameObject:
   m_ObjectHideFlags: 0
@@ -14621,16 +14635,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dcd10a421750645bf91fe8d6f5a7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTestAudio: 0
-  _hp: 10
+  _isAudio: 1
+  _isDemo: 0
+  _hp: 1
   _attack: 5
-  _type: 0
   _speed: 1
   _attackInterval: 1
   _searchRange: 10
   _finishStopInterval: 5
   _defaultLayer: 7
   _finishLayer: 10
+  _deadLayer: 0
   _core: {fileID: 1889842497452229902}
   _moveRange: 5
   _distance: 0.5
@@ -14641,10 +14656,9 @@ MonoBehaviour:
     type: 3}
   _iceFinishEffect: {fileID: 8565715187832649081, guid: 5a07250db38b03345a5fccfaaa2735fb,
     type: 3}
-  _grassAttackEffect: {fileID: 923676356984606698, guid: 771fe16c33d2339429d3d2e8e9c62a06,
+  _grassAttackEffect: {fileID: 8718737715375223622, guid: 771fe16c33d2339429d3d2e8e9c62a06,
     type: 3}
-  _grassFinishEffect: {fileID: 5938374305415551975, guid: 844265fc9f2842241a7a746fcd7839f7,
-    type: 3}
+  _grassFinishEffect: {fileID: 0}
 --- !u!114 &6413185969038328674
 MonoBehaviour:
   m_ObjectHideFlags: 0
