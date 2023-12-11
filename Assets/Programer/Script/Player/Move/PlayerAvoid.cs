@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +9,9 @@ public class PlayerAvoid
 
     [Header("@回避時間")]
     [SerializeField] private float _avoidTime = 0.5f;
+
+    [Header("回避のクールタイム")]
+    [SerializeField] private float _coolTime = 1;
 
     [Header("回避中のプレイヤーのマテリアル")]
     [SerializeField] private Material _avoidMaterial;
@@ -26,12 +28,17 @@ public class PlayerAvoid
     [Header("通常のプレイヤーのマテリアル_Body")]
     [SerializeField] private Material _defaultMaterialBody;
 
-    [Header("杖のMesh")]
-    [SerializeField] private List<MeshRenderer> _tueMesh = new List<MeshRenderer>();
+    [Header("杖のMesh_氷")]
+    [SerializeField] private List<MeshRenderer> _tueMeshIce = new List<MeshRenderer>();
 
-    [Header("杖のマテリアル")]
-    [SerializeField] private List<Material> _tueMaterial = new List<Material>();
+    [Header("杖のマテリアル_氷")]
+    [SerializeField] private List<Material> _tueMaterialIce = new List<Material>();
 
+    [Header("杖のMesh_草")]
+    [SerializeField] private List<MeshRenderer> _tueMeshGrass = new List<MeshRenderer>();
+
+    [Header("杖のマテリアル_草")]
+    [SerializeField] private List<Material> _tueMaterialGrass = new List<Material>();
 
     [Header("回避終了時のエフェクト_氷")]
     [SerializeField] private List<ParticleSystem> _endParticleIce = new List<ParticleSystem>();
@@ -51,15 +58,26 @@ public class PlayerAvoid
 
     private bool _isStartAvoid = false;
 
+    private bool _isAvoid = false;
+
     private float _countAvoidTime = 0;
 
     private bool _isEndAvoid = false;
 
     private bool _isEndAnimation = false;
 
+    /// <summary>クールタイム計測用 </summary>
+    private float _countCoolTime = 0;
+
+    /// <summary>クールタイムを終えたかどうか</summary>
+    private bool _isCoolTime = true;
+
+
     private PlayerControl _playerControl;
 
-
+    public bool IsCanAvoid => _isCoolTime;
+    public bool isAvoid => _isAvoid;
+    public bool IsEndAvoid => _isEndAvoid;
     public bool IsStartAvoid => _isStartAvoid;
     public bool IsEndAnim => _isEndAnimation;
 
@@ -67,6 +85,19 @@ public class PlayerAvoid
     {
         _playerControl = playerControl;
         _avoidMove.Init(playerControl);
+    }
+
+    public void CountCoolTime()
+    {
+        if (_isCoolTime) return;
+
+        _countCoolTime += Time.deltaTime;
+
+        if(_countCoolTime>_coolTime)
+        {
+            _countCoolTime = 0;
+            _isCoolTime= true;
+        }
     }
 
     public void SetAvoidDir()
@@ -89,12 +120,26 @@ public class PlayerAvoid
     /// <summary>回避を開始</summary>
     public void StartAvoid()
     {
-        _startAttribute = _playerControl.PlayerAttribute;
+        _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
+        }
+
+        _isCoolTime = false;
+        _isAvoid = true;
         _isStartAvoid = false;
         _isEndAvoid = false;
         _isEndAnimation = false;
         _countAvoidTime = 0;
+
+        _playerControl.CameraControl.UseAvoidCamera();
+        _playerControl.CameraControl.SetUpCameraSetting.SetAvoidH(_playerControl.InputManager.HorizontalInput);
 
         if (_startAttribute == PlayerAttribute.Ice)
         {
@@ -126,10 +171,23 @@ public class PlayerAvoid
             m.material = _avoidMaterial;
         }
 
-        foreach(var m in _tueMesh)
+        //杖のマテリアル変更
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            m.material = _avoidMaterial;
+            foreach (var m in _tueMeshIce)
+            {
+                m.material = _avoidMaterial;
+            }
         }
+        else
+        {
+            foreach (var m in _tueMeshGrass)
+            {
+                m.material = _avoidMaterial;
+            }
+        }
+
+
 
         _isStartAvoid = true;
     }
@@ -138,6 +196,7 @@ public class PlayerAvoid
     public void EndAvoidAnim()
     {
         _isEndAnimation = true;
+        _isAvoid = false;
     }
 
 
@@ -156,11 +215,20 @@ public class PlayerAvoid
             m.material = _defaultMaterialBody;
         }
 
-        for(int i =0; i<_tueMesh.Count;i++)
+        if (_startAttribute == PlayerAttribute.Ice)
         {
-            _tueMesh[i].material = _tueMaterial[i];
+            for (int i = 0; i < _tueMeshIce.Count; i++)
+            {
+                _tueMeshIce[i].material = _tueMaterialIce[i];
+            }
         }
-
+        else
+        {
+            for (int i = 0; i < _tueMeshGrass.Count; i++)
+            {
+                _tueMeshGrass[i].material = _tueMaterialGrass[i];
+            }
+        }
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
 

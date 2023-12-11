@@ -9,19 +9,23 @@ public class FinishAttackNearMagic
     [SerializeField] private GameObject _effectIce;
 
     [Header("発動した時の魔法_氷")]
-    [SerializeField] private List<ParticleSystem> _setUpparticleSystems = new List<ParticleSystem>();
-
-    [Header("発動した時の魔法_氷")]
     [SerializeField] private List<ParticleSystem> particleSystems = new List<ParticleSystem>();
 
     [Header("準備の魔法_草")]
     [SerializeField] private GameObject _effectGrass;
 
-    [Header("発動した時の魔法_草")]
-    [SerializeField] private List<ParticleSystem> _setUpparticleSystemsGrass = new List<ParticleSystem>();
+
 
     [Header("発動した時の魔法_草")]
     [SerializeField] private List<ParticleSystem> particleSystemsGrass = new List<ParticleSystem>();
+
+    [Header("中止した時の魔法_氷")]
+    [SerializeField] private List<ParticleSystem> _stopParticleSystemIce = new List<ParticleSystem>();
+
+    [Header("中止した時の魔法_草")]
+    [SerializeField] private List<ParticleSystem> _stopParticleSystemsGrass = new List<ParticleSystem>();
+
+
 
     private PlayerControl _playerControl;
 
@@ -30,9 +34,27 @@ public class FinishAttackNearMagic
         _playerControl = playerControl;
     }
 
+    public void Stop(PlayerAttribute attribute)
+    {
+        if(attribute == PlayerAttribute.Ice)
+        {
+            foreach (var a in _stopParticleSystemIce)
+            {
+                a.Play();
+            }
+        }
+        else
+        {
+            foreach (var a in _stopParticleSystemsGrass)
+            {
+                a.Play();
+            }
+        }
+    }
+
     public void SetEffect()
     {
-        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             _effectIce?.SetActive(true);
             //foreach (var a in _setUpparticleSystems)
@@ -52,7 +74,7 @@ public class FinishAttackNearMagic
 
     public void SetFinishEffect()
     {
-        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             foreach (var a in particleSystems)
             {

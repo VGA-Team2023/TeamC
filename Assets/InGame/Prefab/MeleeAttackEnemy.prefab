@@ -14534,6 +14534,7 @@ GameObject:
   - component: {fileID: 6413185969038328674}
   - component: {fileID: 4923167941322713424}
   - component: {fileID: 4633202924904054139}
+  - component: {fileID: 1829331482464064712}
   m_Layer: 7
   m_Name: MeleeEnemyPrefab
   m_TagString: Untagged
@@ -14620,7 +14621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dcd10a421750645bf91fe8d6f5a7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTestAudio: 1
+  _isTestAudio: 0
   _hp: 10
   _attack: 5
   _type: 0
@@ -14642,7 +14643,7 @@ MonoBehaviour:
     type: 3}
   _grassAttackEffect: {fileID: 923676356984606698, guid: 771fe16c33d2339429d3d2e8e9c62a06,
     type: 3}
-  _grassFinishEffect: {fileID: 1523254171359619560, guid: 844265fc9f2842241a7a746fcd7839f7,
+  _grassFinishEffect: {fileID: 5938374305415551975, guid: 844265fc9f2842241a7a746fcd7839f7,
     type: 3}
 --- !u!114 &6413185969038328674
 MonoBehaviour:
@@ -14683,6 +14684,33 @@ MonoBehaviour:
   _meleeEnemy: {fileID: 5733100072342957415}
   _longEnemy: {fileID: 0}
   _testOn: 1
+--- !u!114 &1829331482464064712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586707483840657404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a59f610b880b3240b87cd1fa3749346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDestroy: 0
+  _destroyTime: 1
+  _effects:
+  - _name: "\u672C\u4F53\u306E\u9727"
+    _effects:
+    - {fileID: 7018204503508084269}
+    - {fileID: 8218555832882146515}
+    - {fileID: 4314795031352492387}
+  - _name: "\u6C17\u7D76"
+    _effects:
+    - {fileID: 7381637909541216584}
+    - {fileID: 8690083445484070864}
+    - {fileID: 8354355222045871697}
+    - {fileID: 9205639197715844574}
+    - {fileID: 5335438124953837130}
 --- !u!1 &6129463836996455331
 GameObject:
   m_ObjectHideFlags: 0
@@ -29438,9 +29466,39 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1699184277994438631}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &5335438124953837130 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6746391889332298157, guid: de395063fad1be844855f0620fdb53dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699184277994438631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7381637909541216584 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8206807053349133999, guid: de395063fad1be844855f0620fdb53dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699184277994438631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7475446020949548157 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8082458940992349082, guid: de395063fad1be844855f0620fdb53dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699184277994438631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8354355222045871697 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7233932012135920054, guid: de395063fad1be844855f0620fdb53dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699184277994438631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8690083445484070864 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8002289346052741175, guid: de395063fad1be844855f0620fdb53dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699184277994438631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9205639197715844574 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7518116408816480825, guid: de395063fad1be844855f0620fdb53dd,
     type: 3}
   m_PrefabInstance: {fileID: 1699184277994438631}
   m_PrefabAsset: {fileID: 0}

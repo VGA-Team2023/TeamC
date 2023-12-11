@@ -1,8 +1,4 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +19,7 @@ public class GameManager : MonoBehaviour
     public SlowManager SlowManager => _slowManager;
     public PauseManager PauseManager => _pauseManager;
     public TimeManager TimeManager => _timeManager;
+    public ScoreManager ScoreManager => _scoreManager;
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
@@ -49,21 +46,38 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        //何もなかったら
         if (_instance == null)
         {
             _instance = this;
             _timeManager.Start();
+            ChangeBGMState(_instance._currentGameState);
+            DontDestroyOnLoad(this);
+            Debug.Log("あ");
+        }
+        //先に読み取りが発生した時
+        else if(_instance == this)
+        {
+            _timeManager.Start();
+            ChangeBGMState(_instance._currentGameState);
             DontDestroyOnLoad(this);
         }
-        else if (_instance != null && _instance != this)
+        //すでにある場合
+        else if (_instance != null)
         {
-            _instance.ChangeGameState(this._currentGameState);
+            if (_instance._currentGameState != this._currentGameState)
+            {
+                _instance.ChangeGameState(this._currentGameState);
+                _instance.ChangeBGMState(this._currentGameState);
+            }
             //二回目以降のゲームシーンに遷移したら
             if (_currentGameState == GameState.Game)
             {
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
+                _instance._scoreManager.ScoreReset();
             }
+            Debug.Log("あ");
             Destroy(this);
         }
     }
@@ -85,7 +99,7 @@ public class GameManager : MonoBehaviour
     /// <summary>リザルトシーン遷移処理</summary>
     public void ResultProcess()
     {
-        _clearTime = _timeManager.MinutesSecondsCast();
+        _scoreManager.ClearTime = _timeManager.MinutesSecondsCast();
         SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
         sceneControlle?.SceneChange();
     }
@@ -102,6 +116,24 @@ public class GameManager : MonoBehaviour
     public void ChangeGameState(GameState changeGameState)
     {
         _currentGameState = changeGameState;
+    }
+
+    /// <summary>現在のゲームの状態に対してBGMを変える処理</summary>
+    /// <param name="state"></param>
+    public void ChangeBGMState(GameState state)
+    {
+        if (state == GameState.Break) { return; }
+        switch (state)
+        {
+            case GameState.Title:
+                AudioController.Instance.BGM.Play(BGMState.Title); break;
+            case GameState.Tutorial:
+                AudioController.Instance.BGM.Play(BGMState.Tutorial); break;
+            case GameState.Game:
+                AudioController.Instance.BGM.Play(BGMState.Battle); break;
+            case GameState.Result:
+                AudioController.Instance.BGM.Play(BGMState.Result); break;
+        }
     }
 }
 /// <summary>全体のゲームの状態を管理するenum</summary>
