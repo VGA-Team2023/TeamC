@@ -3,7 +3,12 @@ guid: 687cbbfbcee880143b66383d104e557b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BgTX_Lantern
+    second: {fileID: 2100000, guid: 35d747a7edcfb7e42b97e0d0a1e23691, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

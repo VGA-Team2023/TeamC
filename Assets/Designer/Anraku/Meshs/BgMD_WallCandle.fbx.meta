@@ -3,7 +3,12 @@ guid: aca6462b1be1d7a4283271eaf0ce7510
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BgTx_WallCandle
+    second: {fileID: 2100000, guid: 12d29857a12f4d244ba647c8244df62f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
