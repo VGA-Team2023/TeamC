@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using CriWare;
-using UniRx;
 using System;
 
 /// <summary>CueNameのデータと音をの再生する機能を保持・管理するクラス</summary>
