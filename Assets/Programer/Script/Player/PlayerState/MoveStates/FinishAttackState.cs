@@ -44,6 +44,9 @@ public class FinishAttackState : PlayerStateBase
 
     public override void Update()
     {
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
+
         if (!_stateMachine.PlayerController.FinishingAttack.DoFinishing() || _stateMachine.PlayerController.FinishingAttack.IsEndFinishAnim)
         {
             //魔法陣を出す

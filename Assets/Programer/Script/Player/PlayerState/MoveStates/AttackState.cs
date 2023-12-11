@@ -70,7 +70,11 @@ public class AttackState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
+        //魔法を射出
         _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.UseMagics();
+
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
 
         _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.CountCoolTime();
 

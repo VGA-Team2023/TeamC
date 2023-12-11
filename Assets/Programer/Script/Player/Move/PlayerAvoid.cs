@@ -10,6 +10,9 @@ public class PlayerAvoid
     [Header("@回避時間")]
     [SerializeField] private float _avoidTime = 0.5f;
 
+    [Header("回避のクールタイム")]
+    [SerializeField] private float _coolTime = 1;
+
     [Header("回避中のプレイヤーのマテリアル")]
     [SerializeField] private Material _avoidMaterial;
 
@@ -63,10 +66,16 @@ public class PlayerAvoid
 
     private bool _isEndAnimation = false;
 
+    /// <summary>クールタイム計測用 </summary>
+    private float _countCoolTime = 0;
+
+    /// <summary>クールタイムを終えたかどうか</summary>
+    private bool _isCoolTime = true;
 
 
     private PlayerControl _playerControl;
 
+    public bool IsCanAvoid => _isCoolTime;
     public bool isAvoid => _isAvoid;
     public bool IsEndAvoid => _isEndAvoid;
     public bool IsStartAvoid => _isStartAvoid;
@@ -76,6 +85,19 @@ public class PlayerAvoid
     {
         _playerControl = playerControl;
         _avoidMove.Init(playerControl);
+    }
+
+    public void CountCoolTime()
+    {
+        if (_isCoolTime) return;
+
+        _countCoolTime += Time.deltaTime;
+
+        if(_countCoolTime>_coolTime)
+        {
+            _countCoolTime = 0;
+            _isCoolTime= true;
+        }
     }
 
     public void SetAvoidDir()
@@ -100,7 +122,7 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
-        if(_startAttribute == PlayerAttribute.Ice)
+        if (_startAttribute == PlayerAttribute.Ice)
         {
             _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
         }
