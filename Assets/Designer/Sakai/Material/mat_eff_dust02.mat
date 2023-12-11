@@ -7,25 +7,26 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_eff_dust01
+  m_Name: mat_eff_dust02
   m_Shader: {fileID: 4800000, guid: 1bc5c6a70411243779ce486a98012125, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_2D
   - _BASE_MAP_MODE_2D
-  - _EMISSION_AREA_ALL
-  - _EMISSION_COLOR_BASECOLOR
+  - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _FADE_TRANSITION_ENABLED
   - _PARALLAX_MAP_MODE_2D
+  - _TINT_AREA_ALL
   - _TINT_COLOR_ENABLED
+  - _TRANSPARENCY_BY_LUMINANCE
   m_InvalidKeywords:
   - BLENDMODE_TRANSPARENTADD
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 3040
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses: []
@@ -34,7 +35,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTransitionMap:
-        m_Texture: {fileID: 2800000, guid: faa6c86f83004024ba275f61f26af934, type: 3}
+        m_Texture: {fileID: 2800000, guid: 959ed56fae613134abd6197e029e427d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
@@ -46,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ed3a72d908e0dcc44ac22da443789087, type: 3}
+        m_Texture: {fileID: 2800000, guid: 959ed56fae613134abd6197e029e427d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap2DArray:
@@ -127,30 +128,30 @@ Material:
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
     - _AlphaTransitionMode: 1
-    - _AlphaTransitionProgress: 0.4
+    - _AlphaTransitionProgress: 0.538
     - _AlphaTransitionProgressCoord: 0
     - _BaseMapMirrorSampling: 0
     - _BaseMapMode: 0
-    - _BaseMapOffsetXCoord: 0
-    - _BaseMapOffsetYCoord: 0
+    - _BaseMapOffsetXCoord: 21
+    - _BaseMapOffsetYCoord: 31
     - _BaseMapProgress: 0
     - _BaseMapProgressCoord: 0
     - _BaseMapRotation: 0
     - _BaseMapRotationCoord: 0
     - _BaseMapSliceCount: 4
-    - _BlendDst: 1
+    - _BlendDst: 10
     - _BlendMode: 2
     - _BlendRateFromZDistance: 1
     - _BlendRateHeightDistance: 1
     - _BlendRateHeightStartOffset: 0
     - _BlendRateRimInverse: 0
-    - _BlendRateRimSharpness: 0
+    - _BlendRateRimSharpness: 1
     - _BlendRateRimSharpnessCoord: 2
     - _BlendRateRimSharpnessSwizzle: 0
     - _BlendSrc: 5
     - _ColorCorrectionMode: 0
     - _ColorMagnification: 2
-    - _ColorMagnificationCoord: 1
+    - _ColorMagnificationCoord: 2
     - _ColorMagnificationSwizzle: 0
     - _ColorMask: 14
     - _Cull: 0
@@ -168,9 +169,9 @@ Material:
     - _DistUSwizzle: 0
     - _DistVCoord: 2
     - _DistVSwizzle: 0
-    - _EmissionAreaType: 1
-    - _EmissionColorType: 1
-    - _EmissionIntensity: 35
+    - _EmissionAreaType: 0
+    - _EmissionColorType: 0
+    - _EmissionIntensity: 2.5
     - _EmissionIntensityCoord: 0
     - _EmissionMapChannelsX: 0
     - _EmissionMapMode: 0
@@ -191,15 +192,15 @@ Material:
     - _InverseRimTransparency: 0
     - _InverseTintRim: 0
     - _KeepEdgeTransparency: 1
-    - _LuminanceTransparencyEnabled: 0
-    - _LuminanceTransparencyProgress: 0.5
+    - _LuminanceTransparencyEnabled: 1
+    - _LuminanceTransparencyProgress: 0.162
     - _LuminanceTransparencyProgressCoord: 0
-    - _LuminanceTransparencySharpness: 0.5
+    - _LuminanceTransparencySharpness: 1
     - _LuminanceTransparencySharpnessCoord: 0
-    - _MainUCoord: 2
-    - _MainUSwizzle: 0
-    - _MainVCoord: 2
-    - _MainVSwizzle: 0
+    - _MainUCoord: 0
+    - _MainUSwizzle: 2
+    - _MainVCoord: 0
+    - _MainVSwizzle: 3
     - _MaskPow: 0
     - _MaskPowCoord: 2
     - _MaskPowSwizzle: 0
@@ -216,7 +217,7 @@ Material:
     - _ParallaxMapSliceCount: 4
     - _ParallaxMapTarget: 1
     - _ParallaxStrength: 0.3
-    - _QueueOffset: 0
+    - _QueueOffset: 40
     - _ReflectionPower: 1
     - _ReflectionRoughness: 1
     - _RenderType: 2
@@ -227,7 +228,7 @@ Material:
     - _RimTransparencySharpnessCoord: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesIntensity: 1
-    - _TintAreaMode: 0
+    - _TintAreaMode: 1
     - _TintBlendRate: 1
     - _TintBlendRateCoord: 0
     - _TintColorMode: 0
@@ -238,7 +239,7 @@ Material:
     - _TintRimProgressCoord: 0
     - _TintRimSharpness: 0.5
     - _TintRimSharpnessCoord: 0
-    - _TransparentBlendMode: 1
+    - _TransparentBlendMode: 0
     - _UseBlendRateFromHeight: 0
     - _UseBlendRateFromRGB: 0
     - _UseBlendRateFromRim: 0
@@ -262,7 +263,7 @@ Material:
     m_Colors:
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 64, g: 64, b: 64, a: 1}
     - _StartColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 766.9961, g: 766.9961, b: 766.9961, a: 1}
   m_BuildTextureStacks: []
