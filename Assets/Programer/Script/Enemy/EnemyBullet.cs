@@ -22,11 +22,8 @@ public class EnemyBullet : MonoBehaviour
     {
         transform.forward = _shootForward;
         GetComponent<Rigidbody>().AddForce(_shootForward * _bulletSpeed, ForceMode.Impulse);
-    }
-
-    private void Update()
-    {
         AudioController.Instance.SE.Play3D(SEState.EnemyLongAttackTrail, transform.position);
+        Destroy(gameObject, 10f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,5 +34,10 @@ public class EnemyBullet : MonoBehaviour
             Instantiate(_hitEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    private void OnDisable()
+    {
+        AudioController.Instance.SE.Stop(SEState.EnemyLongAttackTrail);
     }
 }

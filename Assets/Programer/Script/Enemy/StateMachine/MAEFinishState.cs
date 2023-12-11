@@ -12,9 +12,13 @@ public class MAEFinishState : IStateMachine
 
     public void Enter()
     {
-        _enemy.StartFinishing();
+        if (_enemy.IsDemo)
+        {
+            _enemy.StartFinishing();
+        }
         //タイマーをリセットする
         _timer = 0;
+        _enemy.Audio(SEState.EnemyStan, MeleeAttackEnemy.CRIType.Play);
     }
 
     public void Exit()
@@ -24,7 +28,7 @@ public class MAEFinishState : IStateMachine
 
     public void Update()
     {
-        _enemy.Audio(SEState.EnemyStan);
+        //_enemy.Audio(SEState.EnemyStan);
         if (_enemy.IsDemo) return;
         //一定時間が経過したらとどめ可能な状態から通常状態に戻る
         _timer += Time.deltaTime;

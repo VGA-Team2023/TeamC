@@ -36,8 +36,13 @@ public class MAEAttackState : IStateMachine
     {
         if (_enemy.IsDemo)
         {
-            _enemy.Audio(SEState.EnemyCloseAttack);
-            _enemy.Animator.Play("Attack");
+            _timer += Time.deltaTime;
+            if (_timer > 1f)
+            {
+                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
+                _enemy.Animator.Play("Attack");
+                _timer = 0f;
+            }
         }
         else
         {
@@ -56,7 +61,7 @@ public class MAEAttackState : IStateMachine
                         player = getObject;
                     }
                 }
-                _enemy.Audio(SEState.EnemyCloseAttack);
+                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
                 //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
                 player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
