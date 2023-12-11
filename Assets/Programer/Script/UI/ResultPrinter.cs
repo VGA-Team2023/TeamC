@@ -47,7 +47,7 @@ public class ResultPrinter : MonoBehaviour
     /// <param name="onCompleteCallback">Tweenが終わったかどうかのコールバック</param>
     public void TweenNum(int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
     {
-        int startnum = 9;
+        int startnum = 99;
         DOTween.To(() => startnum, (n) => startnum = n, targetNum, _displayTime)
             .OnUpdate(() => tweenText.text = startnum.ToString("#,0"))
             .OnComplete(onCompleteCallback);
@@ -77,7 +77,7 @@ public class ResultPrinter : MonoBehaviour
     {
         int evaluationvalue = 0;
         int cleartimesecond = (GM.ScoreManager.ClearTime.Minutes) * 60 +
-            GM.ClearTime.Seconds;
+            GM.ScoreManager.ClearTime.Seconds;
         int enemyDefeatedNum = (GM.ScoreManager.EnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
 
