@@ -77,7 +77,7 @@ public class Attack2
             _playerControl.PlayerAudio.AttackCharge(true, false);
         }
 
-        AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Charge);
+      //  AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Charge);
 
         _isAttackNow = true;
         _isCanNextAttack = false;
@@ -120,8 +120,6 @@ public class Attack2
                 {
                     _playerControl.PlayerAudio.AttackCharge(false, false);
                 }
-
-                 AudioManager.Instance.PlayerSEStop();
 
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);

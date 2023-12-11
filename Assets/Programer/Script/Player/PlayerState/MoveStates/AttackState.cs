@@ -56,6 +56,8 @@ public class AttackState : PlayerStateBase
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
+
+        _stateMachine.PlayerController.CameraControl.AttackCamera.AvoidFov(_stateMachine.PlayerController.InputManager.HorizontalInput);
     }
 
     public override void LateUpdate()
@@ -68,7 +70,11 @@ public class AttackState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
+        //魔法を射出
         _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.UseMagics();
+
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
 
         _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.CountCoolTime();
 

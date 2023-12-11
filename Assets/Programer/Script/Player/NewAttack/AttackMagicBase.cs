@@ -18,13 +18,8 @@ public class AttackMagicBase
     [Header("飛ばす魔法の弾プレハブ")]
     [SerializeField] private GameObject _prefab;
 
-    [Header("連撃の実行時間")]
-    [SerializeField] private List<float> _attackContinueTimes = new List<float>();
-
     /// <summary>連撃の実行時間を計測</summary>
     private float _countAttackContinueTime = 0;
-
-    private float _countOneAttackTime = 0;
 
     private float _countCoolTime = 0;
 
@@ -211,6 +206,11 @@ public class AttackMagicBase
                 m.MagicCircle.SetActive(false);
                 m.UseMagicparticle.ForEach(i => i.Play());
 
+
+                AttackType attackType = AttackType.ShortChantingMagick;
+                if (_isChantingAllMagic) attackType = AttackType.LongChantingMagick; 
+
+
                 //魔法のプレハブを出す
                 var go = UnityEngine.GameObject.Instantiate(_prefab);
                 go.transform.position = m.MagicCircle.transform.position;
@@ -221,7 +221,7 @@ public class AttackMagicBase
                     {
                         go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
                         go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                        magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                     }
                 }
                 else
@@ -230,7 +230,7 @@ public class AttackMagicBase
                     {
                         go.transform.forward = _playerControl.PlayerT.forward;
                         go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                        magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                     }
                     else
                     {
@@ -238,13 +238,13 @@ public class AttackMagicBase
                         {
                             go.transform.forward = _playerControl.PlayerT.forward;
                             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                         }
                         else
                         {
                             go.transform.forward = _enemys[_useMagicCount % _enemys.Length].transform.position - go.transform.position;
                             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                            magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                         }
                     }
                 }
@@ -258,7 +258,7 @@ public class AttackMagicBase
                 {
                     _playerControl.PlayerAudio.Fire(1, false);
                 }
-                AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
+              //  AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
                 //AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Trail);
             }
             _isFireNow = false;

@@ -10,6 +10,9 @@ public class PlayerAvoid
     [Header("@回避時間")]
     [SerializeField] private float _avoidTime = 0.5f;
 
+    [Header("回避のクールタイム")]
+    [SerializeField] private float _coolTime = 1;
+
     [Header("回避中のプレイヤーのマテリアル")]
     [SerializeField] private Material _avoidMaterial;
 
@@ -55,15 +58,26 @@ public class PlayerAvoid
 
     private bool _isStartAvoid = false;
 
+    private bool _isAvoid = false;
+
     private float _countAvoidTime = 0;
 
     private bool _isEndAvoid = false;
 
     private bool _isEndAnimation = false;
 
+    /// <summary>クールタイム計測用 </summary>
+    private float _countCoolTime = 0;
+
+    /// <summary>クールタイムを終えたかどうか</summary>
+    private bool _isCoolTime = true;
+
+
     private PlayerControl _playerControl;
 
-
+    public bool IsCanAvoid => _isCoolTime;
+    public bool isAvoid => _isAvoid;
+    public bool IsEndAvoid => _isEndAvoid;
     public bool IsStartAvoid => _isStartAvoid;
     public bool IsEndAnim => _isEndAnimation;
 
@@ -71,6 +85,19 @@ public class PlayerAvoid
     {
         _playerControl = playerControl;
         _avoidMove.Init(playerControl);
+    }
+
+    public void CountCoolTime()
+    {
+        if (_isCoolTime) return;
+
+        _countCoolTime += Time.deltaTime;
+
+        if(_countCoolTime>_coolTime)
+        {
+            _countCoolTime = 0;
+            _isCoolTime= true;
+        }
     }
 
     public void SetAvoidDir()
@@ -95,10 +122,24 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
+        }
+
+        _isCoolTime = false;
+        _isAvoid = true;
         _isStartAvoid = false;
         _isEndAvoid = false;
         _isEndAnimation = false;
         _countAvoidTime = 0;
+
+        _playerControl.CameraControl.UseAvoidCamera();
+        _playerControl.CameraControl.SetUpCameraSetting.SetAvoidH(_playerControl.InputManager.HorizontalInput);
 
         if (_startAttribute == PlayerAttribute.Ice)
         {
@@ -155,6 +196,7 @@ public class PlayerAvoid
     public void EndAvoidAnim()
     {
         _isEndAnimation = true;
+        _isAvoid = false;
     }
 
 

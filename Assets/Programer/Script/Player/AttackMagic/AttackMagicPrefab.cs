@@ -21,11 +21,20 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
     /// <summary>魔法のタイプ</summary>
     private AttackType _attackType = AttackType.ShortChantingMagick;
 
+    private float _countLifeTime = 0;
+
     private Vector3 _moveDir;
 
     private Transform _enemy;
 
     private Vector3 _foward;
+
+    enum PlayMagicAudioType
+    {
+        Play,
+        Stop,
+        Updata,
+    }
 
     public void SetAttack(Transform enemy, Vector3 foward, AttackType attackType, float attackPower)
     {
@@ -46,12 +55,26 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         var r = Random.Range(1, 1.5f);
         _moveSpeed = r * _moveSpeed;
 
+
+
+        AudioSet(PlayMagicAudioType.Play);
         Destroy(gameObject, _lifeTime);
     }
 
+
+
     void Update()
     {
+        _countLifeTime += Time.deltaTime;
 
+        if (_countLifeTime > _lifeTime)
+        {
+            AudioSet(PlayMagicAudioType.Stop);
+            Destroy(gameObject);
+        }
+
+        //音源の更新
+        AudioSet(PlayMagicAudioType.Updata);
     }
 
     private void FixedUpdate()
@@ -68,6 +91,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         }
         if (Vector3.Distance(transform.position, _enemy.position) < 0.2f)
         {
+            AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
         }
     }
@@ -82,10 +106,57 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         _rb.velocity = _moveDir.normalized * _moveSpeed;
     }
 
+    /// <summary>音を流す</summary>
+    /// <param name="isPlay"></param>
+    private void AudioSet(PlayMagicAudioType audioType)
+    {
+        SEState state = default;
+
+        //属性に応じて鳴らす音を分ける
+        if (_magicType == MagickType.Ice)
+        {
+            if (_attackType == AttackType.ShortChantingMagick)
+            {
+                state = SEState.PlayerTrailIcePatternA;
+            }
+            else
+            {
+                state = SEState.PlayerTrailIcePatternB;
+            }
+        }
+        else
+        {
+            if (_attackType == AttackType.ShortChantingMagick)
+            {
+                state = SEState.PlayerTrailGrassPatternA;
+            }
+            else
+            {
+                state = SEState.PlayerTrailGrassPatternB;
+            }
+        }
+
+        //音の再生方法に応じて分ける
+        if (audioType == PlayMagicAudioType.Play)
+        {
+            AudioController.Instance.SE.Play3D(state,transform.position);
+        }
+        else if (audioType == PlayMagicAudioType.Stop)
+        {
+            AudioController.Instance.SE.Stop(state);
+        }
+        else if (audioType == PlayMagicAudioType.Updata)
+        {
+            AudioController.Instance.SE.Update3DPos(state,transform.position);
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
         damageble?.Damage(_attackType, _magicType, _attackPower);
+        AudioSet(PlayMagicAudioType.Stop);
         Destroy(gameObject);
     }
 
@@ -99,6 +170,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
     private void OnDisable()
     {
         GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
         GameManager.Instance.SpecialMovingPauseManager.Resume(this);
     }
 

@@ -437,6 +437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2661439825986677711}
+  - component: {fileID: 2218592033873623718}
   m_Layer: 0
   m_Name: Doll
   m_TagString: Untagged
@@ -460,6 +461,19 @@ Transform:
   - {fileID: 6737885124873720766}
   m_Father: {fileID: 4417221846642397728}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2218592033873623718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289102124503991429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5718644f6dfb3044b68ccbcc789c79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playState: 24
 --- !u!1 &8627229199215729549
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +834,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd7b1bbdd02d5249842d13b771519f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTestAudio: 0
+  _isAudio: 1
+  _isDemo: 0
   _hp: 2
   _attack: 5
   _speed: 1
@@ -829,7 +844,9 @@ MonoBehaviour:
   _finishStopInterval: 5
   _defaultLayer: 7
   _finishLayer: 10
+  _deadLayer: 0
   _core: {fileID: 7589460673985063193}
+  _testPosition: {fileID: 0}
   _movePosition:
   - {fileID: 595101213906702086}
   - {fileID: 2555171476675348924}
@@ -848,9 +865,9 @@ MonoBehaviour:
     type: 3}
   _iceFinishEffect: {fileID: 8565715187832649081, guid: 5a07250db38b03345a5fccfaaa2735fb,
     type: 3}
-  _grassAttackEffect: {fileID: 923676356984606698, guid: 771fe16c33d2339429d3d2e8e9c62a06,
+  _grassAttackEffect: {fileID: 8718737715375223622, guid: 771fe16c33d2339429d3d2e8e9c62a06,
     type: 3}
-  _grassFinishEffect: {fileID: 5938374305415551975, guid: 844265fc9f2842241a7a746fcd7839f7,
+  _grassFinishEffect: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
     type: 3}
 --- !u!114 &2055263460055057829
 MonoBehaviour:
@@ -888,9 +905,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfb83e44c58ecb41831ad9d34a54db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testOn: 1
   _meleeEnemy: {fileID: 0}
   _longEnemy: {fileID: 0}
-  _testOn: 1
+  _magicType: 0
+  _hitType: 0
 --- !u!136 &3661154713530503397
 CapsuleCollider:
   m_ObjectHideFlags: 0

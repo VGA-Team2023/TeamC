@@ -18,6 +18,7 @@ public class MAEAttackState : IStateMachine
 
     public void Enter()
     {
+        if (_enemy.IsDemo) return;
         _isHit = false;
         //加速してプレイヤーに近づく
         _dir = (_player.transform.position - _enemy.transform.position).normalized;
@@ -33,51 +34,71 @@ public class MAEAttackState : IStateMachine
 
     public void Update()
     {
-        //プレイヤーに近づいたらランダムで攻撃を出す
-        float distance = Vector3.Distance(_enemy.transform.position, _player.transform.position);
-        if (distance < 2f && !_isHit)
-        {
-            PlayerControl player = null;
-            _enemy.Rb.velocity = Vector3.zero;
-            int random = Random.Range(0, 2);
-            Ray ray = new Ray(_enemy.transform.position, _enemy.transform.forward * 5f);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                if (_enemy.TryGet(out PlayerControl getObject, hit.collider.gameObject))
-                {
-                    player = getObject;
-                }
-            }
-            switch (random)
-            {
-                case 0:
-                    //タックル攻撃の後後ろにのけぞる
-                    _enemy.Rb.AddForce(-_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
-                    player.Rb.AddForce(_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
-                    player.Damage(_enemy.Attack);
-                    break;
-                case 1:
-                    _enemy.Animator.Play("Attack");
-                    //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
-                    player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
-                    player.Damage(_enemy.Attack);
-                    break;
-            }
-            _isHit = true;
-        }
-        if (_isHit)
+        if (_enemy.IsDemo)
         {
             _timer += Time.deltaTime;
-            if (_timer > 3f)
+            if (_timer > 1f)
             {
-                _timer = 0;
-                if (distance < _enemy.ChaseDistance)
+                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
+                _enemy.Animator.Play("Attack");
+                _timer = 0f;
+            }
+        }
+        else
+        {
+            //プレイヤーに近づいたらランダムで攻撃を出す
+            float distance = Vector3.Distance(_enemy.transform.position, _player.transform.position);
+            if (distance < 2f && !_isHit)
+            {
+                PlayerControl player = null;
+                _enemy.Rb.velocity = Vector3.zero;
+                int random = Random.Range(0, 2);
+                Ray ray = new Ray(_enemy.transform.position, _enemy.transform.forward * 5f);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    _enemy.StateChange(EnemyBase.MoveState.Chase);
+                    if (_enemy.TryGet(out PlayerControl getObject, hit.collider.gameObject))
+                    {
+                        player = getObject;
+                    }
                 }
-                else
+                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
+                _enemy.Animator.Play("Attack");
+                //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
+                player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
+                player.Damage(_enemy.Attack);
+                //switch (random)
+                //{
+                //    case 0:
+                //        //タックル攻撃の後後ろにのけぞる
+                //        _enemy.Audio(SEState.EnemyCloseAttack);
+                //        _enemy.Rb.AddForce(-_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
+                //        player.Rb.AddForce(_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
+                //        player.Damage(_enemy.Attack);
+                //        break;
+                //    case 1:
+                //        _enemy.Audio(SEState.EnemyCloseAttack);
+                //        _enemy.Animator.Play("Attack");
+                //        //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
+                //        player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
+                //        player.Damage(_enemy.Attack);
+                //        break;
+                //}
+                _isHit = true;
+            }
+            if (_isHit)
+            {
+                _timer += Time.deltaTime;
+                if (_timer > 3f)
                 {
-                    _enemy.StateChange(EnemyBase.MoveState.FreeMove);
+                    _timer = 0;
+                    if (distance < _enemy.ChaseDistance)
+                    {
+                        _enemy.StateChange(EnemyBase.MoveState.Chase);
+                    }
+                    else
+                    {
+                        _enemy.StateChange(EnemyBase.MoveState.FreeMove);
+                    }
                 }
             }
         }
