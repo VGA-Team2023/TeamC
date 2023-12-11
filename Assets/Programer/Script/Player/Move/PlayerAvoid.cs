@@ -131,6 +131,7 @@ public class PlayerAvoid
             _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
         }
 
+        _isCoolTime = false;
         _isAvoid = true;
         _isStartAvoid = false;
         _isEndAvoid = false;
