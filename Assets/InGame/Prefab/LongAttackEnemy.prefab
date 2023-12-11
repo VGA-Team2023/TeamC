@@ -846,6 +846,7 @@ MonoBehaviour:
   _finishLayer: 10
   _deadLayer: 0
   _core: {fileID: 7589460673985063193}
+  _testPosition: {fileID: 0}
   _movePosition:
   - {fileID: 595101213906702086}
   - {fileID: 2555171476675348924}
@@ -904,9 +905,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfb83e44c58ecb41831ad9d34a54db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testOn: 1
   _meleeEnemy: {fileID: 0}
   _longEnemy: {fileID: 0}
-  _testOn: 1
+  _magicType: 0
+  _hitType: 0
 --- !u!136 &3661154713530503397
 CapsuleCollider:
   m_ObjectHideFlags: 0
