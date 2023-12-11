@@ -17,6 +17,8 @@ public class TutorialManager : MonoBehaviour
     [Header("チュートリアルの文章")]
     [SerializeField] private TutorialFirstTalkData _tutorialFirstTalkData;
 
+    protected InputManager _inputManager;
+
     private int _tutorialCount = 0;
 
     /// <summary>チュートリアルを受けえるかどうか</summary>
@@ -26,6 +28,8 @@ public class TutorialManager : MonoBehaviour
 
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
+
+    public TutorialMissions TutorialMissions => _tutorialMissions;
 
     public enum TutorialSituation
     {
@@ -51,8 +55,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.None;
-        _tutorialMissions.Init(this);
+        _inputManager = GameObject.FindObjectOfType<InputManager>();
+        _tutorialMissions.Init(this, _inputManager);
 
         //チュートリアル開始前の会話を設定
         _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
@@ -176,7 +180,6 @@ public class TutorialManager : MonoBehaviour
                 SetFirstTalk();
                 if (_tutorialCount == _tutorialOrder.Count)
                 {
-                    Debug.Log("ｔｔｔ");
                     _isEndTutorial = true;
                 }
                 return;
@@ -219,11 +222,14 @@ public class TutorialManager : MonoBehaviour
 
     public void SetTryMove()
     {
+        //実行する、状態
+        _tutorialSituation = TutorialSituation.TryMove;
+
         //ミッションの初期設定をする
         _tutorialMissions.CurrentTutorial.Enter();
 
-        //実行する、状態
-        _tutorialSituation = TutorialSituation.TryMove;
+        //会話のパネルを非表示
+        _tutorialUI.TalkPanelSetActive(false);
     }
 
     public void SetEndTalk()
@@ -243,6 +249,30 @@ public class TutorialManager : MonoBehaviour
 
 public enum TutorialNum
 {
+    /// <summary>移動のチュートリアル </summary>
     Walk,
+
+    /// <summary>カメラの操作 </summary>
     Look,
+
+    /// <summary>攻撃</summary>
+    Attack,
+
+    /// <summary>トドメ </summary>
+    FinishAttack,
+
+    /// <summary>回避 </summary>
+    Avoid,
+
+    /// <summary>属性変更 </summary>
+    ChangeAttribute,
+
+    /// <summary>ロックオン </summary>
+    LockOn,
+
+    /// <summary>ロックオンをして、ロックオンの敵を変える</summary>
+    LockOnChangeEnemy,
+
+    /// <summary>オプションを開く</summary>
+    Opption,
 }

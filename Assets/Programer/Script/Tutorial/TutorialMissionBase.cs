@@ -11,15 +11,17 @@ public abstract class TutorialMissionBase
 
     [Header("à–¾ƒf[ƒ^")]
     [SerializeField] protected TutorialTalkData _talkData;
+    protected InputManager _inputManager;
+
     public TutorialTalkData TalkData =>_talkData;
-
     public TutorialNum TutorialNum => _tutorialNum;
-
+    protected InputManager InputManager => _inputManager;
     [NonSerialized]
     protected TutorialManager _tutorialManager;
 
-    public TutorialMissionBase Init(TutorialManager tutorialManager)
+    public TutorialMissionBase Init(TutorialManager tutorialManager,InputManager inputManager)
     {
+        _inputManager= inputManager;
         _tutorialManager = tutorialManager;
         return this;
     }
