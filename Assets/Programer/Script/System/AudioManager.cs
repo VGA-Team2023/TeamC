@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     /// <summary>シングルトン化</summary>
-    public static AudioManager _instance;
+    static AudioManager _instance;
     [Header("設定")]
     [SerializeField, Tooltip("BGMのボリューム"), Range(0, 1)] float _bgmVolume;
     [SerializeField, Tooltip("SEのボリューム"), Range(0, 1)] float _seVolume;
@@ -62,8 +62,14 @@ public class AudioManager : MonoBehaviour
             BGMPlay(this._sceneBGMState);
             DontDestroyOnLoad(this);
         }
-
-        if(_instance != this)
+        else if(_instance == this)
+        {
+            PlayerAttributeSet();
+            //BGM再生
+            BGMPlay(this._sceneBGMState);
+            DontDestroyOnLoad(this);
+        }
+        else if(_instance != null)
         {
             PlayerAttributeSet();
             //シーン遷移した後のBGM切り替え
@@ -106,6 +112,7 @@ public class AudioManager : MonoBehaviour
         {
             _playerSeSource = transform.GetChild(2).GetComponent<CriAtomSource>();
         }
+
         _playerSeSource.Stop();
     }
     /// <summary>EnemyのActionのSEを再生するもの</summary>

@@ -15,12 +15,6 @@ public class FinishingAttack
     [Header("---UIの設定---")]
     [SerializeField] private FinishingAttackUI _finishingAttackUI;
 
-    [Header("ための音")]
-    [SerializeField] private AudioSource _audioSource;
-
-    [Header("壊した音")]
-    [SerializeField] private AudioSource _audioSourceBrake;
-
     [Header("レイヤー")]
     [SerializeField] private LayerMask _targetLayer;
 
@@ -36,6 +30,8 @@ public class FinishingAttack
     private float _setFinishTime = 0;
 
     private float _countFinishTime = 0;
+
+    private PlayerAttribute _startAttribute = PlayerAttribute.Ice;
 
     private PlayerControl _playerControl;
 
@@ -57,10 +53,50 @@ public class FinishingAttack
     }
 
 
+    public void Audio(bool isPlay)
+    {
+        if (isPlay)
+        {
+            if (_startAttribute == PlayerAttribute.Ice)
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Play);
+            }
+            else
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Play);
+            }
+        }
+        else
+        {
+            if (_startAttribute == PlayerAttribute.Ice)
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Stop);
+            }
+            else
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Stop);
+            }
+        }
+    }
+
+    public void AudioUpddate()
+    {
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Updata);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Updata);
+        }
+    }
 
     public void StartFinishingAttack()
     {
-        _audioSource.Play();
+        _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
+
+        //音の再生
+        Audio(true);
 
         _isEndFinishAnim = false;
 
@@ -102,6 +138,10 @@ public class FinishingAttack
         _playerControl.CameraControl.UseFinishCamera();
 
 
+        //移動視点
+        _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
+        //カメラを敵の方向に向ける
+        _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
 
         for (int i = 0; i < _nowFinishEnemy.Length; i++)
         {
@@ -112,14 +152,6 @@ public class FinishingAttack
                 //カメラを敵の方向に向ける
                 _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_playerControl.LockOn.NowLockOnEnemy.transform.position);
                 break;
-            }
-
-            if (i == _nowFinishEnemy.Length - 1)
-            {
-                //移動視点
-                _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
-                //カメラを敵の方向に向ける
-                _playerControl.CameraControl.FinishAttackCamera.SetCameraFOVStartFinish(_nowFinishEnemy[0].transform.position);
             }
         }
 
@@ -175,8 +207,8 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
-        _audioSource.Stop();
-        _audioSourceBrake.Play();
+        //チャージ音の再生
+        Audio(false);
 
         _isCompletedFinishTime = true;
 
@@ -218,7 +250,7 @@ public class FinishingAttack
         {
             e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
 
-            if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+            if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
             {
                 damgeble?.EndFinishing(MagickType.Ice);
             }
@@ -233,7 +265,10 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
-        _audioSource.Stop();
+        //チャージ音の再生
+        Audio(false);
+
+        _playerControl.FinishingAttack.FinishingAttackShort.FinishAttackNearMagic.Stop(_startAttribute);
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
@@ -298,13 +333,13 @@ public class FinishingAttack
 
         _finishingAttackUI.ShowCanFinishingUI(true);
 
-        Transform[] d = new Transform[enemys.Length];
+        //Transform[] d = new Transform[enemys.Length];
 
-        for (int i = 0; i < enemys.Length; i++)
-        {
-            d[i] = enemys[i].transform;
-        }
-        _finishingAttackUI.ShowUI(d);
+        //for (int i = 0; i < enemys.Length; i++)
+        //{
+        //    d[i] = enemys[i].transform;
+        //}
+        _finishingAttackUI.ShowUI(enemys);
     }
 
 

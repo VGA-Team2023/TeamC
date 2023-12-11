@@ -8,26 +8,23 @@ public class LoadingPanel : MonoBehaviour
     [SerializeField] GameObject _rotatateObj;
     [SerializeField] Text _tips;
     [SerializeField] string[] _tipsData;
-    public static LoadingPanel _instance = null;
     private int _leftInd = 0;
     private int _rightInd = 0;
     private int _totalRotate = 0;
+    private static LoadingPanel _instance = null;
+    public static LoadingPanel Instance
+    {
+        get { return _instance; }
+    }
     private void OnEnable()
     {
-        
-        if (FindObjectsOfType<LoadingPanel>().Length < 2)
-        {
-            if (_instance == null)
-            {
-                _instance = this;               
-            }
-        }
-        else
+        if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
+        _instance = this;
         DontDestroyOnLoad(this);
 
         _leftInd = Random.Range(0, _images.Length);
@@ -47,7 +44,7 @@ public class LoadingPanel : MonoBehaviour
     }
     private void Update()
     {
-        _totalRotate += 1;
+        _totalRotate = (_totalRotate + 1) % 360;
         _rotatateObj.transform.rotation = Quaternion.Euler(0, 0, _totalRotate);
     }
     public void PrintTips()

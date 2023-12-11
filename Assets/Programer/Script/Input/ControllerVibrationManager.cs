@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 
 public class ControllerVibrationManager : MonoBehaviour
 {
-    [Header("毎フレームどれくらい速度を上げるか")]
-    [SerializeField] private float _addSpeed = 0.01f;
 
     [Header("最大パワー")]
     [SerializeField] private float _maxPower = 0.3f;

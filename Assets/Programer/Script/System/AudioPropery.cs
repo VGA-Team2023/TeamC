@@ -56,18 +56,6 @@ public class ButtonPushSEProperty
 
 
 
-public enum BGMState
-{
-    /// <summary>タイトル</summary>
-    Title,
-    /// <summary>チュートリアル</summary>
-    Tutorial,
-    /// <summary>インゲーム</summary>
-    InGame,
-    /// <summary>リザルト</summary>
-    Result,
-}
-
 public enum PlayerAttackSEState
 {
     /// <summary>通常攻撃の弾発射時の音</summary>
