@@ -3,45 +3,107 @@ using UnityEngine;
 public class TestActionEnemy : MonoBehaviour
 {
     [SerializeField]
+    bool _testOn = false;
+
+    [SerializeField]
     MeleeAttackEnemy _meleeEnemy;
 
     [SerializeField]
     LongAttackEnemy _longEnemy;
-    [SerializeField]
-    bool _testOn = false;
 
-    private void Start()
+    [SerializeField]
+    MagickType _magicType;
+
+    [SerializeField]
+    HitType _hitType;
+
+    enum HitType
     {
-        TryGetComponent(out _meleeEnemy);
-        TryGetComponent(out _longEnemy);
+        Hit,
+        Finish,
     }
 
-    void Update()
+    public void TestAttack()
     {
-        if (_testOn)
+        if (!_testOn) return;
+        if(_meleeEnemy)
         {
-            if (_meleeEnemy)
+            if(_magicType == MagickType.Ice)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (_hitType == HitType.Hit)
                 {
                     _meleeEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Ice, 3f);
                 }
-                if (gameObject.layer == 10 && Input.GetMouseButtonDown(1))
+                else if(_hitType == HitType.Finish)
                 {
                     _meleeEnemy.EndFinishing(MagickType.Ice);
                 }
             }
-            if (_longEnemy)
+            else if(_magicType == MagickType.Grass)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (_hitType == HitType.Hit)
+                {
+                    _meleeEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Grass, 3f);
+                }
+                else if (_hitType == HitType.Finish)
+                {
+                    _meleeEnemy.EndFinishing(MagickType.Grass);
+                }
+            }
+        }
+        else if(_longEnemy)
+        {
+            if (_magicType == MagickType.Ice)
+            {
+                if (_hitType == HitType.Hit)
                 {
                     _longEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Ice, 3f);
                 }
-                if (gameObject.layer == 10 && Input.GetMouseButtonDown(1))
+                else if (_hitType == HitType.Finish)
                 {
                     _longEnemy.EndFinishing(MagickType.Ice);
                 }
             }
+            else if (_magicType == MagickType.Grass)
+            {
+                if (_hitType == HitType.Hit)
+                {
+                    _longEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Grass, 3f);
+                }
+                else if (_hitType == HitType.Finish)
+                {
+                    _longEnemy.EndFinishing(MagickType.Grass);
+                }
+            }
         }
     }
+
+    //void Update()
+    //{
+    //    if (_testOn)
+    //    {
+    //        if (_meleeEnemy)
+    //        {
+    //            if (Input.GetMouseButtonDown(0))
+    //            {
+    //                _meleeEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Ice, 3f);
+    //            }
+    //            if (gameObject.layer == 10 && Input.GetMouseButtonDown(1))
+    //            {
+    //                _meleeEnemy.EndFinishing(MagickType.Ice);
+    //            }
+    //        }
+    //        if (_longEnemy)
+    //        {
+    //            if (Input.GetMouseButtonDown(0))
+    //            {
+    //                _longEnemy.Damage(AttackType.ShortChantingMagick, MagickType.Ice, 3f);
+    //            }
+    //            if (gameObject.layer == 10 && Input.GetMouseButtonDown(1))
+    //            {
+    //                _longEnemy.EndFinishing(MagickType.Ice);
+    //            }
+    //        }
+    //    }
+    //}
 }

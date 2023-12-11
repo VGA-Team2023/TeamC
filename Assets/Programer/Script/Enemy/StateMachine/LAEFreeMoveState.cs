@@ -29,6 +29,7 @@ public class LAEFreeMoveState : IStateMachine
 
     public void Update()
     {
+        if (_enemy.IsDemo) return;
         //敵がサーチ範囲に入ったら攻撃を始める(遠距離攻撃)
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
         if(playerDistance < _enemy.SearchRange)
