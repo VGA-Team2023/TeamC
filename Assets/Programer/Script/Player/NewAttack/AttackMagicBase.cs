@@ -211,6 +211,11 @@ public class AttackMagicBase
                 m.MagicCircle.SetActive(false);
                 m.UseMagicparticle.ForEach(i => i.Play());
 
+
+                AttackType attackType = AttackType.ShortChantingMagick;
+                if (_isChantingAllMagic) attackType = AttackType.LongChantingMagick; 
+
+
                 //魔法のプレハブを出す
                 var go = UnityEngine.GameObject.Instantiate(_prefab);
                 go.transform.position = m.MagicCircle.transform.position;
@@ -221,7 +226,7 @@ public class AttackMagicBase
                     {
                         go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
                         go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                        magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                     }
                 }
                 else
@@ -230,7 +235,7 @@ public class AttackMagicBase
                     {
                         go.transform.forward = _playerControl.PlayerT.forward;
                         go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                        magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                     }
                     else
                     {
@@ -238,13 +243,13 @@ public class AttackMagicBase
                         {
                             go.transform.forward = _playerControl.PlayerT.forward;
                             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(null, _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                         }
                         else
                         {
                             go.transform.forward = _enemys[_useMagicCount % _enemys.Length].transform.position - go.transform.position;
                             go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, AttackType.ShortChantingMagick, _powerShortChanting);
+                            magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                         }
                     }
                 }

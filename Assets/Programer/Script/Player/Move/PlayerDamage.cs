@@ -100,11 +100,12 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.IsDamage(true);
         }
 
-        foreach(var e in _damageEffects)
+        foreach (var e in _damageEffects)
         {
             e.Play();
         }   //エフェクトを再生
 
+        _playerControl.PlayerAudio.AudioSet(SEState.PlayerLongAttackEnemyDamage, PlayerAudio.PlayMagicAudioType.Play);
     }
 
 

@@ -100,6 +100,15 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        if(_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
+        }
+
         _isAvoid = true;
         _isStartAvoid = false;
         _isEndAvoid = false;

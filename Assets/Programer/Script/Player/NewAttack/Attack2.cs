@@ -121,8 +121,6 @@ public class Attack2
                     _playerControl.PlayerAudio.AttackCharge(false, false);
                 }
 
-                // AudioManager.Instance.PlayerSEStop();
-
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);
                 _isAttackInput = true;

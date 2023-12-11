@@ -13272,6 +13272,11 @@ PrefabInstance:
       objectReference: {fileID: 610392543}
     - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
         type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
       propertyPath: _avoid._tueMaterialGrass.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -13285,6 +13290,46 @@ PrefabInstance:
       propertyPath: _playerChangeAttribute._playerIceIcon
       value: 
       objectReference: {fileID: 759943493}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[0]
+      value: 
+      objectReference: {fileID: 868725296}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[1]
+      value: 
+      objectReference: {fileID: 912208076}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[2]
+      value: 
+      objectReference: {fileID: 905402873}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[3]
+      value: 
+      objectReference: {fileID: 73012360}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[4]
+      value: 
+      objectReference: {fileID: 13679017}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[5]
+      value: 
+      objectReference: {fileID: 1212775512}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[6]
+      value: 
+      objectReference: {fileID: 433391932}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _avoid._endParticleGrass.Array.data[7]
+      value: 
+      objectReference: {fileID: 395473821}
     - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
         type: 3}
       propertyPath: _avoid._tueMaterialGrass.Array.data[0]
