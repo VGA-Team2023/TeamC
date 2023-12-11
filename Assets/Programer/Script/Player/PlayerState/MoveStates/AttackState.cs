@@ -56,6 +56,8 @@ public class AttackState : PlayerStateBase
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
+
+        _stateMachine.PlayerController.CameraControl.AttackCamera.AvoidFov(_stateMachine.PlayerController.InputManager.HorizontalInput);
     }
 
     public override void LateUpdate()

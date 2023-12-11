@@ -102,6 +102,8 @@ public class FinishAttackCamera
     /// <summary>トドメをさす際にカメラを敵に向ける。その実行</summary>
     public void DoFinishCameraSettingFirst()
     {
+        if (_cameraControl.FinishCamera.Priority != 11) return;
+
         if (_finishCamera.m_Lens.FieldOfView > _minFOV)
         {
             _finishCamera.m_Lens.FieldOfView -= Time.deltaTime * _changeFOVSpeed;

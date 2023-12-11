@@ -55,15 +55,20 @@ public class PlayerAvoid
 
     private bool _isStartAvoid = false;
 
+    private bool _isAvoid = false;
+
     private float _countAvoidTime = 0;
 
     private bool _isEndAvoid = false;
 
     private bool _isEndAnimation = false;
 
+
+
     private PlayerControl _playerControl;
 
-
+    public bool isAvoid => _isAvoid;
+    public bool IsEndAvoid => _isEndAvoid;
     public bool IsStartAvoid => _isStartAvoid;
     public bool IsEndAnim => _isEndAnimation;
 
@@ -95,10 +100,23 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        if(_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
+        }
+
+        _isAvoid = true;
         _isStartAvoid = false;
         _isEndAvoid = false;
         _isEndAnimation = false;
         _countAvoidTime = 0;
+
+        _playerControl.CameraControl.UseAvoidCamera();
+        _playerControl.CameraControl.SetUpCameraSetting.SetAvoidH(_playerControl.InputManager.HorizontalInput);
 
         if (_startAttribute == PlayerAttribute.Ice)
         {
@@ -155,6 +173,7 @@ public class PlayerAvoid
     public void EndAvoidAnim()
     {
         _isEndAnimation = true;
+        _isAvoid = false;
     }
 
 

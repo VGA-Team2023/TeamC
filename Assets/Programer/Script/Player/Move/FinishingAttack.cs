@@ -31,6 +31,8 @@ public class FinishingAttack
 
     private float _countFinishTime = 0;
 
+    private PlayerAttribute _startAttribute = PlayerAttribute.Ice;
+
     private PlayerControl _playerControl;
 
     private Collider[] _nowFinishEnemy;
@@ -51,10 +53,50 @@ public class FinishingAttack
     }
 
 
+    public void Audio(bool isPlay)
+    {
+        if (isPlay)
+        {
+            if (_startAttribute == PlayerAttribute.Ice)
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Play);
+            }
+            else
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Play);
+            }
+        }
+        else
+        {
+            if (_startAttribute == PlayerAttribute.Ice)
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Stop);
+            }
+            else
+            {
+                _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Stop);
+            }
+        }
+    }
+
+    public void AudioUpddate()
+    {
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeIce, PlayerAudio.PlayMagicAudioType.Updata);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.AudioSet(SEState.PlayerChargeGrass, PlayerAudio.PlayMagicAudioType.Updata);
+        }
+    }
 
     public void StartFinishingAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, true);
+        _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
+
+        //音の再生
+        Audio(true);
 
         _isEndFinishAnim = false;
 
@@ -165,8 +207,8 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, false);
-        _playerControl.PlayerAudio.Finish(_playerControl.PlayerAttributeControl.PlayerAttribute);
+        //チャージ音の再生
+        Audio(false);
 
         _isCompletedFinishTime = true;
 
@@ -223,7 +265,10 @@ public class FinishingAttack
 
     private void StopFinishingAttack()
     {
-        _playerControl.PlayerAudio.FinishCharge(_playerControl.PlayerAttributeControl.PlayerAttribute, false);
+        //チャージ音の再生
+        Audio(false);
+
+        _playerControl.FinishingAttack.FinishingAttackShort.FinishAttackNearMagic.Stop(_startAttribute);
 
         //スライダーUIを非表示にする
         _finishingAttackUI.UnSetFinishUI();
