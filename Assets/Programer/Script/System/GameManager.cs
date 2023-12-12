@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
             if (_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
                 ResultProcess();
+                Loading loading = FindObjectOfType<Loading>();
+                loading.LoadingScene();
             }
         }
     }
@@ -100,8 +102,6 @@ public class GameManager : MonoBehaviour
     public void ResultProcess()
     {
         _scoreManager.ClearTime = _timeManager.MinutesSecondsCast();
-        SceneControlle sceneControlle = FindObjectOfType<SceneControlle>();
-        sceneControlle?.SceneChange();
     }
 
     /// <summary>Playerの属性を変える処理を行うメソッド</summary>
