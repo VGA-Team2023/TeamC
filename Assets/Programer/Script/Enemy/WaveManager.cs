@@ -82,6 +82,7 @@ public class WaveManager : MonoBehaviour
     public void EnemyDestroy()
     {
         DestroyCount--;
+        GameManager.Instance.ScoreManager.EnemyDefeatedNum++;
     }
 }
 
