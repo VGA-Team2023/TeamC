@@ -204,6 +204,7 @@ public class CriAudioManager
 
         protected async void PlaybackDestroyWaitForPlayEnd(int index, CancellationToken cancellationToken)
         {
+            if(!_cueData.TryGetValue(index, out var data)) { return; }
             // ループしていたら抜ける
             if (_cueData[index].IsLoop) { return; }
 
@@ -221,6 +222,8 @@ public class CriAudioManager
 
             while (true)
             {
+                if(_player == null) { break; }
+                if (_player.GetStatus() == CriAtomExPlayer.Status.Error) { break; }
                 if (_cueData[index].Playback.GetStatus() == CriAtomExPlayback.Status.Removed && _cueData.TryRemove(index, out CriPlayerData outData))
                 {
                     _removedCueDataIndex.Add(index);
@@ -317,7 +320,7 @@ public class CriAudioManager
             var tempPlayerData = new CriPlayerData();
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
             tempPlayerData.CueInfo = tempInfo;
-
+            if (_player == null) { return -1; }
             if (_currentAcb == tempAcb && _currentCueName == cueName &&
                 _player.GetStatus() == CriAtomExPlayer.Status.Playing)
             {
@@ -346,7 +349,7 @@ public class CriAudioManager
             var tempPlayerData = new CriPlayerData();
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
             tempPlayerData.CueInfo = tempInfo;
-
+            if (_player == null) { return -1; }
             if (_currentAcb == tempAcb && _currentCueName == cueName &&
                 _player.GetStatus() == CriAtomExPlayer.Status.Playing)
             {
@@ -436,7 +439,8 @@ public class CriAudioManager
         public int Play(string cueSheetName, string cueName, float volume)
         {
             if (cueName == "") { return -1; }
-
+            if (_player == null) { return -1; }
+            if (_player.GetStatus() == CriAtomExPlayer.Status.Error) { return -1; }
             CriAtomEx.CueInfo cueInfo;
             CriPlayerData newAtomPlayer = new();
 
@@ -460,6 +464,8 @@ public class CriAudioManager
             tempAcb.GetCueInfo(cueName, out CriAtomEx.CueInfo tempInfo);
             tempPlayerData.CueInfo = tempInfo;
 
+            if (_player == null) { return -1; }
+            if(_player.GetStatus() == CriAtomExPlayer.Status.Error) { return -1; }
             // 座標情報をセットして再生
             var temp3dData = new CriAtomEx3dSource();
 
