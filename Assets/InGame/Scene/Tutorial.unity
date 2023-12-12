@@ -13226,7 +13226,7 @@ PrefabInstance:
     - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
       propertyPath: _currentGameState
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2176321692673286541, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
@@ -68270,7 +68270,7 @@ PrefabInstance:
     - target: {fileID: 6814965272330734689, guid: 2af41d60e89c8a0429bc6c712fabcdc2,
         type: 3}
       propertyPath: _nextSceneName
-      value: Result
+      value: GameScene
       objectReference: {fileID: 0}
     - target: {fileID: 7847430160337415321, guid: 2af41d60e89c8a0429bc6c712fabcdc2,
         type: 3}

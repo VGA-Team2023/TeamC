@@ -17,6 +17,8 @@ public class TutorialManager : MonoBehaviour
     [Header("チュートリアルの文章")]
     [SerializeField] private TutorialFirstTalkData _tutorialFirstTalkData;
 
+    [SerializeField] private Loading _loading;
+
     protected InputManager _inputManager;
 
     private int _tutorialCount = 0;
@@ -91,7 +93,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     //会話のパネルを非表示
                     _tutorialUI.TalkPanelSetActive(false);
-                    SceneManager.LoadScene("GameScene");
+                    _loading.LoadingScene();
                 }   //チュートリアルを受けない場合はSceneを推移
             }
         }
@@ -142,7 +144,7 @@ public class TutorialManager : MonoBehaviour
             {
                 //会話のパネルを非表示
                 _tutorialUI.TalkPanelSetActive(false);
-                SceneManager.LoadScene("GameScene");
+                _loading.LoadingScene();
             }   //読み終えたら、実行状況に以降
         }
 
