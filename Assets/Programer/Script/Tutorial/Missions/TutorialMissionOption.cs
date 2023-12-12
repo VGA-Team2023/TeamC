@@ -23,14 +23,14 @@ public class TutorialMissionOption : TutorialMissionBase
     {
         if (_inputManager.IsPause)
         {
-            if(_pausePanel.activeSelf)
-            {
-                _pausePanel.SetActive(false);
-            }
-            else
-            {
-                _pausePanel.SetActive(true);
-            }
+            //if(_pausePanel.activeSelf)
+            //{
+            //    _pausePanel.SetActive(false);
+            //}
+            //else
+            //{
+            //    _pausePanel.SetActive(true);
+            //}
         }
 
         if (_count == 0 && _pausePanel.activeSelf)

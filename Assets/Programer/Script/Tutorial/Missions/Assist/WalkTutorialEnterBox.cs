@@ -18,5 +18,4 @@ public class WalkTutorialEnterBox : MonoBehaviour
             _walk.End();
         }
     }
-
 }
