@@ -25,6 +25,7 @@ public class TutorialUI
 
     public void SetTalk(List<string> talk)
     {
+        Debug.Log("ƒZƒbƒg:"+talk[0]);
         _talk = talk;
         _count = 0;
         _isReadEnd = false;
@@ -37,7 +38,7 @@ public class TutorialUI
     {
         if (_isReadEnd) return false;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("ReadText"))
         {
             _count++;
 

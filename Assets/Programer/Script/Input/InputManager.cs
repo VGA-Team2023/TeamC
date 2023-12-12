@@ -58,30 +58,48 @@ public class InputManager : MonoBehaviour
 
     private bool _isTutorial = false;
 
+    private bool _isPause = false;
+
+    public bool IsPause => _isPause;
+
     public bool IsTutorial { get => _isTutorial; set => _isTutorial = value; }
 
-    private void Awake()
+    private TutorialInputControl _tutorialInputControl;
+    public void SetTutorial(TutorialInputControl tutorialInputControl)
+    {
+        _tutorialInputControl = tutorialInputControl;
+        _isTutorial = true;
+    }
+
+    private void Start()
     {
         if (_control.IsMousePlay)
         {
             _isKeybord = true;
-            Cursor.lockState = CursorLockMode.Locked;
+
         }
         else
         {
             _isKeybord = false;
         }
+        if (!_isTutorial)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
     }
 
     private void Update()
     {
+        _isPause = Input.GetButtonDown("Pause");
+
         if (!_isTutorial)
         {
             DefultInput();
         }
         else
         {
-
+            Tutorial();
         }
 
     }
@@ -163,7 +181,122 @@ public class InputManager : MonoBehaviour
 
     public void Tutorial()
     {
+        _horizontalInput = 0;
+        _verticalInput = 0;
+        _isAvoid = false;
+        _isChangeLockOnEnemy = 0;
 
+        if (!_tutorialInputControl.TutorialManager.IsCanInput)
+        {
+            return;
+        }
+
+        //移動入力
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Walk)
+        {
+            //横入力
+            _horizontalInput = Input.GetAxisRaw("Horizontal");
+            //縦入力
+            _verticalInput = Input.GetAxisRaw("Vertical");
+        }
+
+        //回避
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Avoid)
+        {
+            _isAvoid = Input.GetButtonDown("Avoid");
+        }
+
+        //属性変更
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.ChangeAttribute)
+        {
+            _isChangeAttribute = Input.GetButtonDown("ChangeType");
+        }
+
+        //とどめ
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.FinishAttack)
+        {
+            _isFinishAttack = Input.GetButton("FinishAttack");
+            _isFinishAttackDown = Input.GetButtonDown("FinishAttack");
+        }
+
+        //ロックオン
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.LockOn)
+        {
+            _isLockOn = Input.GetButtonDown("LockOn");
+        }
+
+        //ロックオン敵変更
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.LockOnChangeEnemy)
+        {
+            if (_control.IsMousePlay)
+            {
+                _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
+            }
+            else
+            {
+                _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
+            }
+        }
+
+
+        //攻撃
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Attack
+            || _tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.ChangeAttribute)
+        {
+            if (_control.IsNewAttack && !_isKeybord)
+            {
+                float v = Input.GetAxis("Trigger");
+                if (v > 0)
+                {
+                    _isAttacks = true;
+                }
+                else
+                {
+                    _isAttacks = false;
+                }
+
+
+                if (_saveTrigger <= 0 && v > 0)
+                {
+                    _isAttack = true;
+                }
+                else
+                {
+                    _isAttack = false;
+                }
+
+                if (_saveTrigger > 0 && v <= 0)
+                {
+                    _isAttackUp = true;
+                }
+                else
+                {
+                    _isAttackUp = false;
+                }
+
+                _saveTrigger = v;
+            }
+            else
+            {
+                _isAttack = Input.GetButtonDown("Attack");
+                _isAttackUp = Input.GetButtonUp("Attack");
+                _isAttacks = Input.GetButton("Attack");
+            }
+
+        }
+
+    }
+
+    public void EndAttack()
+    {
+        _isAttack = false;
+        _isAttacks = false;
+        _isAttackUp = true;
+    }
+
+    public void EndLockOn()
+    {
+        _isLockOn = true;
     }
 
 

@@ -29,7 +29,7 @@ public class PlayerChangeAttribute
 
     public void CheckChangeAttribute()
     {
-        if (Input.GetButtonDown("ChangeType"))
+        if (_playerControl.InputManager.IsChangeAttribute)
         {
             if (_playerAttribute == PlayerAttribute.Ice)
             {

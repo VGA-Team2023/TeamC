@@ -77,8 +77,6 @@ public class Attack2
             _playerControl.PlayerAudio.AttackCharge(true, false);
         }
 
-      //  AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Charge);
-
         _isAttackNow = true;
         _isCanNextAttack = false;
         _isAttackInput = false;
