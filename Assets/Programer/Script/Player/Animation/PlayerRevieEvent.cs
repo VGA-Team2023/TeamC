@@ -8,7 +8,7 @@ public class PlayerRevieEvent : MonoBehaviour
 
     public void Revive()
     {
-        GameManager.Instance.SpecialMovingPauseManager.PauseResume(true);
+        GameManager.Instance.SpecialMovingPauseManager.PauseResume(false);
         _playerControl.PlayerHp.ReVive();
     }
 

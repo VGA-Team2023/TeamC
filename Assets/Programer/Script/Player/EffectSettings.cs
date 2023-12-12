@@ -98,8 +98,8 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         {
             foreach (var effect2 in effect.Effects)
             {
-                var main = effect2.main;
-                main.simulationSpeed = slowSpeedRate;
+                Debug.Log(effect2.name);
+                effect2.playbackSpeed = slowSpeedRate;
             }
         }
     }

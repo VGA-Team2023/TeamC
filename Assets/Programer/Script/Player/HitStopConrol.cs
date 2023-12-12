@@ -52,6 +52,17 @@ public class HitStopConrol : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            foreach (var data in _hitStopData)
+            {
+                if (data.HitStopKind == hitStopKind)
+                {
+                    ResetHitStopTime(data.HitStopTime);
+                    GameManager.Instance.SlowManager.OnOffSlow(true);
+                }
+            }
+        }
     }
 
     private void EndHitStop()

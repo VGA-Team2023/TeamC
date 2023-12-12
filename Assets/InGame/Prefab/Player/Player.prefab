@@ -14126,7 +14126,7 @@ MonoBehaviour:
     _hitstopScale: 0.37
   - _name: "\u6B7B\u4EA1"
     _hitStopKind: 1
-    _hitStopTime: 1.5
+    _hitStopTime: 1
     _hitstopScale: 0.33
 --- !u!114 &5890295101749890199
 MonoBehaviour:
@@ -17195,7 +17195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c4bea0832391941b9c8cc6b59adeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMousePlay: 1
+  IsMousePlay: 0
   _hp:
     _hp: 4.4
     _uiHp:

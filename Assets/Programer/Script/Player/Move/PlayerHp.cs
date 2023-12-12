@@ -43,7 +43,6 @@ public class PlayerHp
 
     public void ReVive()
     {
-        GameManager.Instance.SpecialMovingPauseManager.PauseResume(false);
         _playerControl.PlayerAnimControl.IsDead(false);
 
         _isDead = false;
