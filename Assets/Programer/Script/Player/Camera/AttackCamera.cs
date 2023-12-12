@@ -38,7 +38,6 @@ public class AttackCamera
 
         if (h> 0)
         {     
-            Debug.Log("C:"+ _camera.m_Lens.Dutch +"D:"+ _rightDutch);
             if (_camera.m_Lens.Dutch != _rightDutch)
             {
                 _camera.m_Lens.Dutch += Time.deltaTime * _changeDutchSpeedAvoid;
