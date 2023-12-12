@@ -76,6 +76,13 @@ public abstract class EnemyBase : MonoBehaviour
     //enemyが破壊された時に呼ばれる関数
     public event Action OnEnemyFinish;
 
+    public enum CRIType
+    {
+        Play,
+        Stop,
+        Update,
+    }
+
     public void EnemyFinish()
     {
         OnEnemyFinish?.Invoke();

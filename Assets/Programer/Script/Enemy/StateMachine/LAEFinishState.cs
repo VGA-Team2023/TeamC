@@ -17,7 +17,7 @@ public class LAEFinishState : IStateMachine
         {
             _enemy.StartFinishing();
         }
-        _enemy.Audio(SEState.EnemyStan, LongAttackEnemy.CRIType.Play);
+        _enemy.Audio(SEState.EnemyStan, EnemyBase.CRIType.Play);
         _timer = 0;
     }
 
@@ -29,6 +29,7 @@ public class LAEFinishState : IStateMachine
 
     public void Update()
     {
+        _enemy.Audio(SEState.EnemyStan, EnemyBase.CRIType.Update);
         if (_enemy.IsDemo) return;
         _timer += Time.deltaTime;
         if (_timer > _enemy.FinishStopInterval)
