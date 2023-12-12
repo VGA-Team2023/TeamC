@@ -97,6 +97,7 @@ public class FinishingAttack
 
         //音の再生
         Audio(true);
+        _playerControl.PlayerAudio.PlayFinishVoice(true, true);
 
         _isEndFinishAnim = false;
 
@@ -209,6 +210,17 @@ public class FinishingAttack
     {
         //チャージ音の再生
         Audio(false);
+
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            _playerControl.PlayerAudio.PlayFinishVoice(false, true);
+        }
+        else
+        {
+            _playerControl.PlayerAudio.PlayFinishVoice(false, false);
+        }
+
+
 
         _isCompletedFinishTime = true;
 
