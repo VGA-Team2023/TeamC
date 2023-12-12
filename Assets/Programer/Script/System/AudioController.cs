@@ -9,6 +9,7 @@ public class AudioController : MonoBehaviour
     static AudioController _instance;
     CriAudioManager _criAudioManager;
     [Header("音量調整")]
+    [SerializeField, Tooltip("全体の音量"), Range(0, 1)] float _masterVolume = 1;
     [SerializeField, Tooltip("BGM"), Range(0,1)] float _bgmVolume = 1; 
     [SerializeField, Tooltip("SE"), Range(0, 1)] float _seVolume = 1; 
     [SerializeField, Tooltip("Voice"), Range(0, 1)] float _voiceVolume = 1;
@@ -29,6 +30,8 @@ public class AudioController : MonoBehaviour
     public float BgmVolume => _bgmVolume;
     public float VoiceVolume => _voiceVolume;
     public float SeVolume => _seVolume;
+
+    public float MasterVolume => _masterVolume;
     public static AudioController Instance
     {
         get
@@ -73,6 +76,7 @@ public class AudioController : MonoBehaviour
 
     public void Update()
     {
+        _criAudioManager.MasterVolume.Value = _masterVolume;
         _criAudioManager.BGM.Volume.Value = _bgmVolume;
         _criAudioManager.SE.Volume.Value = _seVolume;
         _criAudioManager.Voice.Volume.Value = _voiceVolume;
@@ -96,8 +100,8 @@ public class AudioController : MonoBehaviour
     {
         switch (type)
         {
-            //case VolumeChangeType.Master:
-            //    CriAudioManager.Instance.MasterVolume.Value = value; break;
+            case VolumeChangeType.Master:
+                _instance._masterVolume = value; break;
             case VolumeChangeType.BGM:
                 _instance._bgmVolume = value; break;
             case VolumeChangeType.SE:
@@ -110,7 +114,7 @@ public class AudioController : MonoBehaviour
 
 public enum VolumeChangeType
 {
-    //Master,
+    Master,
     BGM,
     SE,
     Voice,
