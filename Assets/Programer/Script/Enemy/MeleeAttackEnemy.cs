@@ -75,11 +75,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     MAEFinishState _finish;
     MAEChaseState _chase;
 
-    public enum CRIType
-    {
-        Play,
-        Stop,
-    }
+
 
     void Start()
     {

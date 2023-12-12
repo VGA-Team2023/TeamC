@@ -18,7 +18,7 @@ public class MAEFinishState : IStateMachine
         }
         //タイマーをリセットする
         _timer = 0;
-        _enemy.Audio(SEState.EnemyStan, MeleeAttackEnemy.CRIType.Play);
+        _enemy.Audio(SEState.EnemyStan, EnemyBase.CRIType.Play);
     }
 
     public void Exit()
@@ -28,7 +28,7 @@ public class MAEFinishState : IStateMachine
 
     public void Update()
     {
-        //_enemy.Audio(SEState.EnemyStan);
+        _enemy.Audio(SEState.EnemyStan, EnemyBase.CRIType.Update);
         if (_enemy.IsDemo) return;
         //一定時間が経過したらとどめ可能な状態から通常状態に戻る
         _timer += Time.deltaTime;
