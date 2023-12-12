@@ -2,16 +2,28 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_eff_dust03
+  m_Name: mat_eff_hit_syougeki02 1
   m_Shader: {fileID: 4800000, guid: 1bc5c6a70411243779ce486a98012125, type: 3}
-  m_ShaderKeywords: BLENDMODE_TRANSPARENTADD _ALPHA_TRANSITION_MAP_MODE_2D _BASE_MAP_MODE_2D
-    _EMISSION_AREA_ALL _EMISSION_COLOR_BASECOLOR _EMISSION_MAP_MODE_2D _FADE_TRANSITION_ENABLED
-    _TINT_COLOR_ENABLED
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHA_TRANSITION_MAP_MODE_2D
+  - _BASE_MAP_MODE_2D
+  - _EMISSION_COLOR_COLOR
+  - _EMISSION_MAP_MODE_2D
+  - _PARALLAX_MAP_MODE_2D
+  - _SOFT_PARTICLES_ENABLED
+  - _TINT_AREA_ALL
+  - _TINT_COLOR_ENABLED
+  - _TRANSPARENCY_BY_LUMINANCE
+  m_InvalidKeywords:
+  - BLENDMODE_ALPHABLEND
+  - BLEND_RATE_FROM_RGB
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -19,11 +31,12 @@ Material:
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTransitionMap:
-        m_Texture: {fileID: 2800000, guid: faa6c86f83004024ba275f61f26af934, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTransitionMap2DArray:
@@ -35,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: ed3a72d908e0dcc44ac22da443789087, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0dee1e1ee6b7c2f43b10d7db3b9c11ea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap2DArray:
@@ -43,6 +56,22 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap3D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -75,10 +104,30 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0b8c5eb58e234ab489235c99b8264b7a, type: 3}
+        m_Texture: {fileID: 2800000, guid: f27a9da57983f934b9f5c1302dcb02c2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap2DArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap3D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -90,6 +139,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _VertexDeformationMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AlphaTransitionMapChannelsX: 0
     - _AlphaTransitionMapMode: 0
@@ -98,8 +152,8 @@ Material:
     - _AlphaTransitionMapProgress: 0
     - _AlphaTransitionMapProgressCoord: 0
     - _AlphaTransitionMapSliceCount: 4
-    - _AlphaTransitionMode: 1
-    - _AlphaTransitionProgress: 0.4
+    - _AlphaTransitionMode: 0
+    - _AlphaTransitionProgress: 0
     - _AlphaTransitionProgressCoord: 0
     - _BaseMapMirrorSampling: 0
     - _BaseMapMode: 0
@@ -111,18 +165,20 @@ Material:
     - _BaseMapRotationCoord: 0
     - _BaseMapSliceCount: 4
     - _BlendDst: 1
-    - _BlendMode: 2
+    - _BlendMode: 3
     - _BlendRateFromZDistance: 1
+    - _BlendRateFromZPower: 1
     - _BlendRateHeightDistance: 1
     - _BlendRateHeightStartOffset: 0
     - _BlendRateRimInverse: 0
-    - _BlendRateRimSharpness: 0
+    - _BlendRateRimSharpness: 1
     - _BlendRateRimSharpnessCoord: 2
     - _BlendRateRimSharpnessSwizzle: 0
     - _BlendSrc: 5
+    - _BumpScale: 1
     - _ColorCorrectionMode: 0
-    - _ColorMagnification: 2
-    - _ColorMagnificationCoord: 1
+    - _ColorMagnification: 1
+    - _ColorMagnificationCoord: 2
     - _ColorMagnificationSwizzle: 0
     - _ColorMask: 14
     - _Cull: 0
@@ -132,6 +188,7 @@ Material:
     - _DepthFadeFar: 10
     - _DepthFadeNear: 1
     - _DepthFadeWidth: 1
+    - _DetailNormalMapScale: 1
     - _DissolveSharpness: 0.5
     - _DistPow: 0
     - _DistPowCoord: 2
@@ -140,9 +197,10 @@ Material:
     - _DistUSwizzle: 0
     - _DistVCoord: 2
     - _DistVSwizzle: 0
-    - _EmissionAreaType: 1
-    - _EmissionColorType: 1
-    - _EmissionIntensity: 35
+    - _DstBlend: 0
+    - _EmissionAreaType: 0
+    - _EmissionColorType: 0
+    - _EmissionIntensity: 1
     - _EmissionIntensityCoord: 0
     - _EmissionMapChannelsX: 0
     - _EmissionMapMode: 0
@@ -158,16 +216,20 @@ Material:
     - _FlowMapOffsetXCoord: 0
     - _FlowMapOffsetYCoord: 0
     - _FlowMapTarget: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
     - _HDRThresholdParticle: 0.9
     - _InverseLuminanceTransparency: 0
     - _InverseRimTransparency: 0
     - _InverseTintRim: 0
     - _KeepEdgeTransparency: 1
-    - _LuminanceTransparencyEnabled: 0
-    - _LuminanceTransparencyProgress: 0.5
+    - _LuminanceTransparencyEnabled: 1
+    - _LuminanceTransparencyProgress: 0.267
     - _LuminanceTransparencyProgressCoord: 0
-    - _LuminanceTransparencySharpness: 0.5
+    - _LuminanceTransparencySharpness: 0.243
     - _LuminanceTransparencySharpnessCoord: 0
+    - _MainLightPower: 1
     - _MainUCoord: 2
     - _MainUSwizzle: 0
     - _MainVCoord: 2
@@ -179,18 +241,38 @@ Material:
     - _MaskUSwizzle: 0
     - _MaskVCoord: 2
     - _MaskVSwizzle: 0
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _ParallaxMapChannel: 0
+    - _ParallaxMapMode: 0
+    - _ParallaxMapOffsetXCoord: 0
+    - _ParallaxMapOffsetYCoord: 0
+    - _ParallaxMapProgress: 0
+    - _ParallaxMapProgressCoord: 0
+    - _ParallaxMapSliceCount: 4
+    - _ParallaxMapTarget: 1
+    - _ParallaxStrength: 0.3
     - _QueueOffset: 0
     - _ReflectionPower: 1
     - _ReflectionRoughness: 1
     - _RenderType: 2
+    - _RimColorAdditionalMode: 0
+    - _RimColorInverse: 0
+    - _RimContrast: 1
+    - _RimSharpness: 1
     - _RimTransparencyEnabled: 0
     - _RimTransparencyProgress: 0.5
     - _RimTransparencyProgressCoord: 0
     - _RimTransparencySharpness: 0.5
     - _RimTransparencySharpnessCoord: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesIntensity: 1
-    - _TintAreaMode: 0
+    - _SmoothnessTextureChannel: 0
+    - _SoftParticlesEnabled: 1
+    - _SoftParticlesIntensity: 2.38
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _TintAreaMode: 1
     - _TintBlendRate: 1
     - _TintBlendRateCoord: 0
     - _TintColorMode: 0
@@ -202,23 +284,34 @@ Material:
     - _TintRimSharpness: 0.5
     - _TintRimSharpnessCoord: 0
     - _TransparentBlendMode: 1
+    - _UVSec: 0
     - _UseBlendRateFromHeight: 0
-    - _UseBlendRateFromRGB: 0
+    - _UseBlendRateFromRGB: 1
     - _UseBlendRateFromRim: 0
     - _UseBlendRateFromZ: 0
     - _UseDist: 0
     - _UseDitherTransparent: 0
+    - _UseMainLightColor: 0
     - _UseMask: 0
     - _UseReflection: 0
+    - _UseRimColor: 0
     - _UseZWrite: 0
     - _VertexAlphaMode: 0
+    - _VertexDeformationEnabled: 0
+    - _VertexDeformationIntensity: 0.1
+    - _VertexDeformationIntensityCoord: 0
+    - _VertexDeformationMapChannel: 0
+    - _VertexDeformationMapOffsetXCoord: 0
+    - _VertexDeformationMapOffsetYCoord: 0
     - _ZOffset: 0
     - _ZTest: 4
     - _ZWrite: 0
+    - _ZWriteOverride: -1
     m_Colors:
     - _BaseMapRotationOffsets: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _StartColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _StartColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TintColor: {r: 0.6482901, g: 1.577124, b: 4.4334683, a: 1}
   m_BuildTextureStacks: []

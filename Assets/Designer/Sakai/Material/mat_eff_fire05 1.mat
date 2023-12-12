@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _ALPHA_TRANSITION_MAP_MODE_3D
   - _BASE_MAP_MODE_3D
-  - _EMISSION_AREA_MAP
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_3D
   - _PARALLAX_MAP_MODE_2D
@@ -163,7 +162,7 @@ Material:
     - _BaseMapMode: 2
     - _BaseMapOffsetXCoord: 0
     - _BaseMapOffsetYCoord: 0
-    - _BaseMapProgress: 0.98
+    - _BaseMapProgress: 0
     - _BaseMapProgressCoord: 1
     - _BaseMapRotation: 0
     - _BaseMapRotationCoord: 0
@@ -206,7 +205,7 @@ Material:
     - _DistVCoord: 0
     - _DistVSwizzle: 1
     - _DstBlend: 0
-    - _EmissionAreaType: 2
+    - _EmissionAreaType: 0
     - _EmissionColorType: 0
     - _EmissionIntensity: 8
     - _EmissionIntensityCoord: 31
@@ -323,5 +322,5 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _StartColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TintColor: {r: 0.8862745, g: 0.015686281, b: 0.21428931, a: 1}
+    - _TintColor: {r: 0.4811321, g: 0.093049124, b: 0.12751235, a: 1}
   m_BuildTextureStacks: []
