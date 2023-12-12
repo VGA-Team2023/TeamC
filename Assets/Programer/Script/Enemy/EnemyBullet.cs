@@ -26,6 +26,11 @@ public class EnemyBullet : MonoBehaviour
         Destroy(gameObject, 10f);
     }
 
+    private void Update()
+    {
+        AudioController.Instance.SE.Update3DPos(SEState.EnemyLongAttackTrail, transform.position);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out PlayerControl player))
