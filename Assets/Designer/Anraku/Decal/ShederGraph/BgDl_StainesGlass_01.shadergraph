@@ -31,9 +31,6 @@
             "m_Id": "3f7baf8edb55450d9c2853754455a0d5"
         },
         {
-            "m_Id": "9aabc795d1164f669cd05bb492e3e26a"
-        },
-        {
             "m_Id": "6d15c73d1970435f9cbcb672e524b3d8"
         },
         {
@@ -223,9 +220,6 @@
             },
             {
                 "m_Id": "3f7baf8edb55450d9c2853754455a0d5"
-            },
-            {
-                "m_Id": "9aabc795d1164f669cd05bb492e3e26a"
             },
             {
                 "m_Id": "6d15c73d1970435f9cbcb672e524b3d8"
@@ -1204,40 +1198,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "9aabc795d1164f669cd05bb492e3e26a",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.NormalAlpha",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "d9867f50899f4f6ca4198922b407da8c"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.NormalAlpha"
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "a2f377aeb854448b9976c7c881aaa6b9",
     "m_Id": 4,
@@ -1591,21 +1551,6 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "d9867f50899f4f6ca4198922b407da8c",
-    "m_Id": 0,
-    "m_DisplayName": "Normal Alpha",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "NormalAlpha",
-    "m_StageCapability": 2,
-    "m_Value": 1.0,
-    "m_DefaultValue": 1.0,
-    "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "e06466b9ac7b49edb1b76e8bac828a6f",
     "m_Id": 4,
     "m_DisplayName": "R",
@@ -1757,7 +1702,7 @@
     "m_ObjectId": "f7f74332766b45f28fb126cff11f8aac",
     "m_DecalData": {
         "affectsAlbedo": true,
-        "affectsNormalBlend": true,
+        "affectsNormalBlend": false,
         "affectsNormal": true,
         "affectsMAOS": true,
         "affectsEmission": true,
