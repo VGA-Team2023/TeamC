@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 38832762}
   - component: {fileID: 38832761}
   - component: {fileID: 38832764}
+  - component: {fileID: 38832765}
   m_Layer: 5
   m_Name: Button (Legacy) (1)
   m_TagString: Untagged
@@ -273,6 +274,19 @@ MonoBehaviour:
   _button: {fileID: 38832761}
   _eventSystem: {fileID: 319237514}
   _target: {fileID: 2117676545}
+--- !u!114 &38832765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38832759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12739a0c7291a7349812391593db38e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _applySESound: 0
 --- !u!1 &172717570
 GameObject:
   m_ObjectHideFlags: 0
