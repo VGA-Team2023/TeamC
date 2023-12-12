@@ -33178,7 +33178,7 @@ PrefabInstance:
     - target: {fileID: 1541227042204146956, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3797113380456583658, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
@@ -33186,6 +33186,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
         type: 3}
+    - target: {fileID: 4281204375901134732, guid: 096e9e69ec7e30c489aaac80c42f32f7,
+        type: 3}
+      propertyPath: _hpControl._waveHp.Array.data[1]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281204375901134732, guid: 096e9e69ec7e30c489aaac80c42f32f7,
+        type: 3}
+      propertyPath: _hpControl._waveHp.Array.data[2]
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5336294966296445662, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
       propertyPath: _grassFinishEffect
