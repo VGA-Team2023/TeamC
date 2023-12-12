@@ -76,12 +76,17 @@ public class InputManager : MonoBehaviour
         if (_control.IsMousePlay)
         {
             _isKeybord = true;
-            // Cursor.lockState = CursorLockMode.Locked;
+
         }
         else
         {
             _isKeybord = false;
         }
+        if (!_isTutorial)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
     }
 
     private void Update()

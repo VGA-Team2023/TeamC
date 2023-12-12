@@ -84,7 +84,7 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Virtual Camera
+  - m_From: CM_FinidhCutInCamera
     m_To: CM_FinishAttack
     m_Blend:
       m_Style: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - m_From: CM_Defalt
-    m_To: Virtual Camera
+    m_To: CM_FinidhCutInCamera
     m_Blend:
       m_Style: 0
       m_Time: 0.26
@@ -106,7 +106,7 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: Virtual Camera
+  - m_From: CM_FinidhCutInCamera
     m_To: CM_Defalt
     m_Blend:
       m_Style: 1
