@@ -3,11 +3,12 @@ using CriWare;
 using System;
 
 /// <summary>CueNameのデータと音をの再生する機能を保持・管理するクラス</summary>
-public class AudioController : MonoBehaviour
+public class AudioController : MonoBehaviour,IPause,ISlow
 {
     /// <summary>シングルトン化</summary>
     static AudioController _instance;
     CriAudioManager _criAudioManager;
+    GameManager _gameManager;
     [Header("音量調整")]
     [SerializeField, Tooltip("全体の音量"), Range(0, 1)] float _masterVolume = 1;
     [SerializeField, Tooltip("BGM"), Range(0,1)] float _bgmVolume = 1; 
@@ -26,12 +27,6 @@ public class AudioController : MonoBehaviour
     public SEAudioControlle SE => _se;
     public BGMAudioControlle BGM => _bgm;
     public VoiceAudioControlle Voice => _voice;
-
-    public float BgmVolume => _bgmVolume;
-    public float VoiceVolume => _voiceVolume;
-    public float SeVolume => _seVolume;
-
-    public float MasterVolume => _masterVolume;
     public static AudioController Instance
     {
         get
@@ -50,6 +45,26 @@ public class AudioController : MonoBehaviour
             }
             return _instance;
         }
+    }
+
+    public void OnEnable()
+    {
+        _gameManager = GameManager.Instance;
+        _gameManager.PauseManager.Add(this);
+        _gameManager.SlowManager.Add(this);
+    }
+
+    private void Update()
+    {
+        _criAudioManager.MasterVolume.Value = _masterVolume;
+        _criAudioManager.BGM.Volume.Value = _bgmVolume;
+        _criAudioManager.SE.Volume.Value = _seVolume;
+        _criAudioManager.Voice.Volume.Value = _voiceVolume;
+    }
+    public void OnDisable()
+    {
+        _gameManager.PauseManager.Remove(this);
+        _gameManager.SlowManager.Remove(this);
     }
     private void Awake()
     {
@@ -73,14 +88,6 @@ public class AudioController : MonoBehaviour
             Destroy(this);
         }
     }
-
-    public void Update()
-    {
-        _criAudioManager.MasterVolume.Value = _masterVolume;
-        _criAudioManager.BGM.Volume.Value = _bgmVolume;
-        _criAudioManager.SE.Volume.Value = _seVolume;
-        _criAudioManager.Voice.Volume.Value = _voiceVolume;
-    }
     public void CueSheetNameSet()
     {
         _instance._bgm.CueSheetName = _cueSheetName;
@@ -96,7 +103,7 @@ public class AudioController : MonoBehaviour
         _instance._criAudioManager.Voice.SetListenerAll(_instance._listener);
     }
     
-    public void OnVolumeChange(float value, VolumeChangeType type)
+    public void SetVolume(float value, VolumeChangeType type)
     {
         switch (type)
         {
@@ -109,7 +116,50 @@ public class AudioController : MonoBehaviour
             case VolumeChangeType.Voice:
                 _instance._voiceVolume = value; break;
         }
-    }  
+    }
+    public float GetVolume(VolumeChangeType type)
+    {
+        float volume = 0;
+        switch (type)
+        {
+            case VolumeChangeType.Master:
+                return _instance._masterVolume;
+            case VolumeChangeType.BGM:
+                return _instance._bgmVolume;
+            case VolumeChangeType.SE:
+                return _instance._seVolume;
+            case VolumeChangeType.Voice:
+                return _instance._voiceVolume;
+        }
+        return volume;
+    }
+
+    public void Pause()
+    {
+        _bgm.PauseAll();
+        _se.PauseAll();
+        _voice.PauseAll();
+    }
+
+    public void Resume()
+    {
+        _bgm.ResumeAll();
+        _se.ResumeAll();
+        _voice.ResumeAll();
+
+    }
+
+    public void OnSlow(float slowSpeedRate)
+    {
+        _bgm.OnSlow(0.5f);
+        _se.OnSlow(0.5f);
+    }
+
+    public void OffSlow()
+    {
+        _bgm.OffSlow();
+        _se.OffSlow();
+    }
 }
 
 public enum VolumeChangeType
