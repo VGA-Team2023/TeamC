@@ -33,6 +33,7 @@ public class WaveManager : MonoBehaviour
                     _gameManager.ChangeGameState(GameState.Result);
                     //スコアの計算をここに記述
                     //シーン遷移のメソッドを呼ぶ
+                    _gameManager.ResultProcess();
                     Loading sceneControlle = FindObjectOfType<Loading>();
                     sceneControlle?.LoadingScene();
                 }
@@ -82,6 +83,7 @@ public class WaveManager : MonoBehaviour
     public void EnemyDestroy()
     {
         DestroyCount--;
+        GameManager.Instance.ScoreManager.EnemyDefeatedNum++;
     }
 }
 
