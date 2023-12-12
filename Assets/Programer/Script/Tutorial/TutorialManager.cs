@@ -17,6 +17,10 @@ public class TutorialManager : MonoBehaviour
     [Header("チュートリアルの文章")]
     [SerializeField] private TutorialFirstTalkData _tutorialFirstTalkData;
 
+    [SerializeField] private Loading _loading;
+
+    protected InputManager _inputManager;
+
     private int _tutorialCount = 0;
 
     /// <summary>チュートリアルを受けえるかどうか</summary>
@@ -24,8 +28,14 @@ public class TutorialManager : MonoBehaviour
 
     private bool _isEndTutorial = false;
 
+    private bool _isCanInput = false;
+    public bool IsCanInput => _isCanInput;
+
+    private bool _isPressCheckButtun = false;
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
+
+    public TutorialMissions TutorialMissions => _tutorialMissions;
 
     public enum TutorialSituation
     {
@@ -51,8 +61,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.None;
-        _tutorialMissions.Init(this);
+        _inputManager = GameObject.FindObjectOfType<InputManager>();
+        _tutorialMissions.Init(this, _inputManager);
 
         //チュートリアル開始前の会話を設定
         _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
@@ -70,7 +80,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (_tutorialSituation == TutorialSituation.TutorialReceve)
         {
-            //文章を読み終えたかどうか
+            //文章を読み終えたかど うか
             bool isReadEnd = _tutorialUI.Read();
 
             if (isReadEnd)
@@ -83,7 +93,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     //会話のパネルを非表示
                     _tutorialUI.TalkPanelSetActive(false);
-                    SceneManager.LoadScene("GameScene");
+                    _loading.LoadingScene();
                 }   //チュートリアルを受けない場合はSceneを推移
             }
         }
@@ -101,6 +111,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (_tutorialMissions.CurrentTutorial.Updata())
             {
+                _tutorialMissions.CurrentTutorial.Exit();
                 SetEndTalk();
             }
         }
@@ -133,9 +144,15 @@ public class TutorialManager : MonoBehaviour
             {
                 //会話のパネルを非表示
                 _tutorialUI.TalkPanelSetActive(false);
-                SceneManager.LoadScene("GameScene");
+                _loading.LoadingScene();
             }   //読み終えたら、実行状況に以降
         }
+
+    }
+
+    public void SetCanInput(bool canInput)
+    {
+        _isCanInput = canInput;
     }
 
     /// <summary>チュートリアルを受ける、ボタンを押したときに呼ぶ </summary>
@@ -176,7 +193,6 @@ public class TutorialManager : MonoBehaviour
                 SetFirstTalk();
                 if (_tutorialCount == _tutorialOrder.Count)
                 {
-                    Debug.Log("ｔｔｔ");
                     _isEndTutorial = true;
                 }
                 return;
@@ -213,17 +229,25 @@ public class TutorialManager : MonoBehaviour
         //最初の説明を受ける、状態
         _tutorialSituation = TutorialSituation.FirstTalk;
 
+        _tutorialMissions.CurrentTutorial.InfoUIActive(true);
+
         //説明の文章を設定
         _tutorialUI.SetTalk(_tutorialMissions.CurrentTutorial.TalkData.FirstTalks);
     }
 
     public void SetTryMove()
     {
-        //ミッションの初期設定をする
-        _tutorialMissions.CurrentTutorial.Enter();
+        //入力を不可にする
+        SetCanInput(true);
 
         //実行する、状態
         _tutorialSituation = TutorialSituation.TryMove;
+
+        //ミッションの初期設定をする
+        _tutorialMissions.CurrentTutorial.Enter();
+
+        //会話のパネルを非表示
+        _tutorialUI.TalkPanelSetActive(false);
     }
 
     public void SetEndTalk()
@@ -233,6 +257,8 @@ public class TutorialManager : MonoBehaviour
 
         //説明の文章を設定
         _tutorialUI.SetTalk(_tutorialMissions.CurrentTutorial.TalkData.CompletedTalks);
+
+        _tutorialMissions.CurrentTutorial.InfoUIActive(false);
     }
 
 
@@ -243,6 +269,30 @@ public class TutorialManager : MonoBehaviour
 
 public enum TutorialNum
 {
+    /// <summary>移動のチュートリアル </summary>
     Walk,
+
+    /// <summary>カメラの操作 </summary>
     Look,
+
+    /// <summary>攻撃</summary>
+    Attack,
+
+    /// <summary>トドメ </summary>
+    FinishAttack,
+
+    /// <summary>回避 </summary>
+    Avoid,
+
+    /// <summary>属性変更 </summary>
+    ChangeAttribute,
+
+    /// <summary>ロックオン </summary>
+    LockOn,
+
+    /// <summary>ロックオンをして、ロックオンの敵を変える</summary>
+    LockOnChangeEnemy,
+
+    /// <summary>オプションを開く</summary>
+    Opption,
 }

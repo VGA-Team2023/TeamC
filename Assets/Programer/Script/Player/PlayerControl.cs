@@ -116,7 +116,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (_inputManager.IsPause)
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);
@@ -194,11 +194,13 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     public void OnSlow(float slowSpeedRate)
     {
+        if (_anim == null) return;
         _anim.speed = slowSpeedRate;
     }
 
     public void OffSlow()
     {
+        if (_anim == null) return;
         _anim.speed = 1;
     }
 
