@@ -25,6 +25,7 @@ public class MAEChaseState : IStateMachine
 
     public void Update()
     {
+        if (_enemy.IsDemo) return;
         //プレイヤーとの距離を算出
         float distance = Vector3.Distance(_enemy.transform.position, _player.transform.position);
         if(distance < _enemy.ChaseDistance)
