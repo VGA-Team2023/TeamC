@@ -134,17 +134,14 @@ public class AudioController : MonoBehaviour,IPause
 
     public void Pause()
     {
-        _bgm.PauseAll();
         _se.PauseAll();
         _voice.PauseAll();
     }
 
     public void Resume()
     {
-        _bgm.ResumeAll();
         _se.ResumeAll();
         _voice.ResumeAll();
-
     }
 }
 
