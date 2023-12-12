@@ -116,7 +116,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (_inputManager.IsPause)
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);

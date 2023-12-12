@@ -26,6 +26,10 @@ public class TutorialManager : MonoBehaviour
 
     private bool _isEndTutorial = false;
 
+    private bool _isCanInput = false;
+    public bool IsCanInput => _isCanInput;
+
+    private bool _isPressCheckButtun = false;
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
 
@@ -74,7 +78,7 @@ public class TutorialManager : MonoBehaviour
         }
         else if (_tutorialSituation == TutorialSituation.TutorialReceve)
         {
-            //文章を読み終えたかどうか
+            //文章を読み終えたかど うか
             bool isReadEnd = _tutorialUI.Read();
 
             if (isReadEnd)
@@ -105,6 +109,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (_tutorialMissions.CurrentTutorial.Updata())
             {
+                _tutorialMissions.CurrentTutorial.Exit();
                 SetEndTalk();
             }
         }
@@ -140,6 +145,12 @@ public class TutorialManager : MonoBehaviour
                 SceneManager.LoadScene("GameScene");
             }   //読み終えたら、実行状況に以降
         }
+
+    }
+
+    public void SetCanInput(bool canInput)
+    {
+        _isCanInput = canInput;
     }
 
     /// <summary>チュートリアルを受ける、ボタンを押したときに呼ぶ </summary>
@@ -216,12 +227,17 @@ public class TutorialManager : MonoBehaviour
         //最初の説明を受ける、状態
         _tutorialSituation = TutorialSituation.FirstTalk;
 
+        _tutorialMissions.CurrentTutorial.InfoUIActive(true);
+
         //説明の文章を設定
         _tutorialUI.SetTalk(_tutorialMissions.CurrentTutorial.TalkData.FirstTalks);
     }
 
     public void SetTryMove()
     {
+        //入力を不可にする
+        SetCanInput(true);
+
         //実行する、状態
         _tutorialSituation = TutorialSituation.TryMove;
 
@@ -239,6 +255,8 @@ public class TutorialManager : MonoBehaviour
 
         //説明の文章を設定
         _tutorialUI.SetTalk(_tutorialMissions.CurrentTutorial.TalkData.CompletedTalks);
+
+        _tutorialMissions.CurrentTutorial.InfoUIActive(false);
     }
 
 

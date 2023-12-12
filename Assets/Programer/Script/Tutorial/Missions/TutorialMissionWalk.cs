@@ -41,7 +41,9 @@ public class TutorialMissionWalk : TutorialMissionBase
     }
 
     public void End()
-    {
+    {          
+        //“ü—Í‚ð•s‰Â‚É‚·‚é
+        _tutorialManager.SetCanInput(false);
         _isEnd = true;
     }
 

@@ -58,6 +58,10 @@ public class InputManager : MonoBehaviour
 
     private bool _isTutorial = false;
 
+    private bool _isPause = false;
+
+    public bool IsPause => _isPause;
+
     public bool IsTutorial { get => _isTutorial; set => _isTutorial = value; }
 
     private TutorialInputControl _tutorialInputControl;
@@ -72,7 +76,7 @@ public class InputManager : MonoBehaviour
         if (_control.IsMousePlay)
         {
             _isKeybord = true;
-           // Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
@@ -82,6 +86,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        _isPause = Input.GetButtonDown("Pause");
+
         if (!_isTutorial)
         {
             DefultInput();
@@ -170,6 +176,16 @@ public class InputManager : MonoBehaviour
 
     public void Tutorial()
     {
+        _horizontalInput = 0;
+        _verticalInput = 0;
+        _isAvoid = false;
+        _isChangeLockOnEnemy = 0;
+
+        if (!_tutorialInputControl.TutorialManager.IsCanInput)
+        {
+            return;
+        }
+
         //移動入力
         if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Walk)
         {
@@ -186,7 +202,7 @@ public class InputManager : MonoBehaviour
         }
 
         //属性変更
-        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.FinishAttack)
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.ChangeAttribute)
         {
             _isChangeAttribute = Input.GetButtonDown("ChangeType");
         }
@@ -207,7 +223,6 @@ public class InputManager : MonoBehaviour
         //ロックオン敵変更
         if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.LockOnChangeEnemy)
         {
-            _isLockOn = Input.GetButtonDown("LockOn");
             if (_control.IsMousePlay)
             {
                 _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
@@ -220,7 +235,8 @@ public class InputManager : MonoBehaviour
 
 
         //攻撃
-        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Attack)
+        if (_tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.Attack
+            || _tutorialInputControl.TutorialManager.TutorialMissions.CurrentTutorial.TutorialNum == TutorialNum.ChangeAttribute)
         {
             if (_control.IsNewAttack && !_isKeybord)
             {
@@ -265,4 +281,18 @@ public class InputManager : MonoBehaviour
         }
 
     }
+
+    public void EndAttack()
+    {
+        _isAttack = false;
+        _isAttacks = false;
+        _isAttackUp = true;
+    }
+
+    public void EndLockOn()
+    {
+        _isLockOn = true;
+    }
+
+
 }
