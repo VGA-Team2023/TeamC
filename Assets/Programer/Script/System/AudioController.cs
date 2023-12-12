@@ -3,7 +3,7 @@ using CriWare;
 using System;
 
 /// <summary>CueNameのデータと音をの再生する機能を保持・管理するクラス</summary>
-public class AudioController : MonoBehaviour,IPause,ISlow
+public class AudioController : MonoBehaviour,IPause
 {
     /// <summary>シングルトン化</summary>
     static AudioController _instance;
@@ -51,7 +51,6 @@ public class AudioController : MonoBehaviour,IPause,ISlow
     {
         _gameManager = GameManager.Instance;
         _gameManager.PauseManager.Add(this);
-        _gameManager.SlowManager.Add(this);
     }
 
     private void Update()
@@ -64,7 +63,6 @@ public class AudioController : MonoBehaviour,IPause,ISlow
     public void OnDisable()
     {
         _gameManager.PauseManager.Remove(this);
-        _gameManager.SlowManager.Remove(this);
     }
     private void Awake()
     {
@@ -147,18 +145,6 @@ public class AudioController : MonoBehaviour,IPause,ISlow
         _se.ResumeAll();
         _voice.ResumeAll();
 
-    }
-
-    public void OnSlow(float slowSpeedRate)
-    {
-        _bgm.OnSlow(0.5f);
-        _se.OnSlow(0.5f);
-    }
-
-    public void OffSlow()
-    {
-        _bgm.OffSlow();
-        _se.OffSlow();
     }
 }
 

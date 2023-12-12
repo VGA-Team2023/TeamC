@@ -1,4 +1,5 @@
 ﻿using CriWare;
+using System;
 using UnityEngine;
 
 /// <summary>PlayerのSEのAudio操作</summary>
@@ -72,12 +73,10 @@ public struct BGMAudioControlle
     [SerializeField] Sound<BGMState>[] _bgmData;
     string _cueSheetName;
     public string CueSheetName { set { _cueSheetName = value; } }
-    public void Pause(BGMState se)
+    public void PauseAll()
     {
-        int index = (int)se;
-        CriAudioManager.Instance.BGM.Pause(_bgmData[index].PlayID);
+        CriAudioManager.Instance.BGM.PauseAll();
     }
-
     public void Play(BGMState se)
     {
         CriAudioManager.Instance.BGM.StopAll();
@@ -85,11 +84,9 @@ public struct BGMAudioControlle
         string cueName = _bgmData[index].SoundCueName;
         _bgmData[index].PlayID = CriAudioManager.Instance.BGM.Play(_cueSheetName, cueName);
     }
-
-    public void Resume(BGMState se)
+    public void ResumeAll()
     {
-        int index = (int)se;
-        CriAudioManager.Instance.BGM.Resume(_bgmData[index].PlayID);
+        CriAudioManager.Instance.BGM.ResumeAll();
     }
     public void Stop(BGMState se)
     {
