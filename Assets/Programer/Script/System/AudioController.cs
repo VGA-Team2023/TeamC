@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using CriWare;
 using System;
+using Unity.VisualScripting;
 
 /// <summary>CueNameのデータと音をの再生する機能を保持・管理するクラス</summary>
 public class AudioController : MonoBehaviour,IPause
@@ -49,8 +50,8 @@ public class AudioController : MonoBehaviour,IPause
 
     public void OnEnable()
     {
-        _gameManager = GameManager.Instance;
-        _gameManager.PauseManager.Add(this);
+        _instance._gameManager = GameManager.Instance;
+        _instance._gameManager.PauseManager.Add(this);
     }
 
     private void Update()
@@ -62,7 +63,7 @@ public class AudioController : MonoBehaviour,IPause
     }
     public void OnDisable()
     {
-        _gameManager.PauseManager.Remove(this);
+        _instance._gameManager.PauseManager.Remove(this);
     }
     private void Awake()
     {
@@ -134,17 +135,14 @@ public class AudioController : MonoBehaviour,IPause
 
     public void Pause()
     {
-        _bgm.PauseAll();
         _se.PauseAll();
         _voice.PauseAll();
     }
 
     public void Resume()
     {
-        _bgm.ResumeAll();
         _se.ResumeAll();
         _voice.ResumeAll();
-
     }
 }
 
