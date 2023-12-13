@@ -535,6 +535,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
+        type: 3}
+      propertyPath: _currentGameState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
+        type: 3}
+      propertyPath: _timeManager._gamePlayTime
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 2176321692673286541, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
       propertyPath: m_LocalPosition.x

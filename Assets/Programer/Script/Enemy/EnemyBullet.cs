@@ -1,5 +1,4 @@
-﻿using UnityEditor.ShaderGraph;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBullet : MonoBehaviour
