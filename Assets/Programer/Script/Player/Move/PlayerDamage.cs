@@ -75,6 +75,7 @@ public class PlayerDamage
 
             //蘇生のムービーを流す
             _reviveMovie.Play();
+            GameManager.Instance.SpecialMovingPauseManager.PauseResume(true);
         }
     }
 

@@ -75,11 +75,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     MAEFinishState _finish;
     MAEChaseState _chase;
 
-    public enum CRIType
-    {
-        Play,
-        Stop,
-    }
+
 
     void Start()
     {
@@ -270,6 +266,10 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             else if(criType == CRIType.Stop)
             {
                 AudioController.Instance.SE.Stop(playSe);
+            }
+            else if (criType == CRIType.Update)
+            {
+                AudioController.Instance.SE.Update3DPos(playSe, transform.position);
             }
         }
     }

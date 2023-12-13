@@ -6,10 +6,9 @@ public class ButtonTextColorChanger : MonoBehaviour, ISelectHandler, IDeselectHa
 {   
     private Color _selectedColor = Color.white;
     private Color _defaultColor = Color.white;
-    private Text _text;
     [SerializeField] private Button _button;
     [SerializeField] private EventSystem _eventSystem;
-    [SerializeField] private Image _target = default;
+    [SerializeField] public Image _target = default;
     void Start()
     {
         if (_button != null)
@@ -29,7 +28,6 @@ public class ButtonTextColorChanger : MonoBehaviour, ISelectHandler, IDeselectHa
         {
             _defaultColor = defaltcolor;
         }
-        _text = GetComponentInChildren<Text>();
     }
     public void OnSelect(BaseEventData eventData)
     {

@@ -15,12 +15,97 @@ public class PlayerAudio : MonoBehaviour
     [Header("攻撃の弾を飛ばす音_草")]
     [SerializeField] private AudioSource _grassCharge;
 
+    [Header("トドメ声＿溜め")]
+    [SerializeField] private List<AudioClip> _clips = new List<AudioClip>();
+
+    [Header("氷とどめ")]
+    [SerializeField] private List<AudioClip> _clipsFinish = new List<AudioClip>();
+
+    [Header("氷とどめ")]
+    [SerializeField] private List<AudioClip> _clipsFinishGrass = new List<AudioClip>();
+
+    [Header("トドメ氷の音")]
+    [SerializeField] private AudioSource _completeFinishIce;
+
+    [Header("トドメ草の音")]
+    [SerializeField] private AudioSource _completeFinishGrass;
+
+    [Header("トドメ氷の音_溜め")]
+    [SerializeField] private AudioSource _chargeFinishIce;
+
+    [Header("トドメ草の音_溜め")]
+    [SerializeField] private AudioSource _chargeFinishGrass;
 
     public enum PlayMagicAudioType
     {
         Play,
         Stop,
         Updata,
+    }
+
+
+    public void PlayFinishVoice(bool isChage, bool isIce)
+    {
+        if (isChage)
+        {
+            if (isIce)
+            {
+                _chargeFinishIce.Play();
+            }
+            else
+            {
+                _chargeFinishGrass.Play();
+            }
+
+            foreach (var a in _audioSources)
+            {
+                if (!a.isPlaying)
+                {
+                    var r = Random.Range(0, _clips.Count);
+                    a.PlayOneShot(_clips[r]);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            if (isIce)
+            {
+                _chargeFinishIce.Stop();
+            }
+            else
+            {
+                _chargeFinishGrass.Stop();
+            }
+
+
+            if (isIce)
+            {
+                _completeFinishIce.Play();
+                foreach (var a in _audioSources)
+                {
+                    if (!a.isPlaying)
+                    {
+                        var r = Random.Range(0, _clipsFinish.Count);
+                        a.PlayOneShot(_clipsFinish[r]);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                _completeFinishGrass.Play();
+                foreach (var a in _audioSources)
+                {
+                    if (!a.isPlaying)
+                    {
+                        var r = Random.Range(0, _clipsFinishGrass.Count);
+                        a.PlayOneShot(_clipsFinishGrass[r]);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>音を流す</summary>

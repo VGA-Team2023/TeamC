@@ -17,7 +17,7 @@ public class TimerController : MonoBehaviour, IPause
             GameManager.Instance.TimeManager.GamePlayElapsedTime) / GameManager.Instance.TimeManager.GamePlayTime;
             _backImage.fillAmount = fillAmout;
             _needleObject.transform.rotation = Quaternion.Euler(0, 0, fillAmout * 360);
-            if (fillAmout < _thresholds[_targetIndex])
+            if (fillAmout < _thresholds[_targetIndex] % _thresholds.Length)
             {
                 SetStarsActive(_targetIndex);
             }

@@ -1,5 +1,4 @@
-﻿using UnityEditor.ShaderGraph;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyBullet : MonoBehaviour
@@ -24,6 +23,11 @@ public class EnemyBullet : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(_shootForward * _bulletSpeed, ForceMode.Impulse);
         AudioController.Instance.SE.Play3D(SEState.EnemyLongAttackTrail, transform.position);
         Destroy(gameObject, 10f);
+    }
+
+    private void Update()
+    {
+        AudioController.Instance.SE.Update3DPos(SEState.EnemyLongAttackTrail, transform.position);
     }
 
     private void OnTriggerEnter(Collider other)

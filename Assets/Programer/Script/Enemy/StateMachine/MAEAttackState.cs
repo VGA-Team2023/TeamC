@@ -14,6 +14,7 @@ public class MAEAttackState : IStateMachine
     {
         _enemy = enemy;
         _player = player;
+        Debug.Log(_player);
     }
 
     public void Enter()
@@ -64,8 +65,11 @@ public class MAEAttackState : IStateMachine
                 _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
                 //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
-                player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
-                player.Damage(_enemy.Attack);
+                if (player)
+                {
+                    player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
+                    player.Damage(_enemy.Attack);
+                }
                 //switch (random)
                 //{
                 //    case 0:

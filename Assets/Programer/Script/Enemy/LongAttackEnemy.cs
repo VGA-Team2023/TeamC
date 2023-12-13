@@ -90,12 +90,6 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         return list;
     }
 
-    public enum CRIType
-    {
-        Play,
-        Stop,
-    }
-
     void Start()
     {
         _player = FindObjectOfType<PlayerControl>();
@@ -213,6 +207,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void EndFinishing(MagickType attackHitTyp)
     {
+        Audio(SEState.EnemyStan, CRIType.Stop);
         Audio(SEState.EnemyFinishDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
         {
@@ -285,6 +280,10 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             else if (criType == CRIType.Stop)
             {
                 AudioController.Instance.SE.Stop(playSe);
+            }
+            else if(criType == CRIType.Update)
+            {
+                AudioController.Instance.SE.Update3DPos(playSe, transform.position);
             }
         }
     }
