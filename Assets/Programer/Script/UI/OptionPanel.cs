@@ -1,21 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 public class OptionPanel : MonoBehaviour,IPause
 {
-    [SerializeField] private InputAction _inputAction;
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _voiceSlider;
     [SerializeField] private Slider _seSlider;
     [SerializeField] private Slider _cameraSensitivitySlider;
     [SerializeField] private Button _closeButton;
     private EventSystem _eventSystem = null;
+    private AudioController _audioController = null;
     private void OnEnable()
     {
         if (_eventSystem == null)
         {
             _eventSystem = FindObjectOfType<EventSystem>();
+        }
+        if (_audioController == null)
+        {
+            _audioController = AudioController.Instance;
         }
         _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
         _bgmSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.BGM);
@@ -25,9 +28,9 @@ public class OptionPanel : MonoBehaviour,IPause
     }
     private void OnDisable()
     {
-        AudioController.Instance.SetVolume(_bgmSlider.value,VolumeChangeType.BGM);
-        AudioController.Instance.SetVolume(_voiceSlider.value,VolumeChangeType.Voice);
-        AudioController.Instance.SetVolume(_seSlider.value, VolumeChangeType.SE);
+        _audioController.SetVolume(_bgmSlider.value,VolumeChangeType.BGM);
+        _audioController.SetVolume(_voiceSlider.value,VolumeChangeType.Voice);
+        _audioController.SetVolume(_seSlider.value, VolumeChangeType.SE);
         OptionValueRecorder.Instance.CameraSensitivity = _cameraSensitivitySlider.value;
         _closeButton.GetComponent<ButtonTextColorChanger>()._target.gameObject.SetActive(false);
         _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);

@@ -7,8 +7,9 @@ public class TimerController : MonoBehaviour, IPause
     [SerializeField] GameObject _needleObject;
     private GameManager _gm;
     private bool _isPausing = false;
+    private bool _isCounting = true;
     private int _targetIndex = 0;
-    private float[] _thresholds = { 0.99f, 0.8f, 0.6f, 0.4f, 0.2f };
+    private float[] _thresholds = { 0.99f, 0.8f, 0.6f, 0.4f, 0.2f};
     private void Update()
     {
         if (!_isPausing)
@@ -17,7 +18,7 @@ public class TimerController : MonoBehaviour, IPause
             GameManager.Instance.TimeManager.GamePlayElapsedTime) / GameManager.Instance.TimeManager.GamePlayTime;
             _backImage.fillAmount = fillAmout;
             _needleObject.transform.rotation = Quaternion.Euler(0, 0, fillAmout * 360);
-            if (fillAmout < _thresholds[_targetIndex] % _thresholds.Length)
+            if (_isCounting && fillAmout < _thresholds[_targetIndex])
             {
                 SetStarsActive(_targetIndex);
             }
@@ -34,6 +35,10 @@ public class TimerController : MonoBehaviour, IPause
             _stars[j].gameObject.SetActive(true);
         }
         _targetIndex += 1;
+        if (_targetIndex == _thresholds.Length)
+        {
+            _isCounting = false;
+        }
     }
     public void Pause()
     {
