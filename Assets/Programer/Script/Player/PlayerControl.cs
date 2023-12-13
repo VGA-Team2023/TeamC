@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     [Header("@回避")]
     [SerializeField] private PlayerAvoid _avoid;
-
+     
     [Header("@ロックオン")]
     [SerializeField] private PlayerLockOn _lockOn;
 
@@ -27,7 +27,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     [Header("@とどめ")]
     [SerializeField] private FinishingAttack _finishingAttack;
-
+     
     [Header("設置判定")]
     [SerializeField] private GroundCheck _groundCheck;
 
@@ -157,9 +157,12 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     public void Damage(float damage)
     {
-        _damage.Damage(damage);
+        _damage.Damage(damage,false,MagickType.Ice);
     }
-
+   public void BossDamage(float damage, MagickType magickType)
+    {
+        _damage.Damage(damage, true, magickType);
+    }
 
     private void OnEnable()
     {
@@ -221,4 +224,5 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         _rigidbody.velocity = _savePauseVelocity;
     }
 
+ 
 }
