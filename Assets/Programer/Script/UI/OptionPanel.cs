@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 public class OptionPanel : MonoBehaviour,IPause
 {
-    [SerializeField] private InputAction _inputAction;
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _voiceSlider;
     [SerializeField] private Slider _seSlider;
