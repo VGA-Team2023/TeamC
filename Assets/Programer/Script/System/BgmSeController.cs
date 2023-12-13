@@ -42,7 +42,7 @@ public struct SEAudioControlle : ICustomChannel<SEState>
     public void Stop(SEState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.SE.Stop(_seData[index].PlayID);
+        _seData[index].PlayID = CriAudioManager.Instance.SE.Stop(_seData[index].PlayID, _seData[index].SoundCueName);
     }
 
     public void StopAll()
@@ -91,7 +91,7 @@ public struct BGMAudioControlle
     public void Stop(BGMState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.BGM.Stop(_bgmData[index].PlayID);
+        CriAudioManager.Instance.BGM.Stop(_bgmData[index].PlayID, _bgmData[index].SoundCueName);
     }
 }
 
@@ -140,7 +140,7 @@ public struct VoiceAudioControlle : ICustomChannel<VoiceState>
     public void Stop(VoiceState se)
     {
         int index = (int)se;
-        CriAudioManager.Instance.Voice.Stop(_voiceData[index].PlayID);
+        _voiceData[index].PlayID = CriAudioManager.Instance.Voice.Stop(_voiceData[index].PlayID, _voiceData[index].SoundCueName);
     }
 
     public void StopAll()

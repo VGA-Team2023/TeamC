@@ -48,7 +48,7 @@ public class Sound<TState> where TState : Enum
 {
     [SerializeField,Tooltip("サウンドのタイプ")] TState state;
     [SerializeField,Tooltip("キューの名前")] string soundCueName;
-    int playID;
+    int playID = 0;
     public string SoundCueName => soundCueName;
     public int PlayID { get { return playID; } set { playID = value; } }
 }
