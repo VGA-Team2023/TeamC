@@ -14,10 +14,10 @@ public class DisplayEnemyDefeatCount : MonoBehaviour
     }
     private void OnValidate()
     {
-        ChanageDisplayEnemyDefeatCount();
+        //ChanageDisplayEnemyDefeatCount();
     }
     private void ChanageDisplayEnemyDefeatCount()
     {
-        _enemyDefeatCountText.text = _enemyDefeatCount.ToString();
+       // _enemyDefeatCountText.text = _enemyDefeatCount.ToString();
     }
 }

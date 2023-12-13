@@ -58,7 +58,6 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
 
 
         AudioSet(PlayMagicAudioType.Play);
-        Destroy(gameObject, _lifeTime);
     }
 
 
@@ -71,6 +70,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         {
             AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
+            return;
         }
 
         //音源の更新
