@@ -13084,6 +13084,12 @@ Transform:
   - {fileID: 600435877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &231598150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6724165421313046035, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
+    type: 3}
+  m_PrefabInstance: {fileID: 314844430}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &239655414
 GameObject:
   m_ObjectHideFlags: 0
@@ -13226,7 +13232,12 @@ PrefabInstance:
     - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
       propertyPath: _currentGameState
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
+        type: 3}
+      propertyPath: _timeManager._gamePlayTime
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2176321692673286541, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
@@ -19058,6 +19069,11 @@ PrefabInstance:
     - target: {fileID: 7371301641807717548, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420958082995140141, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9039268538518150294, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
@@ -35289,7 +35305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 231598150}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &899067589
@@ -60358,6 +60374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2393322728109976895, guid: c1bb0aff88661924c9bd9e661089304b,
+        type: 3}
+      propertyPath: _bgmVolume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -85,12 +85,12 @@ public class AttackState : PlayerStateBase
             return;
         }   //瀕死ステート
 
-        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
-        {
-            _stateMachine.PlayerController.Attack2.StopAttack();
-            _stateMachine.TransitionTo(_stateMachine.DamageState);
-            return;
-        }   //ダメージ
+        //if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        //{
+        //    _stateMachine.PlayerController.Attack2.StopAttack();
+        //    _stateMachine.TransitionTo(_stateMachine.DamageState);
+        //    return;
+        //}   //ダメージ
 
         if (_stateMachine.PlayerController.IsNewAttack)
         {
