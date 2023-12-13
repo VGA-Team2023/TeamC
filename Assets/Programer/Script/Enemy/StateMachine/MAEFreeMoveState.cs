@@ -9,10 +9,11 @@ public class MAEFreeMoveState : IStateMachine
     bool _isArrived = true;
 
     public MAEFreeMoveState(MeleeAttackEnemy enemy, PlayerControl player)
-    { 
+    {
         _enemy = enemy;
         _player = player;
         _basePosition = _enemy.transform.position;
+        if (_enemy.IsDemo) return;
         _dir = GetMovePoint();
         _enemy.transform.forward = (_dir - _enemy.transform.position).normalized;
     }
@@ -26,6 +27,7 @@ public class MAEFreeMoveState : IStateMachine
 
     public void Update()
     {
+        if (_enemy.IsDemo) return;
         //プレイヤーとの距離を算出
         float playerDis = Vector3.Distance(_enemy.transform.position, _player.transform.position);
         if (playerDis < _enemy.SearchRange)

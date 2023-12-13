@@ -18,6 +18,7 @@ public class HitStopConrol : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
         CountHitStopTime();
     }
 
@@ -25,6 +26,7 @@ public class HitStopConrol : MonoBehaviour
     /// <summary>ヒットストップの実行時間を計測</summary>
     private void CountHitStopTime()
     {
+
         if (!_isHitStop) return;
 
         _countTime += Time.deltaTime;
@@ -40,6 +42,17 @@ public class HitStopConrol : MonoBehaviour
         _isHitStop = true;
 
         if (hitStopKind == HitStopKind.FinishAttack)
+        {
+            foreach (var data in _hitStopData)
+            {
+                if (data.HitStopKind == hitStopKind)
+                {
+                    ResetHitStopTime(data.HitStopTime);
+                    GameManager.Instance.SlowManager.OnOffSlow(true);
+                }
+            }
+        }
+        else
         {
             foreach (var data in _hitStopData)
             {
@@ -72,6 +85,8 @@ public class HitStopConrol : MonoBehaviour
 [System.Serializable]
 public class HitStopData
 {
+    [SerializeField] private string _name;
+
     [Header("HitStopの種類")]
     [SerializeField] private HitStopKind _hitStopKind;
 
@@ -92,6 +107,6 @@ public class HitStopData
 public enum HitStopKind
 {
     FinishAttack,
-
+    Dead,
 
 }

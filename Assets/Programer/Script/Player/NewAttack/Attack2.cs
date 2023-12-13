@@ -42,7 +42,7 @@ public class Attack2
     {
         _playerControl = playerControl;
         _attackMagic.Init(playerControl);
-        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttributeControl.PlayerAttribute);
         _maxAttackCount = _attackMagic.MagicBase.MagickData.Count;
     }
 
@@ -52,13 +52,23 @@ public class Attack2
         _attackCount = 0;
     }
 
+    public void CheckEnd()
+    {
+        if (_isCanTransitionAttackState == false)
+        {
+            _isCanTransitionAttackState = true;
+            _attackCount = 0;
+        }
+        _isCanNextAttack = true;
+    }
+
     public void DoAttack()
     {
         //カメラ変更
         _playerControl.CameraControl.UseAttackChargeCamera();
 
         //音
-        if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+        if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             _playerControl.PlayerAudio.AttackCharge(true, true);
         }
@@ -66,8 +76,6 @@ public class Attack2
         {
             _playerControl.PlayerAudio.AttackCharge(true, false);
         }
-
-        //AudioManager.Instance.PlayerSEPlay(PlayerAttackSEState.Shoot);
 
         _isAttackNow = true;
         _isCanNextAttack = false;
@@ -87,7 +95,7 @@ public class Attack2
             _isCanTransitionAttackState = false;
         }
 
-        _attackMagic.SetMagicBase(_playerControl.PlayerAttribute);
+        _attackMagic.SetMagicBase(_playerControl.PlayerAttributeControl.PlayerAttribute);
         _attackMagic.MagicBase.SetUpMagick();
     }
 
@@ -101,16 +109,8 @@ public class Attack2
                 //アニメーション再生
                 _playerControl.PlayerAnimControl.SetAttackTrigger();
 
-                //カメラ変更
-                _playerControl.CameraControl.UseDefultCamera(true);
-                //カメラの振動
-                _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
-
-                //コントローラーの振動
-                _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
-
                 //音
-                if (_playerControl.PlayerAttribute == PlayerAttribute.Ice)
+                if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
                 {
                     _playerControl.PlayerAudio.AttackCharge(false, true);
                 }
@@ -118,8 +118,6 @@ public class Attack2
                 {
                     _playerControl.PlayerAudio.AttackCharge(false, false);
                 }
-
-                // AudioManager.Instance.PlayerSEStop(PlayerAttackSEState.Charge);
 
                 _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);

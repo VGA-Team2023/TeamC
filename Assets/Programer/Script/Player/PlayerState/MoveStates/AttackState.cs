@@ -37,7 +37,7 @@ public class AttackState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        Debug.Log("FFFFF");
+
         if (_stateMachine.PlayerController.IsNewAttack)
         {
             _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
@@ -56,6 +56,8 @@ public class AttackState : PlayerStateBase
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
+
+        _stateMachine.PlayerController.CameraControl.AttackCamera.AvoidFov(_stateMachine.PlayerController.InputManager.HorizontalInput);
     }
 
     public override void LateUpdate()
@@ -68,6 +70,13 @@ public class AttackState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
+        //魔法を射出
+        _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.UseMagics();
+
+        //回避のクールタイム計測
+        _stateMachine.PlayerController.Avoid.CountCoolTime();
+
+        _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.CountCoolTime();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {
@@ -76,12 +85,12 @@ public class AttackState : PlayerStateBase
             return;
         }   //瀕死ステート
 
-        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
-        {
-            _stateMachine.PlayerController.Attack2.StopAttack();
-            _stateMachine.TransitionTo(_stateMachine.DamageState);
-            return;
-        }   //ダメージ
+        //if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        //{
+        //    _stateMachine.PlayerController.Attack2.StopAttack();
+        //    _stateMachine.TransitionTo(_stateMachine.DamageState);
+        //    return;
+        //}   //ダメージ
 
         if (_stateMachine.PlayerController.IsNewAttack)
         {

@@ -116,6 +116,8 @@ public class BossHp
         _isKnockDown = false;
         _isFinishNow = false;
 
+
+
         //アニメーション設定
         _bossControl.BossAnimControl.IsDown(false);
 
@@ -137,6 +139,8 @@ public class BossHp
 
         if (magickType == MagickType.Ice)
         {
+            //音
+            AudioController.Instance.SE.Play3D(SEState.EnemyFinichHitIce, _bossControl.BossT.position);
             foreach (var i in _iceFinishEffect)
             {
                 i.Play();
@@ -144,6 +148,8 @@ public class BossHp
         }
         else
         {
+            //音
+            AudioController.Instance.SE.Play3D(SEState.EnemyFinishHitGrass, _bossControl.BossT.position);
             foreach (var i in _grassFinishEffect)
             {
                 i.Play();
@@ -159,6 +165,9 @@ public class BossHp
 
         if (magickType == MagickType.Ice)
         {
+            //音
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitIcePatternB, _bossControl.BossT.position);
+
             foreach (var i in _iceHitEffect)
             {
                 i.Play();
@@ -166,6 +175,9 @@ public class BossHp
         }
         else
         {
+            //音
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitGrassPatternB, _bossControl.BossT.position);
+
             foreach (var i in _grassHitEffect)
             {
                 i.Play();

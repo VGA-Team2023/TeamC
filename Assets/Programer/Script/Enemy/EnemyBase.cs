@@ -4,9 +4,13 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("テスト用")]
-    [SerializeField, Tooltip("仮でAudioを再生する")]
-    bool _isTestAudio;
-    public bool IsTestAudio => _isTestAudio;
+    [SerializeField, Tooltip("Audioを再生する")]
+    bool _isAudio;
+    public bool IsAudio => _isAudio;
+
+    [SerializeField, Tooltip("敵をDemoモードにする")]
+    bool _isDemo;
+    public bool IsDemo => _isDemo;
 
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]
@@ -57,6 +61,9 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("とどめが可能なレイヤー")]
     int _finishLayer;
     public int FinishLayer => _finishLayer;
+    [SerializeField, Tooltip("倒された敵のレイヤー")]
+    int _deadLayer;
+    public int DeadLayer => _deadLayer;
     [Header("====================")]
 
     [Header("生成するオブジェクト")]
@@ -68,6 +75,13 @@ public abstract class EnemyBase : MonoBehaviour
     public event Action OnEnemyDestroy;
     //enemyが破壊された時に呼ばれる関数
     public event Action OnEnemyFinish;
+
+    public enum CRIType
+    {
+        Play,
+        Stop,
+        Update,
+    }
 
     public void EnemyFinish()
     {

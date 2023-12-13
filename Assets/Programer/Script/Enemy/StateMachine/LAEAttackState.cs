@@ -25,14 +25,16 @@ public class LAEAttackState : IStateMachine
     public void Update()
     {
         //一定時間経過したら弾を生成する
-        _enemy.transform.forward = (_player.transform.position - _enemy.transform.position).normalized;
         _timer += Time.deltaTime;
         if(_timer > _enemy.AttackInterval)
         {
+            _enemy.Audio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
             _enemy.Animator.Play("WitchHag_Attack_Swipe01");
             _timer = 0;
             Debug.Log("攻撃");
         }
+        if (_enemy.IsDemo) return;
+        _enemy.transform.forward = (_player.transform.position - _enemy.transform.position).normalized;
         //サーチ範囲から離れたら通常行動に戻る
         float distance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
         if(distance > _enemy.SearchRange) 

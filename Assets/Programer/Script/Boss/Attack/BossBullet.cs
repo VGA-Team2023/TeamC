@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlayerAudio;
 
 public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 {
+    [Header("属性")]
+    [SerializeField] private MagickType _magickType;
+
     [SerializeField] private List<ParticleSystem> _p = new List<ParticleSystem>();
 
     [Header("弾速")]
@@ -28,12 +32,16 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     private void Awake()
     {
-
+        //音源の更新
+        AudioSet(PlayMagicAudioType.Play);
     }
 
     private void Update()
     {
+        //音源の更新
+        AudioSet(PlayMagicAudioType.Updata);
         CountLifeTime();
+
     }
 
     private void FixedUpdate()
@@ -49,11 +57,55 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         _liftTime += Time.deltaTime;
 
         if (_liftTime < _countLifeTime)
-        {
+        {        //音源の更新
+            AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
         }
-
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.TryGetComponent<IPlayerDamageble>(out IPlayerDamageble player);
+            player?.Damage(_attackPower);
+            //音源の更新
+            AudioSet(PlayMagicAudioType.Stop);
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>音を流す</summary>
+    /// <param name="isPlay"></param>
+    private void AudioSet(PlayMagicAudioType audioType)
+    {
+        SEState state = default;
+
+        //属性に応じて鳴らす音を分ける
+        if (_magickType == MagickType.Ice)
+        {
+            state = SEState.PlayerTrailIcePatternB;
+        }
+        else
+        {
+            state = SEState.PlayerTrailGrassPatternB;
+        }
+
+        //音の再生方法に応じて分ける
+        if (audioType == PlayMagicAudioType.Play)
+        {
+            AudioController.Instance.SE.Play3D(state, transform.position);
+        }
+        else if (audioType == PlayMagicAudioType.Stop)
+        {
+            AudioController.Instance.SE.Stop(state);
+        }
+        else if (audioType == PlayMagicAudioType.Updata)
+        {
+            AudioController.Instance.SE.Update3DPos(state, transform.position);
+        }
+    }
+
 
     private bool _isPause = false;
     private bool _isMoviePause = false;

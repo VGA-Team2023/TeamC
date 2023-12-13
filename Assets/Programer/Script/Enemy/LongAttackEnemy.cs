@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
+    [Header("テストの弾を飛ばす場所")]
+    [SerializeField]
+    Transform _testPosition;
+
     [Header("敵の挙動に関する項目")]
     [SerializeField, Tooltip("移動先の場所")]
     List<Transform> _movePosition = new List<Transform>();
@@ -53,6 +57,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         get => _state;
         set
         {
+            if (IsDemo && _state == MoveState.Finish && value != MoveState.Finish) StopFinishing();
             _state = value;
             switch (_state)
             {
@@ -84,6 +89,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
         return list;
     }
+
     void Start()
     {
         _player = FindObjectOfType<PlayerControl>();
@@ -127,46 +133,73 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     {
         //var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
         var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
-        bullet.GetComponent<EnemyBullet>().Init(_player.transform.position, base.Attack);
+        if (IsDemo)
+        {
+            bullet.GetComponent<EnemyBullet>().Init(_testPosition.position, base.Attack);
+        }
+        else
+        {
+            bullet.GetComponent<EnemyBullet>().Init(_player.transform.position, base.Attack);
+        }
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         _rb.velocity = Vector3.zero;
-        _magicType = attackHitTyp;
-        TestAudio(EnemyHitSEState.Hit);
-        if (attackType == AttackType.ShortChantingMagick)
+        if (attackHitTyp == MagickType.Ice)
         {
-            if (attackHitTyp == MagickType.Ice)
+            GameObject iceAttack = Instantiate(_iceAttackEffect, transform.position, Quaternion.identity);
+            Destroy(iceAttack, 0.3f);
+            if (attackType == AttackType.ShortChantingMagick)
             {
-                GameObject iceAttack = Instantiate(_iceAttackEffect, transform.position, Quaternion.identity);
-                Destroy(iceAttack, 0.3f);
+                Audio(SEState.EnemyHitIcePatternA, CRIType.Play);
+                if (IsDemo) return;
+                HP--;
             }
-            else if (attackHitTyp == MagickType.Grass)
+            else
             {
-                GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
-                Destroy(grassAttack, 0.3f);
+                Audio(SEState.EnemyHitIcePatternB, CRIType.Play);
+                if (IsDemo) return;
+                HP -= (int)damage;
             }
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
-            HP--;
         }
-        else
+        else if (attackHitTyp == MagickType.Grass)
         {
-            HP -= (int)damage;
+            GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
+            Destroy(grassAttack, 0.3f);
+            if (attackType == AttackType.ShortChantingMagick)
+            {
+                Audio(SEState.EnemyHitGrassPatternA, CRIType.Play);
+                if (IsDemo) return;
+                HP--;
+            }
+            else
+            {
+                Audio(SEState.EnemyHitGrassPatternB, CRIType.Play);
+                if (IsDemo) return;
+                HP -= (int)damage;
+            }
+            Vector3 dir = transform.position - _player.transform.position;
+            _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
         }
     }
 
     public void StartFinishing()
     {
+        _anim.SetBool("isStan", true);
         gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
+        if (IsDemo) return;
         StateChange(MoveState.Finish);
     }
 
     public void StopFinishing()
     {
+        _anim.SetBool("isStan", false);
+        Audio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
         gameObject.layer = DefaultLayer;
         HP = _defaultHp;
@@ -174,14 +207,17 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void EndFinishing(MagickType attackHitTyp)
     {
-        TestAudio(EnemyHitSEState.SpecialHit);
+        Audio(SEState.EnemyStan, CRIType.Stop);
+        Audio(SEState.EnemyFinishDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
         {
+            Audio(SEState.EnemyFinichHitIce, CRIType.Play);
             GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(iceAttack, 3f);
         }
         else if (attackHitTyp == MagickType.Grass)
         {
+            Audio(SEState.EnemyFinishHitGrass, CRIType.Play);
             GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(grassAttack, 3f);
         }
@@ -191,6 +227,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         EnemyFinish();
         GameManager.Instance.PauseManager.Remove(this);
         GameManager.Instance.SlowManager.Remove(this);
+        gameObject.layer = DeadLayer;
+        Audio(SEState.EnemyOut, CRIType.Play);
         Destroy(gameObject, 1f);
     }
 
@@ -231,11 +269,22 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         Speed = _defaultSpeed;
     }
 
-    public void TestAudio(EnemyHitSEState playSe)
+    public void Audio(SEState playSe, CRIType criType)
     {
-        if (IsTestAudio)
+        if (IsAudio)
         {
-            AudioManager.Instance.EnemyHitSEPlay(this.gameObject, playSe);
+            if (criType == CRIType.Play)
+            {
+                AudioController.Instance.SE.Play3D(playSe, transform.position);
+            }
+            else if (criType == CRIType.Stop)
+            {
+                AudioController.Instance.SE.Stop(playSe);
+            }
+            else if(criType == CRIType.Update)
+            {
+                AudioController.Instance.SE.Update3DPos(playSe, transform.position);
+            }
         }
     }
 }

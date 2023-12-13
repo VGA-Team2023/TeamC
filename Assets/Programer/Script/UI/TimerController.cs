@@ -1,58 +1,60 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-//using DG.Tweening;
-public class TimerController : MonoBehaviour
+public class TimerController : MonoBehaviour, IPause
 {
-    [SerializeField] Image _upperImage;
-    [SerializeField] Image _midImage;
-    [SerializeField] Text _countText;
-    [SerializeField] GameObject _timerObject;
-    [SerializeField] float _rotateTimer;
-    private Image _tmpUpperImage;
-    private Image _tmpMidImage;
-    private float _timer;
-    private float _changeForSecond;
-    private float _totalRotation = 0f;
-    private int _rotateCount = 0;
-
-    private void Start()
-    {
-        _midImage.fillAmount = 0;
-        _upperImage.fillAmount = 1;
-        _changeForSecond = 1.0f / _rotateTimer;
-        _tmpUpperImage = _upperImage;
-        _tmpMidImage = _midImage;
-    }
-
+    [SerializeField] Image _backImage;
+    [SerializeField] Image[] _stars;
+    [SerializeField] GameObject _needleObject;
+    private GameManager _gm;
+    private bool _isPausing = false;
+    private bool _isCounting = true;
+    private int _targetIndex = 0;
+    private float[] _thresholds = { 0.99f, 0.8f, 0.6f, 0.4f, 0.2f};
     private void Update()
     {
-        _timer += Time.deltaTime;
-        if (_timer > 1.0f)
+        if (!_isPausing)
         {
-            _timer = 0;
-            _tmpUpperImage.fillAmount -= _changeForSecond;
-            _tmpMidImage.fillAmount += _changeForSecond;
-            if (_tmpUpperImage.fillAmount == 0)
+            float fillAmout = (GameManager.Instance.TimeManager.GamePlayTime -
+            GameManager.Instance.TimeManager.GamePlayElapsedTime) / GameManager.Instance.TimeManager.GamePlayTime;
+            _backImage.fillAmount = fillAmout;
+            _needleObject.transform.rotation = Quaternion.Euler(0, 0, fillAmout * 360);
+            if (_isCounting && fillAmout < _thresholds[_targetIndex])
             {
-                RotateTimer(_tmpUpperImage, _tmpMidImage);
+                SetStarsActive(_targetIndex);
             }
         }
     }
-
-    private void RotateTimer(Image upper, Image mid)
+    private void SetStarsActive(int targetIndex)
     {
-        Debug.Log("a");
-        _rotateCount += 1;
-        if (_countText) _countText.text = _rotateCount.ToString();
-
-        _totalRotation += 180f;
-        _timerObject.transform.rotation = Quaternion.Euler(0, 0, _totalRotation);
-        //_timerObject.transform.DOrotate(new Vector3(0, 0, 1) * 180, 1.0f);
-
-        _tmpUpperImage = mid;
-        _tmpMidImage = upper;
-
-        _ = _tmpUpperImage.fillOrigin == 1 ? _tmpUpperImage.fillOrigin = 0 : _tmpUpperImage.fillOrigin = 1;
-        _ = _tmpMidImage.fillOrigin == 0 ? _tmpMidImage.fillOrigin = 1 : _tmpMidImage.fillOrigin = 0;
+        for (int j = 0; j <= targetIndex; j++)
+        {
+            _stars[j].gameObject.SetActive(false);
+        }
+        for (int j = targetIndex + 1; j < _stars.Length; j++)
+        {
+            _stars[j].gameObject.SetActive(true);
+        }
+        _targetIndex += 1;
+        if (_targetIndex == _thresholds.Length)
+        {
+            _isCounting = false;
+        }
+    }
+    public void Pause()
+    {
+        _isPausing = true;
+    }
+    public void Resume()
+    {
+        _isPausing = false;
+    }
+    private void OnEnable()
+    {
+        _gm = GameManager.Instance;
+        _gm.PauseManager.Add(this);
+    }
+    private void OnDisable()
+    {
+        _gm.PauseManager.Remove(this);
     }
 }

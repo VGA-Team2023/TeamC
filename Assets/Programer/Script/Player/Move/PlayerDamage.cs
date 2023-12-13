@@ -21,6 +21,12 @@ public class PlayerDamage
     [Header("攻撃を受けた時のエフェクト")]
     [SerializeField] private List<ParticleSystem> _damageEffects = new List<ParticleSystem>();
 
+    [Header("ボスの氷属性のダメージエフェクト")]
+    [SerializeField] private List<ParticleSystem> _damageEffectsBossIce = new List<ParticleSystem>();
+
+    [Header("ボスの草属性のダメージエフェクト")]
+    [SerializeField] private List<ParticleSystem> _damageEffectsBossGrass = new List<ParticleSystem>();
+
     private float _countDeadTime = 0;
 
     private float _countDamageTime = 0;
@@ -45,7 +51,7 @@ public class PlayerDamage
         //カメラ変更
         _playerControl.CameraControl.UseDefultCamera(true);
         //カメラの振動
-        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
+        _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.Damage);
     }
 
     public void CountDamageTime()
@@ -75,15 +81,16 @@ public class PlayerDamage
 
             //蘇生のムービーを流す
             _reviveMovie.Play();
+            GameManager.Instance.SpecialMovingPauseManager.PauseResume(true);
         }
     }
 
     /// <summary>ダメージを与える。</summary>
     /// <param name="damage">体力が0になったかどうか</param>
-    public void Damage(float damage)
+    public void Damage(float damage,bool isBossDamage,MagickType magickType)
     {
         //無敵時間中はダメージを受けない
-        if (_isDamage || _isDead || _isMuteki) return;
+        if (_isDamage || _isDead || _isMuteki || _playerControl.Avoid.isAvoid) return;
 
         if (_playerControl.PlayerHp.AddDamage(damage))
         {
@@ -91,7 +98,8 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.PlayDead();
             _playerControl.PlayerAnimControl.IsDead(true);
 
-            _playerControl.HitStopCall.HitStopCalld(_waitTime);
+            //時間を遅くする
+            _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
         }
         else
         {
@@ -99,11 +107,25 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.IsDamage(true);
         }
 
-        foreach(var e in _damageEffects)
+        //エフェクト
+        if(isBossDamage)
         {
-            e.Play();
-        }   //エフェクトを再生
+            if(magickType == MagickType.Ice)
+            {
+                _damageEffectsBossIce.ForEach(i => i.Play());
+            }
+            else
+            {
+                _damageEffectsBossGrass.ForEach(i => i.Play());
+            }
+        }
+        else
+        {
+            _damageEffects.ForEach(i => i.Play());
+        }
 
+        //音
+        _playerControl.PlayerAudio.AudioSet(SEState.PlayerLongAttackEnemyDamage, PlayerAudio.PlayMagicAudioType.Play);
     }
 
 

@@ -8,132 +8,145 @@ public class PlayerAudio : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private List<AudioSource> _audioSources;
 
-
-    [Header("攻撃の弾を飛ばす音_氷")]
-    [SerializeField] private AudioClip _iceFire;
-
-    [Header("氷トレイル")]
-    [SerializeField] private AudioClip _iceTrail;
-
     [Header("攻撃の弾を飛ばす音_氷")]
     [SerializeField] private AudioSource _iceCharge;
 
-    [Header("ための音")]
-    [SerializeField] private AudioSource _audioSource;
-
-    [Header("ための音")]
-    [SerializeField] private AudioSource _iceFinishCharge;
-
-    [Header("トドメをさし終えた音_Ice")]
-    [SerializeField] private AudioSource _audioSourceBrakeIce;
-
-
-
     [Header("====草属性===")]
-    [Header("攻撃の弾を飛ばす音_草")]
-    [SerializeField] private AudioClip _grassFire;
-
-    [Header("草トレイル")]
-    [SerializeField] private AudioClip _grassTrail;
-
     [Header("攻撃の弾を飛ばす音_草")]
     [SerializeField] private AudioSource _grassCharge;
 
-    [Header("ための音")]
-    [SerializeField] private AudioSource _grassFinishCharge;
-    [Header("トドメをさし終えた音_Grass")]
-    [SerializeField] private AudioSource _audioSourceBrakeGrass;
-    public void Finish(PlayerAttribute attribute)
+    [Header("トドメ声＿溜め")]
+    [SerializeField] private List<AudioClip> _clips = new List<AudioClip>();
+
+    [Header("氷とどめ")]
+    [SerializeField] private List<AudioClip> _clipsFinish = new List<AudioClip>();
+
+    [Header("氷とどめ")]
+    [SerializeField] private List<AudioClip> _clipsFinishGrass = new List<AudioClip>();
+
+    [Header("トドメ氷の音")]
+    [SerializeField] private AudioSource _completeFinishIce;
+
+    [Header("トドメ草の音")]
+    [SerializeField] private AudioSource _completeFinishGrass;
+
+    [Header("トドメ氷の音_溜め")]
+    [SerializeField] private AudioSource _chargeFinishIce;
+
+    [Header("トドメ草の音_溜め")]
+    [SerializeField] private AudioSource _chargeFinishGrass;
+
+    public enum PlayMagicAudioType
     {
-        if (attribute == PlayerAttribute.Ice)
+        Play,
+        Stop,
+        Updata,
+    }
+
+
+    public void PlayFinishVoice(bool isChage, bool isIce)
+    {
+        if (isChage)
         {
-            _audioSourceBrakeIce.Play();
+            if (isIce)
+            {
+                _chargeFinishIce.Play();
+            }
+            else
+            {
+                _chargeFinishGrass.Play();
+            }
+
+            foreach (var a in _audioSources)
+            {
+                if (!a.isPlaying)
+                {
+                    var r = Random.Range(0, _clips.Count);
+                    a.PlayOneShot(_clips[r]);
+                    return;
+                }
+            }
         }
         else
         {
-            _audioSourceBrakeGrass.Play();
+            if (isIce)
+            {
+                _chargeFinishIce.Stop();
+            }
+            else
+            {
+                _chargeFinishGrass.Stop();
+            }
+
+
+            if (isIce)
+            {
+                _completeFinishIce.Play();
+                foreach (var a in _audioSources)
+                {
+                    if (!a.isPlaying)
+                    {
+                        var r = Random.Range(0, _clipsFinish.Count);
+                        a.PlayOneShot(_clipsFinish[r]);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                _completeFinishGrass.Play();
+                foreach (var a in _audioSources)
+                {
+                    if (!a.isPlaying)
+                    {
+                        var r = Random.Range(0, _clipsFinishGrass.Count);
+                        a.PlayOneShot(_clipsFinishGrass[r]);
+                        return;
+                    }
+                }
+            }
         }
     }
-    public void FinishCharge(PlayerAttribute attribute, bool isPlay)
+
+    /// <summary>音を流す</summary>
+    /// <param name="isPlay"></param>
+    public void AudioSet(SEState audio, PlayMagicAudioType playType)
     {
-        if (attribute == PlayerAttribute.Ice)
+        //音の再生方法に応じて分ける
+        if (playType == PlayMagicAudioType.Play)
         {
-            if (isPlay)
-            {
-                _iceFinishCharge.Play();
-            }
-            else
-            {
-                _iceFinishCharge.Stop();
-            }
+            AudioController.Instance.SE.Play3D(audio, transform.position);
         }
-        else
+        else if (playType == PlayMagicAudioType.Stop)
         {
-            if (isPlay)
-            {
-                _grassFinishCharge.Play();
-            }
-            else
-            {
-                _grassFinishCharge.Stop();
-            }
+            AudioController.Instance.SE.Stop(audio);
+        }
+        else if (playType == PlayMagicAudioType.Updata)
+        {
+            AudioController.Instance.SE.Update3DPos(audio, transform.position);
         }
     }
 
     public void Fire(int num, bool isIce)
     {
         StartCoroutine(IceFires(num, isIce));
-        StartCoroutine(IceTrails(num, isIce));
     }
 
     public IEnumerator IceFires(int num, bool isIce)
     {
         for (int i = 0; i < num; i++)
         {
-            foreach (AudioSource source in _audioSources)
+            if (isIce)
             {
-                if (!source.isPlaying)
-                {
-                    if (isIce)
-                    {
-                        source.PlayOneShot(_iceFire);
-                    }
-                    else
-                    {
-                        source.PlayOneShot(_grassFire);
-                    }
-
-                    break;
-                }
+                AudioSet(SEState.PlayerShootIce, PlayMagicAudioType.Play);
+            }
+            else
+            {
+                AudioSet(SEState.PlayerShootGrass, PlayMagicAudioType.Play);
             }
             yield return new WaitForSeconds(0.05f);
         }
     }
-
-    public IEnumerator IceTrails(int num, bool isIce)
-    {
-        for (int i = 0; i < num; i++)
-        {
-            foreach (AudioSource source in _audioSources)
-            {
-                if (!source.isPlaying)
-                {
-                    if (isIce)
-                    {
-                        //    source.PlayOneShot(_iceTrail);
-                    }
-                    else
-                    {
-                        //  source.PlayOneShot(_grassTrail);
-                    }
-
-                    break;
-                }
-            }
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
-
 
     public void AttackCharge(bool isPlay, bool isIce)
     {
