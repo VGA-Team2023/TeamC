@@ -21,17 +21,11 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlayerBody
-  m_Shader: {fileID: 4800000, guid: 455b4c169edd4f54b9fcb9a164447f1c, type: 3}
+  m_Shader: {fileID: 4800000, guid: df12117ecd77c31469c224178886498e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - ENABLE_RAMP_SHADOW
-  m_InvalidKeywords:
-  - ENABLE_AUTOCOLOR
-  - ENABLE_METAL_SPECULAR
-  - _ENABLERIMDS_ON
-  - _ENABLESPECULAR_ON
-  - _FIXDARKSHADOW_ON
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -71,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: c049ef1bd4857dc4295fb8de1725ec24, type: 3}
+        m_Texture: {fileID: 2800000, guid: c06978f243f6fa443819475ac08fd3fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -199,7 +193,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c049ef1bd4857dc4295fb8de1725ec24, type: 3}
+        m_Texture: {fileID: 2800000, guid: c06978f243f6fa443819475ac08fd3fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap2ndBlendMask:
@@ -267,7 +261,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RimColorTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a15b96dc7f6d729449216a1048a3b31f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Shadow2ndColorTex:
@@ -621,15 +615,15 @@ Material:
     - _ReflectionNormalStrength: 1
     - _RimApplyTransparency: 1
     - _RimBackfaceMask: 1
-    - _RimBlendMode: 3
-    - _RimBlur: 0.65
-    - _RimBorder: 0.5
-    - _RimDirRange: 0
-    - _RimDirStrength: 0
+    - _RimBlendMode: 1
+    - _RimBlur: 0.67
+    - _RimBorder: 0
+    - _RimDirRange: -0.1
+    - _RimDirStrength: 0.27
     - _RimEnableLighting: 1
-    - _RimFresnelPower: 3.5
-    - _RimIndirBlur: 0.1
-    - _RimIndirBorder: 0.5
+    - _RimFresnelPower: 28
+    - _RimIndirBlur: 0.71
+    - _RimIndirBorder: 0
     - _RimIndirRange: 0
     - _RimMainStrength: 0
     - _RimNormalStrength: 1
@@ -736,8 +730,8 @@ Material:
     - _AudioLinkVertexUVParams: {r: 0.25, g: 0, b: 0, a: 0.125}
     - _BackfaceColor: {r: 0, g: 0, b: 0, a: 0}
     - _BacklightColor: {r: 0.85, g: 0.8, b: 0.7, a: 1}
-    - _BaseColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.92452836, g: 0.92452836, b: 0.92452836, a: 1}
+    - _Color: {r: 0.92452836, g: 0.92452836, b: 0.92452836, a: 1}
     - _Color2nd: {r: 1, g: 1, b: 1, a: 1}
     - _Color3rd: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 0, g: 0, b: 0, a: 1}
@@ -797,7 +791,7 @@ Material:
     - _RampArea5: {r: -50, g: 3, b: -50, a: 0}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _ReflectionCubeColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimIndirColor: {r: 1, g: 1, b: 1, a: 1}
     - _Shadow2ndColor: {r: 0.68, g: 0.65999997, b: 0.78999996, a: 1}
     - _Shadow3rdColor: {r: 0, g: 0, b: 0, a: 0}
