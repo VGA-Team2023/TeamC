@@ -8,4 +8,8 @@ public class OptionPanelAdder : MonoBehaviour
         var tmp =_inGameOptionPanel.GetComponent<IPause>();
         GameManager.Instance.PauseManager.Add(tmp);
     }
+    private void OnDestroy()
+    {
+        GameManager.Instance.PauseManager.Remove(_inGameOptionPanel.GetComponent<IPause>());
+    }
 }
