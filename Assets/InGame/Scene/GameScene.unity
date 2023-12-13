@@ -13085,6 +13085,11 @@ PrefabInstance:
       propertyPath: _currentGameState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1897295341086782831, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
+        type: 3}
+      propertyPath: _timeManager._gamePlayTime
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 2176321692673286541, guid: 9baa1ed37b37b8b42b0193aead2d47e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33170,6 +33175,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1365816112354450715, guid: 096e9e69ec7e30c489aaac80c42f32f7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.24
+      objectReference: {fileID: 0}
     - target: {fileID: 1541227042204146956, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
       propertyPath: m_Name
@@ -33202,6 +33212,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1305228032559995483, guid: 844265fc9f2842241a7a746fcd7839f7,
         type: 3}
+    - target: {fileID: 5409057232528036378, guid: 096e9e69ec7e30c489aaac80c42f32f7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5564428855528249801, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33225,7 +33240,7 @@ PrefabInstance:
     - target: {fileID: 7457525286157891792, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7962117519851175095, guid: 096e9e69ec7e30c489aaac80c42f32f7,
         type: 3}
@@ -33456,11 +33471,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4763313627753334574, guid: 67448bef482eb6a479f15b10a5634d7f,
-        type: 3}
-      propertyPath: _hitStopData.Array.data[0]._hitStopTime
-      value: 1.6
-      objectReference: {fileID: 0}
     - target: {fileID: 7362463099837575793, guid: 67448bef482eb6a479f15b10a5634d7f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33515,6 +33525,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8959717186178648064, guid: 67448bef482eb6a479f15b10a5634d7f,
+        type: 3}
+      propertyPath: _hp._hp
+      value: 49.94
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
