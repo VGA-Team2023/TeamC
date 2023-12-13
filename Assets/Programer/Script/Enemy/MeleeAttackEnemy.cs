@@ -267,6 +267,10 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             {
                 AudioController.Instance.SE.Stop(playSe);
             }
+            else if (criType == CRIType.Update)
+            {
+                AudioController.Instance.SE.Update3DPos(playSe, transform.position);
+            }
         }
     }
 }
