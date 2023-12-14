@@ -8,8 +8,6 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     [Header("属性")]
     [SerializeField] private MagickType _magickType;
 
-    [SerializeField] private List<ParticleSystem> _p = new List<ParticleSystem>();
-
     [Header("弾速")]
     [SerializeField] private float _moveSpeed = 10f;
 
@@ -22,6 +20,7 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     private float _countLifeTime = 0;
 
+    private bool _isDestroy = false;
 
     public void Init(float attackPower)
     {
@@ -39,9 +38,12 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     private void Update()
     {
         //音源の更新
-        AudioSet(PlayMagicAudioType.Updata);
-        CountLifeTime();
+        if (!_isDestroy)
+        {
+            AudioSet(PlayMagicAudioType.Updata);
+        }
 
+        CountLifeTime();
     }
 
     private void FixedUpdate()
@@ -57,7 +59,9 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         _liftTime += Time.deltaTime;
 
         if (_liftTime < _countLifeTime)
-        {        //音源の更新
+        {
+            _isDestroy = true;
+            //音源の更新
             AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
         }
@@ -67,6 +71,8 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     {
         if (other.gameObject.tag == "Player")
         {
+            _isDestroy = true;
+
             other.gameObject.TryGetComponent<IPlayerDamageble>(out IPlayerDamageble player);
             player?.Damage(_attackPower);
             //音源の更新
