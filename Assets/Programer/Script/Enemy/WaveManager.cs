@@ -57,7 +57,6 @@ public class WaveManager : MonoBehaviour
         {
             //Observerで敵がやられたか監視する
             summon.OnEnemyFinish += EnemyDestroy;
-            summon.gameObject.SetActive(false);
         }
         yield return 1;
         DestroyCount = _waveSettings[1].EnemyCount;
@@ -65,7 +64,6 @@ public class WaveManager : MonoBehaviour
         foreach (var summon in _waveSettings[1].Enemys)
         {
             summon.OnEnemyFinish += EnemyDestroy;
-            summon.gameObject.SetActive(false);
         }
         yield return 2;
         DestroyCount = _waveSettings[2].EnemyCount;
@@ -74,7 +72,6 @@ public class WaveManager : MonoBehaviour
         foreach (var summon in _waveSettings[2].Enemys)
         {
             summon.OnEnemyFinish += EnemyDestroy;
-            summon.gameObject.SetActive(false);
         }
         yield return 3;
     }
