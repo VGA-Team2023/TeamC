@@ -42,6 +42,8 @@ public class LAEFreeMoveState : IStateMachine
         if (distance < _enemy.ChangeDistance)
         {
             _index++;
+            Debug.Log($"Index:{_index}");
+            Debug.Log($"NextPoint:{_patrolPoint[_index % _patrolPoint.Count]}");
         }
         var nextPoint = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
         _enemy.transform.forward = new Vector3(nextPoint.x, 0, nextPoint.z);
