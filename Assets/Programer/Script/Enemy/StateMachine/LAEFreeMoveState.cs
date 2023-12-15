@@ -39,6 +39,7 @@ public class LAEFreeMoveState : IStateMachine
         }
         //基本は決められた地点を周回する
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);
+        Debug.Log($"DIstance:{distance}");
         if (distance < _enemy.ChangeDistance)
         {
             _index++;
