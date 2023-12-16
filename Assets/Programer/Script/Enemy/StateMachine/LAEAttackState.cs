@@ -29,7 +29,8 @@ public class LAEAttackState : IStateMachine
         if(_timer > _enemy.AttackInterval)
         {
             _enemy.Audio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
-            _enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            //_enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            _enemy.Attack();
             _timer = 0;
             Debug.Log("攻撃");
         }

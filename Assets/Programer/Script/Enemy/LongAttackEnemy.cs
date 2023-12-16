@@ -15,8 +15,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     Animator _anim;
     public Animator Animator => _anim;
 
+    [Min(0.6f)]
     [SerializeField, Tooltip("どれくらい移動先に近づいたら次の地点に行くか")]
-    float _changePointDistance = 0.5f;
+    float _changePointDistance = 0.6f;
     public float ChangeDistance => _changePointDistance;
 
     [SerializeField, Tooltip("スローになった時のプレイヤーのスピード")]
@@ -188,7 +189,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StartFinishing()
     {
-        _anim.SetBool("isStan", true);
+        //_anim.SetBool("isStan", true);
         gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
@@ -198,7 +199,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StopFinishing()
     {
-        _anim.SetBool("isStan", false);
+        //_anim.SetBool("isStan", false);
         Audio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
         gameObject.layer = DefaultLayer;
@@ -234,27 +235,27 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void Pause()
     {
-        _anim.speed = 0;
+        //_anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
     public void Resume()
     {
-        _anim.speed = 1;
+        //_anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
     void ISpecialMovingPause.Pause()
     {
-        _anim.speed = 0;
+        //_anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
     void ISpecialMovingPause.Resume()
     {
-        _anim.speed = 1;
+        //_anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
