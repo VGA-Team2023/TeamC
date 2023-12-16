@@ -13,6 +13,9 @@ public class BossAttack
     [Header("追従攻撃")]
     [SerializeField] private BossFollowAttack _followAttack;
 
+    [Header("テレポート攻撃")]
+    [SerializeField] private BossTeleportAttack _teleportAttack;
+
     [Header("攻撃間のクールタイム")]
     [SerializeField] private float _attackCoolTime = 5f;
 
@@ -20,7 +23,7 @@ public class BossAttack
     [Range(0, 9)]
     [SerializeField] private int _attackNomalParcent = 4;
 
-    private BossAttackType _bossAttackMagicTypes;
+    private BossAttackType _bossAttackMagicTypes =BossAttackType.Follow;
 
     private float _countCoolTime = 0;
 
@@ -38,6 +41,7 @@ public class BossAttack
         _bossControl = bossControl;
         _nomalAttack.Init(bossControl);
         _followAttack.Init(bossControl);
+        _teleportAttack.Init(bossControl);
     }
 
     public void AttackStartSet()
@@ -49,12 +53,17 @@ public class BossAttack
         if (_bossAttackMagicTypes == BossAttackType.Nomal)
         {
             _bossAttackMagicTypes = BossAttackType.Follow;
-            _nomalAttack.AttackFirstSet();
+            _followAttack.SetAttack();
         }
-        else
+        else if (_bossAttackMagicTypes == BossAttackType.Follow)
+        {
+            _bossAttackMagicTypes = BossAttackType.Teleport;
+            _teleportAttack.SetAttack();
+        }
+        else if (_bossAttackMagicTypes == BossAttackType.Teleport)
         {
             _bossAttackMagicTypes = BossAttackType.Nomal;
-            _followAttack.SetAttack();
+            _nomalAttack.AttackFirstSet();
         }
     }
 
@@ -62,11 +71,15 @@ public class BossAttack
     {
         if (_bossAttackMagicTypes == BossAttackType.Nomal)
         {
-            _nomalAttack.StopAttack();
+        _nomalAttack.StopAttack();
         }
-        else
+        else if (_bossAttackMagicTypes == BossAttackType.Follow)
         {
             _followAttack.StopAttack();
+        }
+        else if (_bossAttackMagicTypes == BossAttackType.Teleport)
+        {
+            _teleportAttack.StopAttack();
         }
     }
 
@@ -95,6 +108,7 @@ public class BossAttack
     {
         if (!_isAttackNow) return;
 
+
         if (_bossAttackMagicTypes == BossAttackType.Nomal)
         {
             if (_nomalAttack.DoAttack())
@@ -103,9 +117,17 @@ public class BossAttack
                 _isAttackNow = false;
             }
         }
-        else
+        else if (_bossAttackMagicTypes == BossAttackType.Follow)
         {
             if (_followAttack.DoAttack())
+            {
+                _isEndAttack = true;
+                _isAttackNow = false;
+            }
+        }
+        else if (_bossAttackMagicTypes == BossAttackType.Teleport)
+        {
+            if (_teleportAttack.DoAttack())
             {
                 _isEndAttack = true;
                 _isAttackNow = false;
@@ -121,4 +143,5 @@ public enum BossAttackType
 {
     Nomal,
     Follow,
+    Teleport,
 }

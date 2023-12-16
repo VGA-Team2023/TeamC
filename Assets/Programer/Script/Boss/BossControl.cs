@@ -151,6 +151,16 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     public void EndFinishing(MagickType attackHitTyp)
     {
         _isDeath = _hpControl.CompleteFinishAttack(attackHitTyp);
+
+        if(_enemyAttribute == PlayerAttribute.Ice)
+        {
+            _enemyAttribute = PlayerAttribute.Grass;
+        }
+        else
+        {
+            _enemyAttribute = PlayerAttribute.Ice;
+        }
+
     }
 
 
