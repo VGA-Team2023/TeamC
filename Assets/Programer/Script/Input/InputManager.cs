@@ -40,8 +40,20 @@ public class InputManager : MonoBehaviour
 
     private float _isChangeLockOnEnemy = 0;
 
+    private bool _isChangeLockOnEnemyRight = false;
+
+    private bool _isChangeLockOnEnemyLeft = false;
+
+    private float _wheel;
+
     /// <summary>属性変更ボタンを押したかどうか </summary>
     private bool _isChangeAttribute = false;
+
+    public bool IsChangeLockOnEnemyRight => _isChangeLockOnEnemyRight;
+    public bool IsChangeLockOnEnemyLeft => _isChangeLockOnEnemyLeft;
+
+
+
     public bool IsChangeAttribute => _isChangeAttribute;
     public float IsChangeLockOnEney => _isChangeLockOnEnemy;
     public bool IsLockOn => _isLockOn;
@@ -149,11 +161,41 @@ public class InputManager : MonoBehaviour
 
         if (_control.IsMousePlay)
         {
-            _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
+            float wheel = Input.GetAxis("Mouse ScrollWheel");
+
+            _isChangeLockOnEnemyRight = false;
+            _isChangeLockOnEnemyLeft = false;
+            if (_wheel == 0)
+            {
+                if (wheel > 0)
+                {
+                    _isChangeLockOnEnemyRight = true;
+                }
+                else if (wheel < 0)
+                {
+                    _isChangeLockOnEnemyLeft = true;
+                }
+            }
+            _wheel = Input.GetAxis("Mouse ScrollWheel");
         }
         else
         {
-            _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
+            float wheel = Input.GetAxisRaw("ChengeLockOnEnemy");
+
+            _isChangeLockOnEnemyRight = false;
+            _isChangeLockOnEnemyLeft = false;
+            if (_wheel == 0)
+            {
+                if (wheel > 0)
+                {
+                    _isChangeLockOnEnemyRight = true;
+                }
+                else if (wheel < 0)
+                {
+                    _isChangeLockOnEnemyLeft = true;
+                }
+            }
+            _wheel = Input.GetAxisRaw("ChengeLockOnEnemy");
         }
 
         //属性変更
@@ -230,11 +272,41 @@ public class InputManager : MonoBehaviour
         {
             if (_control.IsMousePlay)
             {
-                _isChangeLockOnEnemy = Input.GetAxis("Mouse ScrollWheel");
+                float wheel = Input.GetAxis("Mouse ScrollWheel");
+
+                _isChangeLockOnEnemyRight = false;
+                _isChangeLockOnEnemyLeft = false;
+                if (_wheel == 0)
+                {
+                    if (wheel > 0)
+                    {
+                        _isChangeLockOnEnemyRight = true;
+                    }
+                    else if (wheel < 0)
+                    {
+                        _isChangeLockOnEnemyLeft = true;
+                    }
+                }
+                _wheel = Input.GetAxis("Mouse ScrollWheel");
             }
             else
             {
-                _isChangeLockOnEnemy = Input.GetAxisRaw("ChengeLockOnEnemy");
+                float wheel = Input.GetAxisRaw("ChengeLockOnEnemy");
+
+                _isChangeLockOnEnemyRight = false;
+                _isChangeLockOnEnemyLeft = false;
+                if (_wheel == 0)
+                {
+                    if (wheel > 0)
+                    {
+                        _isChangeLockOnEnemyRight = true;
+                    }
+                    else if (wheel < 0)
+                    {
+                        _isChangeLockOnEnemyLeft = true;
+                    }
+                }
+                _wheel = Input.GetAxisRaw("ChengeLockOnEnemy");
             }
         }
 

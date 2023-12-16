@@ -248,13 +248,6 @@ public class FinishingAttack
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
-        //時間を遅くする
-        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
-
-
-        // LineSetting();
-
-
         //アニメーション再生
         _playerControl.PlayerAnimControl.EndFinishAttack(AttackType.LongChantingMagick);
 
@@ -270,9 +263,10 @@ public class FinishingAttack
             {
                 damgeble?.EndFinishing(MagickType.Grass);
             }
-
-
         }
+
+        //時間を遅くする
+        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
     }
 
     private void StopFinishingAttack()

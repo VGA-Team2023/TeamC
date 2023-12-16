@@ -47,6 +47,9 @@ public class BossTeleportAttack
 
     private int _setPosition = 0;
 
+    public List<ParticleSystem> TeleportIce => _teleportIce;
+    public List<ParticleSystem> TeleportGrass => _teleportGrass;
+
     public void Init(BossControl bossControl)
     {
         _bossControl = bossControl;
@@ -122,17 +125,28 @@ public class BossTeleportAttack
         if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
         {
             _teleportIce.ForEach(i => i.Play());
-
-            var go = GameObject.Instantiate(_dummyIce);
-            go.transform.position = _bossControl.gameObject.transform.position;
         }
         else
         {
             _teleportGrass.ForEach(i => i.Play());
-
-            var go = GameObject.Instantiate(_dummyGrass);
-            go.transform.position = _bossControl.gameObject.transform.position;
         }
+
+        //É_É~Å[Çâ≠
+        if (_teleportNum != _setTeleportNum)
+        {
+            if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+            {
+                var go = GameObject.Instantiate(_dummyIce);
+                go.transform.position = _bossControl.gameObject.transform.position;
+            }
+            else
+            {
+                var go = GameObject.Instantiate(_dummyGrass);
+                go.transform.position = _bossControl.gameObject.transform.position;
+            }
+        }
+
+
 
         _isTeleport = true;
     }

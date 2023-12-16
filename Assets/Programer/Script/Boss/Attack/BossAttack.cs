@@ -19,11 +19,11 @@ public class BossAttack
     [Header("UŒ‚ŠÔ‚ÌƒN[ƒ‹ƒ^ƒCƒ€")]
     [SerializeField] private float _attackCoolTime = 5f;
 
-    [Header("’ÊíUŒ‚‚Ì%")]
-    [Range(0, 9)]
-    [SerializeField] private int _attackNomalParcent = 4;
+    //[Header("’ÊíUŒ‚‚Ì%")]
+    //[Range(0, 9)]
+    //[SerializeField] private int _attackNomalParcent = 4;
 
-    private BossAttackType _bossAttackMagicTypes =BossAttackType.Follow;
+    private BossAttackType _bossAttackMagicTypes =BossAttackType.Nomal;
 
     private float _countCoolTime = 0;
 
@@ -35,7 +35,7 @@ public class BossAttack
 
     public BossFollowAttack BossFollowAttack => _followAttack;
     public BossNomalAttack NomalAttack => _nomalAttack;
-
+    public BossTeleportAttack TeleportAttack => _teleportAttack;
     public void Init(BossControl bossControl)
     {
         _bossControl = bossControl;
@@ -69,6 +69,9 @@ public class BossAttack
 
     public void StopAttack()
     {
+        _countCoolTime = 0;
+        _isAttackNow = false;
+
         if (_bossAttackMagicTypes == BossAttackType.Nomal)
         {
         _nomalAttack.StopAttack();

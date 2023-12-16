@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 1
   _destroyTime: 1.76
-  _liftTime: 2
+  _liftTime: 10
   _rotateSpeed: 100
   _deathLayer: 8
   _deathEffect: {fileID: 1025481493381741224, guid: 8137aff1e4a88d448a87b1956c0ebc5a,
@@ -60,9 +60,26 @@ MonoBehaviour:
   _trapBulletIce: {fileID: 4102180365500606189, guid: c82f785b7bc846c49ad7b797dfe6a059,
     type: 3}
   _trapOffsetIce: {x: 0, y: -2, z: 0}
-  _damageEffectIce: []
-  _damageEffectGrass: []
-  _anim: {fileID: 0}
+  _damageEffectIce:
+  - {fileID: 8107036462303159987}
+  - {fileID: 5434271155997155892}
+  - {fileID: 8311952511291111009}
+  - {fileID: 5125230457144457548}
+  - {fileID: 8916161606496124228}
+  - {fileID: 4446731499855088779}
+  - {fileID: 8405254629310387348}
+  - {fileID: 7713257495895064985}
+  - {fileID: 3415302061894669094}
+  _damageEffectGrass:
+  - {fileID: 5646365010706136349}
+  - {fileID: 5546931715789646225}
+  - {fileID: 8577207769958188330}
+  - {fileID: 1822412638491165978}
+  - {fileID: 5478336690171032165}
+  - {fileID: 2698869305163601767}
+  - {fileID: 2896886126616146831}
+  - {fileID: 4588203605456931786}
+  _anim: {fileID: 1989156593343702118}
 --- !u!114 &2690495176658981473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,6 +1223,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63460cf7957604845bd6c5858af021d1, type: 3}
+--- !u!95 &1989156593343702118 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 63460cf7957604845bd6c5858af021d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5399942156790012407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5582998668234817052 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 63460cf7957604845bd6c5858af021d1,

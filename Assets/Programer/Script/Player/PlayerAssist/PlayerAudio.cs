@@ -154,22 +154,23 @@ public class PlayerAudio : MonoBehaviour
         {
             if (isPlay)
             {
-                _iceCharge.Play();
+                AudioSet(SEState.PlayerChargeIce, PlayMagicAudioType.Play);
             }
             else
             {
-                _iceCharge.Stop();
+                AudioSet(SEState.PlayerChargeIce, PlayMagicAudioType.Stop);
             }
         }
         else
         {
             if (isPlay)
             {
-                _grassCharge.Play();
+                AudioSet(SEState.PlayerChargeGrass, PlayMagicAudioType.Play);
             }
             else
             {
-                _grassCharge.Stop();
+                AudioSet(SEState.PlayerChargeGrass, PlayMagicAudioType.Stop);
+
             }
         }
 

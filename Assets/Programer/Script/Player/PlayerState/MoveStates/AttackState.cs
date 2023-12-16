@@ -97,16 +97,16 @@ public class AttackState : PlayerStateBase
             _stateMachine.PlayerController.Attack2.AttackInputedCheck();
             _stateMachine.PlayerController.Attack2.CheckInput();
 
-            if (_stateMachine.PlayerController.Attack2.IsCanNextAttack &&
-            _stateMachine.PlayerController.Attack2.IsPushAttack)
-            {
-                if (_stateMachine.PlayerController.Attack2.IsCanTransitionAttackState)
-                {
-                    Debug.Log("Attack=>Attack");
-                    _stateMachine.TransitionTo(_stateMachine.AttackState);
-                    return;
-                }
-            }   //攻撃
+            //if (_stateMachine.PlayerController.Attack2.IsCanNextAttack &&
+            //_stateMachine.PlayerController.Attack2.IsPushAttack)
+            //{
+            //    if (_stateMachine.PlayerController.Attack2.IsCanTransitionAttackState)
+            //    {
+            //        Debug.Log("Attack=>Attack");
+            //        _stateMachine.TransitionTo(_stateMachine.AttackState);
+            //        return;
+            //    }
+            //}   //攻撃
 
 
 
