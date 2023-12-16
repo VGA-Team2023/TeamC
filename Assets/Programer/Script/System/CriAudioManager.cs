@@ -166,10 +166,10 @@ public class CriAudioManager
             {
                 if (_removedCueDataIndex.Count > 0)
                 {
-                    int tempIndex;
-                    if (_removedCueDataIndex.TryTake(out tempIndex))
+                    if (_removedCueDataIndex.TryTake(out int tempIndex))
                     {
-                        _cueData.TryAdd(tempIndex, playerData);
+                        if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
+                        else { _cueData.TryAdd(tempIndex, playerData); }
                     }
 
                     return tempIndex;
@@ -177,16 +177,18 @@ public class CriAudioManager
                 else
                 {
                     _currentMaxCount++;
-                    _cueData.TryAdd(_currentMaxCount, playerData);
+                    if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
+                    else { _cueData.TryAdd(_currentMaxCount, playerData); }
+
                     return _currentMaxCount;
                 }
             }
             else if (_removedCueDataIndex.Count > 0)
             {
-                int tempIndex;
-                if (_removedCueDataIndex.TryTake(out tempIndex))
+                if (_removedCueDataIndex.TryTake(out int tempIndex))
                 {
-                    _cueData.TryAdd(tempIndex, playerData);
+                    if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
+                    else { _cueData.TryAdd(tempIndex, playerData); }
                 }
 
                 PlaybackDestroyWaitForPlayEnd(tempIndex, playerData.CancellationTokenSource.Token);
@@ -195,7 +197,9 @@ public class CriAudioManager
             else
             {
                 _currentMaxCount++;
-                _cueData.TryAdd(_currentMaxCount, playerData);
+                if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
+                else { _cueData.TryAdd(_currentMaxCount, playerData); }
+
                 PlaybackDestroyWaitForPlayEnd(_currentMaxCount, playerData.CancellationTokenSource.Token);
                 return _currentMaxCount;
             }
@@ -204,21 +208,25 @@ public class CriAudioManager
 
         protected async void PlaybackDestroyWaitForPlayEnd(int index, CancellationToken cancellationToken)
         {
-            if(!_cueData.TryGetValue(index, out var data)) { return; }
+            if(!_cueData.TryGetValue(index, out var _)) { return; }
             // ループしていたら抜ける
             if (_cueData[index].IsLoop) { return; }
 
-            if (cancellationToken.IsCancellationRequested) { return; }
+            if (!cancellationToken.IsCancellationRequested) { return; }
+            if (!cancellationToken.CanBeCanceled) { Debug.Log("cancel 不可"); return; }
 
-            try
+            //try
+            //{
+            //    await Task.Delay((int)_cueData[index].CueInfo.length, cancellationToken);
+            //}
+            //catch (Exception ex) when (ex is OperationCanceledException)
+            //{
+            //    return;
+            //}
+            if ((int)_cueData[index].CueInfo.length > 0)
             {
                 await Task.Delay((int)_cueData[index].CueInfo.length, cancellationToken);
             }
-            catch (Exception ex) when (ex is OperationCanceledException)
-            {
-                return;
-            }
-            await Task.Delay((int)_cueData[index].CueInfo.length, cancellationToken);
 
             while (true)
             {
@@ -274,7 +282,7 @@ public class CriAudioManager
 
         /// <summary>音声をStopさせる</summary>
         /// <param name="index">Stopさせたい音声のPlay時の戻り値(Index)</param>
-        public void Stop(int index);
+        public int Stop(int index, string cuname);
 
         public void PauseAll();
 
@@ -327,7 +335,7 @@ public class CriAudioManager
                 return _cueData.Count - 1;
             }
 
-            Stop(_cueData.Count - 1);
+            //Stop(_cueData.Count - 1);
 
             // 情報をセットして再生
             _player.SetCue(tempAcb, cueName);
@@ -355,8 +363,8 @@ public class CriAudioManager
             {
                 return _cueData.Count - 1;
             }
-
-            Stop(_cueData.Count - 1);
+            
+            //Stop(_cueData.Count - 1);
 
             // 座標情報をセットして再生
             var temp3dData = new CriAtomEx3dSource();
@@ -404,11 +412,12 @@ public class CriAudioManager
 
             _player.Resume(CriAtomEx.ResumeMode.PausedPlayback);
         }
-        public void Stop(int index)
+        public int Stop(int index, string cuname)
         {
-            if (index <= -1) { return; }
+            if (index <= -1) { return 0; }
 
             _player.Stop(false);
+            return 0;
         }
 
         public void StopAll() { _player.Stop(false); }
@@ -468,7 +477,7 @@ public class CriAudioManager
             if(_player.GetStatus() == CriAtomExPlayer.Status.Error) { return -1; }
             // 座標情報をセットして再生
             var temp3dData = new CriAtomEx3dSource();
-
+            //Debug.Log(_cueData.Count);
             temp3dData.SetPosition(playSoundWorldPos.x, playSoundWorldPos.y, playSoundWorldPos.z);
             // リスナーとソースを設定
             _player.Set3dListener(_listener);
@@ -514,12 +523,11 @@ public class CriAudioManager
             _player.Resume(CriAtomEx.ResumeMode.PausedPlayback);
         }
 
-        public void Stop(int index)
+        public int Stop(int index, string cueName)
         {
-            if (index <= -1 || !_cueData.TryGetValue(index, out var data)) { return; }
-
+            if (index <= -1 || !_cueData.TryGetValue(index, out var _)) { return 0; }
+            
             _cueData[index].Playback.Stop(false);
-
             if (_cueData.Remove(index, out CriPlayerData outData))
             {
                 _removedCueDataIndex.Add(index);
@@ -527,7 +535,14 @@ public class CriAudioManager
                 outData.Source?.Dispose();
                 outData.CancellationTokenSource?.Cancel();
             }
-
+            foreach(var i in _cueData.Keys)
+            {
+                if (_cueData[i].CueInfo.name == cueName)
+                {
+                    index = i; break;
+                }
+            }
+            return index;
         }
 
         public void StopAll()
