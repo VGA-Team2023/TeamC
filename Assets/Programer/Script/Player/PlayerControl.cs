@@ -174,6 +174,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     private void OnDisable()
     {
         GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
         GameManager.Instance.SpecialMovingPauseManager.Resume(this);
     }
 
