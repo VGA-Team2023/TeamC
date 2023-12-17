@@ -118,23 +118,23 @@ MonoBehaviour:
     - state: 4
       soundCueName: SE_PL_ice_Finish_Charge
     - state: 5
-      soundCueName: SE_PL_ice_charge_B01
-    - state: 6
       soundCueName: SE_PL_grass_Finish_charge
-    - state: 7
-      soundCueName: SE_PL_grass_charge_B01
-    - state: 8
+    - state: 6
       soundCueName: SE_PL_ice_trail_A01
-    - state: 9
+    - state: 7
       soundCueName: SE_PL_ice_trail_B01
-    - state: 10
+    - state: 8
       soundCueName: SE_PL_grass_trail_A01
-    - state: 11
+    - state: 9
       soundCueName: SE_PL_grass_trail_B01
-    - state: 12
+    - state: 10
       soundCueName: SE_PL_ice_magiccircl
-    - state: 13
+    - state: 11
+      soundCueName: SE_PL_ice_charge_B01
+    - state: 12
       soundCueName: SE_PL_grass_magiccircl
+    - state: 13
+      soundCueName: SE_PL_grass_charge_B01
     - state: 14
       soundCueName: SE_PL_Ice_move
     - state: 15

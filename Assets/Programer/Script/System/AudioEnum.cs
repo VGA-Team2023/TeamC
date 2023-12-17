@@ -11,13 +11,17 @@
 }
 public enum SEState
 {
-    /// <summary>Player通常攻撃発射音(氷)</summary>
+    /// <summary>Player通常攻撃発射音(氷パターン１)</summary>
     PlayerShootIce,
-    /// <summary>Player通常攻撃発射音(草)</summary>
+    /// <summary>Player通常攻撃発射音(氷パターン２)</summary>
+    PlayerShootIce2,
+    /// <summary>Player通常攻撃発射音(草パターン１)</summary>
     PlayerShootGrass,
-    /// <summary>Player必殺技チャージ音(氷)</summary>
+    /// <summary>Player通常攻撃発射音(草パターン２)</summary>
+    PlayerShootGrass2,
+    /// <summary>Player必殺技チャージ音(氷パターン１)</summary>
     PlayerChargeIce,
-    /// <summary>Player必殺技チャージ音(草)</summary>
+    /// <summary>Player必殺技チャージ音(草パターン１)</summary>
     PlayerChargeGrass,
     /// <summary>Playerトレイル音(氷パターン1)</summary>
     PlayerTrailIcePatternA,
@@ -27,8 +31,14 @@ public enum SEState
     PlayerTrailGrassPatternA,
     /// <summary>Playerトレイル音(草パターン2)</summary>
     PlayerTrailGrassPatternB,
-    /// <summary>Player魔法陣展開音</summary>
-    PlayerMagiccircl,
+    /// <summary>Player魔法陣展開音(氷)</summary>
+    PlayerMagiccirclIce,
+    /// <summary>Player魔法陣展開中の音(氷)(弾が発射し終わった時にStop)</summary>
+    PlayerMagiccirclPlayingIce,
+    /// <summary>Player魔法陣展開音(草)</summary>
+    PlayerMagiccirclGrass,
+    /// <summary>Player魔法陣展開中の音(草)(弾が発射し終わった時にStop)</summary>
+    PlayerMagiccirclPlayingGrass,
     /// <summary>Player回避音(氷)</summary>
     PlayerDodgeIce,
     /// <summary>Player回避音(草)</summary>
@@ -71,85 +81,61 @@ public enum SEState
     SystemApply,
     /// <summary>システムのキャンセル音</summary>
     SystemCancel,
+    /// <summary>システムの選択時の音(OptionのBGMやSEを選んでるとき等)</summary>
+    SystemSelect,
+
+    /// <summary>リザルトの成績発表に使う音(ドラムロール的な)</summary>
+    MeScoreAnnouncement,
+    /// <summary>リザルトの発表後に流れる音(評価が低い時)</summary>
+    MeResultScoreLow,
+    /// <summary>リザルトの発表後に流れる音(評価が普通の時)</summary>
+    MeResultScoreMiddle,
+    /// <summary>リザルトの発表後に流れる音(評価が高い時)</summary>
+    MeResultScoreHigh,
+
 }
 
 public enum VoiceState
 {
-    /// <summary>通常攻撃(はっ！)</summary>
-    PlayerAttackPattern1,
-    /// <summary>通常攻撃(ふっ！)</summary>
-    PlayerAttackPattern2,
-    /// <summary>通常攻撃(やっ！)</summary>
-    PlayerAttackPattern3,
-    /// <summary>通常攻撃(これで！)</summary>
-    PlayerAttackPattern4,
-    /// <summary>魔法陣展開(まだまだ！)</summary>
-    PlayerCastingNormalPattern1,
-    /// <summary>魔法陣展開(次・・・！)</summary>
-    PlayerCastingNormalPattern2,
-    /// <summary>氷魔法陣展開(グレイシオ！)</summary>
+    /// <summary>通常攻撃(はっ！、ふっ！、やっ！、これで！)</summary>
+    PlayerAttack,
+    /// <summary>氷魔法陣展開(グレイシオ！、まだまだ！、次・・・！)</summary>
     PlayerCastingIce,
-    /// <summary>草魔法陣展開(ロゼエラ！)</summary>
+    /// <summary>草魔法陣展開(ロゼエラ！、、まだまだ！、次・・・！)</summary>
     PlayerCastingGrass,
-    /// <summary>氷魔法チャージ中(冷気よ・・・！)</summary>
-    PlayerChargeIcePattern1,
-    /// <summary>氷魔法チャージ中(氷よ・・・！)</summary>
-    PlayerChargeIcePattern2,
-    /// <summary>氷魔法チャージ中(凍れ・・・！)</summary>
-    PlayerChargeIcePattern3,
-    /// <summary>草魔法チャージ中(薔薇よ・・・！)</summary>
-    PlayerChargeGrassPattern1,
-    /// <summary>草魔法チャージ中(緑よ・・・！)</summary>
-    PlayerChargeGrassPattern2,
-    /// <summary>草魔法チャージ中(命よ・・・！)</summary>
-    PlayerChargeGrassPattern3,
-    /// <summary>必殺攻撃(トドメ！)</summary>
-    PlayerFinishNormalPattern1,
-    /// <summary>必殺攻撃(これで終わり！)</summary>
-    PlayerFinishNormalPattern2,
-    /// <summary>必殺攻撃(コアを！)</summary>
-    PlayerFinishNormalPattern3,
-    /// <summary>氷魔法必殺攻撃(熱を奪う！)</summary>
+    /// <summary>氷魔法チャージ中(冷気よ・・・！、氷よ・・・！、凍れ・・・！)</summary>
+    PlayerChargeIce,
+    /// <summary>草魔法チャージ中(薔薇よ・・・！、緑よ・・・！、命よ・・・！)</summary>
+    PlayerChargeGrass,
+    /// <summary>氷魔法必殺攻撃(熱を奪う！、トドメ！、これで終わり！、コアを！)</summary>
     PlayerFinishIce,
-    /// <summary>草魔法必殺攻撃(芽吹け・・・！)</summary>
+    /// <summary>草魔法必殺攻撃(芽吹け・・・！、トドメ！、これで終わり！、コアを！)</summary>
     PlayerFinishGrass,
-    /// <summary>回避(せっ！)</summary>
-    PlayerDodgePattern1,
-    /// <summary>回避(っと！)</summary>
-    PlayerDodgePattern2,
-    /// <summary>回避(っしょ！)</summary>
-    PlayerDodgePattern3,
-    /// <summary>ダメージ(うっ！)</summary>
-    PlayerDamagePattern1,
-    /// <summary>ダメージ(痛った！)</summary>
-    PlayerDamagePattern2,
-    /// <summary>ダメージ(ぐっ！)</summary>
-    PlayerDamagePattern3,
-    /// <summary>HP0(こんな・・・ところで・・・)</summary>
-    PlayerDownPattern1,
-    /// <summary>HP0(まだ・・・戦える・・・)</summary>
-    PlayerDownPattern2,
-    /// <summary>HP0(悔しい！)</summary>
-    PlayerDownPattern3,
+    /// <summary>回避(せっ！、っと！、っしょ！)</summary>
+    PlayerDodge,
+    /// <summary>ダメージ(うっ！、痛った！、ぐっ！)</summary>
+    PlayerDamage,
+    /// <summary>HP0(こんな・・・ところで・・・、まだ・・・戦える・・・、悔しい！)</summary>
+    PlayerDown,
 
     /// <summary>索敵(オオオオォォ・・・・)</summary>
     EnemySaerch,
-    /// <summary>Player発見(キッ！)</summary>
-    EnemyDiscovPattern1,
-    /// <summary>Player発見(ヒヒヒ！)</summary>
-    EnemyDiscovPattern2,
-    /// <summary>攻撃(キヒャ！)</summary>
-    EnemyAttackPattern1,
-    /// <summary>攻撃(ケケケケ！)</summary>
-    EnemyAttackPattern2,
-    /// <summary>ダメージ(キーッ!?)</summary>
-    EnemyDamagePattern1,
-    /// <summary>ダメージ(ギ!?)</summary>
-    EnemyDamagePattern2,
-    /// <summary>死(ギーッ!)</summary>
-    EnemyDeathPattern1,
-    /// <summary>死(ヒヒャーッ!)</summary>
-    EnemyDeathPattern2,
+    /// <summary>近距離攻撃の敵Player発見(キッ！、ヒヒヒ！)</summary>
+    EnemyShortDiscov,
+    /// <summary>遠距離攻撃の敵Player発見(キッ！、ヒヒヒ！)</summary>
+    EnemyLongDiscov,
+    /// <summary>近距離攻撃の攻撃(キヒャ！、ケケケケ！)</summary>
+    EnemyShortAttack,
+    /// <summary>遠距離攻撃の攻撃(キヒャ！、ケケケケ！)</summary>
+    EnemyLongAttack,
+    /// <summary>近距離攻撃のダメージ(キーッ!?、ギ!?)</summary>
+    EnemyShortDamage,
+    /// <summary>遠距離攻撃のダメージ(キーッ!?、ギ!?)</summary>
+    EnemyLongDamage,
+    /// <summary>近距離攻撃の死(ギーッ!、ヒヒャーッ!)</summary>
+    EnemyShortDeath,
+    /// <summary>遠距離攻撃の死(ギーッ!、ヒヒャーッ!)</summary>
+    EnemyLongDeath,
 
     /// <summary>チュートリアル開始時(これより、アルシオネ魔法学園の、進級試験を始めます)</summary>
     InstructorTutorialStartPattern1,
