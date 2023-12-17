@@ -6,7 +6,7 @@ public class Loading : MonoBehaviour
 {    
     [SerializeField] string _nextSceneName = "";
     [SerializeField] private float _waitTimer;
-    private static LoadingPanel _loadingPanelInstance;
+    private LoadingPanel _loadingPanelInstance;
     private void Start()
     {
         if (_loadingPanelInstance == null)
@@ -15,7 +15,6 @@ public class Loading : MonoBehaviour
 
             if (_loadingPanelInstance == null)
             {
-                Debug.Log("instanceが見つかっていません");
                 return;
             }
         }

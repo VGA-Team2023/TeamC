@@ -91,29 +91,29 @@ public class ResultPrinter : MonoBehaviour
 
         if(cleartimesecond -_idealClearTimeSeconds <= _hightScoreClearTimeGap)
         {
-            evaluationvalue += 2;
+            evaluationvalue += 4;
         }
         else if(cleartimesecond - _idealClearTimeSeconds <= _normalScoreClearTimeGap)
         {
-            evaluationvalue += 1;
+            evaluationvalue += 3;
         }
 
         if (enemyDefeatedNum - _idealEnemyDefeatedNum <= _hightScoreEnemyDefeatedGap)
         {
-            evaluationvalue += 2;
+            evaluationvalue += 4;
         }
         else if(enemyDefeatedNum - _idealEnemyDefeatedNum <= _normalScoreEnemyDefeatedGap)
         {
-            evaluationvalue += 1;
+            evaluationvalue += 3;
         }
 
         if (playerDownCount == 0)
         {
-            evaluationvalue += 2;
+            evaluationvalue += 4;
         }
         else if(playerDownCount == 1)
         {
-            evaluationvalue += 1;
+            evaluationvalue += 0;
         }
         _judgeText.gameObject.SetActive(true);
         if (evaluationvalue >= _passingScore)
