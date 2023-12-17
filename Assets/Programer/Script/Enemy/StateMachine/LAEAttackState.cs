@@ -14,7 +14,16 @@ public class LAEAttackState : IStateMachine
     }
     public void Enter()
     {
-
+        int random = Random.Range(0, 2);
+        switch(random)
+        {
+            case 0:
+                _enemy.VoiceAudio(VoiceState.EnemyDiscovPattern1, EnemyBase.CRIType.Play);
+                break;
+            case 1:
+                _enemy.VoiceAudio(VoiceState.EnemyDiscovPattern2, EnemyBase.CRIType.Play);
+                break;
+        }
     }
 
     public void Exit()
@@ -28,8 +37,19 @@ public class LAEAttackState : IStateMachine
         _timer += Time.deltaTime;
         if(_timer > _enemy.AttackInterval)
         {
-            _enemy.Audio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
-            _enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            int random = Random.Range(0, 2);
+            switch (random)
+            {
+                case 0:
+                    _enemy.VoiceAudio(VoiceState.EnemyAttackPattern1, EnemyBase.CRIType.Play);
+                    break;
+                case 1:
+                    _enemy.VoiceAudio(VoiceState.EnemyAttackPattern2, EnemyBase.CRIType.Play);
+                    break;
+            }
+            _enemy.SeAudio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
+            //_enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            _enemy.Attack();
             _timer = 0;
             Debug.Log("攻撃");
         }
