@@ -168,10 +168,10 @@ public class CriAudioManager
                 {
                     if (_removedCueDataIndex.TryTake(out int tempIndex))
                     {
-                        if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
-                        else { _cueData.TryAdd(tempIndex, playerData); }
+                        //if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
+                        //else { _cueData.TryAdd(tempIndex, playerData); }
+                        _cueData.TryAdd(tempIndex, playerData);
                     }
-
                     return tempIndex;
                 }
                 else
