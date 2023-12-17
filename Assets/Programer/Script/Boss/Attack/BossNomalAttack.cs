@@ -78,7 +78,6 @@ public class BossNomalAttack
         _countChantingTime = 0;
         _isEndAllChanting = false;
         _isWaitFireTime = false;
-        _isEndAttack = false;
         _setMagicNumber = Random.Range(0, _setMagic.Magic.Count);
     }
 
@@ -86,7 +85,7 @@ public class BossNomalAttack
     /// <summary>攻撃中断処理</summary>
     public void StopAttack()
     {
-        foreach(var a in _setMagic.Magic[_setMagicNumber].Magic)
+        foreach (var a in _setMagic.Magic[_setMagicNumber].Magic)
         {
             a.MagicCircle.SetActive(false);
         }
@@ -96,6 +95,8 @@ public class BossNomalAttack
 
     public bool DoAttack()
     {
+
+        //攻撃時間を計測する
         if (!_isEndAttack && _countAttackTime > _attackTime)
         {
             _isEndAttack = true;
@@ -124,25 +125,28 @@ public class BossNomalAttack
 
             if (_countNeedFireTime > _setMagic.Magic[_setMagicNumber].NeedFireTime)
             {
+                //魔法を出す
                 UseMagic(_useMagicNum);
 
                 _countNeedFireTime = 0;
                 _useMagicNum++;
 
+                Debug.Log("使う:" + (_useMagicNum + 1) + "/" + "全部:" + _chantingCount);
                 if (_useMagicNum == _chantingCount)
                 {
                     ResetValue();
-
                     if (_isEndAttack)
                     {
+
                         return true;
                     }
                     else
                     {
                         return false;
                     }
-
                 }
+
+
             }
         }
 
@@ -152,16 +156,20 @@ public class BossNomalAttack
             return false;
         }
 
+        //魔法陣を出すのに必要な時間を計測
         _countChantingTime += Time.deltaTime;
+
 
         if (_countChantingTime > _setMagic.Magic[_setMagicNumber].Magic[_chantingCount].NeedTime)
         {
             //魔法陣を出現
             _setMagic.Magic[_setMagicNumber].Magic[_chantingCount].MagicCircle.SetActive(true);
 
+            //計測時間をリセット
             _countChantingTime = 0;
-            _chantingCount++;
 
+            //魔法陣を出した回数をカウント
+            _chantingCount++;
             if (_chantingCount == _setMagic.Magic[_setMagicNumber].Magic.Count)
             {
                 _isEndAllChanting = true;
@@ -181,6 +189,8 @@ public class BossNomalAttack
 
     public void UseMagic(int i)
     {
+        //  Debug.Log("使う:"+i+"/" + "全部:"+_chantingCount);
+
         foreach (var effect in _setMagic.Magic[_setMagicNumber].Magic[i].Particle)
         {
             effect.Play();

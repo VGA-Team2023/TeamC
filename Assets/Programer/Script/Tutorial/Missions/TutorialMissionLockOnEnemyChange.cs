@@ -26,7 +26,7 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
 
     public override bool Updata()
     {
-        if (_inputManager.IsChangeLockOnEney != 0 && !_isLockOn)
+        if ((_inputManager.IsChangeLockOnEnemyLeft || _inputManager.IsChangeLockOnEnemyRight) && !_isLockOn)
         {
             //“ü—Í‚ð•s‰Â‚É‚·‚é
             _tutorialManager.SetCanInput(false);

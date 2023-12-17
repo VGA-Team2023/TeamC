@@ -12,6 +12,9 @@ public class BossMove
 
     [SerializeField] private float _moveMinTime = 4f;
 
+    [Header("転移の位置")]
+    [SerializeField] private List<Transform> _teleportPoss = new List<Transform>();
+
     private float _setMoveTime = 0;
 
     private float _moveTimeCount = 0;
@@ -81,29 +84,11 @@ public class BossMove
         }
         else if (_moveDirection == MoveDir.Left)
         {
-            int r = Random.Range(0, 2);
-
-            if (r == 0)
-            {
-                _moveDirection = MoveDir.Back;
-            }
-            else if (r == 1)
-            {
-                _moveDirection = MoveDir.Right;
-            }
+            _moveDirection = MoveDir.Right;
         }
         else
         {
-            int r = Random.Range(0, 2);
-
-            if (r == 0)
-            {
-                _moveDirection = MoveDir.Back;
-            }
-            else if (r == 1)
-            {
-                _moveDirection = MoveDir.Left;
-            }
+            _moveDirection = MoveDir.Left;
         }
 
         //アニメーション設定
@@ -142,9 +127,45 @@ public class BossMove
         _moveDir.y = 0;
     }
 
+    public void CheckPlayerDir()
+    {
+        float dis = Vector3.Distance(_bossControl.PlayerT.position, _bossControl.BossT.position);
+
+        if (dis < 2)
+        {
+            Teleport();
+        }
+    }
+
+    public void Teleport()
+    {
+        foreach (var t in _teleportPoss)
+        {
+            float d = Vector3.Distance(_bossControl.PlayerT.position, t.position);
+
+            if (d > 4)
+            {
+                _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
+
+                //エフェクトを再生
+                if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+                {
+                    _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
+                }
+                else
+                {
+                    _bossControl.BossAttack.TeleportAttack.TeleportGrass.ForEach(i => i.Play());
+                }
+
+                _bossControl.BossT.position = t.position;
+                return;
+            }
+        }
+    }
+
     public void Move()
     {
-        DirectionSetting();
+        //  DirectionSetting();
         _bossControl.Rigidbody.velocity = _moveDir * _moveSpeed;
     }
 
@@ -162,6 +183,7 @@ public class BossMove
             SetMoveTime();
             Debug.Log("ChangeToTime");
             ChangeDir();
+            DirectionSetting();
         }
     }
 
@@ -171,24 +193,21 @@ public class BossMove
         {
             if (Search(CheckSide.Back))
             {
-                Debug.Log("Change");
-                ChangeDir();
+                Teleport();
             }
         }
         else if (_moveDirection == MoveDir.Left)
         {
             if (Search(CheckSide.Left))
             {
-                Debug.Log("Change");
-                ChangeDir();
+                Teleport();
             }
         }
         else
         {
             if (Search(CheckSide.Left))
             {
-                Debug.Log("Change");
-                ChangeDir();
+                Teleport();
             }
         }
     }

@@ -26,6 +26,8 @@ public class BossIdleState : BossStateBase
         _stateMachine.BossController.BossRotate.SetRotation();
 
         _stateMachine.BossController.Move.Move();
+
+        _stateMachine.BossController.Move.CheckPlayerDir();
     }
 
     public override void Update()

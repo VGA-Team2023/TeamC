@@ -146,6 +146,16 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
+        int random = Random.Range(0, 2);
+        switch (random)
+        {
+            case 0:
+                VoiceAudio(VoiceState.EnemyDamagePattern1, EnemyBase.CRIType.Play);
+                break;
+            case 1:
+                VoiceAudio(VoiceState.EnemyDamagePattern2, EnemyBase.CRIType.Play);
+                break;
+        }
         _rb.velocity = Vector3.zero;
         if (attackHitTyp == MagickType.Ice)
         {
@@ -153,13 +163,13 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             Destroy(iceAttack, 0.3f);
             if (attackType == AttackType.ShortChantingMagick)
             {
-                Audio(SEState.EnemyHitIcePatternA, CRIType.Play);
+                SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
                 HP--;
             }
             else
             {
-                Audio(SEState.EnemyHitIcePatternB, CRIType.Play);
+                SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
                 HP -= (int)damage;
             }
@@ -172,13 +182,13 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             Destroy(grassAttack, 0.3f);
             if (attackType == AttackType.ShortChantingMagick)
             {
-                Audio(SEState.EnemyHitGrassPatternA, CRIType.Play);
+                SeAudio(SEState.EnemyHitGrassPatternA, CRIType.Play);
                 if (IsDemo) return;
                 HP--;
             }
             else
             {
-                Audio(SEState.EnemyHitGrassPatternB, CRIType.Play);
+                SeAudio(SEState.EnemyHitGrassPatternB, CRIType.Play);
                 if (IsDemo) return;
                 HP -= (int)damage;
             }
@@ -200,7 +210,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public void StopFinishing()
     {
         //_anim.SetBool("isStan", false);
-        Audio(SEState.EnemyStan, CRIType.Stop);
+        SeAudio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
         gameObject.layer = DefaultLayer;
         HP = _defaultHp;
@@ -208,17 +218,18 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void EndFinishing(MagickType attackHitTyp)
     {
-        Audio(SEState.EnemyStan, CRIType.Stop);
-        Audio(SEState.EnemyFinishDamage, CRIType.Play);
+        VoiceAudio(VoiceState.EnemySaerch, CRIType.Stop);
+        SeAudio(SEState.EnemyStan, CRIType.Stop);
+        SeAudio(SEState.EnemyFinishDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
         {
-            Audio(SEState.EnemyFinichHitIce, CRIType.Play);
+            SeAudio(SEState.EnemyFinichHitIce, CRIType.Play);
             GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(iceAttack, 3f);
         }
         else if (attackHitTyp == MagickType.Grass)
         {
-            Audio(SEState.EnemyFinishHitGrass, CRIType.Play);
+            SeAudio(SEState.EnemyFinishHitGrass, CRIType.Play);
             GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(grassAttack, 3f);
         }
@@ -229,7 +240,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         GameManager.Instance.PauseManager.Remove(this);
         GameManager.Instance.SlowManager.Remove(this);
         gameObject.layer = DeadLayer;
-        Audio(SEState.EnemyOut, CRIType.Play);
+        SeAudio(SEState.EnemyOut, CRIType.Play);
         Destroy(gameObject, 1f);
     }
 
@@ -270,7 +281,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         Speed = _defaultSpeed;
     }
 
-    public void Audio(SEState playSe, CRIType criType)
+    public void SeAudio(SEState playSe, CRIType criType)
     {
         if (IsAudio)
         {
@@ -285,6 +296,24 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             else if(criType == CRIType.Update)
             {
                 AudioController.Instance.SE.Update3DPos(playSe, transform.position);
+            }
+        }
+    }
+    public void VoiceAudio(VoiceState playSe, CRIType criType)
+    {
+        if (IsAudio)
+        {
+            if (criType == CRIType.Play)
+            {
+                AudioController.Instance.Voice.Play3D(playSe, transform.position);
+            }
+            else if (criType == CRIType.Stop)
+            {
+                AudioController.Instance.Voice.Stop(playSe);
+            }
+            else if (criType == CRIType.Update)
+            {
+                AudioController.Instance.Voice.Update3DPos(playSe, transform.position);
             }
         }
     }
