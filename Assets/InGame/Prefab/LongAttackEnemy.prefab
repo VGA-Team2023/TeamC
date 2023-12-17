@@ -219,7 +219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6969211064611718547}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LongeEnemyPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -927,6 +927,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChMD_Enemy02
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e8c5ea2b6faaeec478a00b30c21f864f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8025414786657661598, guid: e8c5ea2b6faaeec478a00b30c21f864f,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1076,7 +1081,7 @@ MonoBehaviour:
   _finishStopInterval: 5
   _defaultLayer: 7
   _finishLayer: 10
-  _deadLayer: 0
+  _deadLayer: 8
   _core: {fileID: 3204765348620727045}
   _testPosition: {fileID: 0}
   _movePosition:
