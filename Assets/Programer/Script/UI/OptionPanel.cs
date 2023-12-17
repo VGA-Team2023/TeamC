@@ -24,7 +24,7 @@ public class OptionPanel : MonoBehaviour, IPause
         {
             _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
         }
-        _cameraSensitivitySlider.GetComponent<DisplayTargetPointer>().TargetImage.gameObject.SetActive(true);
+        _cameraSensitivitySlider.GetComponent<DisplayTargetPointer>()?.TargetImage.gameObject.SetActive(true);
         _bgmSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.BGM);
         _voiceSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.Voice);
         _seSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.SE);

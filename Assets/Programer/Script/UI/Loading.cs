@@ -15,6 +15,7 @@ public class Loading : MonoBehaviour
 
             if (_loadingPanelInstance == null)
             {
+                Debug.Log("instanceが見つかっていません");
                 return;
             }
         }
