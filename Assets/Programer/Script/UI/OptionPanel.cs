@@ -20,7 +20,11 @@ public class OptionPanel : MonoBehaviour, IPause
         {
             _audioController = AudioController.Instance;
         }
-        if (_eventSystem != null) _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
+        if (_eventSystem != null)
+        {
+            _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
+        }
+        _cameraSensitivitySlider.GetComponent<DisplayTargetPointer>().TargetImage.gameObject.SetActive(true);
         _bgmSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.BGM);
         _voiceSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.Voice);
         _seSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.SE);
@@ -35,8 +39,8 @@ public class OptionPanel : MonoBehaviour, IPause
             _audioController.SetVolume(_seSlider.value, VolumeChangeType.SE);
         }
         if (_eventSystem != null) _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
-        if (OptionValueRecorder.Instance == null) OptionValueRecorder.Instance.CameraSensitivity = _cameraSensitivitySlider.value;
-        if (_closeButton !=null) _closeButton.GetComponent<ButtonTextColorChanger>()._target.gameObject.SetActive(false);
+        if (OptionValueRecorder.Instance != null) OptionValueRecorder.Instance.CameraSensitivity = _cameraSensitivitySlider.value;
+        if (_closeButton !=null) _closeButton.GetComponent<ButtonTextColorChanger>().Target.gameObject.SetActive(false);
     }
     public void Pause()
     {
