@@ -1,9 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using CriWare;
 
 public class ResultPrinter : MonoBehaviour
 {
+    private AudioController _audioController;
+    [SerializeField] private Image _passImage;
+    [SerializeField] private Image _failureImage;
+    [SerializeField] private Image _judgeImage;
     [SerializeField] private Text _resultText;
     [SerializeField] private Text _clearTimeMinutesResult;
     [SerializeField] private Text _clearTimeSecondResult;
@@ -24,6 +29,7 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField, Tooltip("改行が行われる文字数")] private int _lineLength = 25;
     private void Start()
     {
+        _audioController = AudioController.Instance;
         TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
         {
             TweenNum(GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
@@ -47,10 +53,12 @@ public class ResultPrinter : MonoBehaviour
     /// <param name="onCompleteCallback">Tweenが終わったかどうかのコールバック</param>
     public void TweenNum(int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
     {
+        //_audioController.
         int startnum = 99;
         DOTween.To(() => startnum, (n) => startnum = n, targetNum, _displayTime)
             .OnUpdate(() => tweenText.text = startnum.ToString("#,0"))
             .OnComplete(onCompleteCallback);
+
     }
     private void TweenResultText(string displayText)
     {
@@ -107,21 +115,24 @@ public class ResultPrinter : MonoBehaviour
         {
             evaluationvalue += 1;
         }
-
+        _judgeText.gameObject.SetActive(true);
         if (evaluationvalue >= _passingScore)
         {
             TweenResultText(_resultTexts[0]);
-            _judgeText.text = "合格";
+            _judgeText.text = "S";
+            _passImage.gameObject.SetActive(true);
         }
         else if(evaluationvalue<_passingScore && evaluationvalue >=3)
         {
             TweenResultText(_resultTexts[1]);
-            _judgeText.text = "不合格";
+            _judgeText.text = "A";
+            _passImage.gameObject.SetActive(true);
         }
         else
         {
             TweenResultText(_resultTexts[2]);
-            _judgeText.text = "不合格";
+            _judgeText.text = "B";
+            _failureImage.gameObject.SetActive(true);
         }
     }
 }

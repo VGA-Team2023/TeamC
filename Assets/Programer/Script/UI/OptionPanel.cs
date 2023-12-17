@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class OptionPanel : MonoBehaviour,IPause
+public class OptionPanel : MonoBehaviour, IPause
 {
     [SerializeField] private Slider _bgmSlider;
     [SerializeField] private Slider _voiceSlider;
@@ -20,7 +20,7 @@ public class OptionPanel : MonoBehaviour,IPause
         {
             _audioController = AudioController.Instance;
         }
-        _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
+        if (_eventSystem != null) _eventSystem.SetSelectedGameObject(_cameraSensitivitySlider.gameObject);
         _bgmSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.BGM);
         _voiceSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.Voice);
         _seSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.SE);
@@ -28,23 +28,22 @@ public class OptionPanel : MonoBehaviour,IPause
     }
     private void OnDisable()
     {
-        _audioController.SetVolume(_bgmSlider.value,VolumeChangeType.BGM);
-        _audioController.SetVolume(_voiceSlider.value,VolumeChangeType.Voice);
-        _audioController.SetVolume(_seSlider.value, VolumeChangeType.SE);
-        OptionValueRecorder.Instance.CameraSensitivity = _cameraSensitivitySlider.value;
-        _closeButton.GetComponent<ButtonTextColorChanger>()._target.gameObject.SetActive(false);
-        _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
-    }
-    public void ClosePanel()
-    {
-        GameManager.Instance.PauseManager.PauseResume(!GameManager.Instance.PauseManager.IsPause);
+        if (_audioController != null)
+        {
+            _audioController.SetVolume(_bgmSlider.value, VolumeChangeType.BGM);
+            _audioController.SetVolume(_voiceSlider.value, VolumeChangeType.Voice);
+            _audioController.SetVolume(_seSlider.value, VolumeChangeType.SE);
+        }
+        if (_eventSystem != null) _eventSystem.SetSelectedGameObject(_eventSystem.firstSelectedGameObject);
+        if (OptionValueRecorder.Instance == null) OptionValueRecorder.Instance.CameraSensitivity = _cameraSensitivitySlider.value;
+        if (_closeButton !=null) _closeButton.GetComponent<ButtonTextColorChanger>()._target.gameObject.SetActive(false);
     }
     public void Pause()
     {
-        this.gameObject.SetActive(true);
+        if (this != null) this.gameObject.SetActive(true);
     }
     public void Resume()
     {
-        this.gameObject.SetActive(false);
+        if (this != null) this.gameObject.SetActive(false);
     }
 }
