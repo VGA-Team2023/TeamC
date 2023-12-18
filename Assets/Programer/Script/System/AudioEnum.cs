@@ -197,14 +197,6 @@ public enum VoiceState
     InstructorTutorialDodge,
     /// <summary>回避チュートリアル完了(うんうん、お見事！私が教えるまでもないわね！)</summary>
     InstructorTutorialDodgeOK,
-    /// <summary>ロックオンチュートリアル開始(一体の相手に集中したい時はロックオン！が出来るわ！先に倒したい目標がいるときなんかは便利ね～！)</summary>
-    InstructorTutorialLockOn,
-    /// <summary>ロックオンチュートリアル完了(呑み込みが早いわ！さらにロックオンの説明を続けるわね～)</summary>
-    InstructorTutorialLockOnOK,
-    /// <summary>ロックオンの対象変更チュートリアル開始(ロックオンをしている時に対象を切り替えることも出来るわよ～上手に活用してみてね！)</summary>
-    InstructorTutorialTargetChange,
-    /// <summary>ロックオンの対象変更チュートリアル完了(良いわね～！これを活用できれば戦いやすいと思うわ！)</summary>
-    InstructorTutorialTargetChangeOK,
     /// <summary>オプションチュートリアル開始(そうそう、何か困ったことあったら試験は一旦中断出来るわよ！startボタン・・・？っていうのを押せば良いわ～)</summary>
     InstructorTutorialOption,
     /// <summary>オプションチュートリアル完了(音が大きすぎる～って時は利用して頂戴ね！)</summary>

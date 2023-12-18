@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _masterVolume: 1
-  _bgmVolume: 1
+  _bgmVolume: 0
   _seVolume: 1
   _voiceVolume: 1
   _meVolume: 1
@@ -294,20 +294,12 @@ MonoBehaviour:
     - state: 36
       soundCueName: vo_tuto_dodge_02
     - state: 37
-      soundCueName: vo_tuto_special_01
-    - state: 38
-      soundCueName: vo_tuto_special_01
-    - state: 39
-      soundCueName: vo_tuto_special_01
-    - state: 40
-      soundCueName: vo_tuto_special_02
-    - state: 41
       soundCueName: vo_tuto_option_01
-    - state: 42
+    - state: 38
       soundCueName: vo_tuto_option_02
-    - state: 43
+    - state: 39
       soundCueName: vo_tuto_clear
-    - state: 44
+    - state: 40
       soundCueName: vo_tuto_heal
 --- !u!1 &2393322729120411043
 GameObject:
