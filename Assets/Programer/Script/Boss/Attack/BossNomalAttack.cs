@@ -262,10 +262,14 @@ public class BossAttackMagicBase
     [Header("魔法を出したときのエフェクト")]
     [SerializeField] private List<ParticleSystem> _p = new List<ParticleSystem>();
 
+    [Header("魔法を解除したときのエフェクト")]
+    [SerializeField] private List<ParticleSystem> _releaseP = new List<ParticleSystem>();
+
     public float NeedTime => _time;
 
     public GameObject MagicCircle => _magicCirecle;
-    public List<ParticleSystem> Particle => _p;
+    public List<ParticleSystem> Particle => _p; 
 
+    public List<ParticleSystem> ReleaseP => _releaseP;
 
-}
+} 

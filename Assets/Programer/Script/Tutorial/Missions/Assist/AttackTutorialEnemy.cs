@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble,IPause
+public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDamgeble, IPause
 {
     [Header("Á‚¦‚é‚Ü‚Å‚ÌŽžŠÔ")]
     [SerializeField] private float _destroyTime = 3;
@@ -47,7 +47,7 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
 
     public void InitAttack(TutorialMissionAttack attack, float hp)
     {
-        _hp = hp;
+        _hp = 2;
         _attack = attack;
     }
 
@@ -75,12 +75,12 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
         {
             if (attackHitTyp == MagickType.Grass)
             {
-                _hp --;
+                _hp--;
             }
         }
         else
         {
-            _hp --;
+            _hp--;
         }
 
 
@@ -94,7 +94,7 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
             _grassHitEffect.ForEach(i => i.Play());
         }
 
-        if (_hp < 0)
+        if (_hp <= 0)
         {
             _isDownEnd = true;
             gameObject.layer = _canFinishLayer;
