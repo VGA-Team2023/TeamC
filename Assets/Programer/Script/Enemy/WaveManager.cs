@@ -56,14 +56,29 @@ public class WaveManager : MonoBehaviour
         foreach (var summon in _waveSettings[0].Enemys)
         {
             //Observerで敵がやられたか監視する
-            summon.OnEnemyFinish += EnemyDestroy;
+            if(summon.TryGetComponent(out LongAttackEnemy longEnemy))
+            {
+                summon.OnEnemyFinish += LongEnemyDestroy;
+            }
+            if (summon.TryGetComponent(out MeleeAttackEnemy meleeEnemy))
+            {
+                summon.OnEnemyFinish += MeleeEnemyDestroy;
+            }
         }
         yield return 1;
         DestroyCount = _waveSettings[1].EnemyCount;
         _waveSettings[1].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[1].Enemys)
         {
-            summon.OnEnemyFinish += EnemyDestroy;
+            //Observerで敵がやられたか監視する
+            if (summon.TryGetComponent(out LongAttackEnemy longEnemy))
+            {
+                summon.OnEnemyFinish += LongEnemyDestroy;
+            }
+            if (summon.TryGetComponent(out MeleeAttackEnemy meleeEnemy))
+            {
+                summon.OnEnemyFinish += MeleeEnemyDestroy;
+            }
         }
         yield return 2;
         DestroyCount = _waveSettings[2].EnemyCount;
@@ -71,16 +86,30 @@ public class WaveManager : MonoBehaviour
         _waveSettings[2].Enemy.SetActive(true);
         foreach (var summon in _waveSettings[2].Enemys)
         {
-            summon.OnEnemyFinish += EnemyDestroy;
+            //Observerで敵がやられたか監視する
+            if (summon.TryGetComponent(out LongAttackEnemy longEnemy))
+            {
+                summon.OnEnemyFinish += LongEnemyDestroy;
+            }
+            if (summon.TryGetComponent(out MeleeAttackEnemy meleeEnemy))
+            {
+                summon.OnEnemyFinish += MeleeEnemyDestroy;
+            }
         }
         yield return 3;
     }
 
-    //敵が消えた時に呼ばれる関数
-    public void EnemyDestroy()
+    //遠距離敵が消えた時に呼ばれる関数
+    public void LongEnemyDestroy()
     {
         DestroyCount--;
-        //GameManager.Instance.ScoreManager.EnemyDefeatedNum++;
+        GameManager.Instance.ScoreManager.LongEnemyDefeatedNum++;
+    }
+    //近距離敵が消えた時に呼ばれる関数
+    public void MeleeEnemyDestroy()
+    {
+        DestroyCount--;
+        GameManager.Instance.ScoreManager.ShortEnemyDefeatedNum++;
     }
 }
 
