@@ -190,7 +190,7 @@ public class ResultPrinter : MonoBehaviour
         {
             TweenResultText(_resultTexts[2]);
             _judgeText.text = "B";
-            _failureImage.gameObject.SetActive(true);
+            _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _cRankScore)
         {
