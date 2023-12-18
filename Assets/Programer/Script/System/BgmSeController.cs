@@ -110,19 +110,19 @@ public struct VoiceAudioControlle : ICustomChannel<VoiceState>
 
     public void PauseAll()
     {
-
+        CriAudioManager.Instance.Voice.PauseAll();
     }
 
     public void Play(VoiceState se)
     {
         int index = (int)se;
-        _voiceData[index].PlayID = CriAudioManager.Instance.SE.Play(_cueSheetName, _voiceData[index].SoundCueName);
+        _voiceData[index].PlayID = CriAudioManager.Instance.Voice.Play(_cueSheetName, _voiceData[index].SoundCueName);
     }
 
     public void Play3D(VoiceState se, Vector3 soundPlayPos)
     {
         int index = (int)se;
-        _voiceData[index].PlayID = CriAudioManager.Instance.SE.Play3D(soundPlayPos, _cueSheetName, _voiceData[index].SoundCueName);
+        _voiceData[index].PlayID = CriAudioManager.Instance.Voice.Play3D(soundPlayPos, _cueSheetName, _voiceData[index].SoundCueName);
         CriAudioManager.Instance.Voice.Update3DPos(soundPlayPos, _voiceData[index].PlayID);
     }
     public void Update3DPos(VoiceState se, Vector3 soundPlayPos)

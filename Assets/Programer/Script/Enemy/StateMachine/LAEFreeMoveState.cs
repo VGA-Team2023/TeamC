@@ -19,7 +19,7 @@ public class LAEFreeMoveState : IStateMachine
     }
     public void Enter()
     {
-        _enemy.VoiceAudio(VoiceState.EnemySaerch, EnemyBase.CRIType.Play);
+        _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Play);
     }
 
     public void Exit()
@@ -29,7 +29,7 @@ public class LAEFreeMoveState : IStateMachine
 
     public void Update()
     {
-        _enemy.VoiceAudio(VoiceState.EnemySaerch, EnemyBase.CRIType.Update);
+        _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Update);
         if (_enemy.IsDemo) return;
         //敵がサーチ範囲に入ったら攻撃を始める(遠距離攻撃)
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
