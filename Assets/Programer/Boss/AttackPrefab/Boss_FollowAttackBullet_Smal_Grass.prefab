@@ -73,10 +73,10 @@ MonoBehaviour:
   - {fileID: 2632537808758821201}
   _attackPower: 1
   _waitTime: 0.1
-  _attackWaitTime: 0.15
+  _attackWaitTime: 0.3
   _destroyTime: 5
   _offset: {x: 0, y: 1.23, z: 0}
-  _size: {x: 2, y: 5, z: 2}
+  _size: {x: 1.5, y: 5, z: 1.5}
   _layer:
     serializedVersion: 2
     m_Bits: 2048
