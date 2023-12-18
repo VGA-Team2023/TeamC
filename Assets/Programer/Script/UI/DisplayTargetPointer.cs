@@ -3,7 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class DisplayTargetPointer : MonoBehaviour,ISelectHandler, IDeselectHandler
 {
-    [SerializeField] Image _targetImage;
+    [SerializeField] private Image _targetImage;
+    public Image TargetImage => _targetImage;
     public void OnSelect(BaseEventData eventData)
     {
         _targetImage.gameObject.SetActive(true);
