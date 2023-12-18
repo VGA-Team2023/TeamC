@@ -164,43 +164,62 @@ public class CriAudioManager
         {
             if (playerData.IsLoop)
             {
-                if (_removedCueDataIndex.Count > 0)
-                {
-                    if (_removedCueDataIndex.TryTake(out int tempIndex))
-                    {
-                        if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
-                        else { _cueData.TryAdd(tempIndex, playerData); }
-                    }
-
-                    return tempIndex;
-                }
-                else
-                {
-                    _currentMaxCount++;
-                    if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
-                    else { _cueData.TryAdd(_currentMaxCount, playerData); }
-
-                    return _currentMaxCount;
-                }
+                //if (_removedCueDataIndex.Count > 0)
+                //{
+                //    if (_removedCueDataIndex.TryTake(out int tempIndex))
+                //    {
+                //        if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
+                //        else { _cueData.TryAdd(tempIndex, playerData); }
+                //    }
+                //    return tempIndex;
+                //}
+                //else
+                //{
+                //    _currentMaxCount++;
+                //    if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
+                //    else { _cueData.TryAdd(_currentMaxCount, playerData); }
+                //    return _currentMaxCount;
+                //}
+                _currentMaxCount++;
+                _cueData.TryAdd(_currentMaxCount, playerData);
+                return _currentMaxCount;
             }
-            else if (_removedCueDataIndex.Count > 0)
-            {
-                if (_removedCueDataIndex.TryTake(out int tempIndex))
-                {
-                    if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
-                    else { _cueData.TryAdd(tempIndex, playerData); }
-                }
-
-                PlaybackDestroyWaitForPlayEnd(tempIndex, playerData.CancellationTokenSource.Token);
-                return tempIndex;
-            }
+            //else if (_removedCueDataIndex.Count > 0)
+            //{
+            //    if (_removedCueDataIndex.TryTake(out int tempIndex))
+            //    {
+            //        if (_cueData.ContainsKey(tempIndex)) { _cueData[tempIndex] = playerData; }
+            //        else { _cueData.TryAdd(tempIndex, playerData); }
+            //    }
+                
+            //    PlaybackDestroyWaitForPlayEnd(tempIndex, playerData.CancellationTokenSource.Token);
+            //    Debug.Log(_cueData.Count);
+            //    return tempIndex;
+            //}
             else
             {
+                foreach(var i in _cueData.Keys)
+                {
+                    if (_cueData[i].CueInfo.name == playerData.CueInfo.name)
+                    {
+                        if (_cueData[i].Playback.GetStatus() == CriAtomExPlayback.Status.Removed)
+                        {
+                            _cueData[i] = playerData;
+                            Debug.Log(_cueData.Count);
+                            return i;
+                        }
+                    }
+                }
                 _currentMaxCount++;
-                if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
-                else { _cueData.TryAdd(_currentMaxCount, playerData); }
-
+                _cueData.TryAdd(_currentMaxCount, playerData);
+                //_currentMaxCount++;
+                //Debug.Log(_currentMaxCount.ToString());
+                //Debug.Log(_cueData.Count);
+                //if (_cueData.ContainsKey(_currentMaxCount)) { _cueData[_currentMaxCount] = playerData; }
+                //else { _cueData.TryAdd(_currentMaxCount, playerData); }
+                Debug.Log(_cueData.Count);
                 PlaybackDestroyWaitForPlayEnd(_currentMaxCount, playerData.CancellationTokenSource.Token);
+                
                 return _currentMaxCount;
             }
 
@@ -539,10 +558,12 @@ public class CriAudioManager
             {
                 if (_cueData[i].CueInfo.name == cueName)
                 {
-                    index = i; break;
+                    index = i;
+                    return i;
                 }
             }
-            return index;
+            Debug.Log(_cueData.Count);
+            return -1;
         }
 
         public void StopAll()
