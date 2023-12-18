@@ -5,7 +5,7 @@ public class OptionPanelAdder : MonoBehaviour
     [SerializeField] private GameObject _inGameOptionPanel;
     private void OnEnable()
     {
-        var tmp =_inGameOptionPanel.GetComponent<IPause>();
+        var tmp = _inGameOptionPanel.GetComponent<IPause>();
         GameManager.Instance.PauseManager.Add(tmp);
     }
     private void OnDisable()

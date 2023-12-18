@@ -53,6 +53,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         set
         {
             if (IsDemo && _state == MoveState.Finish && value != MoveState.Finish) StopFinishing();
+            if (_state == value) return;
             _state = value;
             switch (_state)
             {
