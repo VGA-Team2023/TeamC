@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using CriWare;
 
 public class ResultPrinter : MonoBehaviour
 {
@@ -16,17 +15,50 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField] private Text _enemyDefeatedCount;
     [SerializeField] private Text _playerDownCount;
     [SerializeField] private Text _judgeText;
-    [SerializeField,Tooltip("スコア別テキスト")] private string[] _resultTexts;
-    [SerializeField, Tooltip("表示にかける秒数")] private int _displayTime = 1;
-    [SerializeField,Tooltip("クリアタイムの目標値")] private int  _idealClearTimeSeconds = 150;
-    [SerializeField, Tooltip("敵の撃破数の目標値")] private int _idealEnemyDefeatedNum = 20;
-    [SerializeField, Tooltip("プレイヤーの倒れた回数の目標値")] private int _idealPlayerDownNum = 0;
-    [SerializeField,Tooltip("最高スコアとして扱うクリアタイムの目標値からの範囲")] private int _hightScoreClearTimeGap = 20;
-    [SerializeField, Tooltip("普通のスコアとして扱うクリアタイムの目標値からの範囲")] private int _normalScoreClearTimeGap = 40;
-    [SerializeField, Tooltip("最高スコアとして扱う撃破数の目標値からの範囲")] private int _hightScoreEnemyDefeatedGap = 0;
-    [SerializeField, Tooltip("普通のスコアとして扱うクリアタイムの目標値からの範囲")] private int _normalScoreEnemyDefeatedGap = 3;
-    [SerializeField, Tooltip("合格基準値")] private int _passingScore = 5;
-    [SerializeField, Tooltip("改行が行われる文字数")] private int _lineLength = 25;
+    [SerializeField, Tooltip("スコア別テキスト")]
+    private string[] _resultTexts;
+    [SerializeField, Tooltip("表示にかける秒数")]
+    private int _displayTime = 1;
+    [SerializeField, Tooltip("クリアタイムの目標値")]
+    private int _idealClearTimeSeconds = 150;
+    [SerializeField, Tooltip("敵の撃破数の目標値")]
+    private int _idealEnemyDefeatedNum = 20;
+    [SerializeField, Tooltip("プレイヤーの倒れた回数の目標値")]
+    private int _idealPlayerDownNum = 0;
+    [SerializeField, Tooltip("Sランクスコアとして扱うクリアタイムの目標値からの範囲")]
+    private int _sRankScoreClearTimeGap = 20;
+    [SerializeField, Tooltip("Aランクのスコアとして扱うクリアタイムの目標値からの範囲")]
+    private int _aRankScoreClearTimeGap = 60;
+    [SerializeField, Tooltip("Bランクのスコアとして扱うクリアタイムの目標値からの範囲")]
+    private int _bRankScoreClearTimeGap = 120;
+    [SerializeField, Tooltip("Cランクのスコアとして扱うクリアタイムの目標値からの範囲")]
+    private int _cRankScoreClearTimeGap = 150;
+    [SerializeField, Tooltip("Sランクのスコアとして扱う撃破数の目標値からの範囲")]
+    private int _sRankScoreEnemyDefeatedGap = 0;
+    [SerializeField, Tooltip("Aランクのスコアとして扱う撃破数の目標値からの範囲")]
+    private int _aRankScoreEnemyDefeatedGap = 0;
+    [SerializeField, Tooltip("Bランクのスコアとして扱う撃破数の目標値からの範囲")]
+    private int _bRankScoreEnemyDefeatedGap = 0;
+    [SerializeField, Tooltip("Cランクのスコアとして扱う撃破数の目標値からの範囲")]
+    private int _cRankScoreEnemyDefeatedGap = 1;
+    [SerializeField, Tooltip("Sランクのスコアとして扱うダウン回数の目標値からの範囲")]
+    private int _sRankScorePlayerDownGap = 1;
+    [SerializeField, Tooltip("Aランクのスコアとして扱うダウン回数の目標値からの範囲")]
+    private int _aRankScorePlayerDownGap = 2;
+    [SerializeField, Tooltip("Bランクのスコアとして扱うダウン回数の目標値からの範囲")]
+    private int _bRankScorePlayerDownGap = 3;
+    [SerializeField, Tooltip("Cランクのスコアとして扱うダウン回数の目標値からの範囲")]
+    private int _cRankScorePlayerDownGap = 4;
+    [SerializeField, Tooltip("Sランク基準値")]
+    private int _sRankScore = 11;
+    [SerializeField, Tooltip("Aランク基準値")]
+    private int _aRankScore = 7;
+    [SerializeField, Tooltip("Bランク基準値")]
+    private int _bRankScore = 6;
+    [SerializeField, Tooltip("Cランク基準値")]
+    private int _cRankScore = 4;
+    [SerializeField, Tooltip("改行が行われる文字数")]
+    private int _lineLength = 25;
     private void Start()
     {
         _audioController = AudioController.Instance;
@@ -89,49 +121,87 @@ public class ResultPrinter : MonoBehaviour
         int enemyDefeatedNum = (GM.ScoreManager.EnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
 
-        if(cleartimesecond -_idealClearTimeSeconds <= _hightScoreClearTimeGap)
+        if (cleartimesecond - _idealClearTimeSeconds <= _sRankScoreClearTimeGap)
         {
             evaluationvalue += 4;
         }
-        else if(cleartimesecond - _idealClearTimeSeconds <= _normalScoreClearTimeGap)
+        else if (cleartimesecond - _idealClearTimeSeconds <= _aRankScoreClearTimeGap)
         {
             evaluationvalue += 3;
         }
+        else if (cleartimesecond - _idealClearTimeSeconds <= _bRankScoreClearTimeGap)
+        {
+            evaluationvalue += 2;
+        }
+        else if (cleartimesecond - _idealClearTimeSeconds <= _cRankScoreClearTimeGap)
+        {
+            evaluationvalue += 1;
+        }
 
-        if (enemyDefeatedNum - _idealEnemyDefeatedNum <= _hightScoreEnemyDefeatedGap)
+        if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _sRankScoreEnemyDefeatedGap)
         {
             evaluationvalue += 4;
         }
-        else if(enemyDefeatedNum - _idealEnemyDefeatedNum <= _normalScoreEnemyDefeatedGap)
+        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _aRankScoreEnemyDefeatedGap)
         {
             evaluationvalue += 3;
         }
+        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _bRankScoreEnemyDefeatedGap)
+        {
+            evaluationvalue += 2;
+        }
+        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _cRankScoreEnemyDefeatedGap)
+        {
+            evaluationvalue += 1;
+        }
 
-        if (playerDownCount == 0)
+        if (playerDownCount <= _sRankScorePlayerDownGap)
         {
             evaluationvalue += 4;
         }
-        else if(playerDownCount == 1)
+        else if (playerDownCount <= _aRankScorePlayerDownGap)
         {
-            evaluationvalue += 0;
+            evaluationvalue += 3;
         }
+        else if (playerDownCount <= _bRankScorePlayerDownGap)
+        {
+            evaluationvalue += 2;
+        }
+        else if (playerDownCount <= _cRankScorePlayerDownGap)
+        {
+            evaluationvalue += 1;
+        }
+
         _judgeText.gameObject.SetActive(true);
-        if (evaluationvalue >= _passingScore)
+
+        if (evaluationvalue >= _sRankScore)
         {
             TweenResultText(_resultTexts[0]);
             _judgeText.text = "S";
             _passImage.gameObject.SetActive(true);
         }
-        else if(evaluationvalue<_passingScore && evaluationvalue >=3)
+        else if (evaluationvalue >= _aRankScore)
         {
             TweenResultText(_resultTexts[1]);
             _judgeText.text = "A";
             _passImage.gameObject.SetActive(true);
         }
-        else
+        else if (evaluationvalue >= _bRankScore)
         {
             TweenResultText(_resultTexts[2]);
             _judgeText.text = "B";
+            _failureImage.gameObject.SetActive(true);
+        }
+        else if (evaluationvalue >= _cRankScore)
+        {
+            TweenResultText(_resultTexts[2]);
+            _judgeText.text = "C";
+            _failureImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            TweenResultText(_resultTexts[2]);
+            _judgeText.text = "D";
             _failureImage.gameObject.SetActive(true);
         }
     }
