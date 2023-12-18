@@ -49,7 +49,10 @@ public enum SEState
     PlayerBossEnemyHitIce,
     /// <summary>Playerボス敵からのダメージ(ボスが草の場合)</summary>
     PlayerBossEnemyHitGrass,
-
+    /// <summary>Playerの移動中の服の音</summary>
+    PlayerClothMove,
+    /// <summary>Playerの攻撃時(腕をふる時)の服の音</summary>
+    PlayerClothAttack,
 
     /// <summary>Player通常攻撃が当たった時のHit音(氷パターン1)</summary>
     EnemyHitIcePatternA,
@@ -111,7 +114,6 @@ public enum SEState
     MeResultScoreMiddle,
     /// <summary>リザルトの発表後に流れる音(評価が高い時)</summary>
     MeResultScoreHigh,
-
 }
 
 public enum VoiceState
@@ -163,10 +165,10 @@ public enum VoiceState
     EnemyLongDeath,
 
     /// <summary>チュートリアル開始時
-    /// (これより、アルシオネ魔法学園の、進級試験を始めます)
-    /// (試験官は私、ミリアが担当するわね)
-    /// (最初はノエリアさんの出番ね、頑張ってちょうだい)</summary>
-    InstructorTutorialStartPattern1,
+    /// (これより、アルシオネ魔法学園の、進級試験を始めます。
+    /// 試験官は私、ミリアが担当するわね。
+    /// 最初はノエリアさんの出番ね、頑張ってちょうだい。)</summary>
+    InstructorTutorialStart,
     /// <summary>チュートリアル確認(貴方はとってもイイ感じなんだけど、不安だったらおさらいしておく?)</summary>
     InstructorTutorialCheck,
     /// <summary>チュートリアル確認後(分かったわ。それじゃあまずは)</summary>

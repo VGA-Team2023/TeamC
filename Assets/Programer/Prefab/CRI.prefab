@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f529aa944b914449d62b8c40f188fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acfFile: TeamProduction.acf
+  acfFile: Soundacf.acf
   cueSheets:
   - name: Sound
     acbFile: Sound.acb
@@ -142,46 +142,70 @@ MonoBehaviour:
     - state: 16
       soundCueName: SE_LAE_Hit
     - state: 17
-      soundCueName: SE_PL_ice_hit_A01
+      soundCueName: SE_BS_Ice_Hit
     - state: 18
-      soundCueName: SE_PL_ice_hit_B01
+      soundCueName: SE_BS_Grass_Hit
+    - state: 48
+      soundCueName: SE_PL_Cloth_Move
+    - state: 49
+      soundCueName: SE_PL_Cloth_Atk
     - state: 19
-      soundCueName: SE_PL_grass_hit_A01
+      soundCueName: SE_PL_ice_hit_A01
     - state: 20
-      soundCueName: SE_PL_grass_hit_B01
+      soundCueName: SE_PL_ice_hit_B01
     - state: 21
-      soundCueName: SE_PL_ice_Finish
+      soundCueName: SE_PL_grass_hit_A01
     - state: 22
-      soundCueName: SE_PL_grass_Finish
+      soundCueName: SE_PL_grass_hit_B01
     - state: 23
-      soundCueName: SE_MAE_Atk
+      soundCueName: SE_PL_ice_Finish
     - state: 24
-      soundCueName: SE_LAM_Shoot
+      soundCueName: SE_PL_grass_Finish
     - state: 25
-      soundCueName: SE_LAE_Trail
+      soundCueName: SE_MAE_Atk
     - state: 26
-      soundCueName: SE_EM_Normaldamege
+      soundCueName: SE_LAM_Shoot
     - state: 27
-      soundCueName: SE_EM_FinDamege
+      soundCueName: SE_LAE_Trail
     - state: 28
-      soundCueName: SE_EM_Down
+      soundCueName: SE_EM_Normaldamege
     - state: 29
-      soundCueName: SE_EM_In
+      soundCueName: SE_EM_FinDamege
     - state: 30
-      soundCueName: SE_EM_Out
+      soundCueName: SE_EM_Down
     - state: 31
-      soundCueName: SE_Sys_select
+      soundCueName: SE_EM_In
     - state: 32
-      soundCueName: SE_Sys_cancel
+      soundCueName: SE_EM_Out
     - state: 33
-      soundCueName: SE_Sys_select
+      soundCueName: SE_BS_Ice_Shoot
     - state: 34
-      soundCueName: ME_Result_01
+      soundCueName: SE_BS_Grass_Shoot
     - state: 35
-      soundCueName: ME_Result_02
+      soundCueName: SE_BS_Ice_Charge
     - state: 36
-      soundCueName: ME_Result_03
+      soundCueName: SE_BS_Grass_Charge
     - state: 37
+      soundCueName: SE_BS_Ice_Trail
+    - state: 38
+      soundCueName: SE_BS_Grass_Trail
+    - state: 39
+      soundCueName: SE_BS_Ice_Finish
+    - state: 40
+      soundCueName: SE_BS_Grass_Finish
+    - state: 41
+      soundCueName: SE_Sys_select
+    - state: 42
+      soundCueName: SE_Sys_cancel
+    - state: 43
+      soundCueName: SE_Sys_select01
+    - state: 44
+      soundCueName: ME_Result_01
+    - state: 45
+      soundCueName: ME_Result_02
+    - state: 46
+      soundCueName: ME_Result_03
+    - state: 47
       soundCueName: ME_Result_04
   _bgm:
     _bgmData:
@@ -196,137 +220,95 @@ MonoBehaviour:
   _voice:
     _voiceData:
     - state: 0
-      soundCueName: vo_attack_PL_01
+      soundCueName: vo_attack_PL
     - state: 1
-      soundCueName: vo_attack_PL_02
+      soundCueName: vo_casting_PL_ice
     - state: 2
-      soundCueName: vo_attack_PL_03
+      soundCueName: vo_casting_PL_grass
     - state: 3
-      soundCueName: vo_attack_PL_04
+      soundCueName: vo_charge_PL_ice
     - state: 4
-      soundCueName: vo_casting_PL_01
+      soundCueName: vo_charge_PL_grass
     - state: 5
-      soundCueName: vo_casting_PL_02
+      soundCueName: vo_finish_PL_ice
     - state: 6
-      soundCueName: vo_casting_PL_03
+      soundCueName: vo_finish_PL_grass
     - state: 7
-      soundCueName: vo_casting_PL_04
+      soundCueName: vo_change_PL_ice
     - state: 8
-      soundCueName: vo_charge_PL_01
+      soundCueName: vo_change_PL_grass
     - state: 9
-      soundCueName: vo_charge_PL_02
+      soundCueName: vo_dodge_PL
     - state: 10
-      soundCueName: vo_charge_PL_03
+      soundCueName: vo_receive_PL
     - state: 11
-      soundCueName: vo_charge_PL_04
+      soundCueName: vo_down_PL
     - state: 12
-      soundCueName: vo_charge_PL_05
+      soundCueName: vo_search_MAE
     - state: 13
-      soundCueName: vo_charge_PL_06
+      soundCueName: vo_search_LAE
     - state: 14
-      soundCueName: vo_finish_PL_01
+      soundCueName: vo_discov_MAE
     - state: 15
-      soundCueName: vo_finish_PL_02
+      soundCueName: vo_discov_LAE
     - state: 16
-      soundCueName: vo_finish_PL_03
+      soundCueName: vo_attack_MAE
     - state: 17
-      soundCueName: vo_finish_PL_04
+      soundCueName: vo_attack_LAE
     - state: 18
-      soundCueName: vo_finish_PL_05
+      soundCueName: vo_hit_MAE
     - state: 19
-      soundCueName: vo_dodge_PL_01
+      soundCueName: vo_hit_LAE
     - state: 20
-      soundCueName: vo_dodge_PL_02
+      soundCueName: vo_death_MAE
     - state: 21
-      soundCueName: vo_dodge_PL_03
+      soundCueName: vo_death_LAE
     - state: 22
-      soundCueName: vo_receive_PL_01
-    - state: 23
-      soundCueName: vo_receive_PL_02
-    - state: 24
-      soundCueName: vo_receive_PL_03
-    - state: 25
-      soundCueName: vo_down_PL_01
-    - state: 26
-      soundCueName: vo_down_PL_02
-    - state: 27
-      soundCueName: vo_down_PL_03
-    - state: 28
-      soundCueName: vo_search_EM_01
-    - state: 29
-      soundCueName: vo_discov_EM_01
-    - state: 30
-      soundCueName: vo_discov_EM_02
-    - state: 31
-      soundCueName: vo_attack_EM_01
-    - state: 32
-      soundCueName: vo_attack_EM_02
-    - state: 33
-      soundCueName: vo_hit_EM_01
-    - state: 34
-      soundCueName: vo_hit_EM_02
-    - state: 35
-      soundCueName: vo_death_EM_01
-    - state: 36
-      soundCueName: vo_death_EM_02
-    - state: 37
       soundCueName: vo_tuto_start_01
-    - state: 38
-      soundCueName: vo_tuto_start_02
-    - state: 39
-      soundCueName: vo_tuto_start_03
-    - state: 40
+    - state: 23
       soundCueName: vo_tuto_check_01
-    - state: 41
+    - state: 24
       soundCueName: vo_tuto_check_02
-    - state: 42
+    - state: 25
       soundCueName: vo_tuto_move_01
-    - state: 43
+    - state: 26
       soundCueName: vo_tuto_move_02
-    - state: 44
+    - state: 27
       soundCueName: vo_tuto_cam_01
-    - state: 45
+    - state: 28
       soundCueName: vo_tuto_cam_02
-    - state: 46
+    - state: 29
       soundCueName: vo_tuto_attack_01
-    - state: 47
+    - state: 30
       soundCueName: vo_tuto_attack_02
-    - state: 48
+    - state: 31
       soundCueName: vo_tuto_charge_01
-    - state: 49
+    - state: 32
       soundCueName: vo_tuto_charge_02
-    - state: 50
+    - state: 33
       soundCueName: vo_tuto_finish_01
-    - state: 51
+    - state: 34
       soundCueName: vo_tuto_finish_02
-    - state: 52
+    - state: 35
       soundCueName: vo_tuto_dodge_01
-    - state: 53
+    - state: 36
       soundCueName: vo_tuto_dodge_02
-    - state: 54
-      soundCueName: vo_tuto_option_01
-    - state: 55
-      soundCueName: vo_tuto_option_02
-    - state: 56
+    - state: 37
       soundCueName: vo_tuto_special_01
-    - state: 57
+    - state: 38
+      soundCueName: vo_tuto_special_01
+    - state: 39
+      soundCueName: vo_tuto_special_01
+    - state: 40
       soundCueName: vo_tuto_special_02
-    - state: 58
+    - state: 41
       soundCueName: vo_tuto_option_01
-    - state: 59
+    - state: 42
       soundCueName: vo_tuto_option_02
-    - state: 60
-      soundCueName: vo_tuto_clear_01
-    - state: 61
-      soundCueName: vo_tuto_clear_02
-    - state: 62
-      soundCueName: vo_tuto_clear_03
-    - state: 63
-      soundCueName: vo_tuto_heal_01
-    - state: 64
-      soundCueName: vo_tuto_heal_02
-    - state: 65
-      soundCueName: vo_tuto_heal_03
+    - state: 43
+      soundCueName: vo_tuto_clear
+    - state: 44
+      soundCueName: vo_tuto_heal
 --- !u!1 &2393322729120411043
 GameObject:
   m_ObjectHideFlags: 0
