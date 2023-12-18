@@ -4,8 +4,8 @@ using UnityEngine.EventSystems;
 
 public class ButtonTextColorChanger : MonoBehaviour, ISelectHandler, IDeselectHandler
 {   
-    private Color _selectedColor = Color.white;
-    private Color _defaultColor = Color.white;
+    private Color _selectedColor = Color.red;
+    private Color _defaultColor = Color.black;
     [SerializeField] private Button _button;
     [SerializeField] private Image _target = default;
     public Image Target => _target;

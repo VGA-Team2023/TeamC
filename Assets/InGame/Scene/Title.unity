@@ -3233,7 +3233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fb973618e004b8841ad13706baf7e3d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2657148278a580d409f96a2ff22cd89b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3891,6 +3891,7 @@ GameObject:
   - component: {fileID: 8062450229670348043}
   - component: {fileID: 1806966813503259204}
   - component: {fileID: 8514640099384548237}
+  - component: {fileID: 8514640099384548238}
   m_Layer: 5
   m_Name: OptionUI
   m_TagString: Untagged
@@ -4525,6 +4526,21 @@ MonoBehaviour:
   _seSlider: {fileID: 5711083563541803353}
   _cameraSensitivitySlider: {fileID: 8927810319352484017}
   _closeButton: {fileID: 1094521291918096532}
+  _firstTarget: {fileID: 3321283321781283416}
+--- !u!114 &8514640099384548238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151722928724935220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b476ffa0f86f0f640b2fe05ca25adc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 3321283321781283416}
+  _eventSystem: {fileID: 319237514}
 --- !u!224 &8576437181082017253
 RectTransform:
   m_ObjectHideFlags: 0
