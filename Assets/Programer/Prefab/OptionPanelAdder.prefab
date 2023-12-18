@@ -541,6 +541,7 @@ GameObject:
   - component: {fileID: 5004881943078510447}
   - component: {fileID: 1621901402414569321}
   - component: {fileID: 1583833342488379583}
+  - component: {fileID: 1151343208912596511}
   m_Layer: 5
   m_Name: BGMSlider
   m_TagString: Untagged
@@ -622,7 +623,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1151343208912596511}
+        m_TargetAssemblyTypeName: SliderObserver, Assembly-CSharp
+        m_MethodName: SetBGMValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1583833342488379583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +649,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 5186048968682272149}
+--- !u!114 &1151343208912596511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875584594280325298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6536db903b07f0b44a160232855a015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 1621901402414569321}
 --- !u!1 &1955383261778637558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3734,6 +3760,7 @@ GameObject:
   - component: {fileID: 1183467802800156919}
   - component: {fileID: 1452983803636639459}
   - component: {fileID: 5520627274036273261}
+  - component: {fileID: 2196133875672710044}
   m_Layer: 5
   m_Name: 'VoiceSlider '
   m_TagString: Untagged
@@ -3815,7 +3842,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2196133875672710044}
+        m_TargetAssemblyTypeName: SliderObserver, Assembly-CSharp
+        m_MethodName: SetVoiceValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5520627274036273261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3829,6 +3868,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 4895198819090128244}
+--- !u!114 &2196133875672710044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7365331305476127543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6536db903b07f0b44a160232855a015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 1452983803636639459}
 --- !u!1 &7372647445485395427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,6 +4157,7 @@ GameObject:
   - component: {fileID: 2644359091215426442}
   - component: {fileID: 5711083564172831184}
   - component: {fileID: 333380625086361796}
+  - component: {fileID: 1057988851167516509}
   m_Layer: 5
   m_Name: 'SESlider '
   m_TagString: Untagged
@@ -4186,7 +4239,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057988851167516509}
+        m_TargetAssemblyTypeName: SliderObserver, Assembly-CSharp
+        m_MethodName: SetSEValue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &333380625086361796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4200,6 +4265,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetImage: {fileID: 845668991427329603}
+--- !u!114 &1057988851167516509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8507132003903898642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6536db903b07f0b44a160232855a015d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 5711083564172831184}
 --- !u!1 &9069188678847892490
 GameObject:
   m_ObjectHideFlags: 0
