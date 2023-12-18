@@ -131,16 +131,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
-        int random = Random.Range(0, 2);
-        switch (random)
-        {
-            case 0:
-                VoiceAudio(VoiceState.EnemyDamagePattern1, EnemyBase.CRIType.Play);
-                break;
-            case 1:
-                VoiceAudio(VoiceState.EnemyDamagePattern2, EnemyBase.CRIType.Play);
-                break;
-        }
+        VoiceAudio(VoiceState.EnemyShortDamage, CRIType.Play);
         _rb.velocity = Vector3.zero;
         SeAudio(SEState.EnemyNormalDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
@@ -204,7 +195,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void EndFinishing(MagickType attackHitTyp)
     {
-        VoiceAudio(VoiceState.EnemySaerch, CRIType.Stop);
+        VoiceAudio(VoiceState.EnemyShortSaerch, CRIType.Stop);
         SeAudio(SEState.EnemyFinishDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
         {
