@@ -63,7 +63,7 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         _setUpCameraSetting.Init(this, _defultCamera);
         _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
         _attackCamera.Init(this, _attackChargeCamera);
-        SetCameraSpeed(1);
+        SetCameraSpeed(OptionValueRecorder.Instance.CameraSensitivity);
         _anim = _finishFirstCamera.GetComponent<Animator>();
     }
 

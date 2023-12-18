@@ -33,6 +33,9 @@ public class AvoidState : PlayerStateBase
         //回避の移動処理
         _stateMachine.PlayerController.Avoid.DoAvoid();
 
+        //トドメをさせる敵を探す
+        _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
+
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
     }

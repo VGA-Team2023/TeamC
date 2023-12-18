@@ -21,7 +21,7 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     private bool _isPause = false;
     private bool _isMoviePause = false;
 
-    private List<float> _defultSpeed = new List<float>();
+    private List<float> _defultSpeed = new List<float>(); 
 
     private void OnEnable()
     {
