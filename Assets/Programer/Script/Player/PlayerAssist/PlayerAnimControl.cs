@@ -60,16 +60,19 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
     }
 
-    public void StartFinishAttack(AttackType weaponType)
+    public void StartFinishAttack()
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
-        if (weaponType == AttackType.ShortChantingMagick)
+
+        int r = Random.Range(0, 2);
+
+        if (r == 0)
         {
-            _playerControl.Animator.Play("Player_FinishingGun_1");
+            _playerControl.Animator.Play("Player_FinishAttack_Start1");
         }
         else
         {
-            _playerControl.Animator.Play("Player_FinishingNear_1");
+            _playerControl.Animator.Play("Player_FinishAttack_Start2");
         }
     }
 
@@ -110,16 +113,9 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsFinishAttack", false);
     }
 
-    public void EndFinishAttack(AttackType weaponType)
+    public void EndFinishAttack()
     {
-        if (weaponType == AttackType.ShortChantingMagick)
-        {
-            _playerControl.Animator.Play("Player_FinishingGun_1_Complet");
-        }
-        else
-        {
-            _playerControl.Animator.Play("Player_FinishingNear_1_Complet");
-        }
+        _playerControl.Animator.Play("Player_FinishinAttack_Complet1");
     }
 
     public void SetIsChanting(bool isOn)

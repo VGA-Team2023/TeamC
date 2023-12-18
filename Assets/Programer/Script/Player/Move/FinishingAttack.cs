@@ -122,7 +122,7 @@ public class FinishingAttack
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.StartFinishAttack(AttackType.LongChantingMagick);
+        _playerControl.PlayerAnimControl.StartFinishAttack();
 
 
 
@@ -249,7 +249,7 @@ public class FinishingAttack
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.EndFinishAttack(AttackType.LongChantingMagick);
+        _playerControl.PlayerAnimControl.EndFinishAttack();
 
         foreach (var e in _nowFinishEnemy)
         {
