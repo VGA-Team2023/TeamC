@@ -17,6 +17,7 @@ Material:
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _PARALLAX_MAP_MODE_2D
+  - _TINT_AREA_ALL
   - _TINT_COLOR_ENABLED
   - _TRANSPARENCY_BY_LUMINANCE
   m_InvalidKeywords:
@@ -270,7 +271,7 @@ Material:
     - _SoftParticlesIntensity: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TintAreaMode: 0
+    - _TintAreaMode: 1
     - _TintBlendRate: 1
     - _TintBlendRateCoord: 0
     - _TintColorMode: 0
