@@ -1,4 +1,5 @@
-﻿public enum BGMState
+﻿/// <summary>BGMのタイプ</summary>
+public enum BGMState
 {
     /// <summary>タイトル</summary>
     Title,
@@ -9,6 +10,7 @@
     /// <summary>リザルト</summary>
     Result,
 }
+/// <summary>SEのタイプ</summary>
 public enum SEState
 {
     /// <summary>Player通常攻撃発射音(氷パターン１)</summary>
@@ -115,7 +117,7 @@ public enum SEState
     /// <summary>リザルトの発表後に流れる音(評価が高い時)</summary>
     MeResultScoreHigh,
 }
-
+/// <summary>Voiceのタイプ</summary>
 public enum VoiceState
 {
     /// <summary>通常攻撃(はっ！)(ふっ！)(やっ！)(これで！)</summary>
