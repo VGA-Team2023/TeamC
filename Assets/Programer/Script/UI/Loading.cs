@@ -11,7 +11,7 @@ public class Loading : MonoBehaviour
     {
         if (_loadingPanelInstance == null)
         {
-            _loadingPanelInstance = FindObjectOfType<LoadingPanel>();
+            _loadingPanelInstance = LoadingPanel.Instance;
 
             if (_loadingPanelInstance == null)
             {
