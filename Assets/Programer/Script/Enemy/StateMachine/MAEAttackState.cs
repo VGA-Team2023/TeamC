@@ -20,16 +20,7 @@ public class MAEAttackState : IStateMachine
     public void Enter()
     {
         if (_enemy.IsDemo) return;
-        int random = Random.Range(0, 2);
-        switch (random)
-        {
-            case 0:
-                _enemy.VoiceAudio(VoiceState.EnemyDiscovPattern1, EnemyBase.CRIType.Play);
-                break;
-            case 1:
-                _enemy.VoiceAudio(VoiceState.EnemyDiscovPattern2, EnemyBase.CRIType.Play);
-                break;
-        }
+        _enemy.VoiceAudio(VoiceState.EnemyShortDiscov, EnemyBase.CRIType.Play);
         _isHit = false;
         //加速してプレイヤーに近づく
         _dir = (_player.transform.position - _enemy.transform.position).normalized;
@@ -50,16 +41,7 @@ public class MAEAttackState : IStateMachine
             _timer += Time.deltaTime;
             if (_timer > 1f)
             {
-                int random = Random.Range(0, 2);
-                switch (random)
-                {
-                    case 0:
-                        _enemy.VoiceAudio(VoiceState.EnemyAttackPattern1, EnemyBase.CRIType.Play);
-                        break;
-                    case 1:
-                        _enemy.VoiceAudio(VoiceState.EnemyAttackPattern2, EnemyBase.CRIType.Play);
-                        break;
-                }
+                _enemy.VoiceAudio(VoiceState.EnemyShortAttack, EnemyBase.CRIType.Play);
                 _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
                 _timer = 0f;
