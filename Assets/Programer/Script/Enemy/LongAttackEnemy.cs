@@ -147,16 +147,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
-        int random = Random.Range(0, 2);
-        switch (random)
-        {
-            case 0:
-                VoiceAudio(VoiceState.EnemyDamagePattern1, EnemyBase.CRIType.Play);
-                break;
-            case 1:
-                VoiceAudio(VoiceState.EnemyDamagePattern2, EnemyBase.CRIType.Play);
-                break;
-        }
+        VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
         _rb.velocity = Vector3.zero;
         if (attackHitTyp == MagickType.Ice)
         {
@@ -219,7 +210,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void EndFinishing(MagickType attackHitTyp)
     {
-        VoiceAudio(VoiceState.EnemySaerch, CRIType.Stop);
+        VoiceAudio(VoiceState.EnemyLongSaerch, CRIType.Stop);
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyFinishDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
