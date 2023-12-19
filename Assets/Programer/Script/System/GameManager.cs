@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     PauseManager _pauseManager = new PauseManager();
     SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
     MinutesSecondsVer _clearTime;
+    bool _isGameMove = false;
     /// <summary>Playerの属性</summary>
     PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
     public PlayerAttribute PlayerAttribute => _playerAttribute;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
+ 　/// <summary>InGameで戦闘中かどうか</summary>
+    public bool IsGameMove => _isGameMove;
     public static GameManager Instance
     {
         //読み取り時
@@ -91,11 +94,17 @@ public class GameManager : MonoBehaviour
             //インゲームが終わったら
             if (_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
-                ResultProcess();
-                Loading loading = FindObjectOfType<Loading>();
-                loading.LoadingScene();
+                GameEndWaitCall();
             }
         }
+    }
+
+    /// <summary>InGame中ゲーム終了時直後に呼ぶメソッド</summary>
+    public void GameEndWaitCall()
+    {
+        _isGameMove = false;
+        GameEndWait gameEndWait = FindObjectOfType<GameEndWait>();
+        gameEndWait.GameEnd();
     }
 
     /// <summary>リザルトシーン遷移処理</summary>
