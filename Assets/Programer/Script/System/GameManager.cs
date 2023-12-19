@@ -52,6 +52,10 @@ public class GameManager : MonoBehaviour
         //何もなかったら
         if (_instance == null)
         {
+            if (_currentGameState == GameState.Game)
+            {
+                InGameStart();
+            }
             _instance = this;
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
@@ -61,6 +65,10 @@ public class GameManager : MonoBehaviour
         //先に読み取りが発生した時
         else if(_instance == this)
         {
+            if (_currentGameState == GameState.Game)
+            {
+                InGameStart();
+            }
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
             DontDestroyOnLoad(this);
@@ -79,6 +87,7 @@ public class GameManager : MonoBehaviour
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
                 _instance._scoreManager.ScoreReset();
+                _instance.InGameStart();
             }
             Debug.Log("あ");
             Destroy(this);
@@ -107,6 +116,11 @@ public class GameManager : MonoBehaviour
         gameEndWait.GameEnd();
     }
 
+    /// <summary>ゲーム中判定にする</summary>
+    public void InGameStart()
+    {
+        _isGameMove = true;
+    }
     /// <summary>リザルトシーン遷移処理</summary>
     public void ResultProcess()
     {
