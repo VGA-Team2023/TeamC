@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     PauseManager _pauseManager = new PauseManager();
     SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
     MinutesSecondsVer _clearTime;
+    bool _isGameMove = false;
     /// <summary>Playerの属性</summary>
     PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
     public PlayerAttribute PlayerAttribute => _playerAttribute;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
+ 　/// <summary>InGameで戦闘中かどうか</summary>
+    public bool IsGameMove => _isGameMove;
     public static GameManager Instance
     {
         //読み取り時
@@ -49,6 +52,10 @@ public class GameManager : MonoBehaviour
         //何もなかったら
         if (_instance == null)
         {
+            if (_currentGameState == GameState.Game)
+            {
+                InGameStart();
+            }
             _instance = this;
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
@@ -58,6 +65,10 @@ public class GameManager : MonoBehaviour
         //先に読み取りが発生した時
         else if(_instance == this)
         {
+            if (_currentGameState == GameState.Game)
+            {
+                InGameStart();
+            }
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
             DontDestroyOnLoad(this);
@@ -76,6 +87,7 @@ public class GameManager : MonoBehaviour
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
                 _instance._scoreManager.ScoreReset();
+                _instance.InGameStart();
             }
             Debug.Log("あ");
             Destroy(this);
@@ -91,13 +103,24 @@ public class GameManager : MonoBehaviour
             //インゲームが終わったら
             if (_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
-                ResultProcess();
-                Loading loading = FindObjectOfType<Loading>();
-                loading.LoadingScene();
+                GameEndWaitCall();
             }
         }
     }
 
+    /// <summary>InGame中ゲーム終了時直後に呼ぶメソッド</summary>
+    public void GameEndWaitCall()
+    {
+        _isGameMove = false;
+        GameEndWait gameEndWait = FindObjectOfType<GameEndWait>();
+        gameEndWait.GameEnd();
+    }
+
+    /// <summary>ゲーム中判定にする</summary>
+    public void InGameStart()
+    {
+        _isGameMove = true;
+    }
     /// <summary>リザルトシーン遷移処理</summary>
     public void ResultProcess()
     {
