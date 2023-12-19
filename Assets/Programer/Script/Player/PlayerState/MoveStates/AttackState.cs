@@ -9,6 +9,7 @@ public class AttackState : PlayerStateBase
     {
         if (_stateMachine.PlayerController.IsNewAttack)
         {
+            _stateMachine.PlayerController.Animator.SetBool("IsAttack", true);
             _stateMachine.PlayerController.Attack2.DoAttack();
         }
         else

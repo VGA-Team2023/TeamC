@@ -151,7 +151,7 @@ public class AttackMagicBase
 
             _nowContunueNumber++;
 
-            _playerControl.Animator.Play("Attack" + _nowContunueNumber);
+            //_playerControl.Animator.Play("Attack" + _nowContunueNumber);
 
 
             //カメラの振動
@@ -203,12 +203,16 @@ public class AttackMagicBase
         {
             if (_nowContunueNumber == m.AttackContinuousSetNumber)
             {
+                _playerControl.PlayerAnimControl.SetAttackTrigger(false);
+
+                //魔法陣を消す
                 m.MagicCircle.SetActive(false);
+                //魔法陣を使った時のエフェクトを再生
                 m.UseMagicparticle.ForEach(i => i.Play());
 
 
                 AttackType attackType = AttackType.ShortChantingMagick;
-                if (_isChantingAllMagic) attackType = AttackType.LongChantingMagick; 
+                if (_isChantingAllMagic) attackType = AttackType.LongChantingMagick;
 
 
                 //魔法のプレハブを出す
@@ -258,11 +262,12 @@ public class AttackMagicBase
                 {
                     _playerControl.PlayerAudio.Fire(1, false);
                 }
+
+                //アニメーション再生
+                if (m.IsAttackAnimPlay) _playerControl.PlayerAnimControl.SetAttackTrigger(true);
             }
             _isFireNow = false;
             _useMagicCount++;
-
-
         }
     }
 
@@ -323,6 +328,9 @@ public class MagickData
     [Header("@魔法を中断した時のエフェクト")]
     [SerializeField] private List<ParticleSystem> _particlesReleaseMagic = new List<ParticleSystem>();
 
+    [Header("アニメーション再生するかどうか")]
+    [SerializeField] private bool _isAttackAnimPlay = false;
+
     //[Header("魔法を出す位置()")]
     //  [SerializeField] 
     private Transform _muzzlePos;
@@ -337,9 +345,10 @@ public class MagickData
     // [SerializeField]
     private GameObject _effect;
 
+    public bool IsAttackAnimPlay => _isAttackAnimPlay;
     public List<ParticleSystem> Releasemagic => _particlesReleaseMagic;
     public int AttackContinuousSetNumber { get => _attackContinuous; set => _attackContinuous = value; }
-    public GameObject Effect => _effect; 
+    public GameObject Effect => _effect;
     public List<ParticleSystem> UseMagicparticle => _particlesUseMagic;
     public Transform MuzzlePos => _muzzlePos;
     public List<ParticleSystem> ParticleSystem => _particles;

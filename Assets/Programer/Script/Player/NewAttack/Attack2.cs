@@ -107,7 +107,7 @@ public class Attack2
             if (_playerControl.InputManager.IsAttackUp)
             {
                 //アニメーション再生
-                _playerControl.PlayerAnimControl.SetAttackTrigger();
+                //_playerControl.PlayerAnimControl.SetAttackTrigger();
 
                 //音
                 if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
@@ -118,8 +118,6 @@ public class Attack2
                 {
                     _playerControl.PlayerAudio.AttackCharge(false, false);
                 }
-
-                _playerControl.Animator.SetBool("IsAttack", false);
                 _playerControl.Animator.SetBool("IsDoAttack", true);
                 _isAttackInput = true;
                 _attackMagic.Attack(_attackCount);
@@ -142,6 +140,7 @@ public class Attack2
     {
         _isPushAttack = false;
         _isCanNextAttack = false;
+        _playerControl.Animator.SetBool("IsDoAttack", false);
     }
 
     /// <summary>攻撃の中断処理</summary>
