@@ -126,6 +126,14 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(_state == MoveState.FreeMove)
+        {
+            _freeMove.WallHit();
+        }
+    }
+
     public void StateChange(MoveState changeState)
     {
         State = changeState;
@@ -148,6 +156,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
+        _anim.Play("Hit");
         _rb.velocity = Vector3.zero;
         if (attackHitTyp == MagickType.Ice)
         {
@@ -191,7 +200,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StartFinishing()
     {
-        //_anim.SetBool("isStan", true);
+        _anim.SetBool("isStan", true);
         gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
@@ -201,7 +210,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StopFinishing()
     {
-        //_anim.SetBool("isStan", false);
+        _anim.SetBool("isStan", false);
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
         gameObject.layer = DefaultLayer;
