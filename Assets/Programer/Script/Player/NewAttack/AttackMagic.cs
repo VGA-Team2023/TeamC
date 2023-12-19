@@ -88,9 +88,6 @@ public class AttackMagic
             // _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(t[0]);
         }   //タメが遅いとき
-
-
-
     }
 
     public void StopMagic(int attackCount)

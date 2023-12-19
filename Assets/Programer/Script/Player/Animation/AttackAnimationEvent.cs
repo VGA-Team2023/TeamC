@@ -11,7 +11,7 @@ public class AttackAnimationEvent : MonoBehaviour
     {
         if (_playerControl.IsNewAttack)
         {
-           // _playerControl.Attack2.IsCanNextAttack = true;
+            _playerControl.Attack2.IsCanNextAction = true;
         }
         else
         {

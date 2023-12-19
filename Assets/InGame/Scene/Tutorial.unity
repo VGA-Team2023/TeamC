@@ -19282,6 +19282,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 428340378005506474, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8c5a388bc3e6b8c4f9d51f7175f3f695,
+        type: 3}
     - target: {fileID: 850382216489397480, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
         type: 3}
       propertyPath: _tutorialMissions._walkMission._camera
@@ -19302,6 +19308,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tutorial
       objectReference: {fileID: 0}
+    - target: {fileID: 4773423601294041192, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0033f4b24c8af6941a9c8a9933706cd4,
+        type: 3}
     - target: {fileID: 7371301641807717548, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19355,7 +19367,7 @@ PrefabInstance:
     - target: {fileID: 8036558306723924175, guid: 6d7ae2afb171cf343b5491aa9f2a1d54,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

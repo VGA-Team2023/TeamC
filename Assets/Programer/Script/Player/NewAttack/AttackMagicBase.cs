@@ -143,7 +143,6 @@ public class AttackMagicBase
         //連撃の実行時間を計測
         _countAttackContinueTime += Time.deltaTime;
 
-
         if (_magickData[_attackCount - 1].AttackContinueTimes[_nowContunueNumber] <= _countAttackContinueTime && !_isFireNow)
         {
             _isFireNow = true;
@@ -169,6 +168,7 @@ public class AttackMagicBase
             {
                 //カメラ変更
                 _playerControl.CameraControl.UseDefultCamera(true);
+                _playerControl.Attack2.IsAttackNow = false;
                 _isCoolTime = false;
                 _isAttackNow = false;
             }
@@ -185,9 +185,6 @@ public class AttackMagicBase
         {
             _countCoolTime = 0;
             _isCoolTime = true;
-
-
-
 
             _useMagicCount = 0;
             _nowContunueNumber = 0;
@@ -266,7 +263,7 @@ public class AttackMagicBase
                 //アニメーション再生
                 if (m.IsAttackAnimPlay) _playerControl.PlayerAnimControl.SetAttackTrigger(true);
             }
-            _isFireNow = false;
+            _isFireNow = false; 
             _useMagicCount++;
         }
     }
@@ -282,7 +279,7 @@ public class AttackMagicBase
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
         }
         _isAttackNow = false;
-        _playerControl.Attack2.IsCanNextAttack = true;
+        _playerControl.Attack2.IsCanNextAction = true;
         _nowContunueNumber = 0;
         _maxContunueNumber = 1;
         _isFireNow = false;

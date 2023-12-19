@@ -60,6 +60,10 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
     }
 
+    public void SetIsIceAttack(bool isAttackIce)
+    {
+        _playerControl.Animator.SetBool("IsIce", isAttackIce);
+    }
 
     /// <summary>トドメ開始のアニメーション </summary>
     public void StartFinishAttack()
@@ -143,12 +147,18 @@ public class PlayerAnimControl
         _playerControl.Animator.SetInteger(_attackNum, num);
     }
 
+    public void SetIsAttack(bool isAttack)
+    {
+        _playerControl.Animator.SetBool("IsAttack", isAttack);
+    }
+
+
     /// <summary>攻撃をする</summary>
     public void SetAttackTrigger(bool isTrigger)
     {
-        if(isTrigger)
+        if (isTrigger)
         {
-        _playerControl.Animator.SetTrigger(_attackTrigger);
+            _playerControl.Animator.SetTrigger(_attackTrigger);
         }
         else
         {

@@ -37,6 +37,7 @@ public class FinishingAttack
 
     private Collider[] _nowFinishEnemy;
 
+    public PlayerAttribute StartAttribute => _startAttribute;
     public bool IsEndFinishAnim { get => _isEndFinishAnim; set => _isEndFinishAnim = value; }
 
     public bool IsCanFinishing => _isCanFinishing;
@@ -186,7 +187,7 @@ public class FinishingAttack
         {
             _countFinishTime += Time.deltaTime;
 
-            _finishingAttackUI.ChangeValue(Time.deltaTime);
+            _finishingAttackUI.ChangeValue();
 
             if (_countFinishTime >= _setFinishTime)
             {

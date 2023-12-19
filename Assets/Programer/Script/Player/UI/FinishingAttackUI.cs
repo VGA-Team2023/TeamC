@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 [System.Serializable]
@@ -13,18 +14,27 @@ public class FinishingAttackUI
 
     [Header("敵の最大数")]
     [SerializeField] private int _enemyMaxNum = 10;
-
     [Header("トドメを促すUI")]
     [SerializeField] private GameObject _finishingUI;
 
-    [Header("トドメのUI")]
-    [SerializeField] private GameObject _dofinishingUI;
+    [Header("トドメゲージの共通UI")]
+    [SerializeField] private List<GameObject> _finishGageCommonUI = new List<GameObject>();
+    [Header("トドメゲージの氷属性のUI")]
+    [SerializeField] private List<GameObject> _finishGageIceUI = new List<GameObject>();
+    [Header("トドメゲージの草属性のUI")]
+    [SerializeField] private List<GameObject> _finishGageGrassUI = new List<GameObject>();
+
+    [Header("トドメゲージバー_氷")]
+    [SerializeField] private Image _finshGageFillImageIce;
+    [Header("トドメゲージバー円_氷")]
+    [SerializeField] private Image _finshGageFillCircleImageIce;
+    [Header("トドメゲージバー_草")]
+    [SerializeField] private Image _finshGageFillImageGrass;
+    [Header("トドメゲージバー円_草")]
+    [SerializeField] private Image _finshGageFillCircleImageGrass;
 
     [Header("トドメ完了のUI")]
     [SerializeField] private GameObject _completeFinishUI;
-
-    [Header("トドメのパーセンテージを表示")]
-    [SerializeField] private Image _finishingSliderUI;
 
     // オブジェクト位置のオフセット
     [SerializeField] private Vector3 _worldOffset;
@@ -67,6 +77,10 @@ public class FinishingAttackUI
         _finishingUI.SetActive(isON);
     }
 
+
+    /// <summary>トドメのUIを表示する</summary>
+    /// <param name="max"></param>
+    /// <param name="_enemyNum"></param>
     public void SetFinishUI(float max, int _enemyNum)
     {
         for (int i = 0; i < _enemyNum; i++)
@@ -80,11 +94,27 @@ public class FinishingAttackUI
 
         }
 
-        _dofinishingUI.SetActive(true);
+        _finishingUI.SetActive(false);
 
-        _finishingSliderUI.fillAmount = 0;
+        //ゲージの共通部分のUIを表示する
+        _finishGageCommonUI.ForEach(i => i.SetActive(true));
+
+        //属性別のゲージUIを表示する
+        if (_playerControl.FinishingAttack.StartAttribute == PlayerAttribute.Ice)
+        {
+            _finishGageIceUI.ForEach(i => i.SetActive(true));
+            _finshGageFillImageIce.fillAmount = 0;
+            _finshGageFillCircleImageIce.fillAmount = 0;
+        }
+        else
+        {
+            _finishGageGrassUI.ForEach(i => i.SetActive(true));
+            _finshGageFillImageGrass.fillAmount = 0;
+            _finshGageFillCircleImageGrass.fillAmount = 0;
+        }
     }
 
+    /// <summary>ゲージを非表示にする</summary>
     public void UnSetFinishUI()
     {
         for (int i = 0; i < _enemyMaxNum; i++)
@@ -97,13 +127,31 @@ public class FinishingAttackUI
             a.SetActive(false);
         }
 
-        _dofinishingUI.SetActive(false);
+        //ゲージの部分のUIを非表示する
+        _finishGageCommonUI.ForEach(i => i.SetActive(false));
+        _finishGageIceUI.ForEach(i => i.SetActive(false));
+        _finishGageGrassUI.ForEach(i => i.SetActive(false));
     }
 
 
-    public void ChangeValue(float time)
+    public void ChangeValue()
     {
-        _finishingSliderUI.fillAmount += time / _finishTime;
+        if (_playerControl.FinishingAttack.StartAttribute == PlayerAttribute.Ice)
+        {
+            _finshGageFillImageIce.fillAmount += Time.deltaTime / _finishTime;
+            if (_finshGageFillImageIce.fillAmount >= 0.9f)
+            {
+                _finshGageFillCircleImageIce.fillAmount += Time.deltaTime / 0.4f;
+            }
+        }
+        else
+        {
+            _finshGageFillImageGrass.fillAmount += Time.deltaTime / _finishTime;
+            if (_finshGageFillImageGrass.fillAmount >= 0.9f)
+            {
+                _finshGageFillCircleImageGrass.fillAmount += Time.deltaTime / 0.4f;
+            }
+        }
     }
 
 
@@ -161,7 +209,7 @@ public class FinishingAttackUI
     // UIの位置を更新する
     private void UpdateCanFinishingUIPosition(Collider t, int num)
     {
-        if(t==null)
+        if (t == null)
         {
             return;
         }
