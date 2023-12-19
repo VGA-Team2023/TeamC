@@ -60,6 +60,8 @@ public class PlayerAnimControl
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
     }
 
+
+    /// <summary>トドメ開始のアニメーション </summary>
     public void StartFinishAttack()
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
@@ -74,6 +76,18 @@ public class PlayerAnimControl
         {
             _playerControl.Animator.Play("Player_FinishAttack_Start2");
         }
+    }
+
+    /// <summary>トドメ中断 </summary>
+    public void StopFinishAttack()
+    {
+        _playerControl.Animator.SetBool("IsFinishAttack", false);
+    }
+
+    /// <summary>トドメ完了のアニメーション </summary>
+    public void EndFinishAttack()
+    {
+        _playerControl.Animator.Play("Player_FinishinAttack_Complet1");
     }
 
     public void PlayDead()
@@ -108,32 +122,13 @@ public class PlayerAnimControl
     }
 
 
-    public void StopFinishAttack()
-    {
-        _playerControl.Animator.SetBool("IsFinishAttack", false);
-    }
 
-    public void EndFinishAttack()
-    {
-        _playerControl.Animator.Play("Player_FinishinAttack_Complet1");
-    }
 
     public void SetIsChanting(bool isOn)
     {
         _playerControl.Animator.SetBool("IsChanting", isOn);
     }
 
-    public void ChangeWeapon(bool isGun)
-    {
-        if (isGun)
-        {
-            _playerControl.Animator.Play(_toGunAnim);
-        }
-        else
-        {
-            _playerControl.Animator.Play(_toSword);
-        }
-    }
 
     public void SetIsSetUp(bool isSetUp)
     {
@@ -149,9 +144,17 @@ public class PlayerAnimControl
     }
 
     /// <summary>攻撃をする</summary>
-    public void SetAttackTrigger()
+    public void SetAttackTrigger(bool isTrigger)
     {
+        if(isTrigger)
+        {
         _playerControl.Animator.SetTrigger(_attackTrigger);
+        }
+        else
+        {
+            _playerControl.Animator.ResetTrigger(_attackTrigger);
+        }
+
     }
 
 }
