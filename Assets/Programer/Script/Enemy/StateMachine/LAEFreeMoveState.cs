@@ -51,4 +51,9 @@ public class LAEFreeMoveState : IStateMachine
         _enemy.transform.forward = new Vector3(nextPoint.x, 0, nextPoint.z);
         _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
     }
+
+    public void WallHit()
+    {
+        _index++;
+    }
 }
