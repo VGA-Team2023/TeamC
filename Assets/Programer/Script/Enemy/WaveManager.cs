@@ -34,8 +34,9 @@ public class WaveManager : MonoBehaviour
                     //スコアの計算をここに記述
                     //シーン遷移のメソッドを呼ぶ
                     _gameManager.ResultProcess();
-                    Loading sceneControlle = FindObjectOfType<Loading>();
-                    sceneControlle?.LoadingScene();
+                    //Loading sceneControlle = FindObjectOfType<Loading>();
+                    //sceneControlle?.LoadingScene();
+                    _gameManager.GameEndWaitCall();
                 }
             }
         }
