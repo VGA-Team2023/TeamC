@@ -800,14 +800,14 @@ RectTransform:
   m_GameObject: {fileID: 2075543378578694468}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.71428573, y: 0.71428573, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1770057058741937311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27.143036, y: 33.71429}
+  m_AnchoredPosition: {x: -2, y: 3}
   m_SizeDelta: {x: 589, y: 308}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7791960243993531535
@@ -1404,14 +1404,14 @@ RectTransform:
   m_GameObject: {fileID: 3628354517635307336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2095887409540801425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 186}
+  m_AnchoredPosition: {x: 0, y: 210}
   m_SizeDelta: {x: 931, y: 154}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9162656680252178254
@@ -1679,7 +1679,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -215.99998, y: -44.000008}
+  m_AnchoredPosition: {x: -249, y: -44.000008}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6322486404415021599
@@ -1948,7 +1948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -181}
+  m_AnchoredPosition: {x: 210, y: -256}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3376979048774674951
@@ -2115,7 +2115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -215.99998, y: 34}
+  m_AnchoredPosition: {x: -250, y: 34}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2436619956152717478
@@ -2185,10 +2185,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    m_HighlightedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2369,7 +2369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -215.99998, y: 93}
+  m_AnchoredPosition: {x: -252, y: 93}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8803696041467639515
@@ -2439,10 +2439,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    m_HighlightedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
       type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117, type: 3}
     m_DisabledSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3407,7 +3407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1770057058741937311
 RectTransform:
   m_ObjectHideFlags: 0
