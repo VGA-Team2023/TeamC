@@ -8,6 +8,12 @@ public class BossFollowAttack
     [Header("UŒ‚‚Ìí—Şİ’è")]
     [SerializeField] private List<BossFollowAttackBase> _bossFollowAttackBase = new List<BossFollowAttackBase>();
 
+    [Header("—­‚ß_•X")]
+    [SerializeField] private List<ParticleSystem> _chargeIce = new List<ParticleSystem>();
+
+    [Header("—­‚ß_‘")]
+    [SerializeField] private List<ParticleSystem> _chargeGrass = new List<ParticleSystem>();
+
     BossFollowAttackBase _setAttack;
 
     private BossControl _bossControl;
@@ -20,26 +26,58 @@ public class BossFollowAttack
         {
             a.Init(bossControl);
         }
-        SetAttack();
     }
 
     public void SetAttack()
     {
         int r = Random.Range(0, _bossFollowAttackBase.Count);
-        _setAttack = _bossFollowAttackBase[r];
-       // _setAttack = _bossFollowAttackBase[0];
+        _setAttack = _bossFollowAttackBase[1];
+
+        if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+        {
+            _chargeIce.ForEach(i => i.Play());
+        }
+        else
+        {
+            _chargeGrass.ForEach(i => i.Play());
+        }
+
     }
 
     /// <summary>UŒ‚’†’fˆ—</summary>
     public void StopAttack()
     {
-       _setAttack.StopAtttack();
+        if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+        {
+            _chargeIce.ForEach(i => i.Stop());
+        }
+        else
+        {
+            _chargeGrass.ForEach(i => i.Stop());
+        }
+
+        _setAttack.StopAtttack();
     }
 
 
     public bool DoAttack()
     {
-       return _setAttack.DoAttack();
+        if (_setAttack.DoAttack())
+        {
+            if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+            {
+                _chargeIce.ForEach(i => i.Stop());
+            }
+            else
+            {
+                _chargeGrass.ForEach(i => i.Stop());
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

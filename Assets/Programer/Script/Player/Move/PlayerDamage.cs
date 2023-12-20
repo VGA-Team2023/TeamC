@@ -79,6 +79,9 @@ public class PlayerDamage
             _countDeadTime = 0;
             _isDead = false;
 
+            //先生の声
+            AudioController.Instance.Voice.Play(VoiceState.InstructorGameHeal);
+
             //蘇生のムービーを流す
             _reviveMovie.Play();
             GameManager.Instance.SpecialMovingPauseManager.PauseResume(true);
@@ -87,7 +90,7 @@ public class PlayerDamage
 
     /// <summary>ダメージを与える。</summary>
     /// <param name="damage">体力が0になったかどうか</param>
-    public void Damage(float damage,bool isBossDamage,MagickType magickType)
+    public void Damage(float damage, bool isBossDamage, MagickType magickType)
     {
         //無敵時間中はダメージを受けない
         if (_isDamage || _isDead || _isMuteki || _playerControl.Avoid.isAvoid) return;
@@ -95,6 +98,14 @@ public class PlayerDamage
         if (_playerControl.PlayerHp.AddDamage(damage))
         {
             _isDead = true;
+
+            //プレイヤーのダウン回数を保存
+            GameManager.Instance.ScoreManager.PlayerDownNum++;
+
+            //ダメージボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerDown);
+
+            //アニメーション設定
             _playerControl.PlayerAnimControl.PlayDead();
             _playerControl.PlayerAnimControl.IsDead(true);
 
@@ -104,28 +115,42 @@ public class PlayerDamage
         else
         {
             _isDamage = true;
+
+            //ダメージボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerDamage);
+            //アニメーション設定
             _playerControl.PlayerAnimControl.IsDamage(true);
         }
 
-        //エフェクト
-        if(isBossDamage)
+
+
+        if (isBossDamage)
         {
-            if(magickType == MagickType.Ice)
+            //属性別
+            if (magickType == MagickType.Ice)
             {
+                //音を鳴らす
+                AudioController.Instance.SE.Play(SEState.PlayerBossEnemyHitIce);
+
+                //エフェクトを再生
                 _damageEffectsBossIce.ForEach(i => i.Play());
             }
             else
             {
+                //音を鳴らす
+                AudioController.Instance.SE.Play(SEState.PlayerBossEnemyHitGrass);
+
+                //エフェクトを再生
                 _damageEffectsBossGrass.ForEach(i => i.Play());
             }
         }
         else
         {
+            //音を鳴らす
+            AudioController.Instance.SE.Play(SEState.PlayerLongAttackEnemyDamage);
+            //エフェクトを再生
             _damageEffects.ForEach(i => i.Play());
         }
-
-        //音
-        _playerControl.PlayerAudio.AudioSet(SEState.PlayerLongAttackEnemyDamage, PlayerAudio.PlayMagicAudioType.Play);
     }
 
 

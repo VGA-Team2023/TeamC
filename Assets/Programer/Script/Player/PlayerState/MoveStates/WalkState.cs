@@ -43,8 +43,14 @@ public class WalkState : PlayerStateBase
         //属性変更確認
         _stateMachine.PlayerController.PlayerAttributeControl.CheckChangeAttribute();
 
+        //属性変更のクールタイム
+        _stateMachine.PlayerController.PlayerAttributeControl.CoolTime();
+
         //回避のクールタイム計測
         _stateMachine.PlayerController.Avoid.CountCoolTime();
+
+        //ダメージ、無敵時間計測
+        _stateMachine.PlayerController.PlayerDamage.CountDamageTime();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
         {

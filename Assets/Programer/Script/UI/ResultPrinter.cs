@@ -61,12 +61,15 @@ public class ResultPrinter : MonoBehaviour
     private int _lineLength = 25;
     private void Start()
     {
+        GameManager gameManager = GameManager.Instance;
         _audioController = AudioController.Instance;
+        int defeatcount = gameManager.ScoreManager.LongEnemyDefeatedNum +
+            gameManager.ScoreManager.ShortEnemyDefeatedNum;
         TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
         {
             TweenNum(GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
             {
-                TweenNum(GameManager.Instance.ScoreManager.EnemyDefeatedNum, _enemyDefeatedCount, () =>
+                TweenNum(defeatcount, _enemyDefeatedCount, () =>
                 {
                     TweenNum(GameManager.Instance.ScoreManager.PlayerDownNum, _playerDownCount, () =>
                     {
@@ -118,7 +121,7 @@ public class ResultPrinter : MonoBehaviour
         int evaluationvalue = 0;
         int cleartimesecond = (GM.ScoreManager.ClearTime.Minutes) * 60 +
             GM.ScoreManager.ClearTime.Seconds;
-        int enemyDefeatedNum = (GM.ScoreManager.EnemyDefeatedNum);
+        int enemyDefeatedNum = (GM.ScoreManager.LongEnemyDefeatedNum)+ (GM.ScoreManager.ShortEnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
 
         if (cleartimesecond - _idealClearTimeSeconds <= _sRankScoreClearTimeGap)
@@ -182,19 +185,19 @@ public class ResultPrinter : MonoBehaviour
         }
         else if (evaluationvalue >= _aRankScore)
         {
-            TweenResultText(_resultTexts[1]);
+            TweenResultText(_resultTexts[0]);
             _judgeText.text = "A";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _bRankScore)
         {
-            TweenResultText(_resultTexts[2]);
+            TweenResultText(_resultTexts[0]);
             _judgeText.text = "B";
-            _failureImage.gameObject.SetActive(true);
+            _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _cRankScore)
         {
-            TweenResultText(_resultTexts[2]);
+            TweenResultText(_resultTexts[1]);
             _judgeText.text = "C";
             _failureImage.gameObject.SetActive(true);
         }

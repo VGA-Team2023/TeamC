@@ -88,57 +88,12 @@ public class AttackMagic
             // _attackBase.UseMagick(t, attackCount);
             _shortChantingMagicAttackMove.SetEnemy(t[0]);
         }   //タメが遅いとき
-
-
-
     }
 
     public void StopMagic(int attackCount)
     {
         _attackBase.StopMagic(attackCount);
     }
-
-
-    //private bool _isPause = false;
-    //private bool _isMoviePause = false;
-    //private bool _isSlow = false;
-
-    //public void Pause()
-    //{
-    //    if (_isMoviePause) return;
-
-    //    _attackBase.
-    //}
-
-    //public void Resume()
-    //{
-    //    if (_isMoviePause) return;
-
-
-    //}
-
-    //public void MoviePause()
-    //{
-
-    //}
-
-    //public void MovieResume()
-    //{
-
-    //}
-
-    //public void Slow(float speed)
-    //{
-
-    //}
-
-    //public void StopSlow()
-    //{
-
-    //}
-
-
-
 
     public void OnDrwowGizmo(Transform origin)
     {

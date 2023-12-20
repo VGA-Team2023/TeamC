@@ -56,9 +56,6 @@ public class ShortChantingMagickAttack
     /// <returns> 移動方向 :正の値, 負の値 </returns>
     public void Attack(float time)
     {
-        //アニメーション再生
-        _playerControl.PlayerAnimControl.SetAttackTrigger();
-
         //コントローラーの振動
         _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
 
@@ -73,7 +70,7 @@ public class ShortChantingMagickAttack
             //敵を索敵
             Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, _targetLayer);
             Debug.Log("Offset:" + _offset + "Size:" + _size + "Layer:" + _targetLayer.value);
-            Debug.Log("敵の数:"+t.Length);
+            Debug.Log("敵の数:" + t.Length);
             if (t.Length == 0)
             {
                 //魔法の攻撃処理

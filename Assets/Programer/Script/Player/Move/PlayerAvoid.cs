@@ -93,10 +93,10 @@ public class PlayerAvoid
 
         _countCoolTime += Time.deltaTime;
 
-        if(_countCoolTime>_coolTime)
+        if (_countCoolTime > _coolTime)
         {
             _countCoolTime = 0;
-            _isCoolTime= true;
+            _isCoolTime = true;
         }
     }
 
@@ -122,13 +122,17 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        //ボイス
+        AudioController.Instance.Voice.Play(VoiceState.PlayerDodge);
+
+        //回避効果音
         if (_startAttribute == PlayerAttribute.Ice)
         {
-            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeIce, PlayerAudio.PlayMagicAudioType.Play);
+            AudioController.Instance.SE.Play(SEState.PlayerDodgeIce);
         }
         else
         {
-            _playerControl.PlayerAudio.AudioSet(SEState.PlayerDodgeGrass, PlayerAudio.PlayMagicAudioType.Play);
+            AudioController.Instance.SE.Play(SEState.PlayerDodgeGrass);
         }
 
         _isCoolTime = false;
@@ -203,6 +207,9 @@ public class PlayerAvoid
     /// <summary>回避を完了</summary>
     public void EndMove()
     {
+        //効果音
+        AudioController.Instance.SE.Play(SEState.PlayerClothAttack);
+
         _avoidMove.MoveEnd();
 
         foreach (var m in _meshRendererFace)

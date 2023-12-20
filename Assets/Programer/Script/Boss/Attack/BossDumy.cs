@@ -107,10 +107,15 @@ public class BossDumy : MonoBehaviour, IEnemyDamageble, IPause, ISlow, ISpecialM
         if (attackHitTyp == MagickType.Ice)
         {
             _damageEffectIce.ForEach(i => i.Play());
+
+            //‰¹
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitIcePatternA, transform.position);
         }
         else
         {
             _damageEffectGrass.ForEach(i => i.Play());
+            //‰¹
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitGrassPatternA, transform.position);
         }
 
         if (_hp <= 0)

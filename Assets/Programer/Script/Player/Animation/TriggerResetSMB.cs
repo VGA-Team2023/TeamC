@@ -22,17 +22,17 @@ public class TriggerResetSMB : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger(_triggerName);
+        //animator.ResetTrigger(_triggerName);
 
-        //カウントを減らす
-        _isAttackNow--;
+        ////カウントを減らす
+        //_isAttackNow--;
 
-        if (_isAttackNow <= 0)
-        {
-            _isAttackNow = 0;
-            _playerControl.Attack.IsAttackNow = false;
-            _playerControl.Attack2.IsAttackNow = false;
-        }
+        //if (_isAttackNow <= 0)
+        //{
+        //    _isAttackNow = 0;
+        //    _playerControl.Attack.IsAttackNow = false;
+        //    _playerControl.Attack2.IsAttackNow = false;
+        //}
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
