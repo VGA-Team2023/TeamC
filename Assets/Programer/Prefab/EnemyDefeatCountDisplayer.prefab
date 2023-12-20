@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 0
 --- !u!1 &5987467375088524005
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93543bdfb852bb04d85b8d1e8e0edac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDefeatCountText: {fileID: 2555858729816980936}
+  _meleeEnemyDefeatCountText: {fileID: 2555858729816980936}
+  _longEnemyDefeatCountText: {fileID: 1477387292303044263}
 --- !u!1 &8640822179812537070
 GameObject:
   m_ObjectHideFlags: 0

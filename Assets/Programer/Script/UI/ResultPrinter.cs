@@ -185,19 +185,19 @@ public class ResultPrinter : MonoBehaviour
         }
         else if (evaluationvalue >= _aRankScore)
         {
-            TweenResultText(_resultTexts[1]);
+            TweenResultText(_resultTexts[0]);
             _judgeText.text = "A";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _bRankScore)
         {
-            TweenResultText(_resultTexts[2]);
+            TweenResultText(_resultTexts[0]);
             _judgeText.text = "B";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _cRankScore)
         {
-            TweenResultText(_resultTexts[2]);
+            TweenResultText(_resultTexts[1]);
             _judgeText.text = "C";
             _failureImage.gameObject.SetActive(true);
         }
