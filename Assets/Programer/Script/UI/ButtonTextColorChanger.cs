@@ -22,12 +22,12 @@ public class ButtonTextColorChanger : MonoBehaviour, ISelectHandler, IDeselectHa
     }
     public void OnSelect(BaseEventData eventData)
     {
-        AudioController.Instance.SE.Play(SEState.SystemSelect);
         SetTextColor(_button.gameObject, _selectedColor);
         _target?.gameObject.SetActive(true);
     }
     public void OnDeselect(BaseEventData eventData)
     {
+        AudioController.Instance.SE.Play(SEState.SystemSelect);
         SetTextColor(_button.gameObject, _defaultColor);
         _target?.gameObject.SetActive(false);
     }
