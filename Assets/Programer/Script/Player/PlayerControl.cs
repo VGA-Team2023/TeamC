@@ -121,11 +121,12 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);
-            Debug.Log("ISPAAAA");
         }
 
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
 
+        _playerModelT.transform.localPosition = Vector3.zero;
+        _playerModelT.transform.localRotation = Quaternion.Euler(0,0,0);
 
         _stateMachine.Update();
 

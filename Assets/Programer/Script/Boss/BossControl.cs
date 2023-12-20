@@ -38,6 +38,8 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
     [SerializeField] private Animator _anim;
 
+    [SerializeField] private GameObject _deathCamera;
+
     [SerializeField] private BossStateMachine _state;
     private Transform _player;
 
@@ -76,6 +78,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     {
         if (_isPause || _isMoviePause) return;
 
+
         //ÉQÅ[ÉÄíÜÇ≈Ç»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢
         if (!GameManager.Instance.IsGameMove) return;
 
@@ -85,6 +88,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         {
             if (_death.CountDestroyTime())
             {
+                _deathCamera.SetActive(false);
                 EnemyFinish();
                 Destroy(gameObject);
             }
@@ -99,7 +103,6 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
         //ÉQÅ[ÉÄíÜÇ≈Ç»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢
         if (!GameManager.Instance.IsGameMove) return;
-
         _state.FixedUpdate();
     }
 
@@ -161,6 +164,12 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     public void EndFinishing(MagickType attackHitTyp)
     {
         _isDeath = _hpControl.CompleteFinishAttack(attackHitTyp);
+
+        if(_isDeath)
+        {
+            _deathCamera.SetActive(true);
+        }
+
 
         if (_enemyAttribute == PlayerAttribute.Ice)
         {

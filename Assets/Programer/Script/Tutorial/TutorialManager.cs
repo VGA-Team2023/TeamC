@@ -34,7 +34,9 @@ public class TutorialManager : MonoBehaviour
 
     public bool IsCanInput => _isCanInput;
 
-    private bool _isPressCheckButtun = false;
+    private bool _isReadEndMissinFirst = false;
+
+    private bool _isEndFirstLead = false;
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
 
@@ -77,20 +79,23 @@ public class TutorialManager : MonoBehaviour
     {
         if (_tutorialSituation == TutorialSituation.GameStartTalk)
         {
+            if (_isEndFirstLead)
+            {
+                _tutorialUI.ActiveBttun();
+                _isFirstVoice = true;
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
+            }
+
             //文章を読み終えたかどうか
             bool isReadEnd = _tutorialUI.Read();
 
+
+
             //チュートリアルを受けるかどうかの確認パネルを表示
-            if (isReadEnd)
+            if (isReadEnd && !_isEndFirstLead)
             {
+                _isEndFirstLead = true;
                 _tutorialUI.ShowTutorilCheck(true);
-
-                if(!_isFirstVoice)
-                {
-                    _isFirstVoice= true;
-                    AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
-                }
-
             }
 
         }
@@ -101,6 +106,8 @@ public class TutorialManager : MonoBehaviour
 
             if (isReadEnd)
             {
+
+                _isReadEndMissinFirst = true;
                 if (_isTutorilReceve)
                 {
                     SetFirstTutorial();
@@ -118,10 +125,16 @@ public class TutorialManager : MonoBehaviour
             //文章を読み終えたかどうか
             bool isReadEnd = _tutorialUI.Read();
 
-            if (isReadEnd)
+            if (_isReadEndMissinFirst)
             {
+                _isReadEndMissinFirst = false;
                 SetTryMove();
             }   //読み終えたら、実行状況に以降
+
+            if (isReadEnd)
+            {
+                _isReadEndMissinFirst = true;
+            }
         }
         else if (_tutorialSituation == TutorialSituation.TryMove)
         {
@@ -285,7 +298,7 @@ public class TutorialManager : MonoBehaviour
 
     public void Voice(bool isFirstTalk)
     {
-        TutorialNum num = _tutorialOrder[_tutorialCount-1];
+        TutorialNum num = _tutorialOrder[_tutorialCount - 1];
 
         if (isFirstTalk)
         {
