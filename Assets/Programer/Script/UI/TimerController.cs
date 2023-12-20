@@ -12,7 +12,7 @@ public class TimerController : MonoBehaviour, IPause
     private float[] _thresholds = { 0.99f, 0.8f, 0.6f, 0.4f, 0.2f};
     private void Update()
     {
-        if (!_isPausing)
+        if (!_isPausing && GameManager.Instance.IsGameMove)
         {
             float fillAmout = (GameManager.Instance.TimeManager.GamePlayTime -
             GameManager.Instance.TimeManager.GamePlayElapsedTime) / GameManager.Instance.TimeManager.GamePlayTime;
