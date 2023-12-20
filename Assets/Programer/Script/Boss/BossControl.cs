@@ -76,16 +76,19 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     {
         if (_isPause || _isMoviePause) return;
 
+        //ÉQÅ[ÉÄíÜÇ≈Ç»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢
+        if (!GameManager.Instance.IsGameMove) return;
+
         _state.Update();
 
-            if (_isDeath)
+        if (_isDeath)
+        {
+            if (_death.CountDestroyTime())
             {
-                if (_death.CountDestroyTime())
-                {
-                    EnemyFinish();
-                    Destroy(gameObject);
-                }
+                EnemyFinish();
+                Destroy(gameObject);
             }
+        }
 
     }
 
@@ -94,6 +97,9 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     {
         if (_isPause || _isMoviePause) return;
 
+        //ÉQÅ[ÉÄíÜÇ≈Ç»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢
+        if (!GameManager.Instance.IsGameMove) return;
+
         _state.FixedUpdate();
     }
 
@@ -101,6 +107,10 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     private void LateUpdate()
     {
         if (_isPause || _isMoviePause) return;
+
+        //ÉQÅ[ÉÄíÜÇ≈Ç»Ç©Ç¡ÇΩÇÁâΩÇ‡ÇµÇ»Ç¢
+        if (!GameManager.Instance.IsGameMove) return;
+
         _state.LateUpdate();
     }
 
@@ -152,7 +162,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     {
         _isDeath = _hpControl.CompleteFinishAttack(attackHitTyp);
 
-        if(_enemyAttribute == PlayerAttribute.Ice)
+        if (_enemyAttribute == PlayerAttribute.Ice)
         {
             _enemyAttribute = PlayerAttribute.Grass;
         }

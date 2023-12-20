@@ -37,6 +37,10 @@ public class DamageState : PlayerStateBase
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
+        //属性変更のクールタイム
+        _stateMachine.PlayerController.PlayerAttributeControl.CoolTime();
+
+        //ダメージ、無敵時間計測
         _stateMachine.PlayerController.PlayerDamage.CountDamageTime();
 
         if (!_stateMachine.PlayerController.PlayerDamage.IsDamage)

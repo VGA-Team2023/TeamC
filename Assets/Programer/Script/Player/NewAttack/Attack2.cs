@@ -28,6 +28,10 @@ public class Attack2
     /// <summary>魔法の連続攻撃数により、攻撃可能かどうか</summary>
     private bool _isCanTransitionAttackState = true;
 
+    private PlayerAttribute _firstAttribute;
+
+    public PlayerAttribute FirstAttribute => _firstAttribute;
+
     public bool IsCanTransitionAttackState { get => _isCanTransitionAttackState; set => _isCanTransitionAttackState = value; }
     public bool IsAttackInputed => _isAttackInputed;
     private PlayerControl _playerControl;
@@ -50,7 +54,6 @@ public class Attack2
     public void ResetAttack()
     {
         _isCanTransitionAttackState = true;
-        _attackCount = 0;
     }
 
     public void CheckEnd()
@@ -58,7 +61,6 @@ public class Attack2
         if (_isCanTransitionAttackState == false)
         {
             _isCanTransitionAttackState = true;
-            _attackCount = 0;
         }
         _isCanNextAction = true;
     }
@@ -68,11 +70,16 @@ public class Attack2
         //カメラ変更
         _playerControl.CameraControl.UseAttackChargeCamera();
 
+        _firstAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
+
         //属性別の攻撃設定
         if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
             //音
             _playerControl.PlayerAudio.AttackCharge(true, true);
+
+            //ボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerCastingIce);
 
             //アニメーション設定
             _playerControl.PlayerAnimControl.SetIsIceAttack(true);
@@ -81,6 +88,9 @@ public class Attack2
         {
             //音
             _playerControl.PlayerAudio.AttackCharge(true, false);
+
+            //ボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerCastingGrass);
 
             //アニメーション設定
             _playerControl.PlayerAnimControl.SetIsIceAttack(false);
@@ -121,6 +131,9 @@ public class Attack2
                 //アニメーション再生
                 //_playerControl.PlayerAnimControl.SetAttackTrigger();
 
+                //攻撃ボイス
+                AudioController.Instance.Voice.Play(VoiceState.PlayerAttack);
+
                 //音 
                 if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
                 {
@@ -153,6 +166,11 @@ public class Attack2
         _isPushAttack = false;
         _isCanNextAction = false;
         _playerControl.Animator.SetBool("IsDoAttack", false);
+
+        if (_attackCount == _maxAttackCount)
+        {
+            _attackCount = 0;
+        }
     }
 
     /// <summary>攻撃の中断処理</summary>

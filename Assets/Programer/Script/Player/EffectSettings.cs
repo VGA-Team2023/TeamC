@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static CriWare.CriAtomExMic;
 
 public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 {
@@ -13,22 +14,29 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     [Header("パーティクル")]
     [SerializeField] private List<SettingEffect> _effects = new List<SettingEffect>();
 
-    private List<bool> _isPlays = new List<bool>();
-    private List<bool> _isPlaysMoviePause = new List<bool>();
+    /// <summary>パーティクルが再生しているかどうか</summary>
+    private List<List<bool>> _isPlays = new List<List<bool>>();
+
+    private List<List<bool>> _isMoviePlays = new List<List<bool>>();
+
+    private List<List<float>> _isPlaySpeeds = new List<List<float>>();
+
+    private int _indexPause = 0;
+    private int _indexMoviePause = 0;
+    private int _indexSlow = 0;
 
     private float _countDestroyTime = 0;
 
     private bool _isPause = false;
     private bool _isMoviePause = false;
 
-    private List<float> _defultSpeed = new List<float>(); 
+    private List<float> _defultSpeed = new List<float>();
 
     private void OnEnable()
     {
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
         GameManager.Instance.SpecialMovingPauseManager.Add(this);
-
     }
 
     private void OnDisable()
@@ -40,55 +48,67 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     private void Awake()
     {
+        _indexPause = _effects.Count;
+
         foreach (var effect in _effects)
         {
+            List<float> speed = new List<float>();
+
             foreach (var effect2 in effect.Effects)
             {
-                _defultSpeed.Add(effect2.main.simulationSpeed);
+                speed.Add(effect2.main.simulationSpeed);
             }
+            _isPlaySpeeds.Add(speed);
         }
     }
 
     void ISpecialMovingPause.Pause()
     {
         _isMoviePause = true;
-        _isPlaysMoviePause.Clear();
 
         foreach (var effect in _effects)
         {
+            List<bool> list = new List<bool>();
             foreach (var effect2 in effect.Effects)
             {
-                _isPlaysMoviePause.Add(effect2.isPlaying);
+                list.Add(effect2.isPlaying);
                 effect2.Pause();
             }
+            _isMoviePlays.Add(list);
         }
     }
 
     void ISpecialMovingPause.Resume()
     {
         _isMoviePause = false;
+        _indexMoviePause = 0;
         foreach (var e in _effects)
         {
             for (int i = 0; i < e.Effects.Count; i++)
             {
-                if (_isPlaysMoviePause[i])
+                if (_isMoviePlays[_indexMoviePause][i])
                 {
                     e.Effects[i].Play();
                 }
             }
+            _indexMoviePause++;
         }
+        _isMoviePlays.Clear();
     }
 
 
     public void OffSlow()
     {
+        _indexSlow = 0;
+
         foreach (var effect in _effects)
         {
             for (int i = 0; i < effect.Effects.Count; i++)
             {
                 var main = effect.Effects[i].main;
-                main.simulationSpeed = _defultSpeed[i];
+                main.simulationSpeed = _isPlaySpeeds[_indexSlow][i];
             }
+            _indexSlow++;
         }
     }
 
@@ -98,7 +118,6 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         {
             foreach (var effect2 in effect.Effects)
             {
-                Debug.Log(effect2.name);
                 effect2.playbackSpeed = slowSpeedRate;
             }
         }
@@ -107,31 +126,38 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     public void Pause()
     {
         _isPause = true;
-        _isPlays.Clear();
 
         foreach (var effect in _effects)
         {
+            List<bool> list = new List<bool>();
             foreach (var effect2 in effect.Effects)
             {
-                _isPlays.Add(effect2.isPlaying);
+                list.Add(effect2.isPlaying);
                 effect2.Pause();
             }
+            _isPlays.Add(list);
         }
     }
 
     public void Resume()
     {
         _isPause = false;
+
+        _indexPause = 0;
+
         foreach (var e in _effects)
         {
             for (int i = 0; i < e.Effects.Count; i++)
             {
-                if (_isPlays[i])
+                if (_isPlays[_indexPause][i] == true)
                 {
                     e.Effects[i].Play();
                 }
             }
+
+            _indexPause++;
         }
+        _isPlays.Clear();
     }
 
     void Start()

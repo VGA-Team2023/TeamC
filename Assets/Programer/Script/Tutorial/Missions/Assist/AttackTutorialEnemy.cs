@@ -38,6 +38,8 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
 
     private bool _isDeath = false;
 
+    private bool _isPause = false;
+
     private float _countDestroyTime = 0;
 
     public bool IsAttackEnd => _isAttackEnd;
@@ -59,6 +61,8 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
 
     private void Update()
     {
+        if (_isPause) return;
+
         if (_isDeath)
         {
             _countDestroyTime += Time.deltaTime;
@@ -87,15 +91,24 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
         //HitEffect
         if (attackHitTyp == MagickType.Ice)
         {
+            //‰¹
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitIcePatternA, transform.position);
             _iceHitEffect.ForEach(i => i.Play());
         }
         else
         {
+            //‰¹
+            AudioController.Instance.SE.Play3D(SEState.EnemyHitGrassPatternA, transform.position);
             _grassHitEffect.ForEach(i => i.Play());
         }
 
         if (_hp <= 0)
         {
+            if (!_isDownEnd)
+            {
+                _canFinishEffect.ForEach(i => i.Play());
+            }
+
             _isDownEnd = true;
             gameObject.layer = _canFinishLayer;
         }
@@ -112,10 +125,12 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
 
         if (attackHitTyp == MagickType.Ice)
         {
+            AudioController.Instance.SE.Play3D(SEState.EnemyFinichHitIce, transform.position);
             _iceFinishEffect.ForEach(i => i.Play());
         }
         else
         {
+            AudioController.Instance.SE.Play3D(SEState.EnemyFinishHitGrass, transform.position);
             _grassFinishEffect.ForEach(i => i.Play());
         }
     }
@@ -143,11 +158,11 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
 
     public void Pause()
     {
-
+        _isPause = true;
     }
 
     public void Resume()
     {
-
+        _isPause = false;
     }
 }

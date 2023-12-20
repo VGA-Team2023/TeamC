@@ -38,6 +38,8 @@ public class BossNomalAttack
 
     private int _useMagicNum = 0;
 
+    private bool _isChargeAudio = false;
+
     private BossAttackMagicTypes _setMagic;
     private BossControl _bossControl;
 
@@ -67,6 +69,7 @@ public class BossNomalAttack
         _isWaitFireTime = false;
         _isEndAttack = false;
         _setMagicNumber = Random.Range(0, _setMagic.Magic.Count);
+        _isChargeAudio = false;
     }
 
 
@@ -79,6 +82,17 @@ public class BossNomalAttack
         _isEndAllChanting = false;
         _isWaitFireTime = false;
         _setMagicNumber = Random.Range(0, _setMagic.Magic.Count);
+        _isChargeAudio = false;
+
+        if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            AudioController.Instance.SE.Stop(SEState.EnemyBossChargeIce);
+        }
+        else
+        {
+            AudioController.Instance.SE.Stop(SEState.EnemyBossChargeGrass);
+        }
+
     }
 
 
@@ -95,7 +109,6 @@ public class BossNomalAttack
 
     public bool DoAttack()
     {
-
         //攻撃時間を計測する
         if (!_isEndAttack && _countAttackTime > _attackTime)
         {
@@ -123,6 +136,8 @@ public class BossNomalAttack
         {
             _countNeedFireTime += Time.deltaTime;
 
+
+
             if (_countNeedFireTime > _setMagic.Magic[_setMagicNumber].NeedFireTime)
             {
                 //魔法を出す
@@ -137,7 +152,6 @@ public class BossNomalAttack
                     ResetValue();
                     if (_isEndAttack)
                     {
-
                         return true;
                     }
                     else
@@ -145,8 +159,6 @@ public class BossNomalAttack
                         return false;
                     }
                 }
-
-
             }
         }
 
@@ -158,6 +170,30 @@ public class BossNomalAttack
 
         //魔法陣を出すのに必要な時間を計測
         _countChantingTime += Time.deltaTime;
+
+        if (!_isChargeAudio)
+        {
+            _isChargeAudio = true;
+            if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
+            {
+                AudioController.Instance.SE.Play3D(SEState.EnemyBossChargeIce, _bossControl.transform.position);
+            }
+            else
+            {
+                AudioController.Instance.SE.Play3D(SEState.EnemyBossChargeGrass, _bossControl.transform.position);
+            }
+        }
+        else
+        {
+            if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
+            {
+                AudioController.Instance.SE.Update3DPos(SEState.EnemyBossChargeIce, _bossControl.transform.position);
+            }
+            else
+            {
+                AudioController.Instance.SE.Update3DPos(SEState.EnemyBossChargeGrass, _bossControl.transform.position);
+            }
+        }
 
 
         if (_countChantingTime > _setMagic.Magic[_setMagicNumber].Magic[_chantingCount].NeedTime)
@@ -189,12 +225,19 @@ public class BossNomalAttack
 
     public void UseMagic(int i)
     {
-        //  Debug.Log("使う:"+i+"/" + "全部:"+_chantingCount);
-
         foreach (var effect in _setMagic.Magic[_setMagicNumber].Magic[i].Particle)
         {
             effect.Play();
         }   //エフェクトを再生
+
+        if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
+        {
+            AudioController.Instance.SE.Play3D(SEState.EnemyBossShootIce, _setMagic.Magic[_setMagicNumber].Magic[i].MagicCircle.transform.position);
+        }
+        else
+        {
+            AudioController.Instance.SE.Play3D(SEState.EnemyBossShootGrass, _setMagic.Magic[_setMagicNumber].Magic[i].MagicCircle.transform.position);
+        }
 
         var go = GameObject.Instantiate(_setMagic.Bullet);
         go.transform.position = _setMagic.Magic[_setMagicNumber].Magic[i].MagicCircle.transform.position;
@@ -268,8 +311,8 @@ public class BossAttackMagicBase
     public float NeedTime => _time;
 
     public GameObject MagicCircle => _magicCirecle;
-    public List<ParticleSystem> Particle => _p; 
+    public List<ParticleSystem> Particle => _p;
 
     public List<ParticleSystem> ReleaseP => _releaseP;
 
-} 
+}

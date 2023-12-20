@@ -121,14 +121,21 @@ public class BossTeleportAttack
         //ボスを転移
         _bossControl.gameObject.transform.position = _teleportPoss[_setPosition].position;
 
+
+
         //エフェクトを再生
         if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
         {
             _teleportIce.ForEach(i => i.Play());
+
+            //音を鳴らす
+            AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitIce, _bossControl.transform.position);
         }
         else
         {
             _teleportGrass.ForEach(i => i.Play());
+            //音を鳴らす
+            AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);
         }
 
         //ダミーを億

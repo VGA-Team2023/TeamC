@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     [Header("@回避")]
     [SerializeField] private PlayerAvoid _avoid;
-     
+
     [Header("@ロックオン")]
     [SerializeField] private PlayerLockOn _lockOn;
 
@@ -27,7 +27,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     [Header("@とどめ")]
     [SerializeField] private FinishingAttack _finishingAttack;
-     
+
     [Header("設置判定")]
     [SerializeField] private GroundCheck _groundCheck;
 
@@ -65,6 +65,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     private bool _isPause = false;
 
+    private bool _isPlayingMoveAudio = false;
     public PlayerChangeAttribute PlayerAttributeControl => _playerChangeAttribute;
 
     private Vector3 _savePauseVelocity = default;
@@ -120,6 +121,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);
+            Debug.Log("ISPAAAA");
         }
 
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
@@ -129,7 +131,32 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
         _damage.CountWaitTime();
 
-
+        if (_stateMachine.CurrentState == _stateMachine.StateWalk ||
+            _stateMachine.CurrentState == _stateMachine.AttackState ||
+            _stateMachine.CurrentState == _stateMachine.FinishAttackState)
+        {
+            if (_rigidbody.velocity != Vector3.zero && !_isPlayingMoveAudio)
+            {
+                _isPlayingMoveAudio = true;
+                //移動時の服の音
+                AudioController.Instance.SE.Play(SEState.PlayerClothMove);
+            }
+            else if (_isPlayingMoveAudio && _rigidbody.velocity == Vector3.zero)
+            {
+                _isPlayingMoveAudio = false;
+                //移動時の服の音
+                AudioController.Instance.SE.Stop(SEState.PlayerClothMove);
+            }
+        }
+        else
+        {
+            if (_isPlayingMoveAudio)
+            {
+                _isPlayingMoveAudio = false;
+                //移動時の服の音
+                AudioController.Instance.SE.Stop(SEState.PlayerClothMove);
+            }
+        }
 
     }
 
@@ -157,10 +184,14 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     public void Damage(float damage)
     {
-        _damage.Damage(damage,false,MagickType.Ice);
+        //ゲーム中でなかったら何もしない
+        if (!GameManager.Instance.IsGameMove) return;
+
+        _damage.Damage(damage, false, MagickType.Ice);
     }
-   public void BossDamage(float damage, MagickType magickType)
+    public void BossDamage(float damage, MagickType magickType)
     {
+        //ゲーム中でなかったら何もしない
         _damage.Damage(damage, true, magickType);
     }
 
@@ -225,5 +256,5 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         _rigidbody.velocity = _savePauseVelocity;
     }
 
- 
+
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossFollowAttackBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 {
+    [Header("属性")]
+    [SerializeField] private PlayerAttribute _magickType;
+
     [Header("攻撃の柱のエフェクト")]
     [SerializeField] private List<ParticleSystem> _attackP = new List<ParticleSystem>();
 
@@ -65,6 +68,18 @@ public class BossFollowAttackBullet : MonoBehaviour, IPause, ISlow, ISpecialMovi
                 {
                     e.Play();
                 }
+
+                //音の再生
+                if (_magickType == PlayerAttribute.Ice)
+                {
+                    AudioController.Instance.SE.Play3D(SEState.EnemyBossFinishIce, transform.position);
+                }
+                else
+                {
+                    AudioController.Instance.SE.Play3D(SEState.EnemyBossFinishGrass, transform.position);
+                }
+
+
                 _isPlayEffect = true;
             }   //時間経過で攻撃のエフェクトを再生
         }

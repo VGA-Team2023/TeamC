@@ -29,6 +29,9 @@ public class TutorialManager : MonoBehaviour
     private bool _isEndTutorial = false;
 
     private bool _isCanInput = false;
+
+    private bool _isFirstVoice = false;
+
     public bool IsCanInput => _isCanInput;
 
     private bool _isPressCheckButtun = false;
@@ -64,6 +67,8 @@ public class TutorialManager : MonoBehaviour
         _inputManager = GameObject.FindObjectOfType<InputManager>();
         _tutorialMissions.Init(this, _inputManager);
 
+        AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialStart);
+
         //チュートリアル開始前の会話を設定
         _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
     }
@@ -76,7 +81,18 @@ public class TutorialManager : MonoBehaviour
             bool isReadEnd = _tutorialUI.Read();
 
             //チュートリアルを受けるかどうかの確認パネルを表示
-            if (isReadEnd) _tutorialUI.ShowTutorilCheck(true);
+            if (isReadEnd)
+            {
+                _tutorialUI.ShowTutorilCheck(true);
+
+                if(!_isFirstVoice)
+                {
+                    _isFirstVoice= true;
+                    AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
+                }
+
+            }
+
         }
         else if (_tutorialSituation == TutorialSituation.TutorialReceve)
         {
@@ -160,6 +176,8 @@ public class TutorialManager : MonoBehaviour
     {
         _tutorialSituation = TutorialSituation.TutorialReceve;
 
+        AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialOK);
+
         //チュートリアルを受ける場合の会話を設定
         _tutorialUI.SetTalk(_tutorialFirstTalkData.OkTalk);
         _isTutorilReceve = true;
@@ -195,6 +213,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     _isEndTutorial = true;
                 }
+                Voice(true);
                 return;
             }
         }
@@ -216,7 +235,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     _isEndTutorial = true;
                 }
-
+                Voice(true);
                 return;
             }
         }
@@ -252,6 +271,8 @@ public class TutorialManager : MonoBehaviour
 
     public void SetEndTalk()
     {
+        Voice(false);
+
         //完了後の説明の、状態
         _tutorialSituation = TutorialSituation.CompleteTalk;
 
@@ -262,7 +283,89 @@ public class TutorialManager : MonoBehaviour
     }
 
 
+    public void Voice(bool isFirstTalk)
+    {
+        TutorialNum num = _tutorialOrder[_tutorialCount-1];
 
+        if (isFirstTalk)
+        {
+            if (num == TutorialNum.Walk)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialMove);
+            }
+            else if (num == TutorialNum.Look)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCamera);
+            }
+            else if (num == TutorialNum.Attack)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialAttack);
+            }
+            else if (num == TutorialNum.ChangeAttribute)
+            {
+                //   AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.FinishAttack)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialFinish);
+            }
+            else if (num == TutorialNum.LockOn)
+            {
+                //  AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.LockOnChangeEnemy)
+            {
+                //   AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.Avoid)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialDodge);
+            }
+            else if (num == TutorialNum.Opption)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialOption);
+            }
+        }
+        else
+        {
+            if (num == TutorialNum.Walk)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialMoveOK);
+            }
+            else if (num == TutorialNum.Look)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCameraOK);
+            }
+            else if (num == TutorialNum.Attack)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialAttackOK);
+            }
+            else if (num == TutorialNum.ChangeAttribute)
+            {
+                //  AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.FinishAttack)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialFinishOK);
+            }
+            else if (num == TutorialNum.LockOn)
+            {
+                // AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.LockOnChangeEnemy)
+            {
+                // AudioController.Instance.Voice.Play(VoiceState.);
+            }
+            else if (num == TutorialNum.Avoid)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialDodgeOK);
+            }
+            else if (num == TutorialNum.Opption)
+            {
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialOptionOK);
+            }
+        }
+    }
 
 
 }

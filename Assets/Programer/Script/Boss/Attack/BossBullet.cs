@@ -90,11 +90,11 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         //‘®«‚É‰‚¶‚Ä–Â‚ç‚·‰¹‚ğ•ª‚¯‚é
         if (_magickType == MagickType.Ice)
         {
-            state = SEState.PlayerTrailIcePatternB;
+            state = SEState.EnemyBossTrailIce;
         }
         else
         {
-            state = SEState.PlayerTrailGrassPatternB;
+            state = SEState.EnemyBossTrailGrass;
         }
 
         //‰¹‚ÌÄ¶•û–@‚É‰‚¶‚Ä•ª‚¯‚é

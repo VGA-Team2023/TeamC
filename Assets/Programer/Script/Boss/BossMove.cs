@@ -151,10 +151,14 @@ public class BossMove
                 if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
                 {
                     _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
+                    //‰¹‚ð–Â‚ç‚·
+                    AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitIce, _bossControl.transform.position);
                 }
                 else
                 {
                     _bossControl.BossAttack.TeleportAttack.TeleportGrass.ForEach(i => i.Play());
+                    //‰¹‚ð–Â‚ç‚·
+                    AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);
                 }
 
                 _bossControl.BossT.position = t.position;

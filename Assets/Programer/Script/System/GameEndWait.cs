@@ -16,11 +16,12 @@ public class GameEndWait : MonoBehaviour, IPause
 
     private bool _isPause = false;
 
+    private bool _isCall = false;
 
 
     private void Update()
     {
-        if (_isGameEnd || !_isPause)
+        if (_isGameEnd && !_isPause)
         {
             _countWaitTime += Time.deltaTime;
 
@@ -35,7 +36,11 @@ public class GameEndWait : MonoBehaviour, IPause
     /// <summary>ƒQ[ƒ€I—¹‚ÉŒÄ‚Ô </summary>
     public void GameEnd()
     {
+        if (_isCall) return;
+
         _isGameEnd = true;
+
+        _isCall= true;
 
         //‰¹‚ğ–Â‚ç‚·
         AudioController.Instance.Voice.Play(VoiceState.InstructorGameClear);

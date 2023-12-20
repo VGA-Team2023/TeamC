@@ -141,7 +141,7 @@ public class FinishingAttackUI
             _finshGageFillImageIce.fillAmount += Time.deltaTime / _finishTime;
             if (_finshGageFillImageIce.fillAmount >= 0.9f)
             {
-                _finshGageFillCircleImageIce.fillAmount += Time.deltaTime / 0.4f;
+                _finshGageFillCircleImageIce.fillAmount += Time.deltaTime / 0.2f;
             }
         }
         else
@@ -149,7 +149,7 @@ public class FinishingAttackUI
             _finshGageFillImageGrass.fillAmount += Time.deltaTime / _finishTime;
             if (_finshGageFillImageGrass.fillAmount >= 0.9f)
             {
-                _finshGageFillCircleImageGrass.fillAmount += Time.deltaTime / 0.4f;
+                _finshGageFillCircleImageGrass.fillAmount += Time.deltaTime / 0.2f;
             }
         }
     }
