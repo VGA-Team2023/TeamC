@@ -36,7 +36,6 @@ public class BossDeath
     public bool CountDestroyTime()
     {
         _countDestroyTime += Time.deltaTime;
-        Debug.Log("DestroyTime:"+ _countDestroyTime);
         if (_countDestroyTime > _destroyTime)
         {
             Debug.Log("è¡Ç∑");
