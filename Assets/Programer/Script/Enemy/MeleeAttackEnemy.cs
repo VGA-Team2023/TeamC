@@ -113,10 +113,10 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_state == MoveState.FreeMove)
-        {
-            _freeMoveState.WallHit();
-        }
+        //if (_state == MoveState.FreeMove)
+        //{
+        //    _freeMoveState.WallHit();
+        //}
     }
 
     public bool TryGet<T>(out T returnObject, GameObject checkObject)
@@ -217,6 +217,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         GameManager.Instance.PauseManager.Remove(this);
         GameManager.Instance.SlowManager.Remove(this);
         gameObject.layer = DeadLayer;
+        SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyOut, CRIType.Play);
         Destroy(gameObject, 1f);
     }
