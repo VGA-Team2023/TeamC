@@ -15,7 +15,7 @@ public class GetNumber
         get { return GameManager.Instance.ScoreManager.LongEnemyDefeatedNum; }
         set { longDef = value; }
     }
-}
+}   
 
 public class DisplayEnemyDefeatCount : MonoBehaviour
 {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -15,6 +16,7 @@ public class TutorialUI
     [Header("チュートリアルを受けるかどうかを確認するパネル")]
     [SerializeField] private GameObject _checkTutorialPanel;
 
+    [SerializeField] GameObject _buttun;
 
     /// <summary>現在の文章</summary>
     private List<string> _talk = new List<string>();
@@ -25,7 +27,7 @@ public class TutorialUI
 
     public void SetTalk(List<string> talk)
     {
-        Debug.Log("セット:"+talk[0]);
+        Debug.Log("セット:" + talk[0]);
         _talk = talk;
         _count = 0;
         _isReadEnd = false;
@@ -61,6 +63,13 @@ public class TutorialUI
 
     public void ShowTutorilCheck(bool isActive)
     {
+        EventSystem.current.SetSelectedGameObject(null);
         _checkTutorialPanel.SetActive(isActive);
+    }
+
+
+    public void ActiveBttun()
+    {
+        EventSystem.current.SetSelectedGameObject(_buttun);
     }
 }

@@ -7,6 +7,9 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
     [Header("消えるまでの時間")]
     [SerializeField] private float _destroyTime = 3;
 
+    [Header("登場エフェクト")]
+    [SerializeField] private GameObject _spwonEffect;
+
     [Header("氷のヒットエフェクト")]
     [SerializeField] private List<ParticleSystem> _iceHitEffect = new List<ParticleSystem>();
     [Header("氷のトドメエフェクト")]
@@ -51,6 +54,8 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
     {
         _hp = 2;
         _attack = attack;
+        var go = Instantiate(_spwonEffect);
+        go.transform.position = transform.position;
     }
 
     public void Init(TutorialMissionFinishAttack tutorialMissionFinishAttack)
@@ -122,6 +127,9 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
         gameObject.layer = _finishLayer;
         _isFinishEnd = true;
         _isDeath = true;
+
+        var go = Instantiate(_spwonEffect);
+        go.transform.position = transform.position;
 
         if (attackHitTyp == MagickType.Ice)
         {

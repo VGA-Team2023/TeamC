@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
             //インゲームが終わったら
             if (_timeManager.GamePlayElapsedTime >= _timeManager.GamePlayTime)
             {
+                ResultProcess();
                 GameEndWaitCall();
             }
         }

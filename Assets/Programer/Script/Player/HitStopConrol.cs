@@ -41,26 +41,13 @@ public class HitStopConrol : MonoBehaviour
     {
         _isHitStop = true;
 
-        if (hitStopKind == HitStopKind.FinishAttack)
+        foreach (var data in _hitStopData)
         {
-            foreach (var data in _hitStopData)
+            if (data.HitStopKind == hitStopKind)
             {
-                if (data.HitStopKind == hitStopKind)
-                {
-                    ResetHitStopTime(data.HitStopTime);
-                    GameManager.Instance.SlowManager.OnOffSlow(true);
-                }
-            }
-        }
-        else
-        {
-            foreach (var data in _hitStopData)
-            {
-                if (data.HitStopKind == hitStopKind)
-                {
-                    ResetHitStopTime(data.HitStopTime);
-                    GameManager.Instance.SlowManager.OnOffSlow(true);
-                }
+                ResetHitStopTime(data.HitStopTime);
+                GameManager.Instance.SlowManager.OnOffSlow(true);
+                return;
             }
         }
     }
@@ -108,5 +95,6 @@ public enum HitStopKind
 {
     FinishAttack,
     Dead,
+    BossDeath,
 
 }

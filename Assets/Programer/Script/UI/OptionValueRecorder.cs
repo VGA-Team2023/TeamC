@@ -4,6 +4,7 @@ using UnityEngine;
 public class OptionValueRecorder : MonoBehaviour
 {
     private static OptionValueRecorder _instance;
+
     public float CameraSensitivity;
     public static OptionValueRecorder Instance
     {
@@ -11,11 +12,10 @@ public class OptionValueRecorder : MonoBehaviour
         {
             if(_instance == null )
             {
-                _instance =  FindObjectOfType<OptionValueRecorder>(); ;
+                _instance =  FindObjectOfType<OptionValueRecorder>();
             }
             return _instance; 
         }
-
     }
     private void OnEnable()
     {
