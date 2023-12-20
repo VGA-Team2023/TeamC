@@ -11,6 +11,7 @@ public class BossStateMachine : StateMachine
 
     [SerializeField] private BossDeathState _stateDeath = default;
 
+    [SerializeField] private BossAttackState _stateAttack = default;
 
     private BossControl _bossController;
     public BossControl BossController => _bossController;
@@ -19,6 +20,7 @@ public class BossStateMachine : StateMachine
 
     public BossIdleState StateIdle => _stateIdle;
     public BossDeathState StateDeath => _stateDeath;
+    public BossAttackState StateAttack => _stateAttack;
 
     public void Init(BossControl playerController)
     {
@@ -31,5 +33,6 @@ public class BossStateMachine : StateMachine
         _stateIdle.Init(this);
         _stateFinish.Init(this);
         _stateDeath.Init(this);
+        _stateAttack.Init(this);
     }
 }

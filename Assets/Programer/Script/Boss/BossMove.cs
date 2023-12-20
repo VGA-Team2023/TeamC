@@ -52,6 +52,8 @@ public class BossMove
 
     private MoveDir _moveDirection = MoveDir.Right;
 
+    private Quaternion randamCurv;
+
 
     public void Init(BossControl bossControl)
     {
@@ -105,6 +107,8 @@ public class BossMove
             _bossControl.BossAnimControl.SetMoveH(1);
         }
 
+
+
         _moveTimeCount = 0;
     }
 
@@ -114,17 +118,23 @@ public class BossMove
 
         if (_moveDirection == MoveDir.Back)
         {
+
             _moveDir = Quaternion.Euler(0, 180, 0) * foward.normalized;
         }
         else if (_moveDirection == MoveDir.Left)
         {
-            _moveDir = Quaternion.Euler(0, -90, 0) * foward.normalized;
+            var r = Random.Range(-40, -91);
+            _moveDir = Quaternion.Euler(0, r, 0) * foward.normalized;
         }
         else
         {
-            _moveDir = Quaternion.Euler(0, 90, 0) * foward.normalized;
+            var r = Random.Range(40, 91);
+            _moveDir = Quaternion.Euler(0, r, 0) * foward.normalized;
         }
         _moveDir.y = 0;
+
+
+        randamCurv = Quaternion.Euler(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
     }
 
     public void CheckPlayerDir()
@@ -145,17 +155,20 @@ public class BossMove
 
             if (d > 4)
             {
-                _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
+                //アニメーション再生
+                _bossControl.BossAnimControl.Avoid();
 
-                //エフェクトを再生
+                //属性別
                 if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
                 {
+                    //エフェクトを再生
                     _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
                     //音を鳴らす
                     AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitIce, _bossControl.transform.position);
                 }
                 else
                 {
+                    //エフェクトを再生
                     _bossControl.BossAttack.TeleportAttack.TeleportGrass.ForEach(i => i.Play());
                     //音を鳴らす
                     AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);
@@ -171,6 +184,11 @@ public class BossMove
     {
         //  DirectionSetting();
         _bossControl.Rigidbody.velocity = _moveDir * _moveSpeed;
+
+        _bossControl.BossAnimControl.SetMoveDir(_moveDir);
+
+        _moveDir = randamCurv * _moveDir;
+        _moveDir.y = 0;
     }
 
     public void SetMoveTime()
