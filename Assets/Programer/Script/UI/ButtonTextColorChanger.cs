@@ -27,6 +27,7 @@ public class ButtonTextColorChanger : MonoBehaviour, ISelectHandler, IDeselectHa
     }
     public void OnDeselect(BaseEventData eventData)
     {
+        AudioController.Instance.SE.Play(SEState.SystemSelect);
         SetTextColor(_button.gameObject, _defaultColor);
         _target?.gameObject.SetActive(false);
     }
