@@ -88,12 +88,12 @@ public class ResultPrinter : MonoBehaviour
     /// <param name="onCompleteCallback">Tweenが終わったかどうかのコールバック</param>
     public void TweenNum(int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
     {
-        //_audioController.SE.Play(SE)
+        _audioController.SE.Play(SEState.MeScoreAnnouncement);
         int startnum = 99;
         DOTween.To(() => startnum, (n) => startnum = n, targetNum, _displayTime)
             .OnUpdate(() => tweenText.text = startnum.ToString("#,0"))
             .OnComplete(onCompleteCallback);
-
+        _audioController.SE.Stop(SEState.MeScoreAnnouncement);
     }
     private void TweenResultText(string displayText)
     {
@@ -179,30 +179,35 @@ public class ResultPrinter : MonoBehaviour
 
         if (evaluationvalue >= _sRankScore)
         {
+            _audioController.SE.Play(SEState.MeResultScoreHigh);
             TweenResultText(_resultTexts[0]);
             _judgeText.text = "S";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _aRankScore)
         {
+            _audioController.SE.Play(SEState.MeResultScoreMiddle);
             TweenResultText(_resultTexts[0]);
             _judgeText.text = "A";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _bRankScore)
         {
+            _audioController.SE.Play(SEState.MeResultScoreMiddle);
             TweenResultText(_resultTexts[0]);
             _judgeText.text = "B";
             _passImage.gameObject.SetActive(true);
         }
         else if (evaluationvalue >= _cRankScore)
         {
+            _audioController.SE.Play(SEState.MeResultScoreLow);
             TweenResultText(_resultTexts[1]);
             _judgeText.text = "C";
             _failureImage.gameObject.SetActive(true);
         }
         else
         {
+            _audioController.SE.Play(SEState.MeResultScoreLow);
             TweenResultText(_resultTexts[2]);
             _judgeText.text = "D";
             _failureImage.gameObject.SetActive(true);
