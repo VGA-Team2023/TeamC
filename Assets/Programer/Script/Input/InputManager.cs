@@ -318,6 +318,9 @@ public class InputManager : MonoBehaviour
             if (_control.IsNewAttack && !_isKeybord)
             {
                 float v = Input.GetAxis("Trigger");
+
+                if (v != 0) Debug.Log("GGGG");
+
                 if (v > 0)
                 {
                     _isAttacks = true;

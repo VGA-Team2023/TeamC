@@ -84,6 +84,10 @@ public class BossNomalAttack
         _setMagicNumber = Random.Range(0, _setMagic.Magic.Count);
         _isChargeAudio = false;
 
+        //アニメーション
+        _bossControl.BossAnimControl.IsCharge(false);
+        _bossControl.BossAnimControl.Attack(false);
+
         if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
         {
             AudioController.Instance.SE.Stop(SEState.EnemyBossChargeIce);
@@ -136,17 +140,21 @@ public class BossNomalAttack
         {
             _countNeedFireTime += Time.deltaTime;
 
-
-
             if (_countNeedFireTime > _setMagic.Magic[_setMagicNumber].NeedFireTime)
             {
+                //アニメーション再生
+                if (_useMagicNum == 0)
+                {
+                    _bossControl.BossAnimControl.Attack(true);
+                }
+
                 //魔法を出す
                 UseMagic(_useMagicNum);
 
                 _countNeedFireTime = 0;
                 _useMagicNum++;
 
-                Debug.Log("使う:" + (_useMagicNum + 1) + "/" + "全部:" + _chantingCount);
+
                 if (_useMagicNum == _chantingCount)
                 {
                     ResetValue();

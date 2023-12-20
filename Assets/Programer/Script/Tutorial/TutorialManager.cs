@@ -77,6 +77,8 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+       // Debug.Log("F" + _tutorialMissions.CurrentTutorial.TutorialNum);
+
         if (_tutorialSituation == TutorialSituation.GameStartTalk)
         {
             if (_isEndFirstLead)

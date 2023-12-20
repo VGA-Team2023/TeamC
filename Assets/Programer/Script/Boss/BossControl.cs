@@ -88,6 +88,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         {
             if (_death.CountDestroyTime())
             {
+                Debug.Log("Destroys");
                 _deathCamera.SetActive(false);
                 EnemyFinish();
                 Destroy(gameObject);

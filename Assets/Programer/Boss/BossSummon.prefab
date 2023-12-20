@@ -2329,6 +2329,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6514247139157430}
     m_Modifications:
+    - target: {fileID: 559905206894050341, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.020993033
+      objectReference: {fileID: 0}
+    - target: {fileID: 559905206894050341, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.17198655
+      objectReference: {fileID: 0}
     - target: {fileID: 584656244241113850, guid: 17339456ce020d14ea40461afc2d9725,
         type: 3}
       propertyPath: m_IsActive
@@ -2384,10 +2394,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2425166228454445697, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.01664986
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425166228454445697, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0468943
+      objectReference: {fileID: 0}
     - target: {fileID: 3881444552683052580, guid: 17339456ce020d14ea40461afc2d9725,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968522270146137286, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.012694581
+      objectReference: {fileID: 0}
+    - target: {fileID: 4968522270146137286, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0043296
       objectReference: {fileID: 0}
     - target: {fileID: 5003774424696805456, guid: 17339456ce020d14ea40461afc2d9725,
         type: 3}
@@ -2403,6 +2433,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188935888944340315, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.015230397
+      objectReference: {fileID: 0}
+    - target: {fileID: 6188935888944340315, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.081089415
       objectReference: {fileID: 0}
     - target: {fileID: 6305010935296261165, guid: 17339456ce020d14ea40461afc2d9725,
         type: 3}
@@ -4088,6 +4128,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _enemyAttribute
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9107639395630058667, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      propertyPath: _move._moveSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9107639395630058667, guid: 17339456ce020d14ea40461afc2d9725,
         type: 3}
@@ -6496,6 +6541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2840651047711478460, guid: 17339456ce020d14ea40461afc2d9725, type: 3}
+    - {fileID: 8958701527768215146, guid: 17339456ce020d14ea40461afc2d9725, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1341931947897367859, guid: 17339456ce020d14ea40461afc2d9725, type: 3}
     - {fileID: 1399181617293273351, guid: 17339456ce020d14ea40461afc2d9725, type: 3}
@@ -6699,7 +6745,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6510763027365597698}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4786042022393461603, guid: 17339456ce020d14ea40461afc2d9725,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7396605274594366293}
   m_SourcePrefab: {fileID: 100100000, guid: 17339456ce020d14ea40461afc2d9725, type: 3}
 --- !u!198 &37298854162532951 stripped
 ParticleSystem:
@@ -7391,6 +7441,174 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 58634294760830322}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4808472521664187921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4786042022393461603, guid: 17339456ce020d14ea40461afc2d9725,
+    type: 3}
+  m_PrefabInstance: {fileID: 58634294760830322}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7396605274594366293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4808472521664187921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246455474a0d74a4291b3cedc896ebdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonePaths:
+  - 
+  - ChMD_hero
+  - ChMD_hero/body1
+  - ChMD_hero/face
+  - ChMD_hero/hair
+  - ChMD_hero/hair/polySurface5
+  - ChMD_hero/hair/pPlane2
+  - ChMD_hero/hair/pPlane6
+  - ChMD_hero/hair/pPlane10
+  - ChMD_hero/yuremono
+  - mn_c_main
+  - mn_c_main/mn_c_spine01
+  - mn_c_main/mn_c_spine01/mn_c_spine02
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_c_spine04
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_c_spine04/mn_c_neck
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_c_spine04/mn_c_neck/mn_c_head
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_c_spine04/mn_c_neck/mn_c_head/en_c_head
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/en_l_wrist
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f1_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f1_1/mn_l_f1_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f1_1/mn_l_f1_2/en_l_f1_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f2_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f2_1/mn_l_f2_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f2_1/mn_l_f2_2/mn_l_f2_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f2_1/mn_l_f2_2/mn_l_f2_3/en_l_f2_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f3_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f3_1/mn_l_f3_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f3_1/mn_l_f3_2/mn_l_f3_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f3_1/mn_l_f3_2/mn_l_f3_3/en_l_f3_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f4_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f4_1/mn_l_f4_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f4_1/mn_l_f4_2/mn_l_f4_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f4_1/mn_l_f4_2/mn_l_f4_3/en_l_f4_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f5_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f5_1/mn_l_f5_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f5_1/mn_l_f5_2/mn_l_f5_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_l_collar/mn_l_shoulder/mn_l_elbow/mn_l_wrist/mn_l_f5_1/mn_l_f5_2/mn_l_f5_3/en_l_f5_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/en_r_wrist
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f1_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f1_1/mn_r_f1_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f1_1/mn_r_f1_2/en_r_f1_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f2_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f2_1/mn_r_f2_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f2_1/mn_r_f2_2/mn_r_f2_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f2_1/mn_r_f2_2/mn_r_f2_3/en_r_f2_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f3_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f3_1/mn_r_f3_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f3_1/mn_r_f3_2/mn_r_f3_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f3_1/mn_r_f3_2/mn_r_f3_3/en_r_f3_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f4_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f4_1/mn_r_f4_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f4_1/mn_r_f4_2/mn_r_f4_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f4_1/mn_r_f4_2/mn_r_f4_3/en_r_f4_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f5_1
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f5_1/mn_r_f5_2
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f5_1/mn_r_f5_2/mn_r_f5_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/mn_r_f5_1/mn_r_f5_2/mn_r_f5_3/en_r_f5_3
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/wp_r_weapon
+  - mn_c_main/mn_c_spine01/mn_c_spine02/mn_c_spine03/mn_r_collar/mn_r_shoulder/mn_r_elbow/mn_r_wrist/wp_r_weapon/we_r_weapon
+  - mn_c_main/mn_c_spine01/mn_l_hip
+  - mn_c_main/mn_c_spine01/mn_l_hip/mn_l_knee
+  - mn_c_main/mn_c_spine01/mn_l_hip/mn_l_knee/mn_l_ankle
+  - mn_c_main/mn_c_spine01/mn_l_hip/mn_l_knee/mn_l_ankle/mn_l_toe
+  - mn_c_main/mn_c_spine01/mn_l_hip/mn_l_knee/mn_l_ankle/mn_l_toe/en_l_toe
+  - mn_c_main/mn_c_spine01/mn_r_hip
+  - mn_c_main/mn_c_spine01/mn_r_hip/mn_r_knee
+  - mn_c_main/mn_c_spine01/mn_r_hip/mn_r_knee/mn_r_ankle
+  - mn_c_main/mn_c_spine01/mn_r_hip/mn_r_knee/mn_r_ankle/mn_r_toe
+  - mn_c_main/mn_c_spine01/mn_r_hip/mn_r_knee/mn_r_ankle/mn_r_toe/en_r_toe
+  showBones: 000000000c0000000f00000010000000120000001300000014000000150000002a0000002b0000002c0000002d00000044000000450000004600000047000000490000004a0000004b0000004c000000
+  foldoutBones: 4c0000004b0000004a000000490000004700000046000000450000004400000042000000400000003f0000003e0000003c0000003b0000003a000000380000003700000036000000340000003300000032000000300000002f0000002d0000002c0000002b0000002a000000280000002700000026000000240000002300000022000000200000001f0000001e0000001c0000001b0000001a000000180000001700000015000000140000001300000012000000100000000f0000000e0000000d0000000c0000000b0000000a000000040000000100000000000000
+  mirrorBones: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff2a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f00000020000000210000002200000023000000240000002500000026000000270000002800000029000000ffffffffffffffff490000004a0000004b0000004c0000004d0000004400000045000000460000004700000048000000
+  mirrorBlendShape: []
+  animatorIkData:
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: 0
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: 0
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: 0
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: 0
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  - enable: 0
+    _fixed: 0
+    autoRotation: 0
+    spaceType: 0
+    parent: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    headWeight: 1
+    eyesWeight: 0
+    swivelRotation: 0
+    swivelPosition: {x: 0, y: 0, z: 0}
+    parentPath: 
+  originalIkData: []
+  selectionData: []
+  lastSelectAnimationClip: {fileID: 1827226128182048838, guid: fbd28cddd52f9554789e3c680da8f0df,
+    type: 3}
+  handPoseList: []
+  blendShapeList: []
 --- !u!198 &4889873315122612177 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4831269811194720931, guid: 17339456ce020d14ea40461afc2d9725,
@@ -8415,8 +8633,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 568076420666684666, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 568076420666684666, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416975105441504722, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1416975105441504722, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
@@ -8445,8 +8673,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929761451163305066, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929761451163305066, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532354907198108978, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3532354907198108978, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
@@ -8455,8 +8693,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3681011273442304133, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3681011273442304133, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377371352803826213, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377371352803826213, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
@@ -8470,6 +8718,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4881039840843856429, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4881039840843856429, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
@@ -8477,6 +8730,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pfb_eff_ice_charge_BOSS
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940636352873328913, guid: d219c8a2a223a6e4f8a5348eaa38385b,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5940636352873328913, guid: d219c8a2a223a6e4f8a5348eaa38385b,
         type: 3}
@@ -19143,8 +19401,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4704953751672443199, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4704953751672443199, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177484854542984649, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6177484854542984649, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
@@ -19153,8 +19421,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6702933937819304877, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702933937819304877, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216535152248506976, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7216535152248506976, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
@@ -19163,8 +19441,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7974940610203778228, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974940610203778228, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8747262689593278600, guid: dcdab5c59752d9c44ad33c6e1da9633d,
+        type: 3}
+      propertyPath: looping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8747262689593278600, guid: dcdab5c59752d9c44ad33c6e1da9633d,
         type: 3}
