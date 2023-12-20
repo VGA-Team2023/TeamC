@@ -17,8 +17,12 @@ public class TutorialMissionAttack : TutorialMissionBase
 
     public override void Enter()
     {
+        Debug.Log("Enter");
         _attackTutorialEnemy.gameObject.SetActive(true);
         _attackTutorialEnemy.InitAttack(this, _enemyHp);
+
+        //“ü—Í‚ð•s‰Â‚É‚·‚é
+        _tutorialManager.SetCanInput(true);
     }
 
     public override void Exit()

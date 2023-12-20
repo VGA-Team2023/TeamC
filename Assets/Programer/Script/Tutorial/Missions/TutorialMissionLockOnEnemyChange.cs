@@ -19,7 +19,8 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
     private bool _isLockOn = false;
     public override void Enter()
     {
-
+        //“ü—Í‚ð•s‰Â‚É‚·‚é
+        _tutorialManager.SetCanInput(true);
     }
 
     public override void Exit()
