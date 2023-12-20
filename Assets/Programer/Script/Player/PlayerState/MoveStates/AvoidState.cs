@@ -53,6 +53,12 @@ public class AvoidState : PlayerStateBase
         //回避の実行時間の計測
         _stateMachine.PlayerController.Avoid.CountAvoidTime();
 
+        //属性変更のクールタイム
+        _stateMachine.PlayerController.PlayerAttributeControl.CoolTime();
+
+        //ダメージ、無敵時間計測
+        _stateMachine.PlayerController.PlayerDamage.CountDamageTime();
+
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
 
         if (_stateMachine.PlayerController.Avoid.IsEndAnim)

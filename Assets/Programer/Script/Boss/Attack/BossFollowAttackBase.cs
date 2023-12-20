@@ -34,6 +34,7 @@ public class BossFollowAttackBase
         _bossControl = bossControl;
     }
 
+
     /// <summary>UŒ‚’†’fˆ—</summary>
     public void StopAtttack()
     {

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OptionValueRecorder : MonoBehaviour
@@ -6,7 +7,15 @@ public class OptionValueRecorder : MonoBehaviour
     public float CameraSensitivity;
     public static OptionValueRecorder Instance
     {
-        get { return _instance; }
+        get
+        {
+            if(_instance == null )
+            {
+                _instance =  FindObjectOfType<OptionValueRecorder>(); ;
+            }
+            return _instance; 
+        }
+
     }
     private void OnEnable()
     {

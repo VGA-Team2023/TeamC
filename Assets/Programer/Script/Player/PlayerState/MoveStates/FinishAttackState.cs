@@ -47,11 +47,36 @@ public class FinishAttackState : PlayerStateBase
         //回避のクールタイム計測
         _stateMachine.PlayerController.Avoid.CountCoolTime();
 
+        //属性変更のクールタイム
+        _stateMachine.PlayerController.PlayerAttributeControl.CoolTime();
+
+        //ダメージ、無敵時間計測
+        _stateMachine.PlayerController.PlayerDamage.CountDamageTime();
+
+        ////ダメージ
+        //if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        //{
+        //    _stateMachine.PlayerController.FinishingAttack.StopFinishingAttack();
+        //    _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+
+        //    _stateMachine.TransitionTo(_stateMachine.DamageState);
+        //    return;
+        //}
+
+        //死亡
+        if (_stateMachine.PlayerController.PlayerHp.IsDead)
+        {
+            _stateMachine.PlayerController.FinishingAttack.StopFinishingAttack();
+            _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+
+            _stateMachine.TransitionTo(_stateMachine.DamageState);
+            return;
+        }
+
+
+
         if (!_stateMachine.PlayerController.FinishingAttack.DoFinishing() || _stateMachine.PlayerController.FinishingAttack.IsEndFinishAnim)
         {
-            //魔法陣を出す
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.SetMagick();
-
             _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
             _stateMachine.TransitionTo(_stateMachine.StateIdle);
             return;

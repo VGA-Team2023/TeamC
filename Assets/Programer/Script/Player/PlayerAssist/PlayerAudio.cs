@@ -43,71 +43,6 @@ public class PlayerAudio : MonoBehaviour
         Updata,
     }
 
-
-    public void PlayFinishVoice(bool isChage, bool isIce)
-    {
-        if (isChage)
-        {
-            if (isIce)
-            {
-                _chargeFinishIce.Play();
-            }
-            else
-            {
-                _chargeFinishGrass.Play();
-            }
-
-            foreach (var a in _audioSources)
-            {
-                if (!a.isPlaying)
-                {
-                    var r = Random.Range(0, _clips.Count);
-                    a.PlayOneShot(_clips[r]);
-                    return;
-                }
-            }
-        }
-        else
-        {
-            if (isIce)
-            {
-                _chargeFinishIce.Stop();
-            }
-            else
-            {
-                _chargeFinishGrass.Stop();
-            }
-
-
-            if (isIce)
-            {
-                _completeFinishIce.Play();
-                foreach (var a in _audioSources)
-                {
-                    if (!a.isPlaying)
-                    {
-                        var r = Random.Range(0, _clipsFinish.Count);
-                        a.PlayOneShot(_clipsFinish[r]);
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                _completeFinishGrass.Play();
-                foreach (var a in _audioSources)
-                {
-                    if (!a.isPlaying)
-                    {
-                        var r = Random.Range(0, _clipsFinishGrass.Count);
-                        a.PlayOneShot(_clipsFinishGrass[r]);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
     /// <summary>音を流す</summary>
     /// <param name="isPlay"></param>
     public void AudioSet(SEState audio, PlayMagicAudioType playType)
@@ -115,7 +50,7 @@ public class PlayerAudio : MonoBehaviour
         //音の再生方法に応じて分ける
         if (playType == PlayMagicAudioType.Play)
         {
-            AudioController.Instance.SE.Play3D(audio, transform.position);
+            AudioController.Instance.SE.Play(audio);
         }
         else if (playType == PlayMagicAudioType.Stop)
         {
@@ -154,22 +89,22 @@ public class PlayerAudio : MonoBehaviour
         {
             if (isPlay)
             {
-                AudioSet(SEState.PlayerChargeIce, PlayMagicAudioType.Play);
+                AudioSet(SEState.PlayerMagiccirclPlayingIce, PlayMagicAudioType.Play);
             }
             else
             {
-                AudioSet(SEState.PlayerChargeIce, PlayMagicAudioType.Stop);
+                AudioSet(SEState.PlayerMagiccirclPlayingIce, PlayMagicAudioType.Stop);
             }
         }
         else
         {
             if (isPlay)
             {
-                AudioSet(SEState.PlayerChargeGrass, PlayMagicAudioType.Play);
+                AudioSet(SEState.PlayerMagiccirclPlayingGrass, PlayMagicAudioType.Play);
             }
             else
             {
-                AudioSet(SEState.PlayerChargeGrass, PlayMagicAudioType.Stop);
+                AudioSet(SEState.PlayerMagiccirclPlayingGrass, PlayMagicAudioType.Stop);
 
             }
         }

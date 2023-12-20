@@ -115,6 +115,20 @@ public class AttackMagicBase
         //魔法陣を1つ出す
         if (_countChargeTime > _magickData[attackCount - 1].MagickData[_setUpMagicCount].ChargeTime)
         {
+            if (_setUpMagicCount == 0 || _magickData[attackCount - 1].MagickData[_setUpMagicCount].ChargeTime != 0)
+            {
+                //音を鳴らす
+                if (_playerControl.Attack2.FirstAttribute == PlayerAttribute.Ice)
+                {
+                    AudioController.Instance.SE.Play(SEState.PlayerMagiccirclIce);
+                }
+                else
+                {
+                    AudioController.Instance.SE.Play(SEState.PlayerMagiccirclGrass);
+                }
+            }
+
+
             //魔法陣を出現させる
             _magickData[attackCount - 1].MagickData[_setUpMagicCount].MagicCircle.SetActive(true);
 
@@ -143,7 +157,6 @@ public class AttackMagicBase
         //連撃の実行時間を計測
         _countAttackContinueTime += Time.deltaTime;
 
-
         if (_magickData[_attackCount - 1].AttackContinueTimes[_nowContunueNumber] <= _countAttackContinueTime && !_isFireNow)
         {
             _isFireNow = true;
@@ -169,6 +182,7 @@ public class AttackMagicBase
             {
                 //カメラ変更
                 _playerControl.CameraControl.UseDefultCamera(true);
+                _playerControl.Attack2.IsAttackNow = false;
                 _isCoolTime = false;
                 _isAttackNow = false;
             }
@@ -185,9 +199,6 @@ public class AttackMagicBase
         {
             _countCoolTime = 0;
             _isCoolTime = true;
-
-
-
 
             _useMagicCount = 0;
             _nowContunueNumber = 0;
@@ -254,7 +265,7 @@ public class AttackMagicBase
                 }
 
                 //サウンドを再生
-                if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
+                if (_playerControl.Attack2.FirstAttribute == PlayerAttribute.Ice)
                 {
                     _playerControl.PlayerAudio.Fire(1, true);
                 }
@@ -264,7 +275,11 @@ public class AttackMagicBase
                 }
 
                 //アニメーション再生
-                if (m.IsAttackAnimPlay) _playerControl.PlayerAnimControl.SetAttackTrigger(true);
+                if (m.IsAttackAnimPlay)
+                {
+                    AudioController.Instance.SE.Play(SEState.PlayerClothAttack);
+                    _playerControl.PlayerAnimControl.SetAttackTrigger(true);
+                }
             }
             _isFireNow = false;
             _useMagicCount++;
@@ -280,9 +295,10 @@ public class AttackMagicBase
         {
             //魔法陣を消す
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
+            _magickData[attackCount - 1].MagickData[i].Releasemagic.ForEach(i =>i.Play());
         }
         _isAttackNow = false;
-        _playerControl.Attack2.IsCanNextAttack = true;
+        _playerControl.Attack2.IsCanNextAction = true;
         _nowContunueNumber = 0;
         _maxContunueNumber = 1;
         _isFireNow = false;

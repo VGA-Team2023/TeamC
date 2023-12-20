@@ -16,26 +16,31 @@ public class Attack2
     private bool _isPushAttack = false;
 
     /// <summary>攻撃可能かどうか</summary>
-    private bool _isCanNextAttack = false;
+    private bool _isCanNextAction = false;
 
     private bool _isAttackFirstSetUp = false;
 
     private bool _isAttackNow = false;
 
-    private bool _isAttackInput = true;
+
+    private bool _isAttackInputed = true;
 
     /// <summary>魔法の連続攻撃数により、攻撃可能かどうか</summary>
     private bool _isCanTransitionAttackState = true;
 
+    private PlayerAttribute _firstAttribute;
+
+    public PlayerAttribute FirstAttribute => _firstAttribute;
+
     public bool IsCanTransitionAttackState { get => _isCanTransitionAttackState; set => _isCanTransitionAttackState = value; }
-    public bool IsAttackInput => _isAttackInput;
+    public bool IsAttackInputed => _isAttackInputed;
     private PlayerControl _playerControl;
     public bool IsPushAttack => _isPushAttack;
 
     public AttackMagic AttackMagic => _attackMagic;
 
     public bool IsAttackNow { get => _isAttackNow; set => _isAttackNow = value; }
-    public bool IsCanNextAttack { get => _isCanNextAttack; set => _isCanNextAttack = value; }
+    public bool IsCanNextAction { get => _isCanNextAction; set => _isCanNextAction = value; }
     public bool IsAttackFirstGun => _isAttackFirstSetUp;
 
     public void Init(PlayerControl playerControl)
@@ -49,7 +54,6 @@ public class Attack2
     public void ResetAttack()
     {
         _isCanTransitionAttackState = true;
-        _attackCount = 0;
     }
 
     public void CheckEnd()
@@ -57,9 +61,8 @@ public class Attack2
         if (_isCanTransitionAttackState == false)
         {
             _isCanTransitionAttackState = true;
-            _attackCount = 0;
         }
-        _isCanNextAttack = true;
+        _isCanNextAction = true;
     }
 
     public void DoAttack()
@@ -67,27 +70,46 @@ public class Attack2
         //カメラ変更
         _playerControl.CameraControl.UseAttackChargeCamera();
 
-        //音
+        _firstAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
+
+        //属性別の攻撃設定
         if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
+            //音
             _playerControl.PlayerAudio.AttackCharge(true, true);
+
+            //ボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerCastingIce);
+
+            //アニメーション設定
+            _playerControl.PlayerAnimControl.SetIsIceAttack(true);
         }
         else
         {
+            //音
             _playerControl.PlayerAudio.AttackCharge(true, false);
+
+            //ボイス
+            AudioController.Instance.Voice.Play(VoiceState.PlayerCastingGrass);
+
+            //アニメーション設定
+            _playerControl.PlayerAnimControl.SetIsIceAttack(false);
         }
 
+        //アニメーション設定
+        _playerControl.PlayerAnimControl.SetAttackTrigger(false);
+
         _isAttackNow = true;
-        _isCanNextAttack = false;
-        _isAttackInput = false;
+        _isCanNextAction = false;
+        _isAttackInputed = false;
 
         _attackCount++;
 
-        //  _playerControl.Animator.SetBool("IsAttack", true);
         _playerControl.Animator.SetBool("IsDoAttack", false);
-        _playerControl.Animator.SetInteger("AttackNum", _attackCount);
 
-        _playerControl.Animator.Play("SetUp" + _attackCount, 0);
+        _playerControl.Animator.SetInteger("AttackNum", Random.Range(0, 1));
+
+        _playerControl.Animator.Play("SetUp" + 1, 0);
 
 
         if (_attackCount == _maxAttackCount)
@@ -101,7 +123,7 @@ public class Attack2
 
     public void CheckInput()
     {
-        if (!_isAttackInput)
+        if (!_isAttackInputed)
         {
             _attackMagic.MagicBase.SetUpChargeMagic(_attackCount);
             if (_playerControl.InputManager.IsAttackUp)
@@ -109,7 +131,10 @@ public class Attack2
                 //アニメーション再生
                 //_playerControl.PlayerAnimControl.SetAttackTrigger();
 
-                //音
+                //攻撃ボイス
+                AudioController.Instance.Voice.Play(VoiceState.PlayerAttack);
+
+                //音 
                 if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
                 {
                     _playerControl.PlayerAudio.AttackCharge(false, true);
@@ -119,7 +144,7 @@ public class Attack2
                     _playerControl.PlayerAudio.AttackCharge(false, false);
                 }
                 _playerControl.Animator.SetBool("IsDoAttack", true);
-                _isAttackInput = true;
+                _isAttackInputed = true;
                 _attackMagic.Attack(_attackCount);
             }
         }
@@ -129,7 +154,7 @@ public class Attack2
     /// <summary>攻撃中に攻撃ボタンを押したかどうかを確認する</summary>
     public void AttackInputedCheck()
     {
-        if ((_playerControl.InputManager.IsAttacks || _playerControl.InputManager.IsAttack) && _isAttackInput)
+        if ((_playerControl.InputManager.IsAttacks || _playerControl.InputManager.IsAttack) && _isAttackInputed)
         {
             _isPushAttack = true;
         }
@@ -139,8 +164,13 @@ public class Attack2
     public void EndAttack()
     {
         _isPushAttack = false;
-        _isCanNextAttack = false;
+        _isCanNextAction = false;
         _playerControl.Animator.SetBool("IsDoAttack", false);
+
+        if (_attackCount == _maxAttackCount)
+        {
+            _attackCount = 0;
+        }
     }
 
     /// <summary>攻撃の中断処理</summary>

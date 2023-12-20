@@ -7,53 +7,33 @@ public class AttackState : PlayerStateBase
 {
     public override void Enter()
     {
-        if (_stateMachine.PlayerController.IsNewAttack)
-        {
-            _stateMachine.PlayerController.Animator.SetBool("IsAttack", true);
-            _stateMachine.PlayerController.Attack2.DoAttack();
-        }
-        else
-        {
-            _stateMachine.PlayerController.Animator.Play("Player_RelodeMagick 0");
-            _stateMachine.PlayerController.Animator.SetBool("IsAttack", true);
-            _stateMachine.PlayerController.Attack.DoAttack();
-        }
+        //アニメーションbool設定
+        _stateMachine.PlayerController.PlayerAnimControl.SetIsAttack(true);
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimUnderBody(true);
+
+        //攻撃処理
+        _stateMachine.PlayerController.Attack2.DoAttack();
     }
 
     public override void Exit()
     {
-        if (_stateMachine.PlayerController.IsNewAttack)
-        {
-            _stateMachine.PlayerController.Animator.SetBool("IsAttack", false);
-            _stateMachine.PlayerController.Attack2.EndAttack();
-        }
-        else
-        {
-            _stateMachine.PlayerController.Animator.SetBool("IsAttack", false);
-            _stateMachine.PlayerController.Attack.EndAttack();
-        }
+        //アニメーションbool設定
+        _stateMachine.PlayerController.PlayerAnimControl.SetIsAttack(false);
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimUnderBody(false);
+
+        //攻撃終了設定
+        _stateMachine.PlayerController.Attack2.EndAttack();
     }
 
     public override void FixedUpdate()
     {
+        Debug.Log("AttackNOw");
+        //移動と回転、設定
+        _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
+        _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
 
-        if (_stateMachine.PlayerController.IsNewAttack)
-        {
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
-            //トドメをさせる敵を探す
-            _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
-        }
-        else
-        {
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Move();
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicAttackMove.Rotation();
-
-            //トドメをさせる敵を探す
-            _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
-        }
+        //トドメをさせる敵を探す
+        _stateMachine.PlayerController.FinishingAttack.SearchFinishingEnemy();
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
@@ -77,6 +57,12 @@ public class AttackState : PlayerStateBase
         //回避のクールタイム計測
         _stateMachine.PlayerController.Avoid.CountCoolTime();
 
+        //属性変更のクールタイム
+        _stateMachine.PlayerController.PlayerAttributeControl.CoolTime();
+
+        //ダメージ、無敵時間計測
+        _stateMachine.PlayerController.PlayerDamage.CountDamageTime();
+
         _stateMachine.PlayerController.Attack2.AttackMagic.MagicBase.CountCoolTime();
 
         if (_stateMachine.PlayerController.PlayerHp.IsDead)
@@ -93,60 +79,29 @@ public class AttackState : PlayerStateBase
         //    return;
         //}   //ダメージ
 
-        if (_stateMachine.PlayerController.IsNewAttack)
+
+        _stateMachine.PlayerController.Attack2.AttackInputedCheck();
+        _stateMachine.PlayerController.Attack2.CheckInput();
+
+        //if (_stateMachine.PlayerController.Attack2.IsCanNextAttack &&
+        //_stateMachine.PlayerController.Attack2.IsPushAttack)
+        //{
+        //    if (_stateMachine.PlayerController.Attack2.IsCanTransitionAttackState)
+        //    {
+        //        Debug.Log("Attack=>Attack");
+        //        _stateMachine.TransitionTo(_stateMachine.AttackState);
+        //        return;
+        //    }
+        //}   //攻撃
+
+
+        if (_stateMachine.PlayerController.Attack2.IsCanNextAction && !_stateMachine.PlayerController.Attack2.IsAttackNow && _stateMachine.PlayerController.Attack2.IsAttackInputed)
         {
-            _stateMachine.PlayerController.Attack2.AttackInputedCheck();
-            _stateMachine.PlayerController.Attack2.CheckInput();
+            Debug.Log("Attack=>Idle");
+            _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+            _stateMachine.TransitionTo(_stateMachine.StateIdle);
+            return;
+        }   //Idle
 
-            //if (_stateMachine.PlayerController.Attack2.IsCanNextAttack &&
-            //_stateMachine.PlayerController.Attack2.IsPushAttack)
-            //{
-            //    if (_stateMachine.PlayerController.Attack2.IsCanTransitionAttackState)
-            //    {
-            //        Debug.Log("Attack=>Attack");
-            //        _stateMachine.TransitionTo(_stateMachine.AttackState);
-            //        return;
-            //    }
-            //}   //攻撃
-
-
-
-            if (_stateMachine.PlayerController.Attack2.IsCanNextAttack && !_stateMachine.PlayerController.Attack2.IsAttackNow && _stateMachine.PlayerController.Attack2.IsAttackInput)
-            {
-                Debug.Log("Attack=>Idle");
-                _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
-                _stateMachine.TransitionTo(_stateMachine.StateIdle);
-                return;
-            }   //Idle
-        }
-        else
-        {
-            _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
-
-            _stateMachine.PlayerController.Attack.AttackInputedCheck();
-            _stateMachine.PlayerController.Attack.CountInput();
-
-            if (_stateMachine.PlayerController.Attack.IsCanNextAttack &&
-            _stateMachine.PlayerController.Attack.IsPushAttack)
-            {
-                if (!_stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.IsEndMagic)
-                {
-                    Debug.Log("Attack=>Attack");
-                    _stateMachine.TransitionTo(_stateMachine.AttackState);
-                    return;
-                }
-            }   //攻撃
-
-
-
-            if (_stateMachine.PlayerController.Attack.IsCanNextAttack && !_stateMachine.PlayerController.Attack.IsAttackNow && _stateMachine.PlayerController.Attack.IsAttackInput)
-            {
-                Debug.Log("Attack=>Idle");
-                _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
-                _stateMachine.PlayerController.Attack.EndAttackNoNextAttack();
-                _stateMachine.TransitionTo(_stateMachine.StateIdle);
-                return;
-            }
-        }
     }
 }
