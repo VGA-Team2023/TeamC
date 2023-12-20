@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _masterVolume: 1
-  _bgmVolume: 0
+  _bgmVolume: 1
   _seVolume: 1
   _voiceVolume: 1
   _meVolume: 1
@@ -145,67 +145,67 @@ MonoBehaviour:
       soundCueName: SE_BS_Ice_Hit
     - state: 18
       soundCueName: SE_BS_Grass_Hit
-    - state: 48
-      soundCueName: SE_PL_Cloth_Move
-    - state: 49
-      soundCueName: SE_PL_Cloth_Atk
     - state: 19
-      soundCueName: SE_PL_ice_hit_A01
+      soundCueName: SE_PL_Cloth_Move
     - state: 20
-      soundCueName: SE_PL_ice_hit_B01
+      soundCueName: SE_PL_Cloth_Atk
     - state: 21
-      soundCueName: SE_PL_grass_hit_A01
+      soundCueName: SE_PL_ice_hit_A01
     - state: 22
-      soundCueName: SE_PL_grass_hit_B01
+      soundCueName: SE_PL_ice_hit_B01
     - state: 23
-      soundCueName: SE_PL_ice_Finish
+      soundCueName: SE_PL_grass_hit_A01
     - state: 24
-      soundCueName: SE_PL_grass_Finish
+      soundCueName: SE_PL_grass_hit_B01
     - state: 25
-      soundCueName: SE_MAE_Atk
+      soundCueName: SE_PL_ice_Finish
     - state: 26
-      soundCueName: SE_LAM_Shoot
+      soundCueName: SE_PL_grass_Finish
     - state: 27
-      soundCueName: SE_LAE_Trail
+      soundCueName: SE_MAE_Atk
     - state: 28
-      soundCueName: SE_EM_Normaldamege
+      soundCueName: SE_LAM_Shoot
     - state: 29
-      soundCueName: SE_EM_FinDamege
+      soundCueName: SE_LAE_Trail
     - state: 30
-      soundCueName: SE_EM_Down
-    - state: 31
-      soundCueName: SE_EM_In
-    - state: 32
-      soundCueName: SE_EM_Out
-    - state: 33
       soundCueName: SE_BS_Ice_Shoot
-    - state: 34
+    - state: 31
       soundCueName: SE_BS_Grass_Shoot
-    - state: 35
+    - state: 32
       soundCueName: SE_BS_Ice_Charge
-    - state: 36
+    - state: 33
       soundCueName: SE_BS_Grass_Charge
-    - state: 37
+    - state: 34
       soundCueName: SE_BS_Ice_Trail
-    - state: 38
+    - state: 35
       soundCueName: SE_BS_Grass_Trail
-    - state: 39
+    - state: 36
       soundCueName: SE_BS_Ice_Finish
-    - state: 40
+    - state: 37
       soundCueName: SE_BS_Grass_Finish
+    - state: 38
+      soundCueName: SE_EM_Normaldamege
+    - state: 39
+      soundCueName: SE_EM_FinDamege
+    - state: 40
+      soundCueName: SE_EM_Down
     - state: 41
-      soundCueName: SE_Sys_select
+      soundCueName: SE_EM_In
     - state: 42
-      soundCueName: SE_Sys_cancel
+      soundCueName: SE_EM_Out
     - state: 43
-      soundCueName: SE_Sys_select01
+      soundCueName: SE_Sys_select
     - state: 44
-      soundCueName: ME_Result_01
+      soundCueName: SE_Sys_cancel
     - state: 45
-      soundCueName: ME_Result_02
+      soundCueName: SE_Sys_select01
     - state: 46
-      soundCueName: ME_Result_03
+      soundCueName: ME_Result_01
     - state: 47
+      soundCueName: ME_Result_02
+    - state: 48
+      soundCueName: ME_Result_03
+    - state: 49
       soundCueName: ME_Result_04
   _bgm:
     _bgmData:
