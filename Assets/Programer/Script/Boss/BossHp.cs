@@ -87,6 +87,11 @@ public class BossHp
     public void StartFinishAttack()
     {
         _isFinishNow = true;
+
+        foreach (var e in _knockDownEffect)
+        {
+            e.Stop();
+        }   //ダウンエフェクトを停止
     }
 
     public void StopFinishAttack()
@@ -116,26 +121,9 @@ public class BossHp
         _isKnockDown = false;
         _isFinishNow = false;
 
-
-
         //アニメーション設定
         _bossControl.BossAnimControl.IsDown(false);
 
-        foreach (var e in _knockDownEffect)
-        {
-            e.Stop();
-        }   //ダウンエフェクトを停止
-
-        if (_waveCount == _waveHp.Count)
-        {
-            _bossControl.gameObject.layer = _endFinishLayer;
-            return true;
-        }
-        else
-        {
-            SetNewHp();
-            _bossControl.gameObject.layer = _enemyLayer;
-        }
 
         if (magickType == MagickType.Ice)
         {
@@ -155,6 +143,25 @@ public class BossHp
                 i.Play();
             }
         }
+
+        foreach (var e in _knockDownEffect)
+        {
+            e.Stop();
+        }   //ダウンエフェクトを停止
+
+        if (_waveCount == _waveHp.Count)
+        {
+            Debug.Log("死亡");
+            _bossControl.gameObject.layer = _endFinishLayer;
+            return true;
+        }
+        else
+        {
+            SetNewHp();
+            _bossControl.gameObject.layer = _enemyLayer;
+        }
+
+
         return false;
 
     }
@@ -189,7 +196,10 @@ public class BossHp
         {
             foreach (var e in _knockDownEffect)
             {
-                e.Play();
+                if (!e.isPlaying)
+                {
+                    e.Play();
+                }
             }   //ダウンエフェクトを再生
 
             //アニメーション設定
