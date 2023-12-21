@@ -64,10 +64,10 @@ public class LoadingPanel : MonoBehaviour
         int random = Random.Range(0, _tipDatas.Length);
         _tips.text = _tipDatas[random].TipText;
 
-        if(_tipDatas[random].Type==TipData.TipsType.Teacher) _teacherText.gameObject.SetActive(true);
-        else if(_tipDatas[random].Type==TipData.TipsType.MainCharacter) _mainCharactorText.gameObject.SetActive(true);
-        else if(_tipDatas[random].Type==TipData.TipsType.OperationInstructions) _operationInstructionsText.gameObject.SetActive(true);
-        else if(_tipDatas[random].Type==TipData.TipsType.Academy) _academyText.gameObject.SetActive(true);
-        else if(_tipDatas[random].Type==TipData.TipsType.Magic) _magicText.gameObject.SetActive(true);
+        if (_tipDatas[random].Type == TipData.TipsType.Teacher) _teacherText.gameObject.SetActive(true);
+        else if (_tipDatas[random].Type == TipData.TipsType.MainCharacter) _mainCharactorText.gameObject.SetActive(true);
+        else if (_tipDatas[random].Type == TipData.TipsType.OperationInstructions) _operationInstructionsText.gameObject.SetActive(true);
+        else if (_tipDatas[random].Type == TipData.TipsType.Academy) _academyText.gameObject.SetActive(true);
+        else if (_tipDatas[random].Type == TipData.TipsType.Magic) _magicText.gameObject.SetActive(true);
     }
 }

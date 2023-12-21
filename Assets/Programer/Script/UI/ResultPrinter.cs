@@ -15,6 +15,9 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField] private Text _enemyDefeatedCount;
     [SerializeField] private Text _playerDownCount;
     [SerializeField] private Text _judgeText;
+    [SerializeField] private Text _clearTimeRankText;
+    [SerializeField] private Text _playerDownRankText;
+    [SerializeField] private Text _enemyDefeatRankText;
     [SerializeField, Tooltip("スコア別テキスト")]
     private string[] _resultTexts;
     [SerializeField, Tooltip("表示にかける秒数")]
@@ -67,11 +70,12 @@ public class ResultPrinter : MonoBehaviour
             gameManager.ScoreManager.ShortEnemyDefeatedNum;
         TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
         {
+
             TweenNum(GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
             {
-                TweenNum(defeatcount, _enemyDefeatedCount, () =>
+                TweenNum(GameManager.Instance.ScoreManager.PlayerDownNum,_playerDownCount,()=>
                 {
-                    TweenNum(GameManager.Instance.ScoreManager.PlayerDownNum, _playerDownCount, () =>
+                    TweenNum(defeatcount, _enemyDefeatedCount, () => 
                     {
                         Judge(GameManager.Instance);
                         GameManager.Instance.ScoreManager.ScoreReset();
