@@ -31,7 +31,6 @@ public class LAEAttackState : IStateMachine
             _enemy.VoiceAudio(VoiceState.EnemyLongAttack, EnemyBase.CRIType.Play);
             _enemy.SeAudio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
             _enemy.Animator.Play("Attack");
-            _enemy.Attack();
             _timer = 0;
             Debug.Log("攻撃");
         }
