@@ -114,6 +114,11 @@ public class GameManager : MonoBehaviour
         AudioController.Instance.SE.StopAll();
     }
 
+    public void BGMStop()
+    {
+        AudioController.Instance.BGM.Stop();
+    }
+
     /// <summary>InGame中ゲーム終了時直後に呼ぶメソッド</summary>
     public void GameEndWaitCall()
     {
