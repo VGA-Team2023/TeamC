@@ -88,10 +88,9 @@ public struct BGMAudioControlle
     {
         CriAudioManager.Instance.BGM.ResumeAll();
     }
-    public void Stop(BGMState se)
+    public void Stop()
     {
-        int index = (int)se;
-        CriAudioManager.Instance.BGM.Stop(_bgmData[index].PlayID, _bgmData[index].SoundCueName);
+        CriAudioManager.Instance.BGM.StopAll();
     }
 }
 
