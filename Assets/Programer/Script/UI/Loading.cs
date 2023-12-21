@@ -6,12 +6,12 @@ public class Loading : MonoBehaviour
 {    
     [SerializeField] string _nextSceneName = "";
     [SerializeField] private float _waitTimer;
-    private static LoadingPanel _loadingPanelInstance;
+    private LoadingPanel _loadingPanelInstance;
     private void Start()
     {
         if (_loadingPanelInstance == null)
         {
-            _loadingPanelInstance = FindObjectOfType<LoadingPanel>();
+            _loadingPanelInstance = LoadingPanel.Instance;
 
             if (_loadingPanelInstance == null)
             {

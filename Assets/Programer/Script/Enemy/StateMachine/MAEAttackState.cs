@@ -20,6 +20,7 @@ public class MAEAttackState : IStateMachine
     public void Enter()
     {
         if (_enemy.IsDemo) return;
+        _enemy.VoiceAudio(VoiceState.EnemyShortDiscov, EnemyBase.CRIType.Play);
         _isHit = false;
         //加速してプレイヤーに近づく
         _dir = (_player.transform.position - _enemy.transform.position).normalized;
@@ -40,7 +41,8 @@ public class MAEAttackState : IStateMachine
             _timer += Time.deltaTime;
             if (_timer > 1f)
             {
-                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
+                _enemy.VoiceAudio(VoiceState.EnemyShortAttack, EnemyBase.CRIType.Play);
+                _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
                 _timer = 0f;
             }
@@ -62,7 +64,7 @@ public class MAEAttackState : IStateMachine
                         player = getObject;
                     }
                 }
-                _enemy.Audio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
+                _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
                 //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
                 if (player)

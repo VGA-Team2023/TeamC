@@ -19,6 +19,7 @@ public class MAEFreeMoveState : IStateMachine
     }
     public void Enter()
     {
+        _enemy.VoiceAudio(VoiceState.EnemyShortSaerch, EnemyBase.CRIType.Play);
     }
 
     public void Exit()
@@ -27,6 +28,7 @@ public class MAEFreeMoveState : IStateMachine
 
     public void Update()
     {
+        _enemy.VoiceAudio(VoiceState.EnemyShortSaerch, EnemyBase.CRIType.Update);
         if (_enemy.IsDemo) return;
         //プレイヤーとの距離を算出
         float playerDis = Vector3.Distance(_enemy.transform.position, _player.transform.position);

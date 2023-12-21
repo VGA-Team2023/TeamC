@@ -19,7 +19,7 @@ public class LAEFreeMoveState : IStateMachine
     }
     public void Enter()
     {
-        Debug.Log("LAEFreeMove:Enter");
+        _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Play);
     }
 
     public void Exit()
@@ -29,6 +29,7 @@ public class LAEFreeMoveState : IStateMachine
 
     public void Update()
     {
+        _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Update);
         if (_enemy.IsDemo) return;
         //敵がサーチ範囲に入ったら攻撃を始める(遠距離攻撃)
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
@@ -39,9 +40,12 @@ public class LAEFreeMoveState : IStateMachine
         }
         //基本は決められた地点を周回する
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);
+        Debug.Log($"DIstance:{distance}");
         if (distance < _enemy.ChangeDistance)
         {
             _index++;
+            Debug.Log($"Index:{_index}");
+            Debug.Log($"NextPoint:{_patrolPoint[_index % _patrolPoint.Count]}");
         }
         var nextPoint = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
         _enemy.transform.forward = new Vector3(nextPoint.x, 0, nextPoint.z);

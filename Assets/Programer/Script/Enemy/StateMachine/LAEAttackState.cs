@@ -14,7 +14,7 @@ public class LAEAttackState : IStateMachine
     }
     public void Enter()
     {
-
+        _enemy.VoiceAudio(VoiceState.EnemyLongDiscov, EnemyBase.CRIType.Play);
     }
 
     public void Exit()
@@ -28,8 +28,10 @@ public class LAEAttackState : IStateMachine
         _timer += Time.deltaTime;
         if(_timer > _enemy.AttackInterval)
         {
-            _enemy.Audio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
-            _enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            _enemy.VoiceAudio(VoiceState.EnemyLongAttack, EnemyBase.CRIType.Play);
+            _enemy.SeAudio(SEState.EnemyLongAttackShoot, LongAttackEnemy.CRIType.Play);
+            //_enemy.Animator.Play("WitchHag_Attack_Swipe01");
+            _enemy.Attack();
             _timer = 0;
             Debug.Log("攻撃");
         }

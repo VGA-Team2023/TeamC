@@ -320,12 +320,15 @@ public class MagickData
     [Header("@魔法を出したときのエフェクト")]
     [SerializeField] private List<ParticleSystem> _particlesUseMagic = new List<ParticleSystem>();
 
+    [Header("@魔法を中断した時のエフェクト")]
+    [SerializeField] private List<ParticleSystem> _particlesReleaseMagic = new List<ParticleSystem>();
+
     //[Header("魔法を出す位置()")]
     //  [SerializeField] 
     private Transform _muzzlePos;
 
     // [Header("魔法陣のパーティクル")]
-    //  [SerializeField]
+    //  [SerializeField] 
     private List<ParticleSystem> _particles = new List<ParticleSystem>();
 
 
@@ -334,8 +337,9 @@ public class MagickData
     // [SerializeField]
     private GameObject _effect;
 
+    public List<ParticleSystem> Releasemagic => _particlesReleaseMagic;
     public int AttackContinuousSetNumber { get => _attackContinuous; set => _attackContinuous = value; }
-    public GameObject Effect => _effect;
+    public GameObject Effect => _effect; 
     public List<ParticleSystem> UseMagicparticle => _particlesUseMagic;
     public Transform MuzzlePos => _muzzlePos;
     public List<ParticleSystem> ParticleSystem => _particles;

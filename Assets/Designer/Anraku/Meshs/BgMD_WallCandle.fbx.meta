@@ -35,7 +35,8 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
+    extraUserProperties:
+    - '#BAKERY{"meshName":["BgMD_WallCandle04","BgMD_WallCandle03","BgMD_WallCandle02","BgMD_WallCandle01","BgMD_Candle2","BgMD_Candle1"],"padding":[256,256,256,256,256,256],"unwrapper":[0,0,0,0,0,0]}'
     clipAnimations: []
     isReadable: 0
   meshes:
