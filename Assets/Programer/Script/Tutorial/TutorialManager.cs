@@ -28,6 +28,8 @@ public class TutorialManager : MonoBehaviour
 
     private bool _isEndTutorial = false;
 
+    private bool _isFirstRead = false;
+
     private bool _isCanInput = false;
 
     private bool _isFirstVoice = false;
@@ -37,6 +39,9 @@ public class TutorialManager : MonoBehaviour
     private bool _isReadEndMissinFirst = false;
 
     private bool _isEndFirstLead = false;
+    private bool _isCheckPanel = false;
+
+    private float _countWait = 0;
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
 
@@ -77,29 +82,35 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-       // Debug.Log("F" + _tutorialMissions.CurrentTutorial.TutorialNum);
+        // Debug.Log("F" + _tutorialMissions.CurrentTutorial.TutorialNum);
 
         if (_tutorialSituation == TutorialSituation.GameStartTalk)
         {
-            if (_isEndFirstLead)
+            if (_isEndFirstLead && !_isFirstVoice)
             {
                 _tutorialUI.ActiveBttun();
                 _isFirstVoice = true;
                 AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
             }
 
-            //文章を読み終えたかどうか
-            bool isReadEnd = _tutorialUI.Read();
-
-
-
-            //チュートリアルを受けるかどうかの確認パネルを表示
-            if (isReadEnd && !_isEndFirstLead)
+            if (_isEndFirstLead && !_isCheckPanel)
             {
-                _isEndFirstLead = true;
-                _tutorialUI.ShowTutorilCheck(true);
+                _countWait += Time.deltaTime;
+
+                if (_countWait > 0.01f)
+                {
+                    _tutorialUI.ShowTutorilCheck(true);
+                    _isCheckPanel = true;
+                }
             }
 
+            //チュートリアルを受けるかどうかの確認パネルを表示
+            if (_isFirstRead && !_isEndFirstLead)
+            {
+                _isEndFirstLead = true;
+            }
+            //文章を読み終えたかどうか
+            _isFirstRead = _tutorialUI.Read();
         }
         else if (_tutorialSituation == TutorialSituation.TutorialReceve)
         {
