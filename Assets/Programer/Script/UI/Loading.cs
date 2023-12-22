@@ -33,16 +33,12 @@ public class Loading : MonoBehaviour
     {
         AsyncOperation async = SceneManager.LoadSceneAsync(_nextSceneName);
         async.allowSceneActivation = false;
-        while (!async.isDone)
+
+        while (async.progress < 0.9f)
         {
-            if (async.progress > 0.9f)
-            {
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(_waitTimer);
-
-            async.allowSceneActivation = true;
+            yield return new WaitForSeconds(_waitTimer);           
         }
+
+        async.allowSceneActivation = true;
     }
 }
