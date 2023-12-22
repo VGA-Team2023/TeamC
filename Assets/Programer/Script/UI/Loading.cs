@@ -27,21 +27,12 @@ public class Loading : MonoBehaviour
         GameManager.Instance?.SEStopAll();
         _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
+
     }
 
     IEnumerator WaitForLoading()
     {
         yield return new WaitForSeconds(_waitTimer);
-        //AsyncOperation async = SceneManager.LoadSceneAsync(_nextSceneName);
-        //async.allowSceneActivation = false;
-
-        //while (async.progress < 0.9f && !async.isDone)
-        //{
-        //    yield return null;
-        //}
-
-        //yield return new WaitForSeconds(_waitTimer);
-
-        //async.allowSceneActivation = true;
+        SceneManager.LoadScene(_nextSceneName);
     }
 }
