@@ -70,6 +70,6 @@ public class TutorialUI
 
     public void ActiveBttun()
     {
-        EventSystem.current.SetSelectedGameObject(_buttun);
+        //EventSystem.current.SetSelectedGameObject(_buttun);
     }
 }
