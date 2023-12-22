@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cca00ebe63c9a4b878d1934ded68c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _magickType: 0
   _attackP:
   - {fileID: 7510384779426252524}
   - {fileID: 3910414579964654990}
@@ -105,24 +106,24 @@ MonoBehaviour:
   _effects:
   - _name: 
     _effects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 7510384779426252524}
+    - {fileID: 3910414579964654990}
+    - {fileID: 1855000017681249911}
+    - {fileID: 7387862027548817337}
+    - {fileID: 165603962695952354}
+    - {fileID: 3050210789653707942}
+    - {fileID: 5860350509236781242}
+    - {fileID: 8409183625959968383}
+    - {fileID: 6893514728687972547}
+    - {fileID: 9161742447398974232}
+    - {fileID: 1228265221095448730}
+    - {fileID: 3279280225663814893}
+    - {fileID: 1790431763258239481}
+    - {fileID: 1448661429154697142}
+    - {fileID: 8196443192800020126}
+    - {fileID: 6189899579633707301}
+    - {fileID: 487400057290467474}
+    - {fileID: 5903184627768920917}
   - _name: 
     _effects:
     - {fileID: 6615488455386383138}

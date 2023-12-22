@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85cca00ebe63c9a4b878d1934ded68c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _magickType: 0
   _attackP:
   - {fileID: 3247135393472985717}
   - {fileID: 8317741771420387607}
@@ -78,7 +79,7 @@ MonoBehaviour:
   - {fileID: 8764550612887406517}
   - {fileID: 8764550613267599238}
   - {fileID: 6078562547768857434}
-  _attackPower: 1
+  _attackPower: 3
   _waitTime: 1
   _attackWaitTime: 0.15
   _destroyTime: 5
