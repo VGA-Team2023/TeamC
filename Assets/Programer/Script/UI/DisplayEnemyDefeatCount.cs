@@ -1,21 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-public class GetNumber
-{
-    private int meleeDef;
-    private int longDef;
-
-    public int GetMeleeNum
-    {
-        get { return GameManager.Instance.ScoreManager.ShortEnemyDefeatedNum; }
-        set { meleeDef = value; }
-    }
-    public int GetLongDef
-    {
-        get { return GameManager.Instance.ScoreManager.LongEnemyDefeatedNum; }
-        set { longDef = value; }
-    }
-}   
 
 public class DisplayEnemyDefeatCount : MonoBehaviour
 {
@@ -31,23 +15,15 @@ public class DisplayEnemyDefeatCount : MonoBehaviour
     private int _shortEnemyDefeatCount;
     [SerializeField]
     private int _longEnemyDefeatCount;
-    private GetNumber nums;
-    private void Start()
-    {
-        nums = new GetNumber();
-    }
     private void LateUpdate()
     {
-        if (_shortEnemyDefeatCount != nums.GetMeleeNum || _longEnemyDefeatCount!= nums.GetLongDef)
+        if (_shortEnemyDefeatCount != GameManager.Instance.ScoreManager.ShortEnemyDefeatedNum 
+            || _longEnemyDefeatCount != GameManager.Instance.ScoreManager.LongEnemyDefeatedNum)
         {
-            _shortEnemyDefeatCount = nums.GetMeleeNum;
-            _longEnemyDefeatCount = nums.GetLongDef;
+            _shortEnemyDefeatCount = GameManager.Instance.ScoreManager.ShortEnemyDefeatedNum;
+            _longEnemyDefeatCount = GameManager.Instance.ScoreManager.LongEnemyDefeatedNum;
             ChanageDisplayEnemyDefeatCount();
-        }       
-    }
-    private void OnValidate()
-    {
-        ChanageDisplayEnemyDefeatCount();
+        }
     }
     private void ChanageDisplayEnemyDefeatCount()
     {
