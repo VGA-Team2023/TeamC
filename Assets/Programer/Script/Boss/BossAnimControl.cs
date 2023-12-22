@@ -52,7 +52,7 @@ public class BossAnimControl
     }
     public void DeathPlay()
     {
-        _bossControl.Animator.Play("Death");
+        _bossControl.Animator.Play("Boss_Dead");
     }
 
     public void IsDown(bool isDown)

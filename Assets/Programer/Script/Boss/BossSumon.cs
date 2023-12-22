@@ -10,19 +10,25 @@ public class BossSumon : MonoBehaviour
     [Header("ìoèÍÇ≥ÇπÇÈÇ‹Ç≈ÇÃéûä‘")]
     [SerializeField] private float _summonTime = 1f;
 
+
+    [Header("SpowmPoint")]
+    [SerializeField] private List<Transform> _spownPoint = new List<Transform>();
+
     private bool _isSummon = false;
     private float _countSummonTime = 0;
 
+    private Transform _player;
+
     void Start()
     {
-
+   
     }
 
     void Update()
     {
         if (_isSummon) return;
 
-        _countSummonTime+= Time.deltaTime;
+        _countSummonTime += Time.deltaTime;
 
         if (_summonTime < _countSummonTime)
         {

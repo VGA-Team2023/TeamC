@@ -1,43 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OptionPanelResetter : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _mainUi = null;
+    GameObject _mainUi;
     [SerializeField]
-    private GameObject _settingPanel = null;
+    GameObject _settingPanel;
     [SerializeField]
-    private GameObject _helpUI = null;
+    GameObject _helpUI;
     [SerializeField]
-    private GameObject[] _pointers;
-    [SerializeField]
-    private Text[] _resetTexts;
-    [SerializeField]
-    private Color _defaltcolor;
-    [SerializeField]
-    private Color _selectColor;
-    [SerializeField]
-    private Text _firstSelectedText;
+    GameObject[] _pointers;
+
     public void Reset()
     {
-        _mainUi?.SetActive(false);
-        _settingPanel?.SetActive(true);
-        _helpUI?.SetActive(false);
-        foreach (var point in _pointers)
+        //_mainUi.SetActive(false);
+        _settingPanel.SetActive(true);
+        _helpUI.SetActive(false);
+        foreach(var point in _pointers)
         {
-            point?.SetActive(false);
-        }
-        foreach (var text in _resetTexts)
-        {
-            if (text == _firstSelectedText)
-            {
-                text.color = _selectColor;
-            }
-            else
-            {
-                text.color = _defaltcolor;
-            }
+            point.SetActive(false);
         }
     }
 }

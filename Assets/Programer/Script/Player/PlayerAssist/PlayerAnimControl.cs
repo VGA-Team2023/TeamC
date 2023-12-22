@@ -23,6 +23,12 @@ public class PlayerAnimControl
         _playerControl = playerControl;
     }
 
+    public void ChangeAttribute()
+    {
+        _playerControl.Animator.Play("Player_ChangeAttribute");
+       // _playerControl.Animator.SetTrigger("IsChangeAttribute");
+    }
+
     public void Avoid(bool isStart)
     {
         if (isStart)
