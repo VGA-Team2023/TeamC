@@ -11,11 +11,8 @@ public class TargetSetting : MonoBehaviour
         {
             _eventSystem = FindObjectOfType<EventSystem>();
         }
-
         _eventSystem?.SetSelectedGameObject(_target);
-
         _target.GetComponent<ButtonTextColorChanger>()?.Target?.gameObject.SetActive(true);
         _target.GetComponent<DisplayTargetPointer>()?.TargetImage?.gameObject.SetActive(true);
-
     }
 }

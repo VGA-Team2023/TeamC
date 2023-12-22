@@ -1,22 +1,10 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SliderObserver : MonoBehaviour,ISelectHandler,IDeselectHandler
+public class SliderObserver : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private Color _selectColor;
-    [SerializeField] private Color _defaltColor;
-    private AudioController _audioController;
-    private Text _text = null;
-    private void OnEnable()
-    {
-        if (_text == null)
-        {
-            _text = GetComponentInChildren<Text>();
-        }
-    }
-
+    private  AudioController _audioController;
     public void SetSEValue()
     {
         if (_audioController == null) _audioController = AudioController.Instance;
@@ -31,15 +19,5 @@ public class SliderObserver : MonoBehaviour,ISelectHandler,IDeselectHandler
     {
         if (_audioController == null) _audioController = AudioController.Instance;
         _audioController.SetVolume(_slider.value, VolumeChangeType.Voice);
-    }
-
-    public void OnSelect(BaseEventData eventData)
-    {
-        _text.color = _selectColor;
-    }
-
-    public void OnDeselect(BaseEventData eventData)
-    {
-        _text.color = _defaltColor;
     }
 }

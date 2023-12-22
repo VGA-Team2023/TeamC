@@ -63,7 +63,11 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     private bool _isNewAttack = true;
 
+    private bool _isBossMovie = false;
+    public bool IsBossMovie { get => _isBossMovie;set => _isBossMovie = value; }
+
     private bool _isPause = false;
+
 
     private bool _isPlayingMoveAudio = false;
     public PlayerChangeAttribute PlayerAttributeControl => _playerChangeAttribute;
@@ -125,6 +129,8 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
 
+        if (_isBossMovie) return;
+
         _playerModelT.transform.localPosition = Vector3.zero;
         _playerModelT.transform.localRotation = Quaternion.Euler(0,0,0);
 
@@ -164,12 +170,14 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     private void FixedUpdate()
     {
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        if (_isBossMovie) return;
         _stateMachine.FixedUpdate();
     }
 
     private void LateUpdate()
     {
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        if (_isBossMovie) return;
         _stateMachine.LateUpdate();
         _playerAnimControl.AnimSet();
     }

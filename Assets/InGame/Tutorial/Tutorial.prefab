@@ -17670,7 +17670,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 2132073848412418871}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 2
   m_Colors:
@@ -33769,7 +33769,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 4997614503614833828}
   m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -39503,7 +39503,6 @@ GameObject:
   - component: {fileID: 5977298732959819546}
   - component: {fileID: 5815243636917362979}
   - component: {fileID: 3746740511110391670}
-  - component: {fileID: 9010931895337749656}
   m_Layer: 5
   m_Name: CheckPanel
   m_TagString: Untagged
@@ -39571,20 +39570,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9010931895337749656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420958082995140141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6ce3235666b864a9baf033c6f30a7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _leftButton: {fileID: 2132073848412418871}
-  _rightButton: {fileID: 4997614503614833828}
 --- !u!1 &8440238209235894879
 GameObject:
   m_ObjectHideFlags: 0

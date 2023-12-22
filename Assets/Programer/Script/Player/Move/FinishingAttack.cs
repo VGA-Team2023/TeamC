@@ -120,7 +120,7 @@ public class FinishingAttack
         _setFinishTime = _finishingAttackShort.FinishTime;
 
         //敵を索敵
-        _nowFinishEnemy = CheckFinishingEnemy();
+       // _nowFinishEnemy = CheckFinishingEnemy();
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -129,6 +129,14 @@ public class FinishingAttack
         }
 
         //移動視点
+        if(_nowFinishEnemy.Length<0)
+        {
+
+        }
+        else
+        {
+
+        }
         _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
 
         //カメラを敵の方向に向ける
@@ -320,9 +328,9 @@ public class FinishingAttack
     /// </summary>
     public void SearchFinishingEnemy()
     {
-        var enemys = CheckFinishingEnemy();
+       _nowFinishEnemy = CheckFinishingEnemy();
 
-        if (enemys.Length <= 0)
+        if (_nowFinishEnemy.Length <= 0)
         {
             _isCanFinishing = false;
             _finishingAttackUI.ShowCanFinishingUI(false);
@@ -339,7 +347,7 @@ public class FinishingAttack
         //{
         //    d[i] = enemys[i].transform;
         //}
-        _finishingAttackUI.ShowUI(enemys);
+        _finishingAttackUI.ShowUI(_nowFinishEnemy);
     }
 
 

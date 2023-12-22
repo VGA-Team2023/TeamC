@@ -9,6 +9,18 @@ public class BossHp
     [Header("ボスの体力_各Wave")]
     [SerializeField] private List<float> _waveHp = new List<float>();
 
+    [Header("トドメ後、硬直時間")]
+    [SerializeField] private float _finishedWaitTime = 3f;
+
+    private float _countFinishedTime = 0;
+
+    private bool _isFinishComplete = false;
+
+    private bool _isEndWaitTime = false;
+
+    public bool IsFinishComplete => _isFinishComplete;
+    public bool IsEndWaitTime => _isEndWaitTime;
+
     [Header("トドメ可能なダウン時間")]
     [SerializeField] private float _knockDownTIme = 8f;
 
@@ -22,10 +34,15 @@ public class BossHp
     [SerializeField] private List<ParticleSystem> _grassHitEffect = new List<ParticleSystem>();
 
     [Header("氷属性のトドメのエフェクト")]
-    [SerializeField] private List<ParticleSystem> _iceFinishEffect = new List<ParticleSystem>();
+    [SerializeField] private GameObject _iceFinishEffect;
+    [Header("氷属性のトドメのエフェクトのOffset")]
+    [SerializeField] private Vector3 _offSetIceFinishEffect = new Vector3(0, -2, 0);
 
     [Header("草属性のトドメのエフェクト")]
-    [SerializeField] private List<ParticleSystem> _grassFinishEffect = new List<ParticleSystem>();
+    [SerializeField] private GameObject _grassFinishEffect;
+    [Header("氷属性のトドメのエフェクトのOffset")]
+    [SerializeField] private Vector3 _offSetGrassFinishEffect = new Vector3(0, -2, 0);
+
 
     [SerializeField] private List<ParticleSystem> _effectDark = new List<ParticleSystem>();
 
@@ -87,6 +104,8 @@ public class BossHp
     public void StartFinishAttack()
     {
         _isFinishNow = true;
+        _isFinishComplete = false;
+        _isEndWaitTime = false;
 
         foreach (var e in _knockDownEffect)
         {
@@ -118,8 +137,13 @@ public class BossHp
             _effectDark[_waveCount].Stop();
         }
         _waveCount++;
+
+        _isFinishComplete = true;
+
         _isKnockDown = false;
         _isFinishNow = false;
+
+
 
         //アニメーション設定
         _bossControl.BossAnimControl.IsDown(false);
@@ -129,19 +153,18 @@ public class BossHp
         {
             //音
             AudioController.Instance.SE.Play3D(SEState.EnemyFinichHitIce, _bossControl.BossT.position);
-            foreach (var i in _iceFinishEffect)
-            {
-                i.Play();
-            }
+
+            //エフェクト
+            var go = GameObject.Instantiate(_iceFinishEffect);
+            go.transform.position = _bossControl.BossT.position + _offSetIceFinishEffect;
         }
         else
         {
             //音
             AudioController.Instance.SE.Play3D(SEState.EnemyFinishHitGrass, _bossControl.BossT.position);
-            foreach (var i in _grassFinishEffect)
-            {
-                i.Play();
-            }
+            //エフェクト
+            var go = GameObject.Instantiate(_grassFinishEffect);
+            go.transform.position = _bossControl.BossT.position + _offSetGrassFinishEffect;
         }
 
         foreach (var e in _knockDownEffect)
@@ -151,7 +174,17 @@ public class BossHp
 
         if (_waveCount == _waveHp.Count)
         {
-            Debug.Log("死亡");
+            foreach (var e in _knockDownEffect)
+            {
+                e.gameObject.SetActive(false);
+            }   //ダウンエフェクトを停止
+
+            foreach (var e in _effectDark)
+            {
+                e.gameObject.SetActive(false);
+            }   //もわもわエフェクトを停止
+
+
             _bossControl.gameObject.layer = _endFinishLayer;
             return true;
         }
@@ -166,8 +199,24 @@ public class BossHp
 
     }
 
+
+    public void CountFinishedWaitTime()
+    {
+        if (!_isFinishComplete) return;
+        _countFinishedTime += Time.deltaTime;
+
+        if (_countFinishedTime > _finishedWaitTime)
+        {
+            _countFinishedTime = 0;
+            _isFinishComplete = false;
+            _isEndWaitTime = true;
+        }
+    }
+
     public void Damage(float damage, MagickType magickType)
     {
+        if (_isFinishComplete) return;
+
         _nowHp -= damage;
 
         if (magickType == MagickType.Ice)

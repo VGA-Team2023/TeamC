@@ -105,7 +105,11 @@ public class BossNomalAttack
     {
         foreach (var a in _setMagic.Magic[_setMagicNumber].Magic)
         {
-            a.MagicCircle.SetActive(false);
+            if (a.MagicCircle.activeSelf)
+            {
+                a.MagicCircle.SetActive(false);
+                a.ReleaseP.ForEach(i => i.Play());
+            }
         }
 
         ResetValue();
