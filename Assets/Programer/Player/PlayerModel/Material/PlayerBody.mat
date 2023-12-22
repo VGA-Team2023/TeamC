@@ -415,7 +415,7 @@ Material:
     - _DistanceFadeRimFresnelPower: 5
     - _DitherMaxValue: 255
     - _DstBlend: 0
-    - _DstBlendAlpha: 0
+    - _DstBlendAlpha: 10
     - _DstBlendAlphaFA: 1
     - _DstBlendFA: 1
     - _Emission: 0
@@ -493,7 +493,7 @@ Material:
     - _IgnoreLightY: 0
     - _Invisible: 0
     - _LightMaxLimit: 1
-    - _LightMinLimit: 0.05
+    - _LightMinLimit: 0.5
     - _Main2ndDissolveNoiseStrength: 0.1
     - _Main2ndEnableLighting: 1
     - _Main2ndTexAlphaMode: 0
@@ -553,7 +553,7 @@ Material:
     - _MatCapZRotCancel: 1
     - _Metallic: 0
     - _Mode: 0
-    - _MonochromeLighting: 0
+    - _MonochromeLighting: 1
     - _OcclusionStrength: 1
     - _OffsetFactor: 0
     - _OffsetUnits: 0
@@ -640,15 +640,15 @@ Material:
     - _Shadow3rdNormalStrength: 1
     - _Shadow3rdReceive: 0
     - _ShadowArea: 1
-    - _ShadowBlur: 0.26
+    - _ShadowBlur: 1
     - _ShadowBlurMaskLOD: 0
-    - _ShadowBorder: 0.48
+    - _ShadowBorder: 1
     - _ShadowBorderMaskLOD: 0
     - _ShadowBorderRange: 0.08
     - _ShadowColorType: 0
     - _ShadowEnvStrength: 0
-    - _ShadowFlatBlur: 1
-    - _ShadowFlatBorder: 2
+    - _ShadowFlatBlur: 0.261
+    - _ShadowFlatBorder: 1.95
     - _ShadowMainStrength: 0
     - _ShadowMaskType: 0
     - _ShadowNormalStrength: 1
@@ -728,10 +728,10 @@ Material:
     - _AudioLinkVertexStart: {r: 0, g: 0, b: 0, a: 0}
     - _AudioLinkVertexStrength: {r: 0, g: 0, b: 0, a: 1}
     - _AudioLinkVertexUVParams: {r: 0.25, g: 0, b: 0, a: 0.125}
-    - _BackfaceColor: {r: 0, g: 0, b: 0, a: 0}
+    - _BackfaceColor: {r: 1, g: 1, b: 1, a: 0}
     - _BacklightColor: {r: 0.85, g: 0.8, b: 0.7, a: 1}
-    - _BaseColor: {r: 0.92452836, g: 0.92452836, b: 0.92452836, a: 1}
-    - _Color: {r: 0.92452836, g: 0.92452836, b: 0.92452836, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color2nd: {r: 1, g: 1, b: 1, a: 1}
     - _Color3rd: {r: 1, g: 1, b: 1, a: 1}
     - _DarkShadowMultColor: {r: 0, g: 0, b: 0, a: 1}
@@ -775,7 +775,7 @@ Material:
     - _Main3rdTexDecalAnimation: {r: 1, g: 1, b: 1, a: 30}
     - _Main3rdTexDecalSubParam: {r: 1, g: 1, b: 0, a: 1}
     - _Main3rdTex_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
-    - _MainTexHSVG: {r: 0, g: 1, b: 1, a: 1}
+    - _MainTexHSVG: {r: 0, g: 1, b: 2, a: 1}
     - _MainTex_ScrollRotate: {r: 0, g: 0, b: 0, a: 0}
     - _MatCap2ndBlendUV1: {r: 0, g: 0, b: 0, a: 0}
     - _MatCap2ndColor: {r: 1, g: 1, b: 1, a: 1}
