@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using Cinemachine;
 
 public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
 {
@@ -38,12 +40,23 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
     [SerializeField] private Animator _anim;
 
+    [Header("登場時のカメラ")]
+    [SerializeField] private GameObject _summonCamera;
+
+    [Header("死亡時のカメラ")]
     [SerializeField] private GameObject _deathCamera;
+
+    [Header("SpowmPoint")]
+    [SerializeField] private List<Transform> _spownPoint = new List<Transform>();
 
     [SerializeField] private BossStateMachine _state;
     private Transform _player;
 
     private bool _isDeath = false;
+
+    private bool _isFirstCamera = false;
+
+    private float _countFirstCamera = 0;
 
     public BossDeath BossDeath => _death;
     public bool IsDeath => _isDeath;
@@ -61,6 +74,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     private void Awake()
     {
         _player = GameObject.FindObjectOfType<PlayerControl>().gameObject.transform;
+        GameObject.FindObjectOfType<PlayerControl>().IsBossMovie = true;
         _state.Init(this);
         _bossAttack.Init(this);
         _hpControl.Init(this);
@@ -68,11 +82,35 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         _rotate.Init(this);
         _animControl.Init(this);
         _death.Init(this);
-    }
-    void Start()
-    {
 
+        _summonCamera.SetActive(true);
+        FirstSpwon();
     }
+
+
+    void FirstSpwon()
+    {
+        int r = 0;
+        float dis = Vector3.Distance(_spownPoint[0].position, _player.transform.position);
+
+        for (int i = 1; i < _spownPoint.Count; i++)
+        {
+            float d = Vector3.Distance(_spownPoint[i].transform.position, _player.transform.position);
+
+            if (d > dis)
+            {
+                dis = d;
+                r = i;
+            }
+        }
+        _spownPoint[r].gameObject.SetActive(true);
+        transform.position = _spownPoint[r].position;
+        transform.rotation = Quaternion.LookRotation(_player.position - transform.position);
+
+        float angle = Vector3.SignedAngle(Vector3.forward, transform.position - _player.position, Vector3.up);
+        _summonCamera.GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.Value = angle;
+    }
+
 
     private void Update()
     {
@@ -82,7 +120,31 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         //ゲーム中でなかったら何もしない
         if (!GameManager.Instance.IsGameMove) return;
 
+        //登場処理
+        if (!_isFirstCamera)
+        {
+            _countFirstCamera += Time.deltaTime;
+
+            _rb.velocity = Vector3.down * 0.1f;
+
+            if (_countFirstCamera > 3)
+            {
+                //アニメーションブレンド
+                _animControl.IsBlend(true);
+
+                _isFirstCamera = true;
+                GameObject.FindObjectOfType<PlayerControl>().IsBossMovie = false;
+                _summonCamera.SetActive(false);
+            }
+        }
+
+
+        if (!_isFirstCamera) return;
+
         _state.Update();
+
+
+
 
         if (_isDeath)
         {
@@ -92,6 +154,10 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
                 _deathCamera.SetActive(false);
                 EnemyFinish();
                 Destroy(gameObject);
+            }
+            else
+            {
+                _rb.velocity = Vector3.up * 0.5f;
             }
         }
 
@@ -104,6 +170,8 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
         //ゲーム中でなかったら何もしない
         if (!GameManager.Instance.IsGameMove) return;
+        if (!_isFirstCamera) return;
+
         _state.FixedUpdate();
     }
 
@@ -114,6 +182,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
         //ゲーム中でなかったら何もしない
         if (!GameManager.Instance.IsGameMove) return;
+        if (!_isFirstCamera) return;
 
         _state.LateUpdate();
     }
@@ -166,7 +235,7 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     {
         _isDeath = _hpControl.CompleteFinishAttack(attackHitTyp);
 
-        if(_isDeath)
+        if (_isDeath)
         {
             _deathCamera.SetActive(true);
         }
