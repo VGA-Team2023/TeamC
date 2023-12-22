@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class OptionButtonController : MonoBehaviour, ISelectHandler
 {
-    [SerializeField] GameObject _panel;
-    [SerializeField] GameObject _returnTarget = null;
-    [SerializeField] GameObject _targetObj;
-    EventSystem _eventSystem;
+    [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _returnTarget = null;
+    [SerializeField] private GameObject _targetObj;
+    private EventSystem _eventSystem = null;
     private void OnEnable()
     {
         if (_eventSystem == null)
@@ -27,9 +28,12 @@ public class OptionButtonController : MonoBehaviour, ISelectHandler
     {
         if (_targetObj != null)
         {
-            _eventSystem.SetSelectedGameObject(_targetObj);
+            //_eventSystem.SetSelectedGameObject(_targetObj);
+            _targetObj.GetComponent<Button>()?.Select();
             if (_targetObj.TryGetComponent<DisplayTargetPointer>(out var displayTargetPointer))
                 displayTargetPointer.TargetImage.gameObject.SetActive(true);
+            if (_targetObj.TryGetComponent<ButtonTextColorChanger>(out var buttonTextColorChanger))
+                buttonTextColorChanger.Target.gameObject.SetActive(true);
         }
     }
 }
