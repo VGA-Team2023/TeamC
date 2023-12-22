@@ -64,15 +64,16 @@ public class ResultPrinter : MonoBehaviour
         _audioController = AudioController.Instance;
         int defeatcount = gameManager.ScoreManager.LongEnemyDefeatedNum +
             gameManager.ScoreManager.ShortEnemyDefeatedNum;
+        _audioController.SE.Play(SEState.MeScoreAnnouncement);
         TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
         {
-
             TweenNum(GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
             {
                 TweenNum(GameManager.Instance.ScoreManager.PlayerDownNum,_playerDownCount,()=>
                 {
                     TweenNum(defeatcount, _enemyDefeatedCount, () => 
                     {
+                        _audioController.SE.Stop(SEState.MeScoreAnnouncement);
                         Judge(GameManager.Instance);
                         GameManager.Instance.ScoreManager.ScoreReset();
                     });
@@ -88,7 +89,7 @@ public class ResultPrinter : MonoBehaviour
     /// <param name="onCompleteCallback">Tweenが終わったかどうかのコールバック</param>
     public void TweenNum(int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
     {
-        _audioController.SE.Play(SEState.MeScoreAnnouncement);
+        //_audioController.SE.Play(SEState.MeScoreAnnouncement);
         int startnum = 99;
         DOTween.To(() => startnum, (n) => startnum = n, targetNum, _displayTime)
             .OnUpdate(() => tweenText.text = startnum.ToString("#,0"))
