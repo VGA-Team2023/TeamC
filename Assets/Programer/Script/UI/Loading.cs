@@ -31,14 +31,17 @@ public class Loading : MonoBehaviour
 
     IEnumerator WaitForLoading()
     {
-        AsyncOperation async = SceneManager.LoadSceneAsync(_nextSceneName);
-        async.allowSceneActivation = false;
+        yield return new WaitForSeconds(_waitTimer);
+        //AsyncOperation async = SceneManager.LoadSceneAsync(_nextSceneName);
+        //async.allowSceneActivation = false;
 
-        while (async.progress < 0.9f)
-        {
-            yield return new WaitForSeconds(_waitTimer);           
-        }
+        //while (async.progress < 0.9f && !async.isDone)
+        //{
+        //    yield return null;
+        //}
 
-        async.allowSceneActivation = true;
+        //yield return new WaitForSeconds(_waitTimer);
+
+        //async.allowSceneActivation = true;
     }
 }

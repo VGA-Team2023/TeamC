@@ -125,6 +125,8 @@ public class ResultPrinter : MonoBehaviour
         int enemyDefeatedNum = (GM.ScoreManager.LongEnemyDefeatedNum)+ (GM.ScoreManager.ShortEnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
 
+        //if(GM.ScoreManager.bool) enemyDefeatNum++;
+
         if (cleartimesecond - _idealClearTimeSeconds <= _sRankScoreClearTimeGap)
         {
             evaluationvalue += 4;
