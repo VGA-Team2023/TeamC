@@ -66,6 +66,9 @@ Material:
     - _FixLightY: 6
     - _GlossMapScale: 1
     - _GlossyReflections: 1
+    - _LightMaxLimit: 1
+    - _LightMinLimit: 1
+    - _MonochromeLighting: 1
     - _OutlineWidth: 1.56
     - _Parallax: 0.02
     - _ShadowArea: 0.93
