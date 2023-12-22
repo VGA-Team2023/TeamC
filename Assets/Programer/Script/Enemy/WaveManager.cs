@@ -102,6 +102,7 @@ public class WaveManager : MonoBehaviour
     public void BossDestroy()
     {
         DestroyCount--;
+        GameManager.Instance.ScoreManager.IsBossDestroy = true;
     }
 
     //遠距離敵が消えた時に呼ばれる関数
