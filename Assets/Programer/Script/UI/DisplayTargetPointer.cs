@@ -11,6 +11,7 @@ public class DisplayTargetPointer : MonoBehaviour,ISelectHandler, IDeselectHandl
     }
     public void OnDeselect(BaseEventData eventData)
     {
+        AudioController.Instance.SE.Play(SEState.SystemSelect);
         _targetImage.gameObject.SetActive(false);
     }
 }

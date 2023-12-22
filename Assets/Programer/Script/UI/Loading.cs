@@ -23,6 +23,7 @@ public class Loading : MonoBehaviour
     }
     public void LoadingScene()
     {
+        GameManager.Instance?.BGMStop();
         GameManager.Instance?.SEStopAll();
         _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
