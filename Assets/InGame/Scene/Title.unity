@@ -1902,7 +1902,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37, y: -8}
+  m_AnchoredPosition: {x: -53, y: -8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &171334704958227322
@@ -2789,6 +2789,7 @@ GameObject:
   - component: {fileID: 1621901401712758752}
   - component: {fileID: 1583833342851962934}
   - component: {fileID: 5004881942367881191}
+  - component: {fileID: 5004881942367881192}
   m_Layer: 5
   m_Name: BGMSlider
   m_TagString: Untagged
@@ -3615,6 +3616,20 @@ MonoBehaviour:
   _slider: {fileID: 1621901401712758752}
   _selectColor: {r: 1, g: 0.27058825, b: 0, a: 1}
   _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
+--- !u!114 &5004881942367881192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875584594714753083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d33c64bfa4b1d9438e6609cede6963d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 0}
+  _startColor: {r: 1, g: 0.27058825, b: 0, a: 1}
 --- !u!1 &5068245916034381621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52, y: -8}
+  m_AnchoredPosition: {x: -59, y: -8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6194024202358419535
@@ -4404,7 +4419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 0}
-  _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
+  _startColor: {r: 0.13333334, g: 0, b: 0, a: 1}
 --- !u!224 &7570375709875764758
 RectTransform:
   m_ObjectHideFlags: 0

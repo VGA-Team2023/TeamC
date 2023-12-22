@@ -11,13 +11,9 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField] private Text _resultText;
     [SerializeField] private Text _clearTimeMinutesResult;
     [SerializeField] private Text _clearTimeSecondResult;
-    [SerializeField] private Text _rankResult;
     [SerializeField] private Text _enemyDefeatedCount;
     [SerializeField] private Text _playerDownCount;
     [SerializeField] private Text _judgeText;
-    [SerializeField] private Text _clearTimeRankText;
-    [SerializeField] private Text _playerDownRankText;
-    [SerializeField] private Text _enemyDefeatRankText;
     [SerializeField, Tooltip("スコア別テキスト")]
     private string[] _resultTexts;
     [SerializeField, Tooltip("表示にかける秒数")]

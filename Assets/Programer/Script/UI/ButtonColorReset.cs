@@ -4,10 +4,10 @@ using UnityEngine.UI;
 public class ButtonColorReset : MonoBehaviour
 {
     [SerializeField] Text _text;
-    [SerializeField] Color _defaltColor;
+    [SerializeField] Color _startColor;
     private void OnEnable()
     {
         _text = GetComponentInChildren<Text>();
-        _text.color = _defaltColor;
+        _text.color = _startColor;
     }
 }
