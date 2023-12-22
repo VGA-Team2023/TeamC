@@ -159,7 +159,6 @@ MonoBehaviour:
   _resultText: {fileID: 6968572973127076480}
   _clearTimeMinutesResult: {fileID: 7589912765927431913}
   _clearTimeSecondResult: {fileID: 1687867180552774252}
-  _rankResult: {fileID: 0}
   _enemyDefeatedCount: {fileID: 8552375384186681549}
   _playerDownCount: {fileID: 4202072823946591574}
   _judgeText: {fileID: 7216372237037879288}
@@ -169,9 +168,9 @@ MonoBehaviour:
   - "\u5931\u6557\u306F\u6210\u529F\u306E\u7B2C1\u6B69\u3088\u3002\u632B\u3051\u305A\u81EA\u5206\u306E\u9B54\u6CD5\u3092\u78E8\u3044\u3066\u3082\u3046\u4E00\u5EA6\u8A66\u9A13\u306B\u6311\u307F\u307E\u3057\u3087\u3046\uFF01"
   _displayTime: 1
   _idealClearTimeSeconds: 150
-  _idealEnemyDefeatedNum: 20
+  _idealEnemyDefeatedNum: 15
   _idealPlayerDownNum: 0
-  _sRankScoreClearTimeGap: 20
+  _sRankScoreClearTimeGap: 0
   _aRankScoreClearTimeGap: 60
   _bRankScoreClearTimeGap: 120
   _cRankScoreClearTimeGap: 150
