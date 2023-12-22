@@ -76,6 +76,7 @@ public class ResultPrinter : MonoBehaviour
                         _audioController.SE.Stop(SEState.MeScoreAnnouncement);
                         Judge(GameManager.Instance);
                         GameManager.Instance.ScoreManager.ScoreReset();
+                        GameManager.Instance.ScoreManager.IsBossDestroy = false;
                     });
                 });
             });
@@ -124,6 +125,8 @@ public class ResultPrinter : MonoBehaviour
             GM.ScoreManager.ClearTime.Seconds;
         int enemyDefeatedNum = (GM.ScoreManager.LongEnemyDefeatedNum)+ (GM.ScoreManager.ShortEnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
+
+        if (GM.ScoreManager.IsBossDestroy) enemyDefeatedNum++;
 
         if (cleartimesecond - _idealClearTimeSeconds <= _sRankScoreClearTimeGap)
         {
