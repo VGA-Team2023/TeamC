@@ -27,7 +27,6 @@ public class Loading : MonoBehaviour
         GameManager.Instance?.SEStopAll();
         _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
-
     }
 
     IEnumerator WaitForLoading()

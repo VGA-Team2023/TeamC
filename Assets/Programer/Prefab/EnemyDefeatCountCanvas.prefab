@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0/10
+  m_Text: 0/9
 --- !u!1 &3032289875213704021
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0/10
+  m_Text: 0/5
 --- !u!1 &3929982294239776993
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _meleeEnemyDefeatCountText: {fileID: 8250115027589893389}
   _longEnemyDefeatCountText: {fileID: 3055263294140008678}
-  _allMeleeEnemyCount: 10
-  _allLongEnemyCount: 10
+  _allMeleeEnemyCount: 9
+  _allLongEnemyCount: 5
   _shortEnemyDefeatCount: 0
   _longEnemyDefeatCount: 0
 --- !u!1 &8623395085106590452
