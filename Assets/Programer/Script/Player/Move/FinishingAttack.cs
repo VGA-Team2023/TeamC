@@ -64,14 +64,14 @@ public class FinishingAttack
             }
             else
             {
-                AudioController.Instance.SE.Stop(SEState.PlayerChargeIce);
+                AudioController.Instance.SE.Play(SEState.PlayerChargeGrass);
             }
         }
         else
         {
             if (_startAttribute == PlayerAttribute.Ice)
             {
-                AudioController.Instance.SE.Play(SEState.PlayerChargeGrass);
+                AudioController.Instance.SE.Stop(SEState.PlayerChargeIce);
             }
             else
             {

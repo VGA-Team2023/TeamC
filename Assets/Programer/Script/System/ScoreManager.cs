@@ -12,7 +12,7 @@ public class ScoreManager
     bool _isBossDestroy = false;
 
     /// <summary>クリア時間</summary>
-    public MinutesSecondsVer ClearTime { get { return _clearTime; }set { _clearTime = value; } }
+    public MinutesSecondsVer ClearTime { get { return _clearTime; } set { _clearTime = value; } }
     /// <summary>遠距離敵撃破数</summary>
     public int LongEnemyDefeatedNum { get { return _longEnemyDefeatedNum; } set { _longEnemyDefeatedNum = value; } }
     /// <summary>近距離敵撃破数</summary>
@@ -23,9 +23,10 @@ public class ScoreManager
 
     public void ScoreReset()
     {
+        _isBossDestroy = false;
         _clearTime = new();
         _longEnemyDefeatedNum = 0;
-        _shortEnemyDefeatedNum= 0;
+        _shortEnemyDefeatedNum = 0;
         _playerDownNum = 0;
     }
 }

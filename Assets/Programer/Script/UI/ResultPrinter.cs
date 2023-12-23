@@ -68,6 +68,8 @@ public class ResultPrinter : MonoBehaviour
             gameManager.ScoreManager.ShortEnemyDefeatedNum;
         _audioController.SE.Play(SEState.MeScoreAnnouncement);
 
+        if (gameManager.ScoreManager.IsBossDestroy) defeatcount++;
+
         TweenNum(9, GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
          {
              TweenNum(99, GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>

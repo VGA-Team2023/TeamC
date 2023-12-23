@@ -24570,7 +24570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c4bea0832391941b9c8cc6b59adeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsMousePlay: 1
+  IsMousePlay: 0
   _hp:
     _hp: 50
     _uiHp:
@@ -64884,12 +64884,12 @@ PrefabInstance:
     - target: {fileID: 2771519458856985221, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2956004603290061203, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4289490135902114832, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
@@ -64919,7 +64919,7 @@ PrefabInstance:
     - target: {fileID: 4460020679963610079, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686872508888149618, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
@@ -64939,12 +64939,12 @@ PrefabInstance:
     - target: {fileID: 6134291800849590476, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6980733172563062365, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7394905072389153017, guid: bf262fd6c2c9a4242908cb654f680903,
         type: 3}
