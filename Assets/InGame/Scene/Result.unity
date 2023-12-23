@@ -781,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981f029bcdfce3c4c83188bb8a76bbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isKeyBordPlay: 0
+  _isKeyBordPlay: 1
 --- !u!4 &1849953849
 Transform:
   m_ObjectHideFlags: 0
@@ -809,6 +809,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResultCanvas (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653989952188306512, guid: 067c16a2202285a46b9d71e29a242eea,
+        type: 3}
+      propertyPath: _idealClearTimeSeconds
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653989952188306512, guid: 067c16a2202285a46b9d71e29a242eea,
+        type: 3}
+      propertyPath: _aRankScoreClearTimeGap
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653989952188306512, guid: 067c16a2202285a46b9d71e29a242eea,
+        type: 3}
+      propertyPath: _bRankScoreClearTimeGap
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653989952188306512, guid: 067c16a2202285a46b9d71e29a242eea,
+        type: 3}
+      propertyPath: _cRankScoreClearTimeGap
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5144861516251877219, guid: 067c16a2202285a46b9d71e29a242eea,
         type: 3}

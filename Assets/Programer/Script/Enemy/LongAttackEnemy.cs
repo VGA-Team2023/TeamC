@@ -77,12 +77,16 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         {
             base.OnEnemyDestroy -= StartFinishing;
             EnemyFinish();
-            GameManager.Instance.PauseManager.Remove(this);
-            GameManager.Instance.SlowManager.Remove(this);
-            GameManager.Instance.SpecialMovingPauseManager.Resume(this);
             Destroy(gameObject);
         }
     }
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
 
     public MoveState State
     {
@@ -122,6 +126,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
         return list;
     }
+
+
 
     void Start()
     {
