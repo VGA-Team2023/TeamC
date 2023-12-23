@@ -76,10 +76,16 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         {
             base.OnEnemyDestroy -= StartFinishing;
             EnemyFinish();
-            GameManager.Instance.PauseManager.Remove(this);
-            GameManager.Instance.SlowManager.Remove(this);
+
             Destroy(gameObject);
         }
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
     }
 
     public void AttackEffectPlay()
