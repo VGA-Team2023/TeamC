@@ -57,14 +57,10 @@ public class BossFollowAttack
         _bossControl.BossAnimControl.IsCharge(false);
         _bossControl.BossAnimControl.Attack(false);
 
-        if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
-        {
-            _chargeIce.ForEach(i => i.Stop());
-        }
-        else
-        {
-            _chargeGrass.ForEach(i => i.Stop());
-        }
+        //エフェクト停止
+        _chargeIce.ForEach(i => i.Stop());
+        _chargeGrass.ForEach(i => i.Stop());
+
 
         _setAttack.StopAtttack();
     }

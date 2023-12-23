@@ -200,6 +200,8 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public void BossDamage(float damage, MagickType magickType)
     {
         //ゲーム中でなかったら何もしない
+        if (!GameManager.Instance.IsGameMove) return;
+
         _damage.Damage(damage, true, magickType);
     }
 
