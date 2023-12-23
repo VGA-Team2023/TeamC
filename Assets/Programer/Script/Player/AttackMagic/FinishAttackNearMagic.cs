@@ -78,6 +78,7 @@ public class FinishAttackNearMagic
         {
             foreach (var a in particleSystems)
             {
+                a.time = 0;
                 a.Play();
             }
         }
@@ -85,6 +86,7 @@ public class FinishAttackNearMagic
         {
             foreach (var a in particleSystemsGrass)
             {
+                a.time = 0;
                 a.Play();
             }
         }

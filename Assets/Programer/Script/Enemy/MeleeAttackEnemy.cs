@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
@@ -46,8 +48,49 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     float _defaultSpeed = 0;
     int _defaultHp = 0;
-
     MoveState _state = MoveState.FreeMove;
+
+
+    /// <summary>勝手に追加コーナー</summary>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ 
+
+    private float _countDestroyTime = 0;
+
+    /// <summary>死亡したかどうか</summary>
+    private bool _isDeath = false;
+
+    private bool _isFinishAttackNow = false;
+
+    [Header("死亡後消えるまでの時間")]
+    [SerializeField] private float _destroyTime = 2f;
+
+    [Header("攻撃のエフェクト")]
+    [SerializeField] private List<ParticleSystem> _attackEffect = new List<ParticleSystem>();
+
+    private void CountDestroyTime()
+    {
+        if (!_isDeath) return;
+
+        _countDestroyTime += Time.deltaTime;
+
+        if (_countDestroyTime > _destroyTime)
+        {
+            base.OnEnemyDestroy -= StartFinishing;
+            EnemyFinish();
+            GameManager.Instance.PauseManager.Remove(this);
+            GameManager.Instance.SlowManager.Remove(this);
+            Destroy(gameObject);
+        }
+    }
+
+    public void AttackEffectPlay()
+    {
+        _attackEffect.ForEach(i => i.Play());
+    }
+
+    /////↑↑↑↑↑↑↑↑
+
+
+
     public MoveState State
     {
         get => _state;
@@ -87,7 +130,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         _freeMoveState = new MAEFreeMoveState(this, _player);
         _attack = new MAEAttackState(this, _player);
         _finish = new MAEFinishState(this);
-        _chase  = new MAEChaseState(this, _player);
+        _chase = new MAEChaseState(this, _player);
         base.OnEnemyDestroy += StartFinishing;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
@@ -95,18 +138,35 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     void Update()
     {
+
+        ////勝手に追加コーナー↓↓↓↓
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        CountDestroyTime();
+        if (_isDeath) return;
+        /////↑↑↑↑↑↑↑↑
+
+
+
         switch (_state)
         {
             case MoveState.FreeMove:
                 _freeMoveState.Update();
                 break;
             case MoveState.Attack:
-                _attack.Update(); 
+
+                //勝手に追加コーナー
+                if (_isFinishAttackNow) return;
+
+                _attack.Update();
                 break;
             case MoveState.Finish:
                 _finish.Update();
                 break;
             case MoveState.Chase:
+
+                //勝手に追加コーナー
+                if (_isFinishAttackNow) return;
+
                 _chase.Update();
                 break;
         }
@@ -137,8 +197,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         SeAudio(SEState.EnemyNormalDamage, CRIType.Play);
         if (attackHitTyp == MagickType.Ice)
         {
-            GameObject iceAttack = Instantiate(_iceAttackEffect, transform.position, Quaternion.identity);
-            Destroy(iceAttack, 0.3f);
+            GameObject iceAttack = Instantiate(_iceAttackEffect);
+            iceAttack.transform.position = transform.position;
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
@@ -157,8 +217,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         }
         else if (attackHitTyp == MagickType.Grass)
         {
-            GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
-            Destroy(grassAttack, 0.3f);
+            GameObject grassAttack = Instantiate(_grassAttackEffect);
+            grassAttack.transform.position = transform.position;
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitGrassPatternA, CRIType.Play);
@@ -179,6 +239,9 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void StartFinishing()
     {
+        //勝手に追加コーナー
+        _isFinishAttackNow = true;
+
         gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
         Core.SetActive(true);
@@ -188,6 +251,9 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void StopFinishing()
     {
+        //勝手に追加コーナー
+        _isFinishAttackNow = false;
+
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
         gameObject.layer = DefaultLayer;
@@ -201,26 +267,39 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         if (attackHitTyp == MagickType.Ice)
         {
             SeAudio(SEState.EnemyFinichHitIce, CRIType.Play);
-            GameObject iceAttack = Instantiate(_iceFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-            Destroy(iceAttack, 3f);
+            GameObject iceAttack = Instantiate(_iceFinishEffect);
+            iceAttack.transform.position = transform.position + new Vector3(0, -0.5f, 0);
         }
         else if (attackHitTyp == MagickType.Grass)
         {
             SeAudio(SEState.EnemyFinishHitGrass, CRIType.Play);
-            GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
-            Destroy(grassAttack, 3f);
+            GameObject grassAttack = Instantiate(_grassFinishEffect);
+            grassAttack.transform.position = transform.position + new Vector3(0, -1.8f, 0);
         }
         if (IsDemo) return;
-        Vector3 dir = transform.position - _player.transform.position;
-        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        base.OnEnemyDestroy -= StartFinishing;
-        EnemyFinish();
-        GameManager.Instance.PauseManager.Remove(this);
-        GameManager.Instance.SlowManager.Remove(this);
+
+        //////勝手に追加コーナー↓↓↓↓
+        _isDeath = true;
         gameObject.layer = DeadLayer;
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyOut, CRIType.Play);
-        Destroy(gameObject, 1f);
+        Vector3 dir = transform.position - _player.transform.position;
+        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        //↑↑↑
+
+
+
+        //修正前
+        //Vector3 dir = transform.position - _player.transform.position;
+        //_rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        //base.OnEnemyDestroy -= StartFinishing;
+        //EnemyFinish();
+        //GameManager.Instance.PauseManager.Remove(this);
+        //GameManager.Instance.SlowManager.Remove(this);
+        //gameObject.layer = DeadLayer;
+        //SeAudio(SEState.EnemyStan, CRIType.Stop);
+        //SeAudio(SEState.EnemyOut, CRIType.Play);
+        //Destroy(gameObject, 2f);
     }
 
     public void Pause()
@@ -262,13 +341,13 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     public void SeAudio(SEState playSe, CRIType criType)
     {
-        if(IsAudio)
+        if (IsAudio)
         {
             if (criType == CRIType.Play)
             {
                 AudioController.Instance.SE.Play3D(playSe, transform.position);
             }
-            else if(criType == CRIType.Stop)
+            else if (criType == CRIType.Stop)
             {
                 AudioController.Instance.SE.Stop(playSe);
             }

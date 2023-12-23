@@ -74,7 +74,6 @@ public class BossFollowAttack
     {
         if (_setAttack.DoAttack())
         {
-
             _bossControl.BossAnimControl.IsCharge(false);
             _bossControl.BossAnimControl.Attack(true);
 

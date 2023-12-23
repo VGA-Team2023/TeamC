@@ -132,9 +132,9 @@ public class BossHp
     /// <summary>ƒgƒhƒ‚ğh‚³‚ê‚½ê‡</summary>
     public bool CompleteFinishAttack(MagickType magickType)
     {
-        if (_waveCount < 2)
+        if (_waveCount == 1)
         {
-            _effectDark[_waveCount].Stop();
+            _effectDark[0].Stop();
         }
         _waveCount++;
 

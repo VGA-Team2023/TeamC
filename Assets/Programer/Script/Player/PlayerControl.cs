@@ -37,7 +37,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [Header("属性変更")]
     [SerializeField] private PlayerChangeAttribute _playerChangeAttribute;
 
-
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
     [Header("カメラ設定")]
     [SerializeField] private CameraControl _cameraControl;

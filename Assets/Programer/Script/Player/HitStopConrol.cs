@@ -14,7 +14,12 @@ public class HitStopConrol : MonoBehaviour
     private float _setHitStopTime = 0.3f;
 
 
+    private ControllerVibrationManager _cMl;
 
+    private void Awake()
+    {
+        _cMl = FindObjectOfType<ControllerVibrationManager>();
+    }
 
     void Update()
     {
@@ -38,7 +43,13 @@ public class HitStopConrol : MonoBehaviour
     }
 
     public void StartHitStop(HitStopKind hitStopKind)
-    {
+    {      
+        //コントローラーの振動
+        if (_cMl != null)
+        {
+            _cMl.OneVibration(0.5f, 1f, 1f);
+        }
+
         _isHitStop = true;
 
         foreach (var data in _hitStopData)
@@ -57,6 +68,8 @@ public class HitStopConrol : MonoBehaviour
         GameManager.Instance.SlowManager.OnOffSlow(false);
         _isHitStop = false;
         _countTime = 0;
+
+
     }
 
     /// <summary>ヒットストップの時間を設定</summary>

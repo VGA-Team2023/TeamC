@@ -25,6 +25,7 @@ public class Loading : MonoBehaviour
     {
         GameManager.Instance?.BGMStop();
         GameManager.Instance?.SEStopAll();
+        GameManager.Instance?.VoiceStopAll();
         _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
     }

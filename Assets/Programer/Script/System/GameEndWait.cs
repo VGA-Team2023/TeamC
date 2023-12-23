@@ -54,7 +54,7 @@ public class GameEndWait : MonoBehaviour, IPause
     {
         //リザルト状態に変更
         var _gameManager = FindObjectOfType<GameManager>();
-        _gameManager.ChangeGameState(GameState.Result);
+       // _gameManager.ChangeGameState(GameState.Result);
         //スコアの計算をここに記述
         //シーン遷移のメソッドを呼ぶ
         _gameManager.ResultProcess();
