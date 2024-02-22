@@ -29,6 +29,8 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
 
     private Vector3 _foward;
 
+    private bool _isEnter = false;
+
     enum PlayMagicAudioType
     {
         Play,
@@ -154,11 +156,24 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_isEnter) return;
         other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
         damageble?.Damage(_attackType, _magicType, _attackPower);
         AudioSet(PlayMagicAudioType.Stop);
+        _isEnter = true;
         Destroy(gameObject);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (_isEnter) return;
+        other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
+        damageble?.Damage(_attackType, _magicType, _attackPower);
+        AudioSet(PlayMagicAudioType.Stop);
+        _isEnter = true;
+        Destroy(gameObject);
+    }
+
 
     private void OnEnable()
     {
