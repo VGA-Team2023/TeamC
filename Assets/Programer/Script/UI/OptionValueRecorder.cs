@@ -5,16 +5,16 @@ public class OptionValueRecorder : MonoBehaviour
 {
     private static OptionValueRecorder _instance;
 
-    public float CameraSensitivity;
+    public float CameraSensitivity = 0.5f;
     public static OptionValueRecorder Instance
     {
         get
         {
-            if(_instance == null )
+            if (_instance == null)
             {
-                _instance =  FindObjectOfType<OptionValueRecorder>();
+                _instance = FindObjectOfType<OptionValueRecorder>();
             }
-            return _instance; 
+            return _instance;
         }
     }
     private void OnEnable()
