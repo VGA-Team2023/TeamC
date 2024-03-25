@@ -134,6 +134,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         _player = FindObjectOfType<PlayerControl>();
         _rb = GetComponent<Rigidbody>();
         _defaultHp = HP;
+        HpBar.maxValue = _defaultHp;
+        HpBar.value = _defaultHp;
         List<Vector3> patrolPoint = new List<Vector3> { transform.position };
         foreach (var point in _movePosition)
         {
