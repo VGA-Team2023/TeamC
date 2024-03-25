@@ -133,6 +133,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         _rb = GetComponent<Rigidbody>();
         _player = FindObjectOfType<PlayerControl>();
         _defaultHp = HP;
+        HpBar.maxValue = _defaultHp;
+        HpBar.value = _defaultHp;
         _freeMoveState = new MAEFreeMoveState(this, _player);
         _attack = new MAEAttackState(this, _player);
         _finish = new MAEFinishState(this);
