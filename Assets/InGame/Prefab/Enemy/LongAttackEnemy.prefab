@@ -247,7 +247,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: e20f1311b38e3ef4094d8fd7b1cc3679, type: 3}
+  - {fileID: 2100000, guid: 11a2d05246563cf4d8a33f0b8c25c226, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1482,7 +1482,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: e20f1311b38e3ef4094d8fd7b1cc3679, type: 3}
+  - {fileID: 2100000, guid: 11a2d05246563cf4d8a33f0b8c25c226, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1794,7 +1794,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8368722655750445499, guid: e20f1311b38e3ef4094d8fd7b1cc3679, type: 3}
+  - {fileID: 2100000, guid: 11a2d05246563cf4d8a33f0b8c25c226, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10202,7 +10202,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7380727542012238925, guid: e20f1311b38e3ef4094d8fd7b1cc3679, type: 3}
+  - {fileID: 2100000, guid: 9cf11ec225ddb9241a69c8f04cbbebbc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10806,6 +10806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3752806200398321624}
   - component: {fileID: 1780763059450093201}
+  - component: {fileID: 3451885351395913707}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -10886,6 +10887,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3451885351395913707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320904227598265301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d76dccd13c2054d8a6e6ba2f8f5863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpBar: {fileID: 0}
+  _mainCamera: {fileID: 0}
 --- !u!1 &8357520844848858945
 GameObject:
   m_ObjectHideFlags: 0
