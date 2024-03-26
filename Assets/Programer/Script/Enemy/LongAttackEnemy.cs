@@ -49,7 +49,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     float _defaultSpeed = 0;
-    int _defaultHp = 0;
+    float _defaultHp = 0;
 
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
@@ -126,8 +126,6 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
         return list;
     }
-
-
 
     void Start()
     {
@@ -217,13 +215,27 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
-                HP--;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= WeekDamage;
+                }
+                else
+                {
+                    HP--;
+                }
             }
             else
             {
                 SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
-                HP -= (int)damage;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= damage * WeekDamage;
+                }
+                else
+                {
+                    HP -= damage;
+                }
             }
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
