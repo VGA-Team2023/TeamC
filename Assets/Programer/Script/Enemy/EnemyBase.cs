@@ -15,8 +15,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]
-    int _hp;
-    public int HP
+    float _hp;
+    public float HP
     {
         get => _hp;
         set
@@ -38,6 +38,13 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField, Tooltip("エネミーの攻撃力")]
     int _attack;
     public int Attack => _attack;
+    [SerializeField, Tooltip("弱点属性")]
+    private MagickType _weekType;
+    public MagickType WeekType => _weekType;
+    [SerializeField, Tooltip("弱点属性によるプラスダメージ倍率")]
+    private float _weekDamage = 2.0f;
+    public float WeekDamage => _weekDamage;
+
     [Header("====================")]
 
     [Header("敵の挙動に関する数値")]

@@ -47,7 +47,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     float _defaultSpeed = 0;
-    int _defaultHp = 0;
+    float _defaultHp = 0;
     MoveState _state = MoveState.FreeMove;
 
 
@@ -182,10 +182,10 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (_state == MoveState.FreeMove)
-        //{
-        //    _freeMoveState.WallHit();
-        //}
+        if (_state == MoveState.FreeMove)
+        {
+            _freeMoveState.WallHit();
+        }
     }
 
     public bool TryGet<T>(out T returnObject, GameObject checkObject)
@@ -211,13 +211,27 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
-                HP--;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= WeekDamage;
+                }
+                else
+                {
+                    HP--;
+                }
             }
             else
             {
                 SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
-                HP -= (int)damage;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= damage * WeekDamage;
+                }
+                else
+                {
+                    HP -= damage;
+                }
             }
             if (IsDemo) return;
             Vector3 dir = transform.position - _player.transform.position;
