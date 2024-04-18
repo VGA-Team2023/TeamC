@@ -29,7 +29,10 @@ public class PlayerStateMachine : StateMachine
     private DeadState _stateDead = default;
     [SerializeField]
     private DamageState _stateDamage = default;
+    [SerializeField]
+    private ChangeAttributeState _stateChangeAttibute = default;
 
+    public ChangeAttributeState ChangeAttributeState => _stateChangeAttibute;
     public IdleState StateIdle => _stateIdle;
     public WalkState StateWalk => _stateWalk;
     public RunState StateRun => _stateRun;
@@ -68,6 +71,7 @@ public class PlayerStateMachine : StateMachine
         _stateAvoid.Init(this);
         _stateDead.Init(this);
         _stateDamage.Init(this);
+        _stateChangeAttibute.Init(this);
     }
 
 }

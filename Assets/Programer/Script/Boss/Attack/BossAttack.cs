@@ -33,6 +33,9 @@ public class BossAttack
 
     private BossControl _bossControl;
 
+    public bool IsAttackNow => _isAttackNow;
+    public BossAttackType BossAttackMagicTypes => _bossAttackMagicTypes;
+
     public BossFollowAttack BossFollowAttack => _followAttack;
     public BossNomalAttack NomalAttack => _nomalAttack;
     public BossTeleportAttack TeleportAttack => _teleportAttack;
@@ -47,6 +50,8 @@ public class BossAttack
     public void AttackStartSet()
     {
         _isAttackNow = true;
+
+        _bossControl.BossAnimControl.IsCharge(true);
 
         var r = Random.Range(0, 10);
 

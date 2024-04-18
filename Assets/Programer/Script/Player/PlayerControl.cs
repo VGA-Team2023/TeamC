@@ -37,7 +37,6 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [Header("属性変更")]
     [SerializeField] private PlayerChangeAttribute _playerChangeAttribute;
 
-
     [SerializeField] private ControllerVibrationManager _controllerVibrationManager;
     [Header("カメラ設定")]
     [SerializeField] private CameraControl _cameraControl;
@@ -63,7 +62,11 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     private bool _isNewAttack = true;
 
+    private bool _isBossMovie = false;
+    public bool IsBossMovie { get => _isBossMovie;set => _isBossMovie = value; }
+
     private bool _isPause = false;
+
 
     private bool _isPlayingMoveAudio = false;
     public PlayerChangeAttribute PlayerAttributeControl => _playerChangeAttribute;
@@ -121,11 +124,14 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         {
             _isPause = !_isPause;
             GameManager.Instance.PauseManager.PauseResume(_isPause);
-            Debug.Log("ISPAAAA");
         }
 
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
 
+        if (_isBossMovie) return;
+
+        _playerModelT.transform.localPosition = Vector3.zero;
+        _playerModelT.transform.localRotation = Quaternion.Euler(0,0,0);
 
         _stateMachine.Update();
 
@@ -163,12 +169,14 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     private void FixedUpdate()
     {
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        if (_isBossMovie) return;
         _stateMachine.FixedUpdate();
     }
 
     private void LateUpdate()
     {
         if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        if (_isBossMovie) return;
         _stateMachine.LateUpdate();
         _playerAnimControl.AnimSet();
     }
@@ -192,6 +200,8 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public void BossDamage(float damage, MagickType magickType)
     {
         //ゲーム中でなかったら何もしない
+        if (!GameManager.Instance.IsGameMove) return;
+
         _damage.Damage(damage, true, magickType);
     }
 

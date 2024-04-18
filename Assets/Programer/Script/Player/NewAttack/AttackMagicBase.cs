@@ -171,7 +171,7 @@ public class AttackMagicBase
             _playerControl.CameraControl.ShakeCamra(CameraType.AttackCharge, CameraShakeType.AttackNomal);
 
             //コントローラーの振動
-            _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.5f, 0.5f);
+            _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.8f, 0.8f);
 
             //魔法を使う
             Magic();

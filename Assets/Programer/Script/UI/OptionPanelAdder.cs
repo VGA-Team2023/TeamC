@@ -10,6 +10,7 @@ public class OptionPanelAdder : MonoBehaviour
         var tmp = _inGameOptionPanel.GetComponent<IPause>();
         _gameManager = GameManager.Instance;
         _gameManager.PauseManager.Add(tmp);
+        _inGameOptionPanel.SetActive(false);
     }
     private void OnDisable()
     {

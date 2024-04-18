@@ -34,8 +34,8 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     private void OnEnable()
     {
-        GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
 

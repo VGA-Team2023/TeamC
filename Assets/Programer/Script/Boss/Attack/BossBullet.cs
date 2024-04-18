@@ -79,6 +79,14 @@ public class BossBullet : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
             AudioSet(PlayMagicAudioType.Stop);
             Destroy(gameObject);
         }
+        else
+        {
+            _isDestroy = true;
+
+            //âπåπÇÃçXêV
+            AudioSet(PlayMagicAudioType.Stop);
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>âπÇó¨Ç∑</summary>

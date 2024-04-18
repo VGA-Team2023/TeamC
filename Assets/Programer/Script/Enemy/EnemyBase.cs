@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -14,22 +15,36 @@ public abstract class EnemyBase : MonoBehaviour
 
     [Header("敵のステータスに関する数値")]
     [SerializeField, Tooltip("エネミーの体力")]
-    int _hp;
-    public int HP
+    float _hp;
+    public float HP
     {
         get => _hp;
         set
         {
             _hp = value;
+            _hpBar.value = _hp;
             if (_hp <= 0)
             {
                 OnEnemyDestroy();
             }
         }
     }
+
+    [SerializeField, Tooltip("エネミーのHPバー")]
+    private Slider _hpBar;
+    public Slider HpBar { get => _hpBar; set => _hpBar = value;
+    }
+
     [SerializeField, Tooltip("エネミーの攻撃力")]
     int _attack;
     public int Attack => _attack;
+    [SerializeField, Tooltip("弱点属性")]
+    private MagickType _weekType;
+    public MagickType WeekType => _weekType;
+    [SerializeField, Tooltip("弱点属性によるプラスダメージ倍率")]
+    private float _weekDamage = 2.0f;
+    public float WeekDamage => _weekDamage;
+
     [Header("====================")]
 
     [Header("敵の挙動に関する数値")]

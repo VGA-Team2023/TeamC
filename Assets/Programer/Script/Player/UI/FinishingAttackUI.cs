@@ -91,7 +91,6 @@ public class FinishingAttackUI
         foreach (var a in _canFinishUI)
         {
             a.SetActive(false);
-
         }
 
         _finishingUI.SetActive(false);

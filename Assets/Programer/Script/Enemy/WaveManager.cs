@@ -26,16 +26,11 @@ public class WaveManager : MonoBehaviour
                 //設定してるWaveが全て呼ばれたらシーン遷移
                 _waveCount++;
                 _waveCoroutine.MoveNext();
+                Debug.Log("カウント:" + _waveCount);
                 if (_waveCount == _waveSettings.Count)
                 {
                     //リザルト状態に変更
                     var _gameManager = FindObjectOfType<GameManager>();
-                    _gameManager.ChangeGameState(GameState.Result);
-                    //スコアの計算をここに記述
-                    //シーン遷移のメソッドを呼ぶ
-                    _gameManager.ResultProcess();
-                    //Loading sceneControlle = FindObjectOfType<Loading>();
-                    //sceneControlle?.LoadingScene();
                     _gameManager.GameEndWaitCall();
                 }
             }
@@ -96,8 +91,18 @@ public class WaveManager : MonoBehaviour
             {
                 summon.OnEnemyFinish += MeleeEnemyDestroy;
             }
+            if(summon.TryGetComponent(out BossControl boss))
+            {
+                summon.OnEnemyFinish += BossDestroy;
+            }
         }
         yield return 3;
+    }
+
+    public void BossDestroy()
+    {
+        DestroyCount--;
+        GameManager.Instance.ScoreManager.IsBossDestroy = true;
     }
 
     //遠距離敵が消えた時に呼ばれる関数

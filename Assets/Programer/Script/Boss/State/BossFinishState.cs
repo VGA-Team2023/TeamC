@@ -31,17 +31,32 @@ public class BossFinishState : BossStateBase
         //ダウン状態の時間計測
         _stateMachine.BossController.BossHp.CountKnockDownTime();
 
+        _stateMachine.BossController.BossHp.CountFinishedWaitTime();
+
         if (_stateMachine.BossController.IsDeath)
         {
             _stateMachine.TransitionTo(_stateMachine.StateDeath);
             return;
         }//死亡
 
-        if (!_stateMachine.BossController.BossHp.IsKnockDown)
+        if (_stateMachine.BossController.BossHp.IsFinishComplete)
         {
-            _stateMachine.TransitionTo(_stateMachine.StateIdle);
-            return;
-        }   //トドメ
+            if (_stateMachine.BossController.BossHp.IsEndWaitTime)
+            {
+                _stateMachine.TransitionTo(_stateMachine.StateIdle);
+                return;
+            }   //トドメ
+        }
+        else
+        {
+            if (!_stateMachine.BossController.BossHp.IsKnockDown)
+            {
+                _stateMachine.TransitionTo(_stateMachine.StateIdle);
+                return;
+            }   //トドメ
+        }
+
+
     }
 
     public override void LateUpdate()

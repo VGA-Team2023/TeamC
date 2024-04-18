@@ -11,10 +11,11 @@ public class ResultPrinter : MonoBehaviour
     [SerializeField] private Text _resultText;
     [SerializeField] private Text _clearTimeMinutesResult;
     [SerializeField] private Text _clearTimeSecondResult;
-    [SerializeField] private Text _rankResult;
     [SerializeField] private Text _enemyDefeatedCount;
     [SerializeField] private Text _playerDownCount;
     [SerializeField] private Text _judgeText;
+    [SerializeField] private Text _floatingTimeMinutesText;
+    [SerializeField] private Text _floatingTimeSecondsText;
     [SerializeField, Tooltip("スコア別テキスト")]
     private string[] _resultTexts;
     [SerializeField, Tooltip("表示にかける秒数")]
@@ -65,20 +66,32 @@ public class ResultPrinter : MonoBehaviour
         _audioController = AudioController.Instance;
         int defeatcount = gameManager.ScoreManager.LongEnemyDefeatedNum +
             gameManager.ScoreManager.ShortEnemyDefeatedNum;
-        TweenNum(GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
-        {
-            TweenNum(GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
-            {
-                TweenNum(defeatcount, _enemyDefeatedCount, () =>
-                {
-                    TweenNum(GameManager.Instance.ScoreManager.PlayerDownNum, _playerDownCount, () =>
-                    {
-                        Judge(GameManager.Instance);
-                        GameManager.Instance.ScoreManager.ScoreReset();
-                    });
-                });
-            });
-        });
+        _audioController.SE.Play(SEState.MeScoreAnnouncement);
+
+        if (gameManager.ScoreManager.IsBossDestroy) defeatcount++;
+
+        TweenNum(9, GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
+         {
+             TweenNum(99, GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
+             {
+                 TweenNum(9, GameManager.Instance.ScoreManager.ClearTime.Minutes, _floatingTimeMinutesText, () =>
+                 {
+                     TweenNum(99, GameManager.Instance.ScoreManager.ClearTime.Seconds, _floatingTimeSecondsText, () =>
+                     {
+                         TweenNum(9, defeatcount, _enemyDefeatedCount, () =>
+                         {
+                             TweenNum(99, GameManager.Instance.ScoreManager.PlayerDownNum, _playerDownCount, () =>
+                             {
+                                 _audioController.SE.Stop(SEState.MeScoreAnnouncement);
+                                 Judge(GameManager.Instance);
+                                 GameManager.Instance.ScoreManager.ScoreReset();
+                                 GameManager.Instance.ScoreManager.IsBossDestroy = false;
+                             });
+                         });
+                     });
+                 });
+             });
+         });
     }
     /// <summary>
     /// 指定秒数でスコアを表示する関数
@@ -86,12 +99,11 @@ public class ResultPrinter : MonoBehaviour
     /// <param name="targetNum">表示する値</param>
     /// <param name="tweenText">表示用Text</param>
     /// <param name="onCompleteCallback">Tweenが終わったかどうかのコールバック</param>
-    public void TweenNum(int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
+    public void TweenNum(int start, int targetNum, Text tweenText, TweenCallback onCompleteCallback = null)
     {
-        _audioController.SE.Play(SEState.MeScoreAnnouncement);
-        int startnum = 99;
-        DOTween.To(() => startnum, (n) => startnum = n, targetNum, _displayTime)
-            .OnUpdate(() => tweenText.text = startnum.ToString("#,0"))
+        int StartNum = start;
+        DOTween.To(() => StartNum, (n) => StartNum = n, targetNum, _displayTime)
+            .OnUpdate(() => tweenText.text = StartNum.ToString("#,0"))
             .OnComplete(onCompleteCallback);
         _audioController.SE.Stop(SEState.MeScoreAnnouncement);
     }
@@ -121,8 +133,10 @@ public class ResultPrinter : MonoBehaviour
         int evaluationvalue = 0;
         int cleartimesecond = (GM.ScoreManager.ClearTime.Minutes) * 60 +
             GM.ScoreManager.ClearTime.Seconds;
-        int enemyDefeatedNum = (GM.ScoreManager.LongEnemyDefeatedNum)+ (GM.ScoreManager.ShortEnemyDefeatedNum);
+        int enemyDefeatedNum = (GM.ScoreManager.LongEnemyDefeatedNum) + (GM.ScoreManager.ShortEnemyDefeatedNum);
         int playerDownCount = GM.ScoreManager.PlayerDownNum;
+
+        if (GM.ScoreManager.IsBossDestroy) enemyDefeatedNum++;
 
         if (cleartimesecond - _idealClearTimeSeconds <= _sRankScoreClearTimeGap)
         {

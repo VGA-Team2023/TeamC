@@ -14,6 +14,10 @@ public class BossFollowAttack
     [Header("溜め_草")]
     [SerializeField] private List<ParticleSystem> _chargeGrass = new List<ParticleSystem>();
 
+    private float _countAnim = 0;
+
+    private bool _isAnimPlay = false;
+
     BossFollowAttackBase _setAttack;
 
     private BossControl _bossControl;
@@ -31,7 +35,7 @@ public class BossFollowAttack
     public void SetAttack()
     {
         int r = Random.Range(0, _bossFollowAttackBase.Count);
-        _setAttack = _bossFollowAttackBase[1];
+        _setAttack = _bossFollowAttackBase[r];
 
         if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
         {
@@ -42,19 +46,21 @@ public class BossFollowAttack
             _chargeGrass.ForEach(i => i.Play());
         }
 
+        _isAnimPlay = false;
+        _countAnim = 0;
     }
 
     /// <summary>攻撃中断処理</summary>
     public void StopAttack()
     {
-        if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
-        {
-            _chargeIce.ForEach(i => i.Stop());
-        }
-        else
-        {
-            _chargeGrass.ForEach(i => i.Stop());
-        }
+        //アニメーション
+        _bossControl.BossAnimControl.IsCharge(false);
+        _bossControl.BossAnimControl.Attack(false);
+
+        //エフェクト停止
+        _chargeIce.ForEach(i => i.Stop());
+        _chargeGrass.ForEach(i => i.Stop());
+
 
         _setAttack.StopAtttack();
     }
@@ -64,6 +70,9 @@ public class BossFollowAttack
     {
         if (_setAttack.DoAttack())
         {
+            _bossControl.BossAnimControl.IsCharge(false);
+            _bossControl.BossAnimControl.Attack(true);
+
             if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
             {
                 _chargeIce.ForEach(i => i.Stop());

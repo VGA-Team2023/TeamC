@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,6 +109,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void SEStopAll()
+    {
+        AudioController.Instance.SE.StopAll();
+    }
+
+    public void BGMStop()
+    {
+        AudioController.Instance.BGM.Stop();
+    }
+
+    public void VoiceStopAll()
+    {
+        AudioController.Instance.Voice.StopAll();
+    }
+
+
     /// <summary>InGame中ゲーム終了時直後に呼ぶメソッド</summary>
     public void GameEndWaitCall()
     {
@@ -121,7 +138,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameMove = true;
     }
-    /// <summary>リザルトシーン遷移処理</summary>
+    /// <summary>クリアタイム保存</summary>
     public void ResultProcess()
     {
         _scoreManager.ClearTime = _timeManager.MinutesSecondsCast();

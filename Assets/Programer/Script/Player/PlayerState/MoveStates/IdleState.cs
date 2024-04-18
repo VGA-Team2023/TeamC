@@ -38,7 +38,7 @@ public class IdleState : PlayerStateBase
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
         //属性変更確認
-        _stateMachine.PlayerController.PlayerAttributeControl.CheckChangeAttribute();
+
 
         //回避のクールタイム計測
         _stateMachine.PlayerController.Avoid.CountCoolTime();
@@ -85,6 +85,12 @@ public class IdleState : PlayerStateBase
             }   //攻撃
         }
 
+        //属性変更
+        if (_stateMachine.PlayerController.InputManager.IsChangeAttribute)
+        {
+            _stateMachine.TransitionTo(_stateMachine.ChangeAttributeState);
+            return;
+        }
 
         if (_stateMachine.PlayerController.InputManager.IsAvoid && _stateMachine.PlayerController.Avoid.IsCanAvoid)
         {

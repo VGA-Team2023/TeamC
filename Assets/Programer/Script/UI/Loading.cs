@@ -23,24 +23,16 @@ public class Loading : MonoBehaviour
     }
     public void LoadingScene()
     {
+        GameManager.Instance?.BGMStop();
+        GameManager.Instance?.SEStopAll();
+        GameManager.Instance?.VoiceStopAll();
         _loadingPanelInstance.gameObject.SetActive(true);
         StartCoroutine(WaitForLoading());
     }
 
     IEnumerator WaitForLoading()
     {
-        AsyncOperation async = SceneManager.LoadSceneAsync(_nextSceneName);
-        async.allowSceneActivation = false;
-        while (!async.isDone)
-        {
-            if (async.progress > 0.9f)
-            {
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(_waitTimer);
-
-            async.allowSceneActivation = true;
-        }
+        yield return new WaitForSeconds(_waitTimer);
+        SceneManager.LoadScene(_nextSceneName);
     }
 }

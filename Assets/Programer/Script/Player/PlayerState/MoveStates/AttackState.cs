@@ -13,6 +13,9 @@ public class AttackState : PlayerStateBase
 
         //攻撃処理
         _stateMachine.PlayerController.Attack2.DoAttack();
+
+        //コントローラーの振動
+        _stateMachine.PlayerController.ControllerVibrationManager.StartVibration();
     }
 
     public override void Exit()
@@ -23,6 +26,9 @@ public class AttackState : PlayerStateBase
 
         //攻撃終了設定
         _stateMachine.PlayerController.Attack2.EndAttack();
+
+        //コントローラーの振動
+        _stateMachine.PlayerController.ControllerVibrationManager.StopVibration();
     }
 
     public override void FixedUpdate()

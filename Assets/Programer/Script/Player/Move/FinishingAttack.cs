@@ -64,14 +64,14 @@ public class FinishingAttack
             }
             else
             {
-                AudioController.Instance.SE.Stop(SEState.PlayerChargeIce);
+                AudioController.Instance.SE.Play(SEState.PlayerChargeGrass);
             }
         }
         else
         {
             if (_startAttribute == PlayerAttribute.Ice)
             {
-                AudioController.Instance.SE.Play(SEState.PlayerChargeGrass);
+                AudioController.Instance.SE.Stop(SEState.PlayerChargeIce);
             }
             else
             {
@@ -120,7 +120,7 @@ public class FinishingAttack
         _setFinishTime = _finishingAttackShort.FinishTime;
 
         //敵を索敵
-        _nowFinishEnemy = CheckFinishingEnemy();
+        // _nowFinishEnemy = CheckFinishingEnemy();
 
         foreach (var e in _nowFinishEnemy)
         {
@@ -129,6 +129,14 @@ public class FinishingAttack
         }
 
         //移動視点
+        if (_nowFinishEnemy.Length < 0)
+        {
+
+        }
+        else
+        {
+
+        }
         _finishingAttackMove.SetEnemy(_nowFinishEnemy[0].transform);
 
         //カメラを敵の方向に向ける
@@ -280,7 +288,7 @@ public class FinishingAttack
         {
             foreach (var e in _nowFinishEnemy)
             {
-                if (_nowFinishEnemy == null) continue;
+                if (e == null) continue;
                 e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
                 damgeble?.StopFinishing();
             }
@@ -320,9 +328,12 @@ public class FinishingAttack
     /// </summary>
     public void SearchFinishingEnemy()
     {
-        var enemys = CheckFinishingEnemy();
+        _nowFinishEnemy = CheckFinishingEnemy();
 
-        if (enemys.Length <= 0)
+        _finishingAttackUI.ShowUI(_nowFinishEnemy);
+        _finishingAttackUI.ShowCanFinishingUI(true);
+
+        if (_nowFinishEnemy.Length <= 0)
         {
             _isCanFinishing = false;
             _finishingAttackUI.ShowCanFinishingUI(false);
@@ -331,7 +342,7 @@ public class FinishingAttack
 
         _isCanFinishing = true;
 
-        _finishingAttackUI.ShowCanFinishingUI(true);
+
 
         //Transform[] d = new Transform[enemys.Length];
 
@@ -339,7 +350,7 @@ public class FinishingAttack
         //{
         //    d[i] = enemys[i].transform;
         //}
-        _finishingAttackUI.ShowUI(enemys);
+
     }
 
 

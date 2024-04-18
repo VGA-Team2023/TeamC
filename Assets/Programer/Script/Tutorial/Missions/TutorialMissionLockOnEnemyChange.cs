@@ -11,12 +11,18 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
     [Header("LockOn用のダミー")]
     [SerializeField] private List<GameObject> _dummy = new List<GameObject>();
 
+    [Header("LockOn用のダミーの退場エフェクト")]
+    [SerializeField] private List<GameObject> _dummyDeadEffect = new List<GameObject>();
+
     private float _countWaitTIme = 0;
+
+    private bool _isEffect = false;
 
     private bool _isLockOn = false;
     public override void Enter()
     {
-
+        //入力を不可にする
+        _tutorialManager.SetCanInput(true);
     }
 
     public override void Exit()
@@ -37,6 +43,12 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
         if (_isLockOn)
         {
             _countWaitTIme += Time.deltaTime;
+
+            if (_waitTime / 1.8f < _countWaitTIme && !_isEffect)
+            {
+                _dummyDeadEffect.ForEach(x => x.SetActive(true));
+                _isEffect = true;
+            }
 
             if (_countWaitTIme >= _waitTime)
             {

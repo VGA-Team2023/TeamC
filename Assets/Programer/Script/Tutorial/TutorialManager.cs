@@ -28,13 +28,20 @@ public class TutorialManager : MonoBehaviour
 
     private bool _isEndTutorial = false;
 
+    private bool _isFirstRead = false;
+
     private bool _isCanInput = false;
 
     private bool _isFirstVoice = false;
 
     public bool IsCanInput => _isCanInput;
 
-    private bool _isPressCheckButtun = false;
+    private bool _isReadEndMissinFirst = false;
+
+    private bool _isEndFirstLead = false;
+    private bool _isCheckPanel = false;
+
+    private float _countWait = 0;
 
     private TutorialSituation _tutorialSituation = TutorialSituation.GameStartTalk;
 
@@ -75,24 +82,35 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
+        // Debug.Log("F" + _tutorialMissions.CurrentTutorial.TutorialNum);
+
         if (_tutorialSituation == TutorialSituation.GameStartTalk)
         {
-            //文章を読み終えたかどうか
-            bool isReadEnd = _tutorialUI.Read();
-
-            //チュートリアルを受けるかどうかの確認パネルを表示
-            if (isReadEnd)
+            if (_isEndFirstLead && !_isFirstVoice)
             {
-                _tutorialUI.ShowTutorilCheck(true);
-
-                if(!_isFirstVoice)
-                {
-                    _isFirstVoice= true;
-                    AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
-                }
-
+                _tutorialUI.ActiveBttun();
+                _isFirstVoice = true;
+                AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialCheck);
             }
 
+            if (_isEndFirstLead && !_isCheckPanel)
+            {
+                _countWait += Time.deltaTime;
+
+                if (_countWait > 0.01f)
+                {
+                    _tutorialUI.ShowTutorilCheck(true);
+                    _isCheckPanel = true;
+                }
+            }
+
+            //チュートリアルを受けるかどうかの確認パネルを表示
+            if (_isFirstRead && !_isEndFirstLead)
+            {
+                _isEndFirstLead = true;
+            }
+            //文章を読み終えたかどうか
+            _isFirstRead = _tutorialUI.Read();
         }
         else if (_tutorialSituation == TutorialSituation.TutorialReceve)
         {
@@ -101,6 +119,8 @@ public class TutorialManager : MonoBehaviour
 
             if (isReadEnd)
             {
+
+                _isReadEndMissinFirst = true;
                 if (_isTutorilReceve)
                 {
                     SetFirstTutorial();
@@ -118,10 +138,16 @@ public class TutorialManager : MonoBehaviour
             //文章を読み終えたかどうか
             bool isReadEnd = _tutorialUI.Read();
 
-            if (isReadEnd)
+            if (_isReadEndMissinFirst)
             {
+                _isReadEndMissinFirst = false;
                 SetTryMove();
             }   //読み終えたら、実行状況に以降
+
+            if (isReadEnd)
+            {
+                _isReadEndMissinFirst = true;
+            }
         }
         else if (_tutorialSituation == TutorialSituation.TryMove)
         {
@@ -285,7 +311,7 @@ public class TutorialManager : MonoBehaviour
 
     public void Voice(bool isFirstTalk)
     {
-        TutorialNum num = _tutorialOrder[_tutorialCount-1];
+        TutorialNum num = _tutorialOrder[_tutorialCount - 1];
 
         if (isFirstTalk)
         {

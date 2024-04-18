@@ -121,7 +121,8 @@ public class BossTeleportAttack
         //ボスを転移
         _bossControl.gameObject.transform.position = _teleportPoss[_setPosition].position;
 
-
+        //アニメーション再生
+        _bossControl.BossAnimControl.Avoid();
 
         //エフェクトを再生
         if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)

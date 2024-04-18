@@ -44,6 +44,11 @@ public class BossIdleState : BossStateBase
             return;
         }   //ƒgƒhƒ
 
+        if(_stateMachine.BossController.BossAttack.IsAttackNow)
+        {
+            _stateMachine.TransitionTo(_stateMachine.StateAttack);
+        }
+
     }
 
     public override void LateUpdate()

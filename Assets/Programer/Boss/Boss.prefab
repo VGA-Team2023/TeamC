@@ -2335,7 +2335,7 @@ MonoBehaviour:
   _enemyAttribute: 0
   _hpControl:
     _waveHp:
-    - 65.2
+    - 1
     - 55.9
     - 53.6
     _knockDownTIme: 8
@@ -2447,6 +2447,7 @@ MonoBehaviour:
             - {fileID: 267328693307271422}
             - {fileID: 5699002056879913119}
             - {fileID: 7446223946452771967}
+            _releaseP: []
           - _name: "2\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 926879353831494337}
@@ -2455,6 +2456,7 @@ MonoBehaviour:
             - {fileID: 5298441078295134416}
             - {fileID: 370573060514500785}
             - {fileID: 3270786693524147281}
+            _releaseP: []
           - _name: "3\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 5150963217076347905}
@@ -2463,6 +2465,7 @@ MonoBehaviour:
             - {fileID: 8169492618301937349}
             - {fileID: 4466599317494646436}
             - {fileID: 1566176785876015684}
+            _releaseP: []
           - _name: "4\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 8853323331297118390}
@@ -2471,6 +2474,7 @@ MonoBehaviour:
             - {fileID: 5649968292369883799}
             - {fileID: 201511965182931702}
             - {fileID: 3065626467584388630}
+            _releaseP: []
           - _name: "5\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 2743897331765909262}
@@ -2479,6 +2483,7 @@ MonoBehaviour:
             - {fileID: 5457533766748567847}
             - {fileID: 512948704385837382}
             - {fileID: 3413443976638051750}
+            _releaseP: []
           _attackPower: 1
           _needFireTime: 0.2
         - _name: "\u30D1\u30BF\u30FC\u30F32"
@@ -2491,6 +2496,7 @@ MonoBehaviour:
             - {fileID: 8207039814923507444}
             - {fileID: 4415235246012073621}
             - {fileID: 1515091869280410229}
+            _releaseP: []
           - _name: "2\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 7771988519555637859}
@@ -2499,6 +2505,7 @@ MonoBehaviour:
             - {fileID: 3806985994936565673}
             - {fileID: 8680252588349845448}
             - {fileID: 5780038799658513192}
+            _releaseP: []
           - _name: "3\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 1500406449246306009}
@@ -2507,6 +2514,7 @@ MonoBehaviour:
             - {fileID: 1854726484716118598}
             - {fileID: 6133372468319367719}
             - {fileID: 9033865524383657671}
+            _releaseP: []
           - _name: "4\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 8743955758466398245}
@@ -2515,6 +2523,7 @@ MonoBehaviour:
             - {fileID: 406532834807250131}
             - {fileID: 5262202586297183410}
             - {fileID: 7009773964884815954}
+            _releaseP: []
           - _name: "5\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 4276995926043472273}
@@ -2523,6 +2532,7 @@ MonoBehaviour:
             - {fileID: 9012207736551778470}
             - {fileID: 3581092993469741255}
             - {fileID: 1869618426209133607}
+            _releaseP: []
           _attackPower: 1
           _needFireTime: 0.2
         _bullet: {fileID: 3104579329941858974, guid: d51a5fc105186dd42bc57f4e5e8106b0,
@@ -2538,30 +2548,35 @@ MonoBehaviour:
             _p:
             - {fileID: 3538334618198566159}
             - {fileID: 3538218118406994863}
+            _releaseP: []
           - _name: "2\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 8274299378782145304}
             _p:
             - {fileID: 1729178338729359213}
             - {fileID: 1729295115816397261}
+            _releaseP: []
           - _name: "3\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 1417377656898265246}
             _p:
             - {fileID: 1380620339702476760}
             - {fileID: 1380358599450800504}
+            _releaseP: []
           - _name: "4\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 9136430345538031913}
             _p:
             - {fileID: 6238304456986447415}
             - {fileID: 6238082439200592023}
+            _releaseP: []
           - _name: "5\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 2614262740483554487}
             _p:
             - {fileID: 4401032696943698739}
             - {fileID: 4400982056448556435}
+            _releaseP: []
           _attackPower: 1
           _needFireTime: 0.2
         - _name: "\u30D1\u30BF\u30FC\u30F32"
@@ -2572,30 +2587,35 @@ MonoBehaviour:
             _p:
             - {fileID: 5198937329620796162}
             - {fileID: 5199022880962010530}
+            _releaseP: []
           - _name: "2\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 6818937370108811467}
             _p:
             - {fileID: 7298857995350116710}
             - {fileID: 7298706187696183238}
+            _releaseP: []
           - _name: "3\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 1112414550838506729}
             _p:
             - {fileID: 7691975048364945222}
             - {fileID: 7692030215185986022}
+            _releaseP: []
           - _name: "4\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 4077194752905374210}
             _p:
             - {fileID: 2853038221088618436}
             - {fileID: 2853295423984494948}
+            _releaseP: []
           - _name: "5\u3064\u76EE\u306E\u9B54\u6CD5\u9663"
             _time: 0.5
             _magicCirecle: {fileID: 8595397336265716743}
             _p:
             - {fileID: 2103975017726958163}
             - {fileID: 2103783656612414707}
+            _releaseP: []
           _attackPower: 1
           _needFireTime: 0.2
         _bullet: {fileID: 3104579329941858974, guid: 345b103af1532cb48b8388a9590dd30f,
@@ -2626,6 +2646,8 @@ MonoBehaviour:
           type: 3}
         _attackTime: 10
         _attackSetTime: 1
+      _chargeIce: []
+      _chargeGrass: []
     _teleportAttack:
       _teleportPoss:
       - {fileID: 0}
@@ -2669,6 +2691,7 @@ MonoBehaviour:
   _bossT: {fileID: 1369681596452920908}
   _rb: {fileID: 426537374942983860}
   _anim: {fileID: 2287990946494102435}
+  _deathCamera: {fileID: 0}
   _state: {}
 --- !u!1001 &128410440927329924
 PrefabInstance:
