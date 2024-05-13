@@ -23,6 +23,7 @@ public class MAEFinishState : IStateMachine
 
     public void Exit()
     {
+        _enemy.HpBar.gameObject.SetActive(true);
         _enemy.StopFinishing();
     }
 
