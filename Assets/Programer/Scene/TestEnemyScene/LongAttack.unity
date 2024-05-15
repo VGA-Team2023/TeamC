@@ -386,78 +386,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5881536967424735799, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 66.3659
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881536967424735799, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 15.2131
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881536967424735799, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.00000017881
-      objectReference: {fileID: 0}
-    - target: {fileID: 5881536967424735799, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.319
-      objectReference: {fileID: 0}
     - target: {fileID: 6129463836996455331, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_Name
       value: MeleeAttackEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7094462311980301253, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094462311980301253, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.40837488
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094462311980301253, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.6488806
-      objectReference: {fileID: 0}
-    - target: {fileID: 7094462311980301253, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.6509434
-      objectReference: {fileID: 0}
-    - target: {fileID: 8308037805045245339, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 8308037805045245339, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8308037805045245339, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8308037805045245339, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.35384893
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726871524847778228, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9039833616995842409, guid: 448687a05971e7a47ba22d9a5838f86f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
