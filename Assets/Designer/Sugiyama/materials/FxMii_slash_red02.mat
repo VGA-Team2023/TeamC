@@ -47,8 +47,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: bd3096041ddf3cb409fbb743a400745e, type: 3}
-        m_Scale: {x: 1, y: 0.1}
-        m_Offset: {x: 0, y: 0.58}
+        m_Scale: {x: 1, y: 0.03}
+        m_Offset: {x: 0, y: 0.56}
     - _BaseMap2DArray:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -279,7 +279,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 8.031372, g: 0, b: 0.31372547, a: 1}
+    - _TintColor: {r: 0, g: 6.6228814, b: 22.740532, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6105993444735626075
 MonoBehaviour:
