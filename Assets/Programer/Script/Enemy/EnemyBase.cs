@@ -25,6 +25,7 @@ public abstract class EnemyBase : MonoBehaviour
             _hpBar.value = _hp;
             if (_hp <= 0)
             {
+                _hpBar.gameObject.SetActive(false);
                 OnEnemyDestroy();
             }
         }

@@ -24,6 +24,7 @@ public class LAEFinishState : IStateMachine
     public void Exit()
     {
         _timer = 0;
+        _enemy.HpBar.gameObject.SetActive(true);
         _enemy.StopFinishing();
     }
 

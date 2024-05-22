@@ -4988,15 +4988,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5c7a642067a7cd54c81583c3c718dd24, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5042,8 +5042,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.57}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: -0.00000017881, y: 1.319}
+  m_SizeDelta: {x: 66.3659, y: 15.2131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8726871524847778228
 MonoBehaviour:
@@ -5108,8 +5108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d76dccd13c2054d8a6e6ba2f8f5863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpBar: {fileID: 0}
-  _mainCamera: {fileID: 0}
 --- !u!1 &2447969755115497832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5143,8 +5141,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1.263, y: -0}
+  m_SizeDelta: {x: -2.526, y: -3.788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2645313789138378725
 GameObject:
@@ -5263,8 +5261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.2809982, y: 0.032999992}
+  m_SizeDelta: {x: -0.796, y: 0.065}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6975253835247744885
 CanvasRenderer:
@@ -5287,15 +5285,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2400744, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 0eb6d26995cfe274daa0bbde58c85996, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5413,6 +5411,8 @@ MonoBehaviour:
   _hp: 10
   _hpBar: {fileID: 8726871524847778228}
   _attack: 5
+  _weekType: 0
+  _weekDamage: 2
   _speed: 1
   _attackInterval: 1
   _searchRange: 10
@@ -15948,10 +15948,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4867070274195971342}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 009b5ac4cf2b80f478fc0f61a495958f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9039833616995842409}
   m_SourcePrefab: {fileID: 100100000, guid: 009b5ac4cf2b80f478fc0f61a495958f, type: 3}
 --- !u!1 &5040926588731909228 stripped
 GameObject:
@@ -15980,34 +15976,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9039833616995842409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5040926588731909228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 246455474a0d74a4291b3cedc896ebdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bonePaths:
-  - 
-  - face
-  - lefthand
-  - righthand
-  showBones: 00000000
-  foldoutBones: 00000000
-  mirrorBones: ffffffffffffffff0300000002000000
-  mirrorBlendShape: []
-  animatorIkData: []
-  originalIkData: []
-  selectionData: []
-  lastSelectAnimationClip: {fileID: 7400000, guid: 95817e8219537d24e82ce08ac1992b7f,
-    type: 2}
-  handPoseList: []
-  blendShapeList: []
 --- !u!4 &5674298769854676694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 009b5ac4cf2b80f478fc0f61a495958f,
