@@ -203,7 +203,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
-    {
+    { 
         VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
         _anim.Play("Hit");
         _rb.velocity = Vector3.zero;

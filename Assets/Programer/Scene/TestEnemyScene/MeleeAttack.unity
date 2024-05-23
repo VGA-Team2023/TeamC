@@ -2388,21 +2388,6 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1829331482464064712, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: _effects.Array.data[0]._effects.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1829331482464064712, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: _effects.Array.data[0]._effects.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1829331482464064712, guid: 448687a05971e7a47ba22d9a5838f86f,
-        type: 3}
-      propertyPath: _effects.Array.data[0]._effects.Array.data[2]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2734145460482076405, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2452,6 +2437,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765439513996732571, guid: 448687a05971e7a47ba22d9a5838f86f,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5733100072342957415, guid: 448687a05971e7a47ba22d9a5838f86f,
+        type: 3}
+      propertyPath: _isDemo
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6129463836996455331, guid: 448687a05971e7a47ba22d9a5838f86f,
         type: 3}

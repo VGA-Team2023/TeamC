@@ -44,6 +44,7 @@ public class MAEAttackState : IStateMachine
                 _enemy.VoiceAudio(VoiceState.EnemyShortAttack, EnemyBase.CRIType.Play);
                 _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
+                _enemy.AttackEffectPlay();
                 _timer = 0f;
             }
         }
