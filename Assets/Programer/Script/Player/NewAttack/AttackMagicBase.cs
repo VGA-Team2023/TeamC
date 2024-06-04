@@ -291,7 +291,7 @@ public class AttackMagicBase
     /// <summary>現在出している魔法を中断させる</summary>
     public void StopMagic(int attackCount)
     {
-        for (int i = 0; i < _setUpMagicCount; i++)
+        for (int i = _nowContunueNumber; i < _setUpMagicCount; i++)
         {
             //魔法陣を消す
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);

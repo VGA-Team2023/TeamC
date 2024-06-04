@@ -68,8 +68,6 @@ public class HitStopConrol : MonoBehaviour
         GameManager.Instance.SlowManager.OnOffSlow(false);
         _isHitStop = false;
         _countTime = 0;
-
-
     }
 
     /// <summary>ヒットストップの時間を設定</summary>

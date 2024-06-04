@@ -48,8 +48,15 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
     [Header("SpowmPoint")]
     [SerializeField] private List<Transform> _spownPoint = new List<Transform>();
 
+    [Header("氷属性の靄エフェクト")]
+    [SerializeField] private List<ParticleSystem> _iceFog = new List<ParticleSystem>();
+    [Header("草属性の靄エフェクト")]
+    [SerializeField] private List<ParticleSystem> _grassFog = new List<ParticleSystem>();
     [SerializeField] private BossStateMachine _state;
     private Transform _player;
+
+    public List<ParticleSystem> IceFog => _iceFog;
+    public List<ParticleSystem> GrassFog => _grassFog;
 
     private bool _isDeath = false;
 
@@ -84,6 +91,18 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
         _summonCamera.SetActive(true);
         FirstSpwon();
+
+        if (_enemyAttribute == PlayerAttribute.Ice)
+        {
+            _iceFog.ForEach(i => i.Play());
+            _grassFog.ForEach(i => i.Stop());
+        }
+        else
+        {
+            _iceFog.ForEach(i => i.Stop());
+            _grassFog.ForEach(i => i.Play());
+        }
+
     }
 
 
@@ -195,6 +214,8 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
+        //if (_bossAttack.BossSpecialAttackNearIce.IsAttack) return;
+
         if (_isInDamageOtherAttribute)
         {
             if (_enemyAttribute == PlayerAttribute.Ice)
@@ -243,10 +264,15 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         if (_enemyAttribute == PlayerAttribute.Ice)
         {
             _enemyAttribute = PlayerAttribute.Grass;
+
+            _iceFog.ForEach(i => i.Stop());
+            _grassFog.ForEach(i => i.Play());
         }
         else
         {
             _enemyAttribute = PlayerAttribute.Ice;
+            _iceFog.ForEach(i => i.Play());
+            _grassFog.ForEach(i => i.Stop());
         }
 
     }

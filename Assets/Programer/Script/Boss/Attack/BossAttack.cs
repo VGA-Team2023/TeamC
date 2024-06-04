@@ -16,6 +16,10 @@ public class BossAttack
     [Header("ƒeƒŒƒ|[ƒgUŒ‚")]
     [SerializeField] private BossTeleportAttack _teleportAttack;
 
+
+    //   [Header("“ÁŽêUŒ‚_•X")]
+    //  [SerializeField] private BossSpecialAttackNearIce _specialAttackNearIce;
+
     [Header("UŒ‚ŠÔ‚ÌƒN[ƒ‹ƒ^ƒCƒ€")]
     [SerializeField] private float _attackCoolTime = 5f;
 
@@ -23,7 +27,7 @@ public class BossAttack
     //[Range(0, 9)]
     //[SerializeField] private int _attackNomalParcent = 4;
 
-    private BossAttackType _bossAttackMagicTypes =BossAttackType.Nomal;
+    private BossAttackType _bossAttackMagicTypes = BossAttackType.Teleport;
 
     private float _countCoolTime = 0;
 
@@ -39,6 +43,7 @@ public class BossAttack
     public BossFollowAttack BossFollowAttack => _followAttack;
     public BossNomalAttack NomalAttack => _nomalAttack;
     public BossTeleportAttack TeleportAttack => _teleportAttack;
+    //public BossSpecialAttackNearIce BossSpecialAttackNearIce => _specialAttackNearIce;
     public void Init(BossControl bossControl)
     {
         _bossControl = bossControl;
@@ -79,7 +84,7 @@ public class BossAttack
 
         if (_bossAttackMagicTypes == BossAttackType.Nomal)
         {
-        _nomalAttack.StopAttack();
+            _nomalAttack.StopAttack();
         }
         else if (_bossAttackMagicTypes == BossAttackType.Follow)
         {
@@ -141,6 +146,10 @@ public class BossAttack
                 _isAttackNow = false;
             }
         }
+        else if (_bossAttackMagicTypes == BossAttackType.S_IceNear)
+        {
+
+        }
     }
 
 
@@ -152,4 +161,5 @@ public enum BossAttackType
     Nomal,
     Follow,
     Teleport,
+    S_IceNear,
 }
