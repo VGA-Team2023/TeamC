@@ -184,7 +184,7 @@ public class Attack2
         _isAttackInputed = false;
         _isAttackNow = false;
 
-        _attackCount = 0;
+        //_attackCount = 0;
     }
 
 }

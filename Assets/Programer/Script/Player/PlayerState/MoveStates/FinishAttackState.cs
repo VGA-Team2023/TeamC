@@ -73,7 +73,14 @@ public class FinishAttackState : PlayerStateBase
             return;
         }
 
-
+        if (_stateMachine.PlayerController.InputManager.IsAvoid && _stateMachine.PlayerController.Avoid.IsCanAvoid && !_stateMachine.PlayerController.FinishingAttack.IsCompleted)
+        {
+            _stateMachine.PlayerController.FinishingAttack.StopFinishingAttack();
+            _stateMachine.PlayerController.PlayerAnimControl.SetIsSetUp(false);
+            _stateMachine.PlayerController.Avoid.SetAvoidDir();
+            _stateMachine.TransitionTo(_stateMachine.AvoidState);
+            return;
+        }   //回避
 
         if (!_stateMachine.PlayerController.FinishingAttack.DoFinishing() || _stateMachine.PlayerController.FinishingAttack.IsEndFinishAnim)
         {

@@ -14,27 +14,36 @@ public class BossAttackState : BossStateBase
 
     public override void Exit()
     {
-
+        _stateMachine.BossController.BossAnimControl.IsCharge(false);
 
     }
 
 
     public override void FixedUpdate()
     {
-        //âÒì]ê›íË
-        _stateMachine.BossController.BossRotate.SetRotation();
-
-        _stateMachine.BossController.Move.CheckPlayerDir();
-
-        if (_stateMachine.BossController.BossAttack.BossAttackMagicTypes == BossAttackType.Follow)
+        if (_stateMachine.BossController.BossAttack.BossAttackMagicTypes == BossAttackType.S_IceNear)
         {
 
         }
         else
         {
-            _stateMachine.BossController.Move.Move();
-        }
+            //âÒì]ê›íË
+            _stateMachine.BossController.BossRotate.SetRotation();
+            _stateMachine.BossController.Move.CheckPlayerDir();
 
+            if (_stateMachine.BossController.BossAttack.BossAttackMagicTypes == BossAttackType.Follow)
+            {
+
+            }
+            else if (_stateMachine.BossController.BossAttack.BossAttackMagicTypes == BossAttackType.Nomal)
+            {
+
+            }
+            else
+            {
+                _stateMachine.BossController.Move.Move();
+            }
+        }
     }
 
     public override void Update()
@@ -43,6 +52,7 @@ public class BossAttackState : BossStateBase
         _stateMachine.BossController.BossAttack.Updata();
 
         _stateMachine.BossController.Move.CheckWall();
+
         _stateMachine.BossController.Move.CountMoveTime();
 
         if (_stateMachine.BossController.BossHp.IsKnockDown)

@@ -36,7 +36,7 @@ public class FinishingAttack
     private PlayerControl _playerControl;
 
     private Collider[] _nowFinishEnemy;
-
+    public bool IsCompleted => _isCompletedFinishTime;
     public PlayerAttribute StartAttribute => _startAttribute;
     public bool IsEndFinishAnim { get => _isEndFinishAnim; set => _isEndFinishAnim = value; }
 

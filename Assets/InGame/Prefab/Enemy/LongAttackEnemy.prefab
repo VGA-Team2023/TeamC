@@ -209,6 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDestroy: 0
   _destroyTime: 1
+  _isOnotherHitStopSpeed: 0
+  _onotherHitStopSpeed: 0.8
   _effects:
   - _name: "\u6C17\u7D76"
     _effects:
@@ -414,7 +416,7 @@ MonoBehaviour:
   serializeData:
     clothType: 0
     sourceRenderers:
-    - {fileID: 0}
+    - {fileID: 5981722361304451655}
     paintMode: 0
     paintMaps: []
     rootBones: []
@@ -425,7 +427,7 @@ MonoBehaviour:
     animationPoseRatio: 0
     reductionSetting:
       simpleDistance: 0
-      shapeDistance: 0
+      shapeDistance: 0.0283
     customSkinningSetting:
       enable: 0
       skinningBones: []
@@ -2206,7 +2208,7 @@ MonoBehaviour:
   serializeData:
     clothType: 0
     sourceRenderers:
-    - {fileID: 0}
+    - {fileID: 3225163722685760971}
     paintMode: 0
     paintMaps: []
     rootBones: []
@@ -2217,7 +2219,7 @@ MonoBehaviour:
     animationPoseRatio: 0
     reductionSetting:
       simpleDistance: 0
-      shapeDistance: 0
+      shapeDistance: 0.0283
     customSkinningSetting:
       enable: 0
       skinningBones: []
@@ -4795,7 +4797,7 @@ MonoBehaviour:
   serializeData:
     clothType: 0
     sourceRenderers:
-    - {fileID: 0}
+    - {fileID: 5984055500826711716}
     paintMode: 0
     paintMaps: []
     rootBones: []
@@ -4806,7 +4808,7 @@ MonoBehaviour:
     animationPoseRatio: 0
     reductionSetting:
       simpleDistance: 0
-      shapeDistance: 0
+      shapeDistance: 0.0283
     customSkinningSetting:
       enable: 0
       skinningBones: []
@@ -6568,6 +6570,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2473039559168117569}
   m_PrefabAsset: {fileID: 0}
+--- !u!137 &3225163722685760971 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8174010022832042358, guid: 66dfb0e8eb0f56d41932d01e32fca805,
+    type: 3}
+  m_PrefabInstance: {fileID: 2473039559168117569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3356142359266555408 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 66dfb0e8eb0f56d41932d01e32fca805,
@@ -6608,6 +6616,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 3829738777436849935}
+--- !u!137 &5981722361304451655 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8165405094572212486, guid: 66dfb0e8eb0f56d41932d01e32fca805,
+    type: 3}
+  m_PrefabInstance: {fileID: 2473039559168117569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5984055500826711716 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1055633804912501275, guid: 66dfb0e8eb0f56d41932d01e32fca805,
+    type: 3}
+  m_PrefabInstance: {fileID: 2473039559168117569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4697397217362954887
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -88156,6 +88156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDestroy: 1
   _destroyTime: 10
+  _isOnotherHitStopSpeed: 1
+  _onotherHitStopSpeed: 0.7
   _effects:
   - _name: 
     _effects:
