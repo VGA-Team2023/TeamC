@@ -9,7 +9,7 @@ public class TimerController : MonoBehaviour, IPause
     private bool _isPausing = false;
     private bool _isCounting = true;
     private int _targetIndex = 0;
-    private float[] _thresholds = { 0.99f, 0.8f, 0.6f, 0.4f, 0.2f};
+    private float[] _thresholds = { 0.8f, 0.6f, 0.4f, 0.2f,0.01f};
     private void Update()
     {
         if (!_isPausing && GameManager.Instance.IsGameMove)
