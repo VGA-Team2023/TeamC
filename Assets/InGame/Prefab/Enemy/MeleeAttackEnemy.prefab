@@ -10328,12 +10328,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDestroy: 0
   _destroyTime: 1
+  _isOnotherHitStopSpeed: 0
+  _onotherHitStopSpeed: 0.8
   _effects:
   - _name: "\u672C\u4F53\u306E\u9727"
     _effects:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 7395266582564326657}
+    - {fileID: 2403443489073476929}
+    - {fileID: 6833251804572469088}
   - _name: "\u6C17\u7D76"
     _effects:
     - {fileID: 7381637909541216584}
