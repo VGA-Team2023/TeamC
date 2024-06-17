@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TutorialManager : MonoBehaviour
+public class TutorialManager : MonoBehaviour,IPause
 {
     [Header("チュートリアルの順番設定")]
     [SerializeField] private List<TutorialNum> _tutorialOrder = new List<TutorialNum>();
@@ -311,6 +311,8 @@ public class TutorialManager : MonoBehaviour
 
     public void Voice(bool isFirstTalk)
     {
+        AudioSourceController.Instance.Voice.Stop();
+
         TutorialNum num = _tutorialOrder[_tutorialCount - 1];
 
         if (isFirstTalk)
@@ -329,7 +331,7 @@ public class TutorialManager : MonoBehaviour
             }
             else if (num == TutorialNum.ChangeAttribute)
             {
-                //   AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialAttributeChange);
             }
             else if (num == TutorialNum.FinishAttack)
             {
@@ -337,11 +339,11 @@ public class TutorialManager : MonoBehaviour
             }
             else if (num == TutorialNum.LockOn)
             {
-                //  AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialLockon);
             }
             else if (num == TutorialNum.LockOnChangeEnemy)
             {
-                //   AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialLockonChange);
             }
             else if (num == TutorialNum.Avoid)
             {
@@ -368,7 +370,7 @@ public class TutorialManager : MonoBehaviour
             }
             else if (num == TutorialNum.ChangeAttribute)
             {
-                //  AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialAttributeChangeOK);
             }
             else if (num == TutorialNum.FinishAttack)
             {
@@ -376,11 +378,11 @@ public class TutorialManager : MonoBehaviour
             }
             else if (num == TutorialNum.LockOn)
             {
-                // AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialLockonOK);
             }
             else if (num == TutorialNum.LockOnChangeEnemy)
             {
-                // AudioController.Instance.Voice.Play(VoiceState.);
+                AudioSourceController.Instance.Voice.Play(VoiceStateAudioSource.InstructorTutorialAttributeChangeOK);
             }
             else if (num == TutorialNum.Avoid)
             {
@@ -392,7 +394,26 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+    }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+    }
+
+
+    public void Pause()
+    {
+        AudioSourceController.Instance.Voice.Pause();
+    }
+
+    public void Resume()
+    {
+        AudioSourceController.Instance.Voice.Resume();
+    }
 
 }
 
