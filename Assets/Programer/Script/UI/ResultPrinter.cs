@@ -71,7 +71,7 @@ public class ResultPrinter : MonoBehaviour
         if (gameManager.ScoreManager.IsBossDestroy) defeatcount++;
 
         TweenNum(9, GameManager.Instance.ScoreManager.ClearTime.Minutes, _clearTimeMinutesResult, () =>
-         {
+        {
              TweenNum(99, GameManager.Instance.ScoreManager.ClearTime.Seconds, _clearTimeSecondResult, () =>
              {
                  TweenNum(9, GameManager.Instance.ScoreManager.ClearTime.Minutes, _floatingTimeMinutesText, () =>
@@ -85,7 +85,7 @@ public class ResultPrinter : MonoBehaviour
                                  _audioController.SE.Stop(SEState.MeScoreAnnouncement);
                                  Judge(GameManager.Instance);
                                  GameManager.Instance.ScoreManager.ScoreReset();
-                                 GameManager.Instance.ScoreManager.IsBossDestroy = false;
+                                 //GameManager.Instance.ScoreManager.IsBossDestroy = false;
                              });
                          });
                      });
