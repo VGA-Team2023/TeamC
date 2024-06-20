@@ -85,7 +85,6 @@ public class ResultPrinter : MonoBehaviour
                                  _audioController.SE.Stop(SEState.MeScoreAnnouncement);
                                  Judge(GameManager.Instance);
                                  GameManager.Instance.ScoreManager.ScoreReset();
-                                 //GameManager.Instance.ScoreManager.IsBossDestroy = false;
                              });
                          });
                      });
