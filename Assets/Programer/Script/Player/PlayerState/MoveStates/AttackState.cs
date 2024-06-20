@@ -13,6 +13,9 @@ public class AttackState : PlayerStateBase
 
         //攻撃処理
         _stateMachine.PlayerController.Attack2.DoAttack();
+
+        //コントローラーの振動
+        _stateMachine.PlayerController.ControllerVibrationManager.StartVibration();
     }
 
     public override void Exit()
@@ -23,6 +26,9 @@ public class AttackState : PlayerStateBase
 
         //攻撃終了設定
         _stateMachine.PlayerController.Attack2.EndAttack();
+
+        //コントローラーの振動
+        _stateMachine.PlayerController.ControllerVibrationManager.StopVibration();
     }
 
     public override void FixedUpdate()
@@ -71,6 +77,14 @@ public class AttackState : PlayerStateBase
             _stateMachine.TransitionTo(_stateMachine.DeadState);
             return;
         }   //瀕死ステート
+
+        if (_stateMachine.PlayerController.InputManager.IsAvoid && _stateMachine.PlayerController.Avoid.IsCanAvoid)
+        {
+            _stateMachine.PlayerController.Attack2.StopAttack();
+            _stateMachine.PlayerController.Avoid.SetAvoidDir();
+            _stateMachine.TransitionTo(_stateMachine.AvoidState);
+            return;
+        }   //回避
 
         //if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
         //{

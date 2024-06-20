@@ -177,7 +177,14 @@ public class Attack2
     public void StopAttack()
     {
         _attackMagic.StopMagic(_attackCount);
-        _attackCount = 0;
+
+        _isPushAttack = false;
+        _isCanNextAction = true;
+        _isCanTransitionAttackState = true;
+        _isAttackInputed = false;
+        _isAttackNow = false;
+
+        //_attackCount = 0;
     }
 
 }

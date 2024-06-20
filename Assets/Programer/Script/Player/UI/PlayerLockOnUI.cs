@@ -8,9 +8,6 @@ public class PlayerLockOnUI
     [Header("LockOn‚ÌUI")]
     [SerializeField] private GameObject _lockOnUI;
 
-    [Header("LockOn’†‚©‚Ç‚¤‚©‚ÌUI")]
-    [SerializeField] private GameObject _isLockOnUI;
-
     [Header("Canvas")]
     [SerializeField] private RectTransform _parentUI;
 
@@ -26,7 +23,6 @@ public class PlayerLockOnUI
     public void LockOn(bool isLockOn)
     {
         _lockOnUI.SetActive(isLockOn);
-        _isLockOnUI.SetActive(isLockOn);
     }
 
 
@@ -37,7 +33,6 @@ public class PlayerLockOnUI
         if (_playerControl.LockOn.NowLockOnEnemy == null)
         {
             _lockOnUI.SetActive(false);
-            _isLockOnUI.SetActive(false);
             return;
         }
 

@@ -74,6 +74,9 @@ public class PlayerChangeAttribute
 
         _playerControl.PlayerAnimControl.ChangeAttribute();
 
+        //コントローラーの振動
+        _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.6f, 0.6f);
+
         if (_playerAttribute == PlayerAttribute.Ice)
         {
             AudioController.Instance.Voice.Play(VoiceState.PlayerAttributeChangeGrass);

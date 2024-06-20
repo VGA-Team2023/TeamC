@@ -9,17 +9,19 @@ public class LAEFreeMoveState : IStateMachine
     LongAttackEnemy _enemy;
     PlayerControl _player;
     List<Vector3> _patrolPoint = new List<Vector3>();
-    int _index;
+    int _index = 0;
 
     public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint)
     { 
         _enemy = enemy;
         _player = player;
         _patrolPoint = patrolPoint;
+        _index = 0;
     }
     public void Enter()
     {
         _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Play);
+        _index = 0;
     }
 
     public void Exit()
@@ -40,20 +42,20 @@ public class LAEFreeMoveState : IStateMachine
         }
         //基本は決められた地点を周回する
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);
-        Debug.Log($"DIstance:{distance}");
+        Debug.Log($"{_enemy.name}Index:{_index}");
+        Debug.Log($"{_enemy.name}NextPoint:{_patrolPoint[_index % _patrolPoint.Count]}");
         if (distance < _enemy.ChangeDistance)
         {
             _index++;
-            Debug.Log($"Index:{_index}");
-            Debug.Log($"NextPoint:{_patrolPoint[_index % _patrolPoint.Count]}");
+            Debug.Log($"{_enemy.name}Index:{_index}");
+            Debug.Log($"{_enemy.name}NextPoint:{_patrolPoint[_index % _patrolPoint.Count]}");
         }
         var nextPoint = (_patrolPoint[_index % _patrolPoint.Count] - _enemy.transform.position).normalized;
-        _enemy.transform.forward = nextPoint;
+        _enemy.transform.forward = new Vector3(nextPoint.x, 0, nextPoint.z);
         _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
     }
 
     public void WallHit()
     {
-        _index++;
     }
 }

@@ -122,6 +122,9 @@ public class PlayerAvoid
     {
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
+        //コントローラーの振動
+        _playerControl.ControllerVibrationManager.OneVibration(0.2f, 0.6f, 0.6f);
+
         //ボイス
         AudioController.Instance.Voice.Play(VoiceState.PlayerDodge);
 

@@ -10,6 +10,7 @@ public class PlayerRevieEvent : MonoBehaviour
     {
         GameManager.Instance.SpecialMovingPauseManager.PauseResume(false);
         _playerControl.PlayerHp.ReVive();
+        _playerControl.PlayerDamage.EndReviveMovie();
     }
 
 }

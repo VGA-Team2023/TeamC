@@ -15,6 +15,8 @@ public class AvoidState : PlayerStateBase
     public override void Exit()
     {
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimation(true);
+        //カメラ変更
+        _stateMachine.PlayerController.CameraControl.UseDefultCamera(true);
     }
 
     public override void FixedUpdate()

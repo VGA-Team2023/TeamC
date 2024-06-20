@@ -49,10 +49,45 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
     float _defaultSpeed = 0;
-    int _defaultHp = 0;
+    float _defaultHp = 0;
 
     PlayerControl _player;
     MoveState _state = MoveState.FreeMove;
+
+
+    /// <summary>勝手に追加コーナー</summary>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ 
+
+    private float _countDestroyTime = 0;
+
+    /// <summary>死亡したかどうか</summary>
+    private bool _isDeath = false;
+
+    private bool _isFinishAttackNow = false;
+
+    [Header("死亡後消えるまでの時間")]
+    [SerializeField] private float _destroyTime = 4f;
+
+    private void CountDestroyTime()
+    {
+        if (!_isDeath) return;
+
+        _countDestroyTime += Time.deltaTime;
+
+        if (_countDestroyTime > _destroyTime)
+        {
+            base.OnEnemyDestroy -= StartFinishing;
+            EnemyFinish();
+            Destroy(gameObject);
+        }
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.PauseManager.Remove(this);
+        GameManager.Instance.SlowManager.Remove(this);
+        GameManager.Instance.SpecialMovingPauseManager.Resume(this);
+    }
+
+
     public MoveState State
     {
         get => _state;
@@ -85,7 +120,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     public List<Vector3> SetMovePoint()
     {
         List<Vector3> list = new List<Vector3> { transform.position };
-        foreach(var point in _movePosition)
+        foreach (var point in _movePosition)
         {
             list.Add(point.position);
         }
@@ -97,8 +132,10 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         _player = FindObjectOfType<PlayerControl>();
         _rb = GetComponent<Rigidbody>();
         _defaultHp = HP;
-        List<Vector3> patrolPoint = new List<Vector3> { transform.position};
-        foreach(var point in _movePosition)
+        HpBar.maxValue = _defaultHp;
+        HpBar.value = _defaultHp;
+        List<Vector3> patrolPoint = new List<Vector3> { transform.position };
+        foreach (var point in _movePosition)
         {
             patrolPoint.Add(point.position);
         }
@@ -108,16 +145,28 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         base.OnEnemyDestroy += StartFinishing;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
 
     void Update()
     {
-        switch(_state)
+
+        ////勝手に追加コーナー↓↓↓↓
+        if (GameManager.Instance.PauseManager.IsPause || GameManager.Instance.SpecialMovingPauseManager.IsPaused) return;
+        CountDestroyTime();
+        if (_isDeath) return;
+        /////↑↑↑↑↑↑↑↑
+
+        switch (_state)
         {
             case MoveState.FreeMove:
                 _freeMove.Update();
                 break;
             case MoveState.Attack:
+
+                //勝手に追加コーナー
+                if (_isFinishAttackNow) return;
+
                 _attack.Update();
                 break;
             case MoveState.Finish:
@@ -128,7 +177,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(_state == MoveState.FreeMove)
+        if (_state == MoveState.FreeMove)
         {
             _freeMove.WallHit();
         }
@@ -154,33 +203,47 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     }
 
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
-    {
+    { 
         VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
         _anim.Play("Hit");
         _rb.velocity = Vector3.zero;
         if (attackHitTyp == MagickType.Ice)
         {
-            GameObject iceAttack = Instantiate(_iceAttackEffect, transform.position, Quaternion.identity);
-            Destroy(iceAttack, 0.3f);
+            GameObject iceAttack = Instantiate(_iceAttackEffect);
+            iceAttack.transform.position = transform.position;
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
-                HP--;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= WeekDamage;
+                }
+                else
+                {
+                    HP--;
+                }
             }
             else
             {
                 SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
-                HP -= (int)damage;
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= damage * WeekDamage;
+                }
+                else
+                {
+                    HP -= damage;
+                }
             }
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
         }
         else if (attackHitTyp == MagickType.Grass)
         {
-            GameObject grassAttack = Instantiate(_grassAttackEffect, transform.position, Quaternion.identity);
-            Destroy(grassAttack, 0.3f);
+            GameObject grassAttack = Instantiate(_grassAttackEffect);
+            grassAttack.transform.position = transform.position;
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitGrassPatternA, CRIType.Play);
@@ -200,6 +263,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StartFinishing()
     {
+        _isFinishAttackNow = true;
+
         _anim.SetBool("isStan", true);
         gameObject.layer = FinishLayer;
         _rb.velocity = Vector3.zero;
@@ -210,6 +275,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     public void StopFinishing()
     {
+        _isFinishAttackNow = false;
+
         _anim.SetBool("isStan", false);
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         Core.SetActive(false);
@@ -234,15 +301,26 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             GameObject grassAttack = Instantiate(_grassFinishEffect, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity);
             Destroy(grassAttack, 3f);
         }
+
+
+        //////勝手に追加コーナー↓↓↓↓
+        _isDeath = true;
+        gameObject.layer = DeadLayer;
+        SeAudio(SEState.EnemyStan, CRIType.Stop);
+        SeAudio(SEState.EnemyOut, CRIType.Play);
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        base.OnEnemyDestroy -= StartFinishing;
-        EnemyFinish();
-        GameManager.Instance.PauseManager.Remove(this);
-        GameManager.Instance.SlowManager.Remove(this);
-        gameObject.layer = DeadLayer;
-        SeAudio(SEState.EnemyOut, CRIType.Play);
-        Destroy(gameObject, 1f);
+        //↑↑↑
+
+        //Vector3 dir = transform.position - _player.transform.position;
+        //_rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
+        //base.OnEnemyDestroy -= StartFinishing;
+        //EnemyFinish();
+        //GameManager.Instance.PauseManager.Remove(this);
+        //GameManager.Instance.SlowManager.Remove(this);
+        //gameObject.layer = DeadLayer;
+        //SeAudio(SEState.EnemyOut, CRIType.Play);
+        //Destroy(gameObject, 2f);
     }
 
     public void Pause()
@@ -294,7 +372,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             {
                 AudioController.Instance.SE.Stop(playSe);
             }
-            else if(criType == CRIType.Update)
+            else if (criType == CRIType.Update)
             {
                 AudioController.Instance.SE.Update3DPos(playSe, transform.position);
             }

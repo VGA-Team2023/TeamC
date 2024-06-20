@@ -11,6 +11,12 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     [Header("削除するまでの時間")]
     [SerializeField] private float _destroyTime = 1;
 
+    [Header("ヒットストップの際、個別の再生速度にするかどうか")]
+    [SerializeField] private bool _isOnotherHitStopSpeed = false;
+
+    [Header("ヒットストップの際、個別の再生速度にした際の速度")]
+    [SerializeField] private float _onotherHitStopSpeed = 0.8f;
+
     [Header("パーティクル")]
     [SerializeField] private List<SettingEffect> _effects = new List<SettingEffect>();
 
@@ -34,8 +40,8 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     private void OnEnable()
     {
-        GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SpecialMovingPauseManager.Add(this);
     }
 
@@ -118,7 +124,14 @@ public class EffectSettings : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         {
             foreach (var effect2 in effect.Effects)
             {
-                effect2.playbackSpeed = slowSpeedRate;
+                if (_isOnotherHitStopSpeed)
+                {
+                    effect2.playbackSpeed = _onotherHitStopSpeed;
+                }
+                else
+                {
+                    effect2.playbackSpeed = slowSpeedRate;
+                }
             }
         }
     }

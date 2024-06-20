@@ -16,6 +16,8 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
 
     private float _countWaitTIme = 0;
 
+    private bool _isEffect = false;
+
     private bool _isLockOn = false;
     public override void Enter()
     {
@@ -32,8 +34,6 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
     {
         if ((_inputManager.IsChangeLockOnEnemyLeft || _inputManager.IsChangeLockOnEnemyRight) && !_isLockOn)
         {
-            _dummyDeadEffect.ForEach(x => x.SetActive(true));
-
             //“ü—Í‚ð•s‰Â‚É‚·‚é
             _tutorialManager.SetCanInput(false);
             _isLockOn = true;
@@ -43,6 +43,12 @@ public class TutorialMissionLockOnEnemyChange : TutorialMissionBase
         if (_isLockOn)
         {
             _countWaitTIme += Time.deltaTime;
+
+            if (_waitTime / 1.8f < _countWaitTIme && !_isEffect)
+            {
+                _dummyDeadEffect.ForEach(x => x.SetActive(true));
+                _isEffect = true;
+            }
 
             if (_countWaitTIme >= _waitTime)
             {

@@ -35,6 +35,8 @@ public class PlayerDamage
 
     private bool _isDamage = false;
 
+    private bool _isPlayDeadMovie = false;
+
     private PlayerControl _playerControl;
 
     public bool IsDamage => _isDamage;
@@ -68,16 +70,23 @@ public class PlayerDamage
         }
     }
 
+    public void EndReviveMovie()
+    {
+        _isPlayDeadMovie = false;     
+        _isDead = false;
+    }
+
     public void CountWaitTime()
     {
-        if (!_isDead) return;
+        if (!_isDead || _isPlayDeadMovie) return;
 
         _countDeadTime += Time.deltaTime;
 
         if (_waitTime < _countDeadTime)
         {
             _countDeadTime = 0;
-            _isDead = false;
+
+            _isPlayDeadMovie = true;
 
             //先生の声
             AudioController.Instance.Voice.Play(VoiceState.InstructorGameHeal);

@@ -44,6 +44,7 @@ public class MAEAttackState : IStateMachine
                 _enemy.VoiceAudio(VoiceState.EnemyShortAttack, EnemyBase.CRIType.Play);
                 _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
+                _enemy.AttackEffectPlay();
                 _timer = 0f;
             }
         }
@@ -66,6 +67,11 @@ public class MAEAttackState : IStateMachine
                 }
                 _enemy.SeAudio(SEState.EnemyCloseAttack, MeleeAttackEnemy.CRIType.Play);
                 _enemy.Animator.Play("Attack");
+
+                //勝手に追加コーナー!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                _enemy.AttackEffectPlay();
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
                 if (player)
                 {

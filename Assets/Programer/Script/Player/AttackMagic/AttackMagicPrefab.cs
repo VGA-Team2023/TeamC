@@ -29,6 +29,8 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
 
     private Vector3 _foward;
 
+    private bool _isEnter = false;
+
     enum PlayMagicAudioType
     {
         Play,
@@ -139,7 +141,7 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         //音の再生方法に応じて分ける
         if (audioType == PlayMagicAudioType.Play)
         {
-            AudioController.Instance.SE.Play3D(state,transform.position);
+            AudioController.Instance.SE.Play3D(state, transform.position);
         }
         else if (audioType == PlayMagicAudioType.Stop)
         {
@@ -147,18 +149,31 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
         }
         else if (audioType == PlayMagicAudioType.Updata)
         {
-            AudioController.Instance.SE.Update3DPos(state,transform.position);
+            AudioController.Instance.SE.Update3DPos(state, transform.position);
         }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_isEnter) return;
         other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
         damageble?.Damage(_attackType, _magicType, _attackPower);
         AudioSet(PlayMagicAudioType.Stop);
+        _isEnter = true;
         Destroy(gameObject);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (_isEnter) return;
+        other.gameObject.TryGetComponent<IEnemyDamageble>(out IEnemyDamageble damageble);
+        damageble?.Damage(_attackType, _magicType, _attackPower);
+        AudioSet(PlayMagicAudioType.Stop);
+        _isEnter = true;
+        Destroy(gameObject);
+    }
+
 
     private void OnEnable()
     {
@@ -199,6 +214,11 @@ public class AttackMagicPrefab : MonoBehaviour, IMagicble, IPause, ISlow, ISpeci
 
     public void OffSlow()
     {
+        if (_saveSpeed == 0)
+        {
+            _moveSpeed = 40;
+            return;
+        }
         _moveSpeed = _saveSpeed;
     }
 

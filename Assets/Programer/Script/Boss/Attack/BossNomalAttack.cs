@@ -58,6 +58,7 @@ public class BossNomalAttack
         }
     }
 
+    /// <summary>攻撃時の初期設定</summary>
     public void AttackFirstSet()
     {
         _chantingCount = 0;
@@ -85,7 +86,6 @@ public class BossNomalAttack
         _isChargeAudio = false;
 
         //アニメーション
-        _bossControl.BossAnimControl.IsCharge(false);
         _bossControl.BossAnimControl.Attack(false);
 
         if (_setMagic.PlayerAttribute == PlayerAttribute.Ice)
@@ -114,6 +114,7 @@ public class BossNomalAttack
 
         ResetValue();
     }
+
 
     public bool DoAttack()
     {

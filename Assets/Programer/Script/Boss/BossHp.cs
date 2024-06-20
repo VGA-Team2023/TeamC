@@ -43,9 +43,6 @@ public class BossHp
     [Header("氷属性のトドメのエフェクトのOffset")]
     [SerializeField] private Vector3 _offSetGrassFinishEffect = new Vector3(0, -2, 0);
 
-
-    [SerializeField] private List<ParticleSystem> _effectDark = new List<ParticleSystem>();
-
     [Header("トドメ可能なレイヤー")]
     [SerializeField] private int _canFinishLayer;
 
@@ -132,10 +129,6 @@ public class BossHp
     /// <summary>トドメを刺された場合</summary>
     public bool CompleteFinishAttack(MagickType magickType)
     {
-        if (_waveCount < 2)
-        {
-            _effectDark[_waveCount].Stop();
-        }
         _waveCount++;
 
         _isFinishComplete = true;
@@ -179,11 +172,15 @@ public class BossHp
                 e.gameObject.SetActive(false);
             }   //ダウンエフェクトを停止
 
-            foreach (var e in _effectDark)
+            foreach (var e in _bossControl.IceFog)
             {
                 e.gameObject.SetActive(false);
             }   //もわもわエフェクトを停止
 
+            foreach (var e in _bossControl.GrassFog)
+            {
+                e.gameObject.SetActive(false);
+            }   //もわもわエフェクトを停止
 
             _bossControl.gameObject.layer = _endFinishLayer;
             return true;
