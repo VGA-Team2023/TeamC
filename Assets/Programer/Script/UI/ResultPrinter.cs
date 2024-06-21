@@ -85,7 +85,6 @@ public class ResultPrinter : MonoBehaviour
                                  _audioController.SE.Stop(SEState.MeScoreAnnouncement);
                                  Judge(GameManager.Instance);
                                  GameManager.Instance.ScoreManager.ScoreReset();
-                                 //GameManager.Instance.ScoreManager.IsBossDestroy = false;
                              });
                          });
                      });
@@ -155,19 +154,11 @@ public class ResultPrinter : MonoBehaviour
             evaluationvalue += 1;
         }
 
-        if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _sRankScoreEnemyDefeatedGap)
+        if (_idealEnemyDefeatedNum - enemyDefeatedNum == _sRankScoreEnemyDefeatedGap)
         {
             evaluationvalue += 4;
         }
-        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _aRankScoreEnemyDefeatedGap)
-        {
-            evaluationvalue += 3;
-        }
-        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _bRankScoreEnemyDefeatedGap)
-        {
-            evaluationvalue += 2;
-        }
-        else if (_idealEnemyDefeatedNum - enemyDefeatedNum <= _cRankScoreEnemyDefeatedGap)
+        else if (_idealEnemyDefeatedNum - enemyDefeatedNum >= _cRankScoreEnemyDefeatedGap)
         {
             evaluationvalue += 1;
         }
