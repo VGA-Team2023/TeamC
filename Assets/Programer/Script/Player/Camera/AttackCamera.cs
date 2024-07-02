@@ -15,8 +15,6 @@ public class AttackCamera
     [Header("Dutch‚Ì•ÏX‘¬“x")]
     [SerializeField] private float _changeDutchSpeedAvoid = 3;
 
-    [SerializeField] private float _changeFOVSpeedAvoid = 3;
-
     private CameraControl _cameraControl;
 
     private CinemachineVirtualCamera _camera;

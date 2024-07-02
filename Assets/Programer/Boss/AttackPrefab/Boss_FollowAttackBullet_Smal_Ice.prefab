@@ -81,7 +81,7 @@ MonoBehaviour:
   - {fileID: 6078562547768857434}
   _attackPower: 1
   _waitTime: 1
-  _attackWaitTime: 0.15
+  _attackWaitTime: 0.3
   _destroyTime: 5
   _offset: {x: 0, y: 1.23, z: 0}
   _size: {x: 2, y: 5, z: 2}
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDestroy: 0
   _destroyTime: 1
+  _isOnotherHitStopSpeed: 0
+  _onotherHitStopSpeed: 0.8
   _effects:
   - _name: 
     _effects:

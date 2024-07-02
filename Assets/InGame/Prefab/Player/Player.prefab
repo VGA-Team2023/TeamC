@@ -25051,7 +25051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsMousePlay: 0
   _hp:
-    _hp: 80
+    _hp: 50
     _uiHp:
       _slider: {fileID: 7017305732162254733}
   _damage:
@@ -25168,10 +25168,10 @@ MonoBehaviour:
             - {fileID: 50636595982802660}
             - {fileID: 2950777635194503684}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6963677899382628250}
+            - {fileID: 5595137242671515854}
+            - {fileID: 2170425730675831437}
+            - {fileID: 8711156253989330187}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25183,10 +25183,10 @@ MonoBehaviour:
             - {fileID: 1827457136360781245}
             - {fileID: 3538931566201170269}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2820573651001038819}
+            - {fileID: 730338781863887031}
+            - {fileID: 6456370068644313844}
+            - {fileID: 4567629243386303858}
             _isAttackAnimPlay: 1
           - _name: 3_1
             _attackContinuous: 3
@@ -25198,10 +25198,10 @@ MonoBehaviour:
             - {fileID: 15792090576622210}
             - {fileID: 2916287216555363938}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 106149485142253250}
+            - {fileID: 3206283585634994582}
+            - {fileID: 9206497765604127701}
+            - {fileID: 1819124631756004435}
             _isAttackAnimPlay: 1
           - _name: 4_1
             _attackContinuous: 4
@@ -25213,10 +25213,10 @@ MonoBehaviour:
             - {fileID: 8241858939860879586}
             - {fileID: 6494285353671070722}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3405233888637935248}
+            - {fileID: 164326016174311876}
+            - {fileID: 5907808718310781831}
+            - {fileID: 3964883442841590785}
             _isAttackAnimPlay: 1
           - _name: 5_1
             _attackContinuous: 5
@@ -25228,10 +25228,10 @@ MonoBehaviour:
             - {fileID: 5460826963403247738}
             - {fileID: 7172088131189574810}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6543832914757926715}
+            - {fileID: 8635162829024503919}
+            - {fileID: 2624841886344139308}
+            - {fileID: 4798470021194186154}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25252,10 +25252,10 @@ MonoBehaviour:
             - {fileID: 2543999088613650862}
             - {fileID: 796777208963460430}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3028059866054989028}
+            - {fileID: 505471804829926320}
+            - {fileID: 6104848045108591091}
+            - {fileID: 3621490266392188533}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25267,10 +25267,10 @@ MonoBehaviour:
             - {fileID: 4634759060427277873}
             - {fileID: 7498873639074634449}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5744852614966174969}
+            - {fileID: 7115633045583328173}
+            - {fileID: 3532163032764647918}
+            - {fileID: 6340535382052709992}
             _isAttackAnimPlay: 1
           - _name: 3_1
             _attackContinuous: 3
@@ -25282,10 +25282,10 @@ MonoBehaviour:
             - {fileID: 6588878411688868718}
             - {fileID: 8300353013301340046}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5764135094983348639}
+            - {fileID: 7131535627125147339}
+            - {fileID: 3549752125336861832}
+            - {fileID: 6321250704918582030}
             _isAttackAnimPlay: 1
           - _name: 4_1
             _attackContinuous: 4
@@ -25297,10 +25297,10 @@ MonoBehaviour:
             - {fileID: 4519847767512025572}
             - {fileID: 1655381343812097284}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3299276315330639282}
+            - {fileID: 58403713138189030}
+            - {fileID: 6013555374355388581}
+            - {fileID: 3859206674428475171}
             _isAttackAnimPlay: 1
           - _name: 5_1
             _attackContinuous: 5
@@ -25312,10 +25312,10 @@ MonoBehaviour:
             - {fileID: 776796849187263452}
             - {fileID: 2487989794646003516}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6790086494000101942}
+            - {fileID: 8303833123041553762}
+            - {fileID: 2343605893904586529}
+            - {fileID: 5079200436121630887}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25337,10 +25337,10 @@ MonoBehaviour:
             - {fileID: 1593158205553386758}
             - {fileID: 4493653330729187814}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4666880676180154083}
+            - {fileID: 7908893472199033271}
+            - {fileID: 4501635538060983284}
+            - {fileID: 6378184960324277362}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25352,10 +25352,10 @@ MonoBehaviour:
             - {fileID: 3720045121720638725}
             - {fileID: 2008852013051953637}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1534810502447205131}
+            - {fileID: 4056232050555460703}
+            - {fileID: 7778187771446552092}
+            - {fileID: 939972865269418394}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -25367,10 +25367,10 @@ MonoBehaviour:
             - {fileID: 4321098918161880178}
             - {fileID: 1420605879283222674}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5488313396827769015}
+            - {fileID: 7002104006602514403}
+            - {fileID: 3645511481297184160}
+            - {fileID: 6083709603729345062}
             _isAttackAnimPlay: 1
           - _name: 3_1
             _attackContinuous: 3
@@ -25382,10 +25382,10 @@ MonoBehaviour:
             - {fileID: 3175165161711550735}
             - {fileID: 310980317149945327}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5065168183441068114}
+            - {fileID: 7731845113182390022}
+            - {fileID: 4104473832350416197}
+            - {fileID: 6777035571989172931}
             _isAttackAnimPlay: 0
           - _name: 3_2
             _attackContinuous: 3
@@ -25397,10 +25397,10 @@ MonoBehaviour:
             - {fileID: 4961049377720386636}
             - {fileID: 7825445295255017644}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6623651109102304366}
+            - {fileID: 8569769673739217722}
+            - {fileID: 2690616018616078713}
+            - {fileID: 4876314024661122815}
             _isAttackAnimPlay: 1
           - _name: 4_1
             _attackContinuous: 4
@@ -25412,10 +25412,10 @@ MonoBehaviour:
             - {fileID: 8395590409788006297}
             - {fileID: 6684329113429738361}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5329673912195964582}
+            - {fileID: 7273543906834598386}
+            - {fileID: 3984520991386055601}
+            - {fileID: 5886491124580686903}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -25427,10 +25427,10 @@ MonoBehaviour:
             - {fileID: 5467644577074603621}
             - {fileID: 7178835460939086469}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4887423308143785445}
+            - {fileID: 7986432522341966513}
+            - {fileID: 4426632777372506354}
+            - {fileID: 6598995873527215988}
             _isAttackAnimPlay: 1
           - _name: 5_1
             _attackContinuous: 5
@@ -25442,25 +25442,25 @@ MonoBehaviour:
             - {fileID: 8159901528060769076}
             - {fileID: 6448426943357759444}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8055956036010035175}
+            - {fileID: 4812833832757940403}
+            - {fileID: 1256948230268562160}
+            - {fileID: 8614061205906949494}
             _isAttackAnimPlay: 0
           - _name: 5_2
             _attackContinuous: 5
             _chargeTime: 0
             _magickCircle: {fileID: 4916726747602618518}
             _particlesUseMagic:
-            - {fileID: 8308002747156654658}
-            - {fileID: 1013014988206587329}
-            - {fileID: 4804674399848787360}
-            - {fileID: 7704815629374157120}
+            - {fileID: 705195432326933326}
+            - {fileID: 2652413508324244506}
+            - {fileID: 8607585146846004825}
+            - {fileID: 1265108869992376799}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 705195432326933326}
+            - {fileID: 2652413508324244506}
+            - {fileID: 8607585146846004825}
+            - {fileID: 1265108869992376799}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25481,10 +25481,10 @@ MonoBehaviour:
             - {fileID: 8985668833797327311}
             - {fileID: 6121274960667661615}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3302157127063290976}
+            - {fileID: 60096983593898804}
+            - {fileID: 6011897571740330359}
+            - {fileID: 3860803394019362545}
             _isAttackAnimPlay: 1
           - _name: 1_2
             _attackContinuous: 1
@@ -25496,10 +25496,10 @@ MonoBehaviour:
             - {fileID: 7626060093764298172}
             - {fileID: 4725846485449931100}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3251934880132337061}
+            - {fileID: 11028107179039473}
+            - {fileID: 6024729018107027634}
+            - {fileID: 3848039842503577396}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25511,10 +25511,10 @@ MonoBehaviour:
             - {fileID: 3264045735801088761}
             - {fileID: 363834284920960537}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1618463279775446093}
+            - {fileID: 4284031884616885017}
+            - {fileID: 7550563309481302362}
+            - {fileID: 1022921388287276764}
             _isAttackAnimPlay: 1
           - _name: 2_2
             _attackContinuous: 2
@@ -25526,10 +25526,10 @@ MonoBehaviour:
             - {fileID: 4355118146401569758}
             - {fileID: 1454906728805078846}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4371276063764885283}
+            - {fileID: 1274514165701130359}
+            - {fileID: 4761702284895961652}
+            - {fileID: 2661115254667996594}
             _isAttackAnimPlay: 1
           - _name: 3_1
             _attackContinuous: 2
@@ -25541,10 +25541,10 @@ MonoBehaviour:
             - {fileID: 9023219220574305690}
             - {fileID: 6158754978968232314}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4271739757914710001}
+            - {fileID: 1607322341478844581}
+            - {fileID: 5041030161694667494}
+            - {fileID: 2526395143128292704}
             _isAttackAnimPlay: 1
           - _name: 3_2
             _attackContinuous: 2
@@ -25556,10 +25556,10 @@ MonoBehaviour:
             - {fileID: 4619475719783333739}
             - {fileID: 7519619009556587403}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1933837336173804508}
+            - {fileID: 4021786235005103240}
+            - {fileID: 7235961183629121227}
+            - {fileID: 185092464464542029}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25580,10 +25580,10 @@ MonoBehaviour:
             - {fileID: 8417073637586032162}
             - {fileID: 6669781533877979842}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2227684191205015923}
+            - {fileID: 3741450542737085991}
+            - {fileID: 6942088185266252900}
+            - {fileID: 481208591370617826}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25595,10 +25595,10 @@ MonoBehaviour:
             - {fileID: 4275190516617697486}
             - {fileID: 1374765604518675502}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3195607354209798867}
+            - {fileID: 98811457185193351}
+            - {fileID: 5972900523130578884}
+            - {fileID: 3755678451400001602}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -25610,10 +25610,10 @@ MonoBehaviour:
             - {fileID: 1701281018357354151}
             - {fileID: 4601705775584318023}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8191175878596984088}
+            - {fileID: 6677422738116405836}
+            - {fileID: 1085918934508048399}
+            - {fileID: 7632243755260657545}
             _isAttackAnimPlay: 1
           - _name: 3_1
             _attackContinuous: 3
@@ -25625,10 +25625,10 @@ MonoBehaviour:
             - {fileID: 5681716294294215828}
             - {fileID: 7392979617875460212}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4064736264231727236}
+            - {fileID: 1544391154917713872}
+            - {fileID: 5104208458787478931}
+            - {fileID: 2319092445245764117}
             _isAttackAnimPlay: 0
           - _name: 3_2
             _attackContinuous: 3
@@ -25640,10 +25640,10 @@ MonoBehaviour:
             - {fileID: 8012915558242529389}
             - {fileID: 5148521650775403661}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 671722257778548031}
+            - {fileID: 2617840839595068011}
+            - {fileID: 8642263931297034280}
+            - {fileID: 1231072075441594286}
             _isAttackAnimPlay: 1
           - _name: 4_1
             _attackContinuous: 4
@@ -25655,10 +25655,10 @@ MonoBehaviour:
             - {fileID: 6413457474315518206}
             - {fileID: 8160958484955372574}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8510592589789589556}
+            - {fileID: 6565594410320717664}
+            - {fileID: 623361842097855779}
+            - {fileID: 7952363587295425189}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -25670,10 +25670,10 @@ MonoBehaviour:
             - {fileID: 7438980602967112877}
             - {fileID: 5727506044012142669}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1353218554307727642}
+            - {fileID: 4594101052373255758}
+            - {fileID: 7816713551200304141}
+            - {fileID: 756696310798521227}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25698,10 +25698,10 @@ MonoBehaviour:
             - {fileID: 3192558039671779459}
             - {fileID: 7328399327422654448}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1084950252432452116}
+            - {fileID: 447905034991332525}
+            - {fileID: 8259796124956081994}
+            - {fileID: 1422704183924991239}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25712,10 +25712,10 @@ MonoBehaviour:
             - {fileID: 9138889561180368989}
             - {fileID: 3976205001623562030}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3739277697961090847}
+            - {fileID: 4241641537100994982}
+            - {fileID: 5641498575835859521}
+            - {fileID: 3410460951323447308}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -25726,10 +25726,10 @@ MonoBehaviour:
             - {fileID: 3213797035715121904}
             - {fileID: 7306027869795894659}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1049265074751807608}
+            - {fileID: 555770996036904641}
+            - {fileID: 8296062995715159334}
+            - {fileID: 1314853651339374443}
             _isAttackAnimPlay: 0
           - _name: 3_1
             _attackContinuous: 3
@@ -25740,10 +25740,10 @@ MonoBehaviour:
             - {fileID: 1027983239366722845}
             - {fileID: 5168350666607514222}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 7328123087592263934}
+            - {fileID: 7821480277375850055}
+            - {fileID: 1737418926168851872}
+            - {fileID: 8719611491700826093}
             _isAttackAnimPlay: 0
           - _name: 3_2
             _attackContinuous: 3
@@ -25754,10 +25754,10 @@ MonoBehaviour:
             - {fileID: 3707967981772193085}
             - {fileID: 8829540134858041934}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 338446313978190803}
+            - {fileID: 976055031281573226}
+            - {fileID: 8726941920622186125}
+            - {fileID: 1730110453118309568}
             _isAttackAnimPlay: 0
           - _name: 4_1
             _attackContinuous: 4
@@ -25768,10 +25768,10 @@ MonoBehaviour:
             - {fileID: 6314802241658615036}
             - {fileID: 2188509645452075919}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 9183937418707752078}
+            - {fileID: 8523666667388981815}
+            - {fileID: 206552321045103056}
+            - {fileID: 7188614750069398429}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -25782,10 +25782,10 @@ MonoBehaviour:
             - {fileID: 981492591378913347}
             - {fileID: 4927919361611026224}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4623459141539851783}
+            - {fileID: 5264725933900916926}
+            - {fileID: 4433767197756668761}
+            - {fileID: 6672402791093805332}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25810,10 +25810,10 @@ MonoBehaviour:
             - {fileID: 7030077263590318398}
             - {fileID: 2914480716631832141}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3185714187717795157}
+            - {fileID: 2669559174486547436}
+            - {fileID: 5880533970759976971}
+            - {fileID: 3496235078054056518}
             _isAttackAnimPlay: 1
           - _name: 2
             _attackContinuous: 2
@@ -25824,10 +25824,10 @@ MonoBehaviour:
             - {fileID: 7833719766049911670}
             - {fileID: 2687378338461606917}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4883028323078231771}
+            - {fileID: 5403690234872287330}
+            - {fileID: 4497464570778780549}
+            - {fileID: 6878387548457310664}
             _isAttackAnimPlay: 0
           - _name: 3
             _attackContinuous: 3
@@ -25838,10 +25838,10 @@ MonoBehaviour:
             - {fileID: 6393395023009683605}
             - {fileID: 1244238304496783334}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8570835952083030612}
+            - {fileID: 9207743730730063085}
+            - {fileID: 819529456105096970}
+            - {fileID: 7656480591070960967}
             _isAttackAnimPlay: 0
           - _name: 4
             _attackContinuous: 4
@@ -25852,10 +25852,10 @@ MonoBehaviour:
             - {fileID: 8753621408106352752}
             - {fileID: 3496647679547934467}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6846234868039306467}
+            - {fileID: 6213689401794415194}
+            - {fileID: 2498514861142776253}
+            - {fileID: 4878039676568142832}
             _isAttackAnimPlay: 0
           - _name: 5
             _attackContinuous: 5
@@ -25866,10 +25866,10 @@ MonoBehaviour:
             - {fileID: 9060022213776751091}
             - {fileID: 3766734355939372672}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6210907890798423279}
+            - {fileID: 6847811271375809110}
+            - {fileID: 3143415234226993585}
+            - {fileID: 5368680784621118460}
             _isAttackAnimPlay: 0
           - _name: 6
             _attackContinuous: 6
@@ -25880,10 +25880,10 @@ MonoBehaviour:
             - {fileID: 5473674624735109466}
             - {fileID: 147471795668055593}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6842633534107876420}
+            - {fileID: 6326476871346977533}
+            - {fileID: 2547874808733870362}
+            - {fileID: 4775253325129429847}
             _isAttackAnimPlay: 0
           - _name: 7
             _attackContinuous: 7
@@ -25894,10 +25894,10 @@ MonoBehaviour:
             - {fileID: 2129404620560167998}
             - {fileID: 6084540098552619853}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6244556574198703177}
+            - {fileID: 6886246678639223536}
+            - {fileID: 3100494487355584791}
+            - {fileID: 5339561022800456538}
             _isAttackAnimPlay: 1
           - _name: 8
             _attackContinuous: 8
@@ -25908,10 +25908,10 @@ MonoBehaviour:
             - {fileID: 5397826401268916945}
             - {fileID: 222193983916537250}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6989201891994524020}
+            - {fileID: 7622168471184531405}
+            - {fileID: 2112353454805552170}
+            - {fileID: 8957188502666679911}
             _isAttackAnimPlay: 0
           - _name: 9
             _attackContinuous: 9
@@ -25922,10 +25922,10 @@ MonoBehaviour:
             - {fileID: 1684034883166949}
             - {fileID: 5330134807286986134}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6388512627649209742}
+            - {fileID: 5877564351620080439}
+            - {fileID: 2668024556198015184}
+            - {fileID: 4906811467738360477}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -25951,10 +25951,10 @@ MonoBehaviour:
             - {fileID: 6434613876579666694}
             - {fileID: 1202986639419087989}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1977664204468255204}
+            - {fileID: 1318376966304661341}
+            - {fileID: 7411842294288395450}
+            - {fileID: 559258304143865591}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -25965,10 +25965,10 @@ MonoBehaviour:
             - {fileID: 2276889330950540848}
             - {fileID: 6225285351882496323}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 7266668603588158381}
+            - {fileID: 7917793617327662356}
+            - {fileID: 1834742724889704179}
+            - {fileID: 8676349555003911358}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -25979,10 +25979,10 @@ MonoBehaviour:
             - {fileID: 6252193821804659508}
             - {fileID: 2250053672648447047}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 372457470511991547}
+            - {fileID: 870038983818497090}
+            - {fileID: 8684356566983221157}
+            - {fileID: 1845294369695172072}
             _isAttackAnimPlay: 0
           - _name: 3_1
             _attackContinuous: 3
@@ -25993,10 +25993,10 @@ MonoBehaviour:
             - {fileID: 6715991667762925951}
             - {fileID: 1499263363181905420}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5913465233104580923}
+            - {fileID: 6568810722210527106}
+            - {fileID: 3440447877669807205}
+            - {fileID: 5665572480117997096}
             _isAttackAnimPlay: 1
           - _name: 3_2
             _attackContinuous: 3
@@ -26007,10 +26007,10 @@ MonoBehaviour:
             - {fileID: 6997961959730175451}
             - {fileID: 2945437239307455144}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1434659771448067998}
+            - {fileID: 1932374875553661223}
+            - {fileID: 7946279555787379392}
+            - {fileID: 1105666819610364045}
             _isAttackAnimPlay: 0
           - _name: 4_1
             _attackContinuous: 4
@@ -26021,10 +26021,10 @@ MonoBehaviour:
             - {fileID: 1833192798925954515}
             - {fileID: 5804372324408887968}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2130288394038824329}
+            - {fileID: 1488877016171334448}
+            - {fileID: 6935114961584724183}
+            - {fileID: 81275258361414298}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -26035,10 +26035,10 @@ MonoBehaviour:
             - {fileID: 1626884277200292046}
             - {fileID: 6876522064849149885}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1014921133344505618}
+            - {fileID: 516922905003145643}
+            - {fileID: 8339414394284436044}
+            - {fileID: 1343559297269919745}
             _isAttackAnimPlay: 0
           - _name: 5_1
             _attackContinuous: 5
@@ -26049,10 +26049,10 @@ MonoBehaviour:
             - {fileID: 55428526267003795}
             - {fileID: 5276355299087246560}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2161906056988051905}
+            - {fileID: 1673476328839008120}
+            - {fileID: 7182843706290642079}
+            - {fileID: 193746530936719058}
             _isAttackAnimPlay: 0
           - _name: 5_2
             _attackContinuous: 5
@@ -26063,10 +26063,10 @@ MonoBehaviour:
             - {fileID: 7292646217274155151}
             - {fileID: 3227152233358555132}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3414374338366594502}
+            - {fileID: 2763953012475714431}
+            - {fileID: 5966283309878053016}
+            - {fileID: 3734251780607283925}
             _isAttackAnimPlay: 1
           - _name: 5_3
             _attackContinuous: 5
@@ -26077,10 +26077,10 @@ MonoBehaviour:
             - {fileID: 1061790656300303401}
             - {fileID: 5134585414477337434}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 228128370911078658}
+            - {fileID: 726128797894012859}
+            - {fileID: 9116497147846769756}
+            - {fileID: 2277283057967605265}
             _isAttackAnimPlay: 0
           - _name: 5_4
             _attackContinuous: 5
@@ -26091,10 +26091,10 @@ MonoBehaviour:
             - {fileID: 6411180363123525633}
             - {fileID: 1226276872853725042}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 7131446457975493766}
+            - {fileID: 7768215697744220735}
+            - {fileID: 2259057231927149016}
+            - {fileID: 9099256620518710165}
             _isAttackAnimPlay: 0
           - _name: 5_5
             _attackContinuous: 5
@@ -26105,10 +26105,10 @@ MonoBehaviour:
             - {fileID: 8961252530180433771}
             - {fileID: 3864450707485667352}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3378019864557132993}
+            - {fileID: 2871292063911287416}
+            - {fileID: 6003042645175650719}
+            - {fileID: 3625910347654714322}
             _isAttackAnimPlay: 0
           - _name: 5_6
             _attackContinuous: 5
@@ -26119,10 +26119,10 @@ MonoBehaviour:
             - {fileID: 659600663941433980}
             - {fileID: 4673282361689791759}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8962007295679061831}
+            - {fileID: 8459644556187032062}
+            - {fileID: 139970539123608089}
+            - {fileID: 6984945910875918420}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -26149,10 +26149,10 @@ MonoBehaviour:
             - {fileID: 5854788126133035950}
             - {fileID: 1782836134625981661}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 589225389759730681}
+            - {fileID: 77857100418880832}
+            - {fileID: 8467731637245200039}
+            - {fileID: 1485528399924321514}
             _isAttackAnimPlay: 0
           - _name: 1_2
             _attackContinuous: 1
@@ -26163,10 +26163,10 @@ MonoBehaviour:
             - {fileID: 291544001806622764}
             - {fileID: 5617764972816594783}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1913631128579535528}
+            - {fileID: 1420699450219459601}
+            - {fileID: 7431116469885183990}
+            - {fileID: 449907187929038267}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -26177,10 +26177,10 @@ MonoBehaviour:
             - {fileID: 7330667071358025210}
             - {fileID: 3190316687219731081}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8917017180159258808}
+            - {fileID: 8252380268300744193}
+            - {fileID: 437323809907926502}
+            - {fileID: 7426271454767480747}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -26191,10 +26191,10 @@ MonoBehaviour:
             - {fileID: 5528952069987575519}
             - {fileID: 380345665895281068}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5375112292343729230}
+            - {fileID: 4873457638052678391}
+            - {fileID: 3978376628541102352}
+            - {fileID: 6208437821095576413}
             _isAttackAnimPlay: 0
           - _name: 3_1
             _attackContinuous: 3
@@ -26205,10 +26205,10 @@ MonoBehaviour:
             - {fileID: 51820703166673215}
             - {fileID: 5279784900286457420}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3223018695469119394}
+            - {fileID: 2703203957380067611}
+            - {fileID: 5842367446332367612}
+            - {fileID: 3461727723890309297}
             _isAttackAnimPlay: 0
           - _name: 3_2
             _attackContinuous: 3
@@ -26219,10 +26219,10 @@ MonoBehaviour:
             - {fileID: 6867396603522304612}
             - {fileID: 1634927681627938071}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6589406617478280301}
+            - {fileID: 5929980291091673812}
+            - {fileID: 2800238660299383091}
+            - {fileID: 5170896547014900606}
             _isAttackAnimPlay: 0
           - _name: 4_1
             _attackContinuous: 4
@@ -26233,10 +26233,10 @@ MonoBehaviour:
             - {fileID: 344884636574562452}
             - {fileID: 5563296276814835687}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 282431628152040335}
+            - {fileID: 779868005938425142}
+            - {fileID: 9098769058735931089}
+            - {fileID: 2259566190465459356}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -26247,10 +26247,10 @@ MonoBehaviour:
             - {fileID: 6827910174607403256}
             - {fileID: 1674238329445875595}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 7515545596992671152}
+            - {fileID: 7022615018114861833}
+            - {fileID: 1576999529049004270}
+            - {fileID: 8429724261035573923}
             _isAttackAnimPlay: 1
           - _name: 5_1
             _attackContinuous: 5
@@ -26261,10 +26261,10 @@ MonoBehaviour:
             - {fileID: 1711623550214554910}
             - {fileID: 6790691908880585325}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 136745951915159856}
+            - {fileID: 638405553995954057}
+            - {fileID: 8956505075571975278}
+            - {fileID: 2113631691873156643}
             _isAttackAnimPlay: 0
           - _name: 5_2
             _attackContinuous: 5
@@ -26275,10 +26275,10 @@ MonoBehaviour:
             - {fileID: 4357959456490324689}
             - {fileID: 8468772578245219746}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6766537875642499958}
+            - {fileID: 6115415061186299343}
+            - {fileID: 2326573241289053736}
+            - {fileID: 4708341008828370021}
             _isAttackAnimPlay: 0
           - _name: 6_1
             _attackContinuous: 6
@@ -26289,10 +26289,10 @@ MonoBehaviour:
             - {fileID: 5855994407206264743}
             - {fileID: 1781491549133932756}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5714795924756531661}
+            - {fileID: 5077469232581971828}
+            - {fileID: 3666278419079224467}
+            - {fileID: 6052831262497687262}
             _isAttackAnimPlay: 0
           - _name: 6_2
             _attackContinuous: 6
@@ -26303,10 +26303,10 @@ MonoBehaviour:
             - {fileID: 1871967181735370378}
             - {fileID: 5766607503795128825}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 733110815908490520}
+            - {fileID: 222166938057993121}
+            - {fileID: 8611652379767191622}
+            - {fileID: 1629310259380331019}
             _isAttackAnimPlay: 1
           - _name: 7_1
             _attackContinuous: 7
@@ -26317,10 +26317,10 @@ MonoBehaviour:
             - {fileID: 5478521732327135567}
             - {fileID: 430679521345457724}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3427597753243005283}
+            - {fileID: 2785623975173650394}
+            - {fileID: 5926580629749277757}
+            - {fileID: 3684424519365344880}
             _isAttackAnimPlay: 0
           - _name: 7_2
             _attackContinuous: 7
@@ -26331,10 +26331,10 @@ MonoBehaviour:
             - {fileID: 5093861347757016627}
             - {fileID: 1102411226038620480}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1640051765708946077}
+            - {fileID: 2304542992148855844}
+            - {fileID: 7740727016575872963}
+            - {fileID: 752755413630203278}
             _isAttackAnimPlay: 0
           - _name: 8_1
             _attackContinuous: 8
@@ -26345,10 +26345,10 @@ MonoBehaviour:
             - {fileID: 2375200400402382901}
             - {fileID: 7569393106598008646}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 9096106425747332716}
+            - {fileID: 8575451111155161301}
+            - {fileID: 258368501411089202}
+            - {fileID: 7100819757530222975}
             _isAttackAnimPlay: 0
           - _name: 8_2
             _attackContinuous: 8
@@ -26359,10 +26359,10 @@ MonoBehaviour:
             - {fileID: 3446970449878551049}
             - {fileID: 7362140329594494330}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6191247937327815717}
+            - {fileID: 6688541378587908764}
+            - {fileID: 2901883194147604859}
+            - {fileID: 5285900333773493046}
             _isAttackAnimPlay: 0
           - _name: 9_1
             _attackContinuous: 9
@@ -26373,10 +26373,10 @@ MonoBehaviour:
             - {fileID: 6564724334047061315}
             - {fileID: 1362089036272235056}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8401232334859948435}
+            - {fileID: 9056439285500794666}
+            - {fileID: 664588935544505549}
+            - {fileID: 7505210464794648192}
             _isAttackAnimPlay: 0
           - _name: 9_2
             _attackContinuous: 9
@@ -26387,10 +26387,10 @@ MonoBehaviour:
             - {fileID: 3247864349208743598}
             - {fileID: 7273086529196988893}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1710802005608377582}
+            - {fileID: 2198951358564969047}
+            - {fileID: 7643674052451858864}
+            - {fileID: 796306141174522877}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -26415,10 +26415,10 @@ MonoBehaviour:
             - {fileID: 3994340353010847147}
             - {fileID: 9120692632764373720}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8211132387072445717}
+            - {fileID: 8703785339259980716}
+            - {fileID: 891142317740382283}
+            - {fileID: 7873202602443522566}
             _isAttackAnimPlay: 1
           - _name: 2_1
             _attackContinuous: 2
@@ -26429,10 +26429,10 @@ MonoBehaviour:
             - {fileID: 8171842276025934844}
             - {fileID: 4077373411939234959}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5652341949521799221}
+            - {fileID: 5136606949751238284}
+            - {fileID: 3737727518247648619}
+            - {fileID: 5963283110999254822}
             _isAttackAnimPlay: 0
           - _name: 2_2
             _attackContinuous: 2
@@ -26443,10 +26443,10 @@ MonoBehaviour:
             - {fileID: 788602392510686595}
             - {fileID: 4831279869748212464}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6414393770127212294}
+            - {fileID: 5781851052913047999}
+            - {fileID: 2642123656393288280}
+            - {fileID: 5022762962076725269}
             _isAttackAnimPlay: 0
           - _name: 2_3
             _attackContinuous: 2
@@ -26457,10 +26457,10 @@ MonoBehaviour:
             - {fileID: 6888344355388525897}
             - {fileID: 1613936228498479674}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2844067304066859393}
+            - {fileID: 3333204568225204024}
+            - {fileID: 6545450395691783391}
+            - {fileID: 4307931973756522130}
             _isAttackAnimPlay: 0
           - _name: 2_4
             _attackContinuous: 2
@@ -26471,10 +26471,10 @@ MonoBehaviour:
             - {fileID: 5628257775067107912}
             - {fileID: 569173616441001275}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2225835129616911488}
+            - {fileID: 1718688964788243001}
+            - {fileID: 7155644833228757470}
+            - {fileID: 167530570792666003}
             _isAttackAnimPlay: 0
           - _name: 3_1
             _attackContinuous: 3
@@ -26485,10 +26485,10 @@ MonoBehaviour:
             - {fileID: 7540458965192961384}
             - {fileID: 2402843820505266715}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 501369763613811481}
+            - {fileID: 1138560666360227232}
+            - {fileID: 8888713087440516679}
+            - {fileID: 1893139462174141450}
             _isAttackAnimPlay: 0
           - _name: 3_2
             _attackContinuous: 3
@@ -26499,10 +26499,10 @@ MonoBehaviour:
             - {fileID: 1212744853970595025}
             - {fileID: 6424670500618812322}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5916194321206811475}
+            - {fileID: 6567172549862989290}
+            - {fileID: 3437582638865731085}
+            - {fileID: 5668477258156495936}
             _isAttackAnimPlay: 0
           - _name: 3_3
             _attackContinuous: 3
@@ -26513,10 +26513,10 @@ MonoBehaviour:
             - {fileID: 2912511136619990966}
             - {fileID: 7032049423770425541}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2010732268179365826}
+            - {fileID: 1359609453746297211}
+            - {fileID: 7370626815488707228}
+            - {fileID: 529031340193239249}
             _isAttackAnimPlay: 0
           - _name: 3_4
             _attackContinuous: 3
@@ -26527,10 +26527,10 @@ MonoBehaviour:
             - {fileID: 8886046437965794156}
             - {fileID: 3651327365392014367}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 8023944055899234979}
+            - {fileID: 7377746503525966874}
+            - {fileID: 1365983538803406845}
+            - {fileID: 8352549964605320624}
             _isAttackAnimPlay: 0
           - _name: 4_1
             _attackContinuous: 4
@@ -26541,10 +26541,10 @@ MonoBehaviour:
             - {fileID: 4214704461412732663}
             - {fileID: 8322697893912484228}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4708000651956509008}
+            - {fileID: 5219652615316201449}
+            - {fileID: 4393289988305816590}
+            - {fileID: 6766338264712844867}
             _isAttackAnimPlay: 0
           - _name: 4_2
             _attackContinuous: 4
@@ -26555,10 +26555,10 @@ MonoBehaviour:
             - {fileID: 5866683927941772209}
             - {fileID: 1771936861904659650}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5042574701244754639}
+            - {fileID: 5531283705225555062}
+            - {fileID: 4059122777675005841}
+            - {fileID: 6433994128050873820}
             _isAttackAnimPlay: 0
           - _name: 4_3
             _attackContinuous: 4
@@ -26569,10 +26569,10 @@ MonoBehaviour:
             - {fileID: 6008969063124268556}
             - {fileID: 1916755830357385599}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 3577149156240993518}
+            - {fileID: 4079511345851378263}
+            - {fileID: 5479370455020632496}
+            - {fileID: 3248334889936643069}
             _isAttackAnimPlay: 0
           - _name: 4_4
             _attackContinuous: 4
@@ -26583,10 +26583,10 @@ MonoBehaviour:
             - {fileID: 8714419071629130158}
             - {fileID: 3535993362704166621}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 1765439965277380642}
+            - {fileID: 1277291162479257243}
+            - {fileID: 7290815539464746364}
+            - {fileID: 301999698625539889}
             _isAttackAnimPlay: 1
           - _name: 5_1
             _attackContinuous: 5
@@ -26597,10 +26597,10 @@ MonoBehaviour:
             - {fileID: 924582635246092980}
             - {fileID: 4983599954239919559}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4879476021154959995}
+            - {fileID: 5372409898938848450}
+            - {fileID: 4474702018239858469}
+            - {fileID: 6847601178876910952}
             _isAttackAnimPlay: 0
           - _name: 5_2
             _attackContinuous: 5
@@ -26611,10 +26611,10 @@ MonoBehaviour:
             - {fileID: 7666769189363312817}
             - {fileID: 2564904673431650242}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 5964194199861699092}
+            - {fileID: 6628402302061585581}
+            - {fileID: 3416868000331003722}
+            - {fileID: 5653673865722260743}
             _isAttackAnimPlay: 0
           - _name: 6_1
             _attackContinuous: 6
@@ -26625,10 +26625,10 @@ MonoBehaviour:
             - {fileID: 5277321311893390318}
             - {fileID: 54400566021330077}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4905563911314884666}
+            - {fileID: 5561333811772837507}
+            - {fileID: 4159677008750910820}
+            - {fileID: 6387477603252242217}
             _isAttackAnimPlay: 0
           - _name: 6_2
             _attackContinuous: 6
@@ -26639,10 +26639,10 @@ MonoBehaviour:
             - {fileID: 878593092256878098}
             - {fileID: 5029651070920186209}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4187595296940149754}
+            - {fileID: 3685229258785312067}
+            - {fileID: 5166587469342547620}
+            - {fileID: 2787062789205492969}
             _isAttackAnimPlay: 0
           - _name: 6_3
             _attackContinuous: 6
@@ -26653,10 +26653,10 @@ MonoBehaviour:
             - {fileID: 197641757427532395}
             - {fileID: 5423355271022482712}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6837017229286255779}
+            - {fileID: 6329867765773871642}
+            - {fileID: 2544466322117786109}
+            - {fileID: 4778609035185120176}
             _isAttackAnimPlay: 0
           - _name: 6_4
             _attackContinuous: 6
@@ -26667,10 +26667,10 @@ MonoBehaviour:
             - {fileID: 8778528429390643503}
             - {fileID: 3471734196487476828}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 6177887338500040864}
+            - {fileID: 6666875618818076185}
+            - {fileID: 2887501826549022206}
+            - {fileID: 5263778491426858931}
             _isAttackAnimPlay: 1
           - _name: 7_1
             _attackContinuous: 7
@@ -26681,10 +26681,10 @@ MonoBehaviour:
             - {fileID: 822322592544883412}
             - {fileID: 4797724251805423015}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 4558469649136459632}
+            - {fileID: 3925780146876651977}
+            - {fileID: 4822470849401375278}
+            - {fileID: 2590166361935630435}
             _isAttackAnimPlay: 0
           - _name: 7_2
             _attackContinuous: 7
@@ -26695,10 +26695,10 @@ MonoBehaviour:
             - {fileID: 1907485400855020717}
             - {fileID: 6018274883110966238}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 7223979553608377740}
+            - {fileID: 7888469131042988853}
+            - {fileID: 1868588609147269330}
+            - {fileID: 8714546962562050719}
             _isAttackAnimPlay: 0
           - _name: 8_1
             _attackContinuous: 8
@@ -26709,10 +26709,10 @@ MonoBehaviour:
             - {fileID: 1555250380397537032}
             - {fileID: 6658802087518531707}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 247702930388574965}
+            - {fileID: 741342694513763404}
+            - {fileID: 9141797968178919339}
+            - {fileID: 2288099004461428198}
             _isAttackAnimPlay: 0
           - _name: 8_2
             _attackContinuous: 8
@@ -26723,10 +26723,10 @@ MonoBehaviour:
             - {fileID: 681700824632960311}
             - {fileID: 4650082660362728004}
             _particlesReleaseMagic:
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
-            - {fileID: 0}
+            - {fileID: 2391858560923295695}
+            - {fileID: 2884649502067644790}
+            - {fileID: 6674232263910886033}
+            - {fileID: 4431937698616578268}
             _isAttackAnimPlay: 0
           _attackContinueTimes:
           - 0
@@ -29186,7 +29186,7 @@ GameObject:
   - component: {fileID: 1541311421179571900}
   m_Layer: 0
   m_Name: CameraControl
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34918,7 +34918,7 @@ PrefabInstance:
     - target: {fileID: 4436805663696350335, guid: 86e58c4b082c5e2429b9ec339a8fafb4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000081490725
+      value: 0.00000015366822
       objectReference: {fileID: 0}
     - target: {fileID: 4436805663696350335, guid: 86e58c4b082c5e2429b9ec339a8fafb4,
         type: 3}
@@ -62830,6 +62830,12 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 4879627434580715654}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &6989201891994524020 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2542644120921141746, guid: 846a60279c8a6554ba630b4e24f5767c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4879627434580715654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7378475687636545255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2725372425037514337, guid: 846a60279c8a6554ba630b4e24f5767c,
@@ -76565,7 +76571,22 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2542644120921141746, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058096546606085963, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4100357830702826030, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609918209985232609, guid: 846a60279c8a6554ba630b4e24f5767c,
         type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -76639,6 +76660,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6838572044908373164, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -90224,7 +90250,22 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2542644120921141746, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058096546606085963, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4100357830702826030, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609918209985232609, guid: 846a60279c8a6554ba630b4e24f5767c,
         type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -90298,6 +90339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6838572044908373164, guid: 846a60279c8a6554ba630b4e24f5767c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
