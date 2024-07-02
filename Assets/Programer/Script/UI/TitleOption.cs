@@ -18,7 +18,7 @@ public class TitleOption : MonoBehaviour
     {
         foreach (var button in _buttons)
         {
-            button.gameObject.SetActive(true);
+            button?.gameObject.SetActive(true);
         }
         _eventSystem.SetSelectedGameObject(_returnTarget);
         _returnTarget.GetComponent<DisplayTargetPointer>()?.TargetImage.gameObject.SetActive(true);
