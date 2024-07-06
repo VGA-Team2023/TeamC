@@ -26900,6 +26900,8 @@ MonoBehaviour:
       _isDrawGizmo: 1
     _notame: {fileID: 0}
     _tame: {fileID: 0}
+  _a: {fileID: 0}
+  _came: {fileID: 0}
 --- !u!114 &5665983338164137642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29186,7 +29188,7 @@ GameObject:
   - component: {fileID: 1541311421179571900}
   m_Layer: 0
   m_Name: CameraControl
-  m_TagString: EditorOnly
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29238,7 +29240,6 @@ MonoBehaviour:
     _rightDutch: 3
     _leftDutch: -3
     _changeDutchSpeedAvoid: 3
-    _changeFOVSpeedAvoid: 3
   _defultCamera: {fileID: 0}
   _attackChargeCamera: {fileID: 0}
   _finishCamera: {fileID: 0}
@@ -29247,6 +29248,7 @@ MonoBehaviour:
   _attckChargeCameraImpulsSource: {fileID: 0}
   _setUpCameraImpulsSource: {fileID: 0}
   _playerControl: {fileID: 8959717186178648064}
+  _A: {fileID: 0}
 --- !u!1 &8709399735215855492
 GameObject:
   m_ObjectHideFlags: 0

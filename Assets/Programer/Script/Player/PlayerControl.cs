@@ -100,13 +100,17 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     [SerializeField]
     private GameObject _a;
 
-    [SerializeField] private GameObject _v;
+    [SerializeField] private GameObject _came;
 
     private void Awake()
     {
-            _cameraControl.Init();
+
+        _cameraControl.Init();
+
+
         _playerChangeAttribute.Init(this);
         _stateMachine.Init(this);
+
         _groundCheck.Init(this);
         _playerMove.Init(this);
         _playerAnimControl.Init(this);

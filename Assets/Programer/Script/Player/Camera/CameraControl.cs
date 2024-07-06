@@ -41,6 +41,8 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     [SerializeField] private PlayerControl _playerControl;
 
+    [SerializeField] private GameObject _A;
+
     private float _count = 0;
 
     private bool _isFinish = false;
@@ -59,7 +61,6 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     public void Init()
     {
-
         _cameraSpeed.Init(this, _defultCamera, _attackChargeCamera, _finishCamera);
 
         _setUpCameraSetting.Init(this, _defultCamera);
