@@ -63,7 +63,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     private bool _isNewAttack = true;
 
     private bool _isBossMovie = false;
-    public bool IsBossMovie { get => _isBossMovie;set => _isBossMovie = value; }
+    public bool IsBossMovie { get => _isBossMovie; set => _isBossMovie = value; }
 
     private bool _isPause = false;
 
@@ -96,10 +96,21 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
     public FinishingAttack FinishingAttack => _finishingAttack;
     public PlayerAvoid Avoid => _avoid;
     public ColliderCheck ColliderCheck => _colliderCheck;
+
+    [SerializeField]
+    private GameObject _a;
+
+    [SerializeField] private GameObject _came;
+
     private void Awake()
     {
+
+        _cameraControl.Init();
+
+
         _playerChangeAttribute.Init(this);
         _stateMachine.Init(this);
+
         _groundCheck.Init(this);
         _playerMove.Init(this);
         _playerAnimControl.Init(this);
@@ -131,7 +142,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         if (_isBossMovie) return;
 
         _playerModelT.transform.localPosition = Vector3.zero;
-        _playerModelT.transform.localRotation = Quaternion.Euler(0,0,0);
+        _playerModelT.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         _stateMachine.Update();
 

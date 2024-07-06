@@ -41,6 +41,8 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
     [SerializeField] private PlayerControl _playerControl;
 
+    [SerializeField] private GameObject _A;
+
     private float _count = 0;
 
     private bool _isFinish = false;
@@ -50,20 +52,25 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
     public CinemachineVirtualCamera DedultCamera => _defultCamera;
     public CinemachineVirtualCamera FinishCamera => _finishCamera;
 
-    public AttackCamera AttackCamera => _attackCamera; 
+    public AttackCamera AttackCamera => _attackCamera;
     public DefaultCamera SetUpCameraSetting => _setUpCameraSetting;
     public PlayerControl PlayerControl => _playerControl;
 
     public FinishAttackCamera FinishAttackCamera => _finishAttackCamera;
 
 
-    private void Awake()
+    public void Init()
     {
         _cameraSpeed.Init(this, _defultCamera, _attackChargeCamera, _finishCamera);
+
         _setUpCameraSetting.Init(this, _defultCamera);
+
         _finishAttackCamera.Init(this, _finishCamera, _defultCamera);
+
         _attackCamera.Init(this, _attackChargeCamera);
+
         SetCameraSpeed(OptionValueRecorder.Instance.CameraSensitivity);
+
         _anim = _finishFirstCamera.GetComponent<Animator>();
     }
 
