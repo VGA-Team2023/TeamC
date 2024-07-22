@@ -9,12 +9,12 @@ public class OptionPanel : MonoBehaviour, IPause
     [SerializeField] private Slider _cameraSensitivitySlider;
     [SerializeField] private Button _closeButton;
     [SerializeField] private GameObject _firstTarget = null;
-    [SerializeField] private OptionPanelResetter _optionPanelResetter = null;
+    [SerializeField] private OptionPanelResetter _optionPanelResetter;
     private EventSystem _eventSystem = null;
     private AudioController _audioController = null;
+    private int _targetSliderIndex = 0;
     private void OnEnable()
     {
-        _optionPanelResetter?.Reset();
         if (_eventSystem == null)
         {
             _eventSystem = FindObjectOfType<EventSystem>();
@@ -51,6 +51,7 @@ public class OptionPanel : MonoBehaviour, IPause
     }
     public void Resume()
     {
+        _optionPanelResetter?.Reset();
         if (this != null) this.gameObject.SetActive(false);
     }
 }
