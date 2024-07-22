@@ -480,7 +480,7 @@ Material:
     - _IgnoreLightY: 0
     - _Invisible: 0
     - _LightMaxLimit: 2
-    - _LightMinLimit: 1
+    - _LightMinLimit: 0.9
     - _Main2ndDissolveNoiseStrength: 0.1
     - _Main2ndEnableLighting: 1
     - _Main2ndTexAlphaMode: 0
