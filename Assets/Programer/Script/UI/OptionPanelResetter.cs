@@ -21,7 +21,6 @@ public class OptionPanelResetter : MonoBehaviour
     private Text _firstSelectedText;
     public void Reset()
     {
-        _mainUi?.SetActive(false);
         _settingPanel?.SetActive(true);
         _helpUI?.SetActive(false);
         foreach (var point in _pointers)
