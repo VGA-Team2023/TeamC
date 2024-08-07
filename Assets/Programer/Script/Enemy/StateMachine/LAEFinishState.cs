@@ -39,4 +39,9 @@ public class LAEFinishState : IStateMachine
             Exit();
         }
     }
+
+    public void WallHit()
+    {
+        throw new System.NotImplementedException();
+    }
 }

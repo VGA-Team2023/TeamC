@@ -48,4 +48,9 @@ public class LAEAttackState : IStateMachine
 
         criAtomExPlayer.Stop(false);
     }
+
+    public void WallHit()
+    {
+        throw new System.NotImplementedException();
+    }
 }

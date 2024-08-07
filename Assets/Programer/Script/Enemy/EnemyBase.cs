@@ -111,5 +111,11 @@ public abstract class EnemyBase : MonoBehaviour
         Attack,
         Finish,
         Chase,
+
+        Max,
     }
+
+    private IStateMachine[] _states = new IStateMachine[(int)MoveState.Max];
+    public IStateMachine[] States { get => _states; set => _states = value; }
+    public IStateMachine CurrentState;
 }

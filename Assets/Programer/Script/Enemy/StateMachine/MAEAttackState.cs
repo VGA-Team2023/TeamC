@@ -1,5 +1,4 @@
-﻿using UnityEditor.Rendering;
-using UnityEngine;
+﻿using UnityEngine;
 
 //アタック可能な距離まで近づいたらアタックする
 public class MAEAttackState : IStateMachine
@@ -56,7 +55,6 @@ public class MAEAttackState : IStateMachine
             {
                 PlayerControl player = null;
                 _enemy.Rb.velocity = Vector3.zero;
-                int random = Random.Range(0, 2);
                 Ray ray = new Ray(_enemy.transform.position, _enemy.transform.forward * 5f);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
@@ -78,23 +76,6 @@ public class MAEAttackState : IStateMachine
                     player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
                     player.Damage(_enemy.Attack);
                 }
-                //switch (random)
-                //{
-                //    case 0:
-                //        //タックル攻撃の後後ろにのけぞる
-                //        _enemy.Audio(SEState.EnemyCloseAttack);
-                //        _enemy.Rb.AddForce(-_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
-                //        player.Rb.AddForce(_dir * 3f + Vector3.up * 3f, ForceMode.Impulse);
-                //        player.Damage(_enemy.Attack);
-                //        break;
-                //    case 1:
-                //        _enemy.Audio(SEState.EnemyCloseAttack);
-                //        _enemy.Animator.Play("Attack");
-                //        //rayを飛ばして目の前に敵がいたらひっかき攻撃を出す
-                //        player.Rb.AddForce(_dir * 2f + Vector3.up * 3f, ForceMode.Impulse);
-                //        player.Damage(_enemy.Attack);
-                //        break;
-                //}
                 _isHit = true;
             }
             if (_isHit)
@@ -114,5 +95,10 @@ public class MAEAttackState : IStateMachine
                 }
             }
         }
+    }
+
+    public void WallHit()
+    {
+        throw new System.NotImplementedException();
     }
 }

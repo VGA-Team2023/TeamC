@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPause, ISlow, ISpecialMovingPause
@@ -48,6 +49,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
 
     float _defaultSpeed = 0;
     float _defaultHp = 0;
+    private float _blownPower = 5;
     MoveState _state = MoveState.FreeMove;
 
 
@@ -105,28 +107,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             if (IsDemo && _state == MoveState.Finish && value != MoveState.Finish) StopFinishing();
             if (_state == value) return;
             _state = value;
-            switch (_state)
-            {
-                case MoveState.FreeMove:
-                    _freeMoveState.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-                case MoveState.Finish:
-                    _finish.Enter();
-                    break;
-            }
+            CurrentState = States[(int)_state];
+            CurrentState.Enter();
         }
     }
     PlayerControl _player;
-
-    MAEFreeMoveState _freeMoveState;
-    MAEAttackState _attack;
-    MAEFinishState _finish;
-    MAEChaseState _chase;
-
-
 
     void Start()
     {
@@ -135,13 +120,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         _defaultHp = HP;
         HpBar.maxValue = _defaultHp;
         HpBar.value = _defaultHp;
-        _freeMoveState = new MAEFreeMoveState(this, _player);
-        _attack = new MAEAttackState(this, _player);
-        _finish = new MAEFinishState(this);
-        _chase = new MAEChaseState(this, _player);
+        States[(int)MoveState.FreeMove] = new MAEFreeMoveState(this, _player);
+        States[(int)MoveState.Attack] = new MAEAttackState(this, _player);
+        States[(int)MoveState.Finish] = new MAEFinishState(this);
+        States[(int)MoveState.Chase] = new MAEChaseState(this, _player);
         base.OnEnemyDestroy += StartFinishing;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
+        CurrentState = States[(int)_state];
     }
 
     void Update()
@@ -152,39 +138,19 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         CountDestroyTime();
         if (_isDeath) return;
         /////↑↑↑↑↑↑↑↑
-
-
-
-        switch (_state)
-        {
-            case MoveState.FreeMove:
-                _freeMoveState.Update();
-                break;
-            case MoveState.Attack:
-
-                //勝手に追加コーナー
-                if (_isFinishAttackNow) return;
-
-                _attack.Update();
-                break;
-            case MoveState.Finish:
-                _finish.Update();
-                break;
-            case MoveState.Chase:
-
-                //勝手に追加コーナー
-                if (_isFinishAttackNow) return;
-
-                _chase.Update();
-                break;
-        }
+        if (_isFinishAttackNow) return;
+        CurrentState.Update();
     }
 
+    /// <summary>
+    /// 何かに当たった時に次の場所に移動する
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if (_state == MoveState.FreeMove)
         {
-            _freeMoveState.WallHit();
+            CurrentState.WallHit();
         }
     }
 
@@ -193,24 +159,39 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         return checkObject.TryGetComponent(out returnObject);
     }
 
+    /// <summary>
+    /// ステータスを変える関数
+    /// </summary>
+    /// <param name="changeState">移行するステート</param>
     public void StateChange(MoveState changeState)
     {
         State = changeState;
     }
 
+    /// <summary>
+    /// ダメージを受けた時の関数
+    /// </summary>
+    /// <param name="attackType">チャージ攻撃か単発攻撃か</param>
+    /// <param name="attackHitTyp">氷属性か草属性か</param>
+    /// <param name="damage">ダメージ量</param>
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     {
         VoiceAudio(VoiceState.EnemyShortDamage, CRIType.Play);
         _rb.velocity = Vector3.zero;
         SeAudio(SEState.EnemyNormalDamage, CRIType.Play);
+
+        //ヒットした属性に応じてヒットエフェクトを変える
         if (attackHitTyp == MagickType.Ice)
         {
             GameObject iceAttack = Instantiate(_iceAttackEffect);
             iceAttack.transform.position = transform.position;
+
+            //単発の魔法とフルチャージの魔法でダメージ量が変わる
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
+                //弱点属性の場合ダメージ量が変化する
                 if (WeekType == attackHitTyp)
                 {
                     HP -= WeekDamage;
@@ -224,6 +205,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             {
                 SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
+                //弱点属性の場合ダメージ量が変化する
                 if (WeekType == attackHitTyp)
                 {
                     HP -= damage * WeekDamage;
@@ -234,6 +216,8 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
                 }
             }
             if (IsDemo) return;
+
+            //ダメージを受けた時ノックバックする
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
         }
@@ -241,24 +225,49 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         {
             GameObject grassAttack = Instantiate(_grassAttackEffect);
             grassAttack.transform.position = transform.position;
+
+            //単発の魔法とフルチャージの魔法でダメージ量が変わる
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitGrassPatternA, CRIType.Play);
                 if (IsDemo) return;
-                HP--;
+
+                //弱点属性の場合ダメージ量が変化する
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= WeekDamage;
+                }
+                else
+                {
+                    HP--;
+                }
             }
             else
             {
                 SeAudio(SEState.EnemyHitGrassPatternB, CRIType.Play);
                 if (IsDemo) return;
-                HP -= (int)damage;
+
+                //弱点属性の場合ダメージ量が変化する
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= damage * WeekDamage;
+                }
+                else
+                {
+                    HP -= damage;
+                }
             }
             if (IsDemo) return;
+
+            //ダメージを受けた時ノックバックする
             Vector3 dir = transform.position - _player.transform.position;
             _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
         }
     }
 
+    /// <summary>
+    /// トドメが可能な状態
+    /// </summary>
     public void StartFinishing()
     {
         //勝手に追加コーナー
@@ -271,6 +280,9 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         StateChange(MoveState.Finish);
     }
 
+    /// <summary>
+    /// 時間が経過してトドメがさせなくなる
+    /// </summary>
     public void StopFinishing()
     {
         //勝手に追加コーナー
@@ -282,10 +294,16 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         HP = _defaultHp;
     }
 
+    /// <summary>
+    /// 敵を倒したときに呼ばれる関数
+    /// </summary>
+    /// <param name="attackHitTyp">トドメを指したときの魔法属性</param>
     public void EndFinishing(MagickType attackHitTyp)
     {
         VoiceAudio(VoiceState.EnemyShortSaerch, CRIType.Stop);
         SeAudio(SEState.EnemyFinishDamage, CRIType.Play);
+
+        //氷属性と草属性で必殺技のエフェクトを変える
         if (attackHitTyp == MagickType.Ice)
         {
             SeAudio(SEState.EnemyFinichHitIce, CRIType.Play);
@@ -300,30 +318,19 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         }
         if (IsDemo) return;
 
-        //////勝手に追加コーナー↓↓↓↓
         _isDeath = true;
         gameObject.layer = DeadLayer;
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyOut, CRIType.Play);
+
+        //ノックバックをする(通常のダメージより大きいノックバック)
         Vector3 dir = transform.position - _player.transform.position;
         _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        //↑↑↑
-
-
-
-        //修正前
-        //Vector3 dir = transform.position - _player.transform.position;
-        //_rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        //base.OnEnemyDestroy -= StartFinishing;
-        //EnemyFinish();
-        //GameManager.Instance.PauseManager.Remove(this);
-        //GameManager.Instance.SlowManager.Remove(this);
-        //gameObject.layer = DeadLayer;
-        //SeAudio(SEState.EnemyStan, CRIType.Stop);
-        //SeAudio(SEState.EnemyOut, CRIType.Play);
-        //Destroy(gameObject, 2f);
     }
 
+    /// <summary>
+    /// ポーズボタンを押したときにキャラを止める
+    /// </summary>
     public void Pause()
     {
         _anim.speed = 0;
@@ -331,12 +338,18 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         Speed = 0;
     }
 
+    /// <summary>
+    /// ポーズボタンから戻った時にキャラを再び動かす
+    /// </summary>
     public void Resume()
     {
         _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
+    /// <summary>
+    /// トドメを指す時にキャラを止める
+    /// </summary>
     void ISpecialMovingPause.Pause()
     {
         _anim.speed = 0;
@@ -344,6 +357,9 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         Speed = 0;
     }
 
+    /// <summary>
+    /// トドメのアニメーションが終わったら動く
+    /// </summary>
     void ISpecialMovingPause.Resume()
     {
         _anim.speed = 1;
@@ -361,6 +377,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         Speed = _defaultSpeed;
     }
 
+    /// <summary>
+    /// SEを実行する
+    /// </summary>
+    /// <param name="playSe">どのSEを呼ぶか</param>
+    /// <param name="criType">CRIのタイプ</param>
     public void SeAudio(SEState playSe, CRIType criType)
     {
         if (IsAudio)
@@ -379,6 +400,12 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
             }
         }
     }
+
+    /// <summary>
+    /// キャラボイスを実行する
+    /// </summary>
+    /// <param name="playSe">どのキャラボイスか</param>
+    /// <param name="criType">CRIのタイプ</param>
     public void VoiceAudio(VoiceState playSe, CRIType criType)
     {
         if (IsAudio)
