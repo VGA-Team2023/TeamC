@@ -39,4 +39,9 @@ public class MAEFinishState : IStateMachine
             Exit();
         }
     }
+
+    public void WallHit()
+    {
+        throw new System.NotImplementedException();
+    }
 }

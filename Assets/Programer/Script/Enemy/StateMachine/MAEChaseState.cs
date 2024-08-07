@@ -43,4 +43,9 @@ public class MAEChaseState : IStateMachine
         _enemy.transform.forward = new Vector3(dir.x, 0, dir.z);
         _enemy.Rb.velocity = (_enemy.transform.forward * _enemy.Speed) + new Vector3(0, dir.y , 0);
     }
+
+    public void WallHit()
+    {
+        throw new System.NotImplementedException();
+    }
 }
