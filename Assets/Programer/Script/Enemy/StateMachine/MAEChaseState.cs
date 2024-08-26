@@ -15,12 +15,12 @@ public class MAEChaseState : IStateMachine
     }
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        ///throw new System.NotImplementedException();
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
     public void Update()

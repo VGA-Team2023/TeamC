@@ -7,7 +7,8 @@ public class IdleState : PlayerStateBase
 {
     public override void Enter()
     {
-
+        //速度減衰の初期設定
+        _stateMachine.PlayerController.Move.StartStop();
     }
 
     public override void Exit()
@@ -25,6 +26,10 @@ public class IdleState : PlayerStateBase
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
+
+
+        //速度減衰
+        _stateMachine.PlayerController.Move.SetSpeedDeletion();
     }
 
     public override void LateUpdate()
@@ -36,6 +41,9 @@ public class IdleState : PlayerStateBase
     {
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
+
+        //速度減衰の初期設定
+        _stateMachine.PlayerController.Move.MoveStopTime();
 
         //属性変更確認
 
@@ -55,7 +63,7 @@ public class IdleState : PlayerStateBase
             return;
         }   //瀕死
 
-        if(_stateMachine.PlayerController.PlayerDamage.IsDamage)
+        if (_stateMachine.PlayerController.PlayerDamage.IsDamage)
         {
             _stateMachine.TransitionTo(_stateMachine.DamageState);
             return;

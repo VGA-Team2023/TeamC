@@ -113,6 +113,8 @@ public enum AttackType
     ShortChantingMagick,
     /// <summary>長い詠唱の攻撃</summary>
     LongChantingMagick,
+    ///ホーミング
+    Horming,
 }
 
 /// <summary>

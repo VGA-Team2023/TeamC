@@ -110,7 +110,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
         _playerChangeAttribute.Init(this);
         _stateMachine.Init(this);
-
+        _avoid.Init(this);
         _groundCheck.Init(this);
         _playerMove.Init(this);
         _playerAnimControl.Init(this);
@@ -118,7 +118,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
         _attack2.Init(this);
         _finishingAttack.Init(this);
         _colliderCheck.Init(this);
-        _avoid.Init(this);
+
         _hp.Init(this);
         _damage.Init(this);
         _lockOn.Init(this);

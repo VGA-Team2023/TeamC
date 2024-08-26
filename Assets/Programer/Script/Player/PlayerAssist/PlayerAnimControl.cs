@@ -37,7 +37,7 @@ public class PlayerAnimControl
         }
         else
         {
-            _playerControl.Animator.Play("Player_AvoidEnd");
+            //_playerControl.Animator.Play("Player_AvoidEnd");
         }
     }
 
@@ -72,19 +72,21 @@ public class PlayerAnimControl
     }
 
     /// <summary>トドメ開始のアニメーション </summary>
-    public void StartFinishAttack()
+    public void StartFinishAttack(int i)
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
 
-        int r = Random.Range(0, 2);
-
-        if (r == 0)
+        if (i ==1)
         {
             _playerControl.Animator.Play("Player_FinishAttack_Start1");
         }
-        else
+        else if (i ==2)
         {
             _playerControl.Animator.Play("Player_FinishAttack_Start2");
+        }
+        else
+        {
+            _playerControl.Animator.Play("Player_FinishAttack_Start1");
         }
     }
 

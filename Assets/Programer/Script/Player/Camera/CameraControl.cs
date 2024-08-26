@@ -96,6 +96,8 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
 
 
 
+
+
     public void UseDefultCamera(bool isReset)
     {
         if (isReset)
@@ -111,8 +113,9 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         //ShakeCamra(CameraType.Defult, CameraShakeType.ChangeWeapon);
     }
 
-    public void UseFinishCamera()
+    public void UseFinishCamera(int i)
     {
+
         _finishAttackCamera.ResetCamera();
 
         // カメラAの向いている方向を取得
@@ -125,8 +128,21 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         _isFinish = true;
         _count = 0;
         _defultCamera.Priority = 0;
-        _finishFirstCamera.SetActive(true);
-        // _finishCamera.Priority = 10;
+
+        if (i == 1)
+        {
+            _finishCamera.Priority = 10;
+        }
+        else if (i == 2)
+        {
+            _finishCamera.Priority = 10;
+        }
+        else
+        {
+            _finishFirstCamera.SetActive(true);
+        }
+
+
 
 
         //ShakeCamra(CameraType.SetUp, CameraShakeType.ChangeWeapon);

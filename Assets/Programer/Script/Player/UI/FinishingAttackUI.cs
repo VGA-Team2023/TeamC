@@ -77,6 +77,10 @@ public class FinishingAttackUI
         _finishingUI.SetActive(isON);
     }
 
+    public void SetUIFinishTime(float finishTime)
+    {
+        _finishTime = finishTime;
+    }
 
     /// <summary>トドメのUIを表示する</summary>
     /// <param name="max"></param>
