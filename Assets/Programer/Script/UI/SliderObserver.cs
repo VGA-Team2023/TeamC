@@ -7,8 +7,8 @@ public class SliderObserver : MonoBehaviour,ISelectHandler,IDeselectHandler
     [SerializeField] private Slider _slider;
     [SerializeField] private Color _selectColor;
     [SerializeField] private Color _defaltColor;
-    private AudioController _audioController;
-    private Text _text = null;
+    [SerializeField] private Text _text = null;
+    private AudioController _audioController;   
     private void OnEnable()
     {
         if (_text == null)
