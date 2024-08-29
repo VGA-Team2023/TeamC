@@ -300,25 +300,25 @@ public class AttackMagicBase
             _magickData[attackCount - 1].MagickData[i].MagicCircle.SetActive(false);
             _magickData[attackCount - 1].MagickData[i].Releasemagic.ForEach(i => i.Play());
 
-            //魔法のプレハブを出す
-            var go = UnityEngine.GameObject.Instantiate(_prefab);
-            go.transform.position = _magickData[attackCount - 1].MagickData[i].MagicCircle.transform.position;
+            ////魔法のプレハブを出す
+            //var go = UnityEngine.GameObject.Instantiate(_prefab);
+            //go.transform.position = _magickData[attackCount - 1].MagickData[i].MagicCircle.transform.position;
 
 
-            // ランダムなピッチ角度 (-60度から60度)
-            float randomPitch = Random.Range(-20f, 20f);
-            // ランダムなヨー角度 (-60度から60度)
-            float randomYaw = Random.Range(0f, 40f);
-            // クォータニオンで回転を計算
-            Quaternion rotation = Quaternion.Euler(randomPitch, randomYaw, 0);
+            //// ランダムなピッチ角度 (-60度から60度)
+            //float randomPitch = Random.Range(-20f, 20f);
+            //// ランダムなヨー角度 (-60度から60度)
+            //float randomYaw = Random.Range(0f, 40f);
+            //// クォータニオンで回転を計算
+            //Quaternion rotation = Quaternion.Euler(randomPitch, randomYaw, 0);
 
-            // ベクトルを回転
-            Vector3 randomDirection = rotation * _playerControl.PlayerT.forward;
+            //// ベクトルを回転
+            //Vector3 randomDirection = rotation * _playerControl.PlayerT.forward;
 
 
-            go.transform.forward = randomDirection;
-            go.TryGetComponent<IMagicble>(out IMagicble magicble);
-            magicble.SetAttack(_pos, randomDirection, AttackType.Horming, _powerShortChanting);
+            //go.transform.forward = randomDirection;
+            //go.TryGetComponent<IMagicble>(out IMagicble magicble);
+            //magicble.SetAttack(_pos, randomDirection, AttackType.Horming, _powerShortChanting);
         }
         _isAttackNow = false;
         _playerControl.Attack2.IsCanNextAction = true;
