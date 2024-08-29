@@ -12,7 +12,8 @@ public class WalkState : PlayerStateBase
 
     public override void Exit()
     {
-
+        //ダッシュの速度計算
+        _stateMachine.PlayerController.Move.ResetDashParamater();
     }
 
     public override void FixedUpdate()
@@ -28,6 +29,9 @@ public class WalkState : PlayerStateBase
 
         //LockOnのUI設定
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
+
+        //プレイヤー移動時のカメラの視点角度調整
+        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.PlayerMoveAutoRotationSet(false);
     }
 
     public override void LateUpdate()
@@ -37,6 +41,9 @@ public class WalkState : PlayerStateBase
 
     public override void Update()
     {
+        //ダッシュの速度計算
+        _stateMachine.PlayerController.Move.CountDashTime();
+
         //LockOn機能
         _stateMachine.PlayerController.LockOn.CheckLockOn();
 
