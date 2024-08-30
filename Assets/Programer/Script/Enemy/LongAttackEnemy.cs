@@ -5,54 +5,55 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 {
     [Header("テストの弾を飛ばす場所")]
     [SerializeField]
-    Transform _testPosition;
+    private Transform _testPosition;
 
     [Header("敵の挙動に関する項目")]
     [SerializeField, Tooltip("移動先の場所")]
-    List<Transform> _movePosition = new List<Transform>();
+    private List<Transform> _movePosition = new List<Transform>();
 
     [SerializeField, Tooltip("アニメーション")]
-    Animator _anim;
+    private Animator _anim;
     public Animator Animator => _anim;
 
     [Min(0.6f)]
     [SerializeField, Tooltip("どれくらい移動先に近づいたら次の地点に行くか")]
-    float _changePointDistance = 0.6f;
+    private float _changePointDistance = 0.6f;
     public float ChangeDistance => _changePointDistance;
 
     [SerializeField, Tooltip("スローになった時のプレイヤーのスピード")]
-    float _slowSpeed;
+    private float _slowSpeed;
     [Header("====================")]
 
     [Header("弾に関する項目")]
     [SerializeField, Tooltip("発射する弾のPrefab")]
-    GameObject _bulletPrefab;
+    private GameObject _bulletPrefab;
 
     [SerializeField, Tooltip("弾の発射位置")]
-    Transform _muzzle;
+    private Transform _muzzle;
     [Header("====================")]
 
     [Header("生成するオブジェクト")]
     [SerializeField, Tooltip("氷魔法の通常攻撃エフェクト")]
-    GameObject _iceAttackEffect;
+    private GameObject _iceAttackEffect;
 
     [SerializeField, Tooltip("氷魔法のとどめ攻撃エフェクト")]
-    GameObject _iceFinishEffect;
+    private GameObject _iceFinishEffect;
 
     [SerializeField, Tooltip("草魔法の通常攻撃エフェクト")]
-    GameObject _grassAttackEffect;
+    private GameObject _grassAttackEffect;
 
     [SerializeField, Tooltip("草魔法のとどめ攻撃エフェクト")]
-    GameObject _grassFinishEffect;
+    private GameObject _grassFinishEffect;
 
-    Rigidbody _rb;
+    private Rigidbody _rb;
     public Rigidbody Rb { get => _rb; set => _rb = value; }
 
-    float _defaultSpeed = 0;
-    float _defaultHp = 0;
+    private float _defaultSpeed = 0;
+    private float _defaultHp = 0;
+    private float _blownPower = 5;
 
-    PlayerControl _player;
-    MoveState _state = MoveState.FreeMove;
+    private PlayerControl _player;
+    private MoveState _state = MoveState.FreeMove;
 
 
     /// <summary>勝手に追加コーナー</summary>↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ 
@@ -96,26 +97,10 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             if (IsDemo && _state == MoveState.Finish && value != MoveState.Finish) StopFinishing();
             if (_state == value) return;
             _state = value;
-            switch (_state)
-            {
-                case MoveState.FreeMove:
-                    _freeMove.Enter();
-                    break;
-                case MoveState.Attack:
-                    _attack.Enter();
-                    break;
-                case MoveState.Finish:
-                    _finish.Enter();
-                    break;
-            }
+            CurrentState = States[(int)_state];
+            CurrentState.Enter();
         }
     }
-
-    MagickType _magicType;
-
-    LAEFreeMoveState _freeMove;
-    LAEAttackState _attack;
-    LAEFinishState _finish;
 
     public List<Vector3> SetMovePoint()
     {
@@ -139,13 +124,14 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         {
             patrolPoint.Add(point.position);
         }
-        _freeMove = new LAEFreeMoveState(this, _player, patrolPoint);
-        _attack = new LAEAttackState(this, _player);
-        _finish = new LAEFinishState(this);
+        States[(int)MoveState.FreeMove] = new LAEFreeMoveState(this, _player, patrolPoint);
+        States[(int)MoveState.Attack] = new LAEAttackState(this, _player);
+        States[(int)MoveState.Finish] = new LAEFinishState(this);
         base.OnEnemyDestroy += StartFinishing;
         GameManager.Instance.PauseManager.Add(this);
         GameManager.Instance.SlowManager.Add(this);
         GameManager.Instance.SpecialMovingPauseManager.Add(this);
+        CurrentState = States[(int)_state];
     }
 
     void Update()
@@ -157,41 +143,41 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         if (_isDeath) return;
         /////↑↑↑↑↑↑↑↑
 
-        switch (_state)
-        {
-            case MoveState.FreeMove:
-                _freeMove.Update();
-                break;
-            case MoveState.Attack:
 
-                //勝手に追加コーナー
-                if (_isFinishAttackNow) return;
-
-                _attack.Update();
-                break;
-            case MoveState.Finish:
-                _finish.Update();
-                break;
-        }
+        if (_isFinishAttackNow) return;
+        CurrentState.Update();
     }
 
+    /// <summary>
+    /// 何かに当たった時に次の場所に移動する
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if (_state == MoveState.FreeMove)
         {
-            _freeMove.WallHit();
+            CurrentState.WallHit();
         }
     }
 
+    /// <summary>
+    /// ステータスを変える関数
+    /// </summary>
+    /// <param name="changeState">移行するステート</param>
     public void StateChange(MoveState changeState)
     {
         State = changeState;
     }
 
+
+    /// <summary>
+    /// 遠距離敵の攻撃(弾をインスタンスするだけ)
+    /// </summary>
     public void Attack()
     {
-        //var dir = new Vector3(_muzzle.transform.position.x, 0, _muzzle.transform.position.z);
         var bullet = Instantiate(_bulletPrefab, _muzzle.transform.position, Quaternion.identity);
+
+        //テストシーンでは特定の位置に弾を飛ばすようにする
         if (IsDemo)
         {
             bullet.GetComponent<EnemyBullet>().Init(_testPosition.position, base.Attack);
@@ -202,19 +188,32 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
     }
 
+
+    /// <summary>
+    /// ダメージを受けた時の関数
+    /// </summary>
+    /// <param name="attackType">チャージ攻撃か単発攻撃か</param>
+    /// <param name="attackHitTyp">氷属性か草属性か</param>
+    /// <param name="damage">ダメージ量</param>
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
     { 
         VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
         _anim.Play("Hit");
         _rb.velocity = Vector3.zero;
+
+        //ヒットした属性に応じてヒットエフェクトを変える
         if (attackHitTyp == MagickType.Ice)
         {
             GameObject iceAttack = Instantiate(_iceAttackEffect);
             iceAttack.transform.position = transform.position;
+
+            //単発の魔法とフルチャージの魔法でダメージ量が変わる
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitIcePatternA, CRIType.Play);
                 if (IsDemo) return;
+
+                //弱点属性の場合ダメージ量が変化する
                 if (WeekType == attackHitTyp)
                 {
                     HP -= WeekDamage;
@@ -228,6 +227,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             {
                 SeAudio(SEState.EnemyHitIcePatternB, CRIType.Play);
                 if (IsDemo) return;
+
+                //弱点属性の場合ダメージ量が変化する
                 if (WeekType == attackHitTyp)
                 {
                     HP -= damage * WeekDamage;
@@ -237,30 +238,57 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
                     HP -= damage;
                 }
             }
+
+            //ダメージを受けた時ノックバックする
             Vector3 dir = transform.position - _player.transform.position;
-            _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
+            _rb.AddForce(((dir.normalized / 2) + Vector3.up) * _blownPower, ForceMode.Impulse);
         }
         else if (attackHitTyp == MagickType.Grass)
         {
             GameObject grassAttack = Instantiate(_grassAttackEffect);
             grassAttack.transform.position = transform.position;
+
+            //単発の魔法とフルチャージの魔法でダメージ量が変わる
             if (attackType == AttackType.ShortChantingMagick)
             {
                 SeAudio(SEState.EnemyHitGrassPatternA, CRIType.Play);
                 if (IsDemo) return;
-                HP--;
+
+                //弱点属性の場合ダメージ量が変化する
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= WeekDamage;
+                }
+                else
+                {
+                    HP--;
+                }
             }
             else
             {
                 SeAudio(SEState.EnemyHitGrassPatternB, CRIType.Play);
                 if (IsDemo) return;
-                HP -= (int)damage;
+
+                //弱点属性の場合ダメージ量が変化する
+                if (WeekType == attackHitTyp)
+                {
+                    HP -= damage * WeekDamage;
+                }
+                else
+                {
+                    HP -= damage;
+                }
             }
+
+            //ダメージを受けた時ノックバックする
             Vector3 dir = transform.position - _player.transform.position;
-            _rb.AddForce(((dir.normalized / 2) + (Vector3.up * 0.5f)) * 5, ForceMode.Impulse);
+            _rb.AddForce(((dir.normalized / 2) + Vector3.up) * _blownPower, ForceMode.Impulse);
         }
     }
 
+    /// <summary>
+    /// トドメが可能な状態
+    /// </summary>
     public void StartFinishing()
     {
         _isFinishAttackNow = true;
@@ -273,6 +301,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         StateChange(MoveState.Finish);
     }
 
+    /// <summary>
+    /// 時間が経過してトドメがさせなくなる
+    /// </summary>
     public void StopFinishing()
     {
         _isFinishAttackNow = false;
@@ -284,11 +315,17 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         HP = _defaultHp;
     }
 
+    /// <summary>
+    /// 敵を倒したときに呼ばれる関数
+    /// </summary>
+    /// <param name="attackHitTyp">トドメを指したときの魔法属性</param>
     public void EndFinishing(MagickType attackHitTyp)
     {
         VoiceAudio(VoiceState.EnemyLongSaerch, CRIType.Stop);
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyFinishDamage, CRIType.Play);
+
+        //氷属性と草属性で必殺技のエフェクトを変える
         if (attackHitTyp == MagickType.Ice)
         {
             SeAudio(SEState.EnemyFinichHitIce, CRIType.Play);
@@ -303,49 +340,47 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         }
 
 
-        //////勝手に追加コーナー↓↓↓↓
         _isDeath = true;
         gameObject.layer = DeadLayer;
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyOut, CRIType.Play);
-        Vector3 dir = transform.position - _player.transform.position;
-        _rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        //↑↑↑
 
-        //Vector3 dir = transform.position - _player.transform.position;
-        //_rb.AddForce((dir.normalized / 2 + Vector3.up) * 10, ForceMode.Impulse);
-        //base.OnEnemyDestroy -= StartFinishing;
-        //EnemyFinish();
-        //GameManager.Instance.PauseManager.Remove(this);
-        //GameManager.Instance.SlowManager.Remove(this);
-        //gameObject.layer = DeadLayer;
-        //SeAudio(SEState.EnemyOut, CRIType.Play);
-        //Destroy(gameObject, 2f);
+        //ノックバックをする(通常のダメージより大きいノックバック)
+        Vector3 dir = transform.position - _player.transform.position;
+        _rb.AddForce((dir.normalized / 2 + Vector3.up) * _blownPower * 2, ForceMode.Impulse);
     }
 
+    /// <summary>
+    /// ポーズボタンを押したときにキャラを止める
+    /// </summary>
     public void Pause()
     {
-        //_anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
+    /// <summary>
+    /// ポーズボタンから戻った時にキャラを再び動かす
+    /// </summary>
     public void Resume()
     {
-        //_anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
+    /// <summary>
+    /// トドメを指す時にキャラを止める
+    /// </summary>
     void ISpecialMovingPause.Pause()
     {
-        //_anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
 
+    /// <summary>
+    /// トドメのアニメーションが終わったら動く
+    /// </summary>
     void ISpecialMovingPause.Resume()
     {
-        //_anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
@@ -360,6 +395,11 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
         Speed = _defaultSpeed;
     }
 
+    /// <summary>
+    /// SEを実行する
+    /// </summary>
+    /// <param name="playSe">どのSEを呼ぶか</param>
+    /// <param name="criType">CRIのタイプ</param>
     public void SeAudio(SEState playSe, CRIType criType)
     {
         if (IsAudio)
@@ -378,6 +418,12 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
             }
         }
     }
+
+    /// <summary>
+    /// キャラボイスを実行する
+    /// </summary>
+    /// <param name="playSe">どのキャラボイスか</param>
+    /// <param name="criType">CRIのタイプ</param>
     public void VoiceAudio(VoiceState playSe, CRIType criType)
     {
         if (IsAudio)
