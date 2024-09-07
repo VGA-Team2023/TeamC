@@ -1,5 +1,4 @@
 ﻿using CriWare;
-using System;
 using UnityEngine;
 
 /// <summary>PlayerのSEのAudio操作</summary>
@@ -23,6 +22,7 @@ public struct SEAudioControlle : ICustomChannel<SEState>
     {
         CriAudioManager.Instance.SE.PauseAll();
     }
+
     /// <summary>SE再生３D対応</summary>
     /// <param name="se">再生させたいSE</param>
     /// <param name="soundPlayPos">自分の位置</param>
@@ -96,7 +96,7 @@ public struct BGMAudioControlle
 
 /// <summary>VoiceのSE用のAudio操作</summary>
 [System.Serializable]
-public struct VoiceAudioControlle : ICustomChannel<VoiceState>
+public struct VoiceAudioControlle  : ICustomChannel<VoiceState>
 {
     [SerializeField] Sound<VoiceState>[] _voiceData;
     string _cueSheetName;
