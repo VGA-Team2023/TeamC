@@ -663,6 +663,12 @@ MonoBehaviour:
   _selectColor: {r: 1, g: 0.27058825, b: 0, a: 1}
   _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
   _text: {fileID: 5115967009256813097}
+  _menuButton: {fileID: 3092983497139978369}
+  _buttonsSelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
+    type: 3}
+  _buttonsDeSelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    type: 3}
+  _buttonText: {fileID: 7665963680618190893}
 --- !u!1 &1955383261778637558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,6 +1205,12 @@ MonoBehaviour:
   _selectColor: {r: 1, g: 0.27058825, b: 0, a: 1}
   _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
   _text: {fileID: 1175103866606171347}
+  _menuButton: {fileID: 3092983497139978369}
+  _buttonsSelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
+    type: 3}
+  _buttonsDeSelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    type: 3}
+  _buttonText: {fileID: 7665963680618190893}
 --- !u!1 &3473786384038707008
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,7 +3502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.27058825, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3719,6 +3731,12 @@ MonoBehaviour:
   _selectColor: {r: 1, g: 0.27058825, b: 0, a: 1}
   _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
   _text: {fileID: 7856078649889039615}
+  _menuButton: {fileID: 3092983497139978369}
+  _buttonsSelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
+    type: 3}
+  _buttonsDeSelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    type: 3}
+  _buttonText: {fileID: 7665963680618190893}
 --- !u!1 &7372647445485395427
 GameObject:
   m_ObjectHideFlags: 0
@@ -4094,7 +4112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110, y: -124}
+  m_AnchoredPosition: {x: -111, y: -124}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5705128241983351451
@@ -4272,6 +4290,12 @@ MonoBehaviour:
   _selectColor: {r: 1, g: 0.27058825, b: 0, a: 1}
   _defaltColor: {r: 0.13333334, g: 0, b: 0, a: 1}
   _text: {fileID: 4522494051396719557}
+  _menuButton: {fileID: 3092983497139978369}
+  _buttonsSelectedSprite: {fileID: 21300000, guid: 70a1cc814245603489ad806528bfe117,
+    type: 3}
+  _buttonsDeSelectedSprite: {fileID: 21300000, guid: e9f4919970d1bfa4b87f7da09d909e3f,
+    type: 3}
+  _buttonText: {fileID: 7665963680618190893}
 --- !u!1 &9069188678847892490
 GameObject:
   m_ObjectHideFlags: 0
