@@ -6,9 +6,13 @@ using UnityEngine;
 public class ScoreManager
 {
     MinutesSecondsVer _clearTime = new();
+
     int _longEnemyDefeatedNum = 0;
+
     int _shortEnemyDefeatedNum = 0;
+
     int _playerDownNum = 0;
+
     bool _isBossDestroy = false;
 
     /// <summary>クリア時間</summary>
@@ -19,8 +23,10 @@ public class ScoreManager
     public int ShortEnemyDefeatedNum { get { return _shortEnemyDefeatedNum; } set { _shortEnemyDefeatedNum = value; } }
     /// <summary>Playerのダウン数</summary>
     public int PlayerDownNum { get { return _playerDownNum; } set { _playerDownNum = value; } }
+    /// <summary>ボス敵を倒したかどうか</summary>
     public bool IsBossDestroy { get => _isBossDestroy; set => _isBossDestroy = value; }
 
+    /// <summary>スコアのリセット</summary>
     public void ScoreReset()
     {
         _isBossDestroy = false;
