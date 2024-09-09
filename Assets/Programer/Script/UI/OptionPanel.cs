@@ -12,7 +12,6 @@ public class OptionPanel : MonoBehaviour, IPause
     [SerializeField] private OptionPanelResetter _optionPanelResetter;
     private EventSystem _eventSystem = null;
     private AudioController _audioController = null;
-    private int _targetSliderIndex = 0;
     private void OnEnable()
     {
         if (_eventSystem == null)
