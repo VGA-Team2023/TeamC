@@ -1,32 +1,45 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
+
     /// <summary>現在のゲームの状態</summary>
-    [SerializeField, Header("現在のシーン")] GameState _currentGameState;
-    [SerializeField, HideInInspector] TimeControl _timeControl;
-    [SerializeField, HideInInspector] SlowManager _slowManager;
-    [SerializeField, HideInInspector] TimeManager _timeManager;
+    [Header("現在のシーン")]
+    [SerializeField] GameState _currentGameState;
+
+    [SerializeField, HideInInspector] 
+    SlowManager _slowManager;
+
+    [SerializeField, HideInInspector] 
+    TimeManager _timeManager;
+
     ScoreManager _scoreManager = new ScoreManager();
+
     PauseManager _pauseManager = new PauseManager();
+
     SpecialMovingPauseManager _specialPauseManager = new SpecialMovingPauseManager();
+
     MinutesSecondsVer _clearTime;
+
     bool _isGameMove = false;
+
     /// <summary>Playerの属性</summary>
     PlayerAttribute _playerAttribute = PlayerAttribute.Ice;
+
     public PlayerAttribute PlayerAttribute => _playerAttribute;
-    public TimeControl TimeControl => _timeControl;
     public SlowManager SlowManager => _slowManager;
     public PauseManager PauseManager => _pauseManager;
     public TimeManager TimeManager => _timeManager;
     public ScoreManager ScoreManager => _scoreManager;
     public SpecialMovingPauseManager SpecialMovingPauseManager => _specialPauseManager;
+
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
+
  　/// <summary>InGameで戦闘中かどうか</summary>
     public bool IsGameMove => _isGameMove;
+
     public static GameManager Instance
     {
         //読み取り時
@@ -53,15 +66,19 @@ public class GameManager : MonoBehaviour
         //何もなかったら
         if (_instance == null)
         {
+            //ゲームシーンだったら
             if (_currentGameState == GameState.Game)
             {
                 InGameStart();
             }
+
+            //自分を入れる
             _instance = this;
+
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
             DontDestroyOnLoad(this);
-            Debug.Log("あ");
+
         }
         //先に読み取りが発生した時
         else if(_instance == this)
@@ -70,16 +87,21 @@ public class GameManager : MonoBehaviour
             {
                 InGameStart();
             }
+
             _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
+
             DontDestroyOnLoad(this);
         }
         //すでにある場合
-        else if (_instance != null)
+        else
         {
+            //自分のゲーム状態とInstanceが持つ状態が違ったら
             if (_instance._currentGameState != this._currentGameState)
             {
+                //自分のゲーム状態をInstanceに上書き
                 _instance.ChangeGameState(this._currentGameState);
+                //音変更
                 _instance.ChangeBGMState(this._currentGameState);
             }
             //二回目以降のゲームシーンに遷移したら
@@ -90,7 +112,6 @@ public class GameManager : MonoBehaviour
                 _instance._scoreManager.ScoreReset();
                 _instance.InGameStart();
             }
-            Debug.Log("あ");
             Destroy(this);
         }
     }
@@ -138,6 +159,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameMove = true;
     }
+
     /// <summary>クリアタイム保存</summary>
     public void ResultProcess()
     {
@@ -176,6 +198,7 @@ public class GameManager : MonoBehaviour
         }
     }
 }
+
 /// <summary>全体のゲームの状態を管理するenum</summary>
 public enum GameState
 {

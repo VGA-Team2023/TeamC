@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+
 /// <summary>スローを管理するクラス</summary>
 [System.Serializable]
 public class SlowManager
