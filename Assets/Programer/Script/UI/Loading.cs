@@ -33,6 +33,13 @@ public class Loading : MonoBehaviour
     IEnumerator WaitForLoading()
     {
         yield return new WaitForSeconds(_waitTimer);
-        SceneManager.LoadScene(_nextSceneName);
+        try
+        {
+            SceneManager.LoadScene(_nextSceneName);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Scene loading failed: " + ex.Message);
+        }
     }
 }
