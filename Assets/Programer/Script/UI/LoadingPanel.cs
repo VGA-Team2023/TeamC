@@ -2,9 +2,6 @@
 using UnityEngine.UI;
 public class LoadingPanel : MonoBehaviour
 {
-    //[SerializeField] Image[] _images;
-    //[SerializeField] Image _leftImage;
-    //[SerializeField] Image _rightImage;
     [SerializeField] GameObject _rotatateObj;
     [SerializeField] Text _tips;
     [SerializeField] string[] _tipsData;
@@ -14,8 +11,6 @@ public class LoadingPanel : MonoBehaviour
     [SerializeField] Text _academyText;
     [SerializeField] Text _operationInstructionsText;
     [SerializeField] Text _mainCharactorText;
-    //private int _leftInd = 0;
-    //private int _rightInd = 0;
     private int _totalRotate = 0;
     private static LoadingPanel _instance = null;
     public static LoadingPanel Instance
@@ -32,19 +27,6 @@ public class LoadingPanel : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this);
-
-        //_leftInd = Random.Range(0, _images.Length);
-
-        //if (_images.Length > 1)
-        //{
-        //    while (_rightInd == _leftInd)
-        //    {
-        //        _rightInd = Random.Range(0, _images.Length);
-        //    }
-        //}
-
-        //_leftImage.sprite = _images[_leftInd].sprite;
-        //_rightImage.sprite = _images[_rightInd].sprite;
 
         PrintTips();
     }
