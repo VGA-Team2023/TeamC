@@ -20,7 +20,10 @@ public class SliderObserver : MonoBehaviour,ISelectHandler,IDeselectHandler
             _text = GetComponentInChildren<Text>();
         }
     }
-
+    private void OnDisable()
+    {
+        _menuButton.image.sprite = _buttonsDeSelectedSprite;
+    }
     public void SetSEValue()
     {
         if (_audioController == null) _audioController = AudioController.Instance;
