@@ -66,6 +66,8 @@ public class PlayerAvoid
 
     private bool _isEndAnimation = false;
 
+
+
     /// <summary>クールタイム計測用 </summary>
     private float _countCoolTime = 0;
 
@@ -74,6 +76,8 @@ public class PlayerAvoid
 
 
     private PlayerControl _playerControl;
+
+    public PlayerAvoidMove AvoidMove => _avoidMove;
 
     public bool IsCanAvoid => _isCoolTime;
     public bool isAvoid => _isAvoid;
@@ -113,7 +117,14 @@ public class PlayerAvoid
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
         _dir = horizontalRotation * new Vector3(h, 0, v).normalized;
 
-        _avoidMove.SetAvoidDir(_dir);
+        bool isInput = false;
+
+        if ((h != 0 || v != 0))
+        {
+            isInput = true;
+        }
+
+        _avoidMove.SetAvoidDir(_dir, isInput);
     }
 
 
@@ -159,6 +170,20 @@ public class PlayerAvoid
             go.transform.position = _playerControl.PlayerT.position;
         }
 
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            foreach (var a in _endParticleIce)
+            {
+                a.Play();
+            }
+        }
+        else
+        {
+            foreach (var a in _endParticleGrass)
+            {
+                a.Play();
+            }
+        }
 
         _playerControl.PlayerAnimControl.Avoid(true);
         _avoidMove.StartAvoid(_playerControl.PlayerT.position);
@@ -213,7 +238,7 @@ public class PlayerAvoid
         //効果音
         AudioController.Instance.SE.Play(SEState.PlayerClothAttack);
 
-        _avoidMove.MoveEnd();
+        //_avoidMove.MoveEnd();
 
         foreach (var m in _meshRendererFace)
         {
@@ -241,22 +266,6 @@ public class PlayerAvoid
         }
         _playerControl.PlayerAnimControl.Avoid(false);
         _isEndAvoid = true;
-
-
-        if (_startAttribute == PlayerAttribute.Ice)
-        {
-            foreach (var a in _endParticleIce)
-            {
-                a.Play();
-            }
-        }
-        else
-        {
-            foreach (var a in _endParticleGrass)
-            {
-                a.Play();
-            }
-        }
 
     }
 

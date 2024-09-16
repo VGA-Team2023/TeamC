@@ -26,15 +26,14 @@ public class FinishAttackState : PlayerStateBase
 
     public override void FixedUpdate()
     {
+        //移動
         _stateMachine.PlayerController.FinishingAttack.FinishingAttackMove.Move();
+        //回転
         _stateMachine.PlayerController.FinishingAttack.FinishingAttackMove.Rotation();
-
+        //UI
         _stateMachine.PlayerController.FinishingAttack.SetUI();
-
-        _stateMachine.PlayerController.CameraControl.FinishAttackCamera.DoFinishCameraSettingFirst();
-
-        _stateMachine.PlayerController.CameraControl.FinishAttackCamera.DoChangeDutch();
-        _stateMachine.PlayerController.CameraControl.UPP();
+        //カメラの動き
+        _stateMachine.PlayerController.FinishingAttack.FinishCameraFixedUpadata();
     }
 
     public override void LateUpdate()

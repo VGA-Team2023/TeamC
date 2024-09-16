@@ -17,6 +17,8 @@ public class AvoidState : PlayerStateBase
         _stateMachine.PlayerController.PlayerAnimControl.SetBlendAnimation(true);
         //カメラ変更
         _stateMachine.PlayerController.CameraControl.UseDefultCamera(true);
+
+        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.IsNonCameraEffects(false);
     }
 
     public override void FixedUpdate()
@@ -31,6 +33,8 @@ public class AvoidState : PlayerStateBase
             _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.AvoidFov();
         }
 
+        //プレイヤー移動時のカメラの視点角度調整
+        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.PlayerMoveAutoRotationSet(true);
 
         //回避の移動処理
         _stateMachine.PlayerController.Avoid.DoAvoid();
@@ -63,9 +67,11 @@ public class AvoidState : PlayerStateBase
 
         _stateMachine.PlayerController.Attack.ShortChantingMagicAttack.ShortChantingMagicData.ParticleStopUpdata();
 
-        if (_stateMachine.PlayerController.Avoid.IsEndAnim)
+        if (_stateMachine.PlayerController.Avoid.IsEndAvoid)
         {
-            _stateMachine.TransitionTo(_stateMachine.StateIdle);
+            //ダッシュの速度計算
+            _stateMachine.PlayerController.Move.StartDash();
+            _stateMachine.TransitionTo(_stateMachine.StateWalk);
             return;
         }
 

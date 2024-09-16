@@ -82,6 +82,9 @@ public class AttackState : PlayerStateBase
         {
             _stateMachine.PlayerController.Attack2.StopAttack();
             _stateMachine.PlayerController.Avoid.SetAvoidDir();
+
+            _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.IsNonCameraEffects(true);
+
             _stateMachine.TransitionTo(_stateMachine.AvoidState);
             return;
         }   //回避

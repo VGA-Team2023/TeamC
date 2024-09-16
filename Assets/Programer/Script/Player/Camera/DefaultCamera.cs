@@ -29,7 +29,18 @@ public class DefaultCamera
 
     [SerializeField] private float _changeFOVSpeedAvoid = 3;
 
+    [Header("fovValueの変更速度")]
+    [SerializeField] private float _changeHAxisSpeed = 0.2f;
+
+    [Header("回避中のfovValueの変更速度")]
+    [SerializeField] private float _avoidChangeHAxisSpeed = 0.7f;
+
     private float _inputH = 0;
+
+    /// <summary>画面効果を変更をしない、設定</summary>
+    private bool _isNonAdditve = false;
+
+    public bool IsNonAdditve => _isNonAdditve;
 
     private CameraControl _cameraControl;
 
@@ -50,14 +61,48 @@ public class DefaultCamera
         _cameraControl.DedultCamera.m_Lens.FieldOfView = _defaltFOV;
     }
 
+    public void PlayerMoveAutoRotationSet(bool isAvoid)
+    {
+        if (_isNonAdditve) return;
+
+        float h = _cameraControl.PlayerControl.InputManager.HorizontalInput;
+
+
+        float speed = _changeHAxisSpeed;
+
+        if (isAvoid)
+        {
+            speed = _avoidChangeHAxisSpeed;
+        }
+
+        if (h > 0.5)
+        {
+            _pov.m_HorizontalAxis.Value += speed;
+        }
+        else if (h < -0.5)
+        {
+            _pov.m_HorizontalAxis.Value -= speed;
+        }
+
+    }
+
     public void SetAvoidH(float value)
     {
         _inputH = value;
     }
 
+    /// <summary>画面効果のオンオフ設定
+    /// <returns></returns>
+    public void IsNonCameraEffects(bool isActive)
+    {
+        _isNonAdditve = isActive;
+    }
+
     public void AvoidFov()
     {
-       // _defultCamera.m_Lens.FieldOfView = _maxFOV;
+        if (_isNonAdditve) return;
+
+        // _defultCamera.m_Lens.FieldOfView = _maxFOV;
         if (_defultCamera.m_Lens.FieldOfView < _maxFOV)
         {
             _defultCamera.m_Lens.FieldOfView += Time.deltaTime * _changeFOVSpeedAvoid;
@@ -83,7 +128,7 @@ public class DefaultCamera
             if (_defultCamera.m_Lens.Dutch != _leftDutch)
             {
                 _defultCamera.m_Lens.Dutch -= Time.deltaTime * _changeDutchSpeedAvoid;
-                if (_defultCamera.m_Lens.Dutch< _leftDutch)
+                if (_defultCamera.m_Lens.Dutch < _leftDutch)
                 {
                     _defultCamera.m_Lens.Dutch = _leftDutch;
                 }

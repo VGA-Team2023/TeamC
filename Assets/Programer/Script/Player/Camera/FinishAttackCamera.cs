@@ -73,7 +73,7 @@ public class FinishAttackCamera
 
         if (!_isSetDutch)
         {
-            _finishCamera.m_Lens.Dutch = Mathf.Lerp(0, _maxDutch, _countFinishTime / _cameraControl.PlayerControl.FinishingAttack.FinishingAttackShort.FinishTime);
+            _finishCamera.m_Lens.Dutch = Mathf.Lerp(0, _maxDutch, _countFinishTime / _cameraControl.PlayerControl.FinishingAttack.FinishingAttackShort.FinishTime1);
             if (_finishCamera.m_Lens.Dutch == _maxDutch)
             {
                 _isSetDutch = true;

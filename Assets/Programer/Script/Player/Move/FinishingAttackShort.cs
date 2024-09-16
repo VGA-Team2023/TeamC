@@ -5,8 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class FinishingAttackShort
 {
-    [Header("@トドメをさすのに必要な時間")]
-    [SerializeField] private float _finishTime = 1f;
+
+    [Header("1体のみトドメをさすのに必要な時間")]
+    [SerializeField] private float _finishTimePatarn1 = 1f;
+
+    [Header("2体トドメをさすのに必要な時間")]
+    [SerializeField] private float _finishTimePatarn2 = 2f;
+
+    [Header("3体以上トドメをさすのに必要な時間")]
+    [SerializeField] private float _finishTimePatarn3 = 3f;
 
     [Header("@探知判定_Offset")]
     [SerializeField] private Vector3 _offset = new Vector3(0, 0, 3);
@@ -21,19 +28,46 @@ public class FinishingAttackShort
     [Header("---エフェクト設定---")]
     [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
 
+    /// <summary>トドメのさし方の変化、敵の数</summary>
+    private const int _patarn1EnemyNum = 1;
+    private const int _patarn2EnemyNum = 2;
+    private const int _patarn3EnemyNum = 3;
+
     public Vector3 Offset => _offset;
     public Vector3 BoxSize => _boxSize;
 
     private PlayerControl _playerControl;
+    public float FinishTime1 => _finishTimePatarn1;
+    public float FinishTime2 => _finishTimePatarn2;
+    public float FinishTime3 => _finishTimePatarn3;
+
+
+    public FinishAttackNearMagic FinishAttackNearMagic => _finishAttackNearMagic;
+
     public void Init(PlayerControl playerControl)
     {
         _playerControl = playerControl;
         _finishAttackNearMagic.Init(playerControl);
     }
 
-    public float FinishTime => _finishTime;
 
-    public FinishAttackNearMagic FinishAttackNearMagic => _finishAttackNearMagic;
+    public FinishAttackType SetFinishType(int enemyNum)
+    {
+        if (enemyNum >= _patarn3EnemyNum)
+        {
+            return FinishAttackType.OverThree;
+        }
+        else if (enemyNum == _patarn2EnemyNum)
+        {
+            return FinishAttackType.Two;
+        }
+        else
+        {
+            return FinishAttackType.One;
+        }
+    }
+
+
 
 
 
@@ -51,3 +85,15 @@ public class FinishingAttackShort
 
 
 }
+
+/// <summary>トドメのさし方の種類 </summary>
+public enum FinishAttackType
+{
+    /// <summary>1体をトドメ </summary>
+    One,
+    /// <summary>2体をトドメ </summary>
+    Two,
+    /// <summary>3体以上うをトドメ</summary>
+    OverThree,
+}
+

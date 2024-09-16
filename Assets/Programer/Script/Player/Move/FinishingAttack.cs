@@ -27,6 +27,8 @@ public class FinishingAttack
     /// <summary>トドメの時間まで出来たかどうか</summary>
     private bool _isCompletedFinishTime = false;
 
+    private FinishAttackType _finishAttackType;
+
     private float _setFinishTime = 0;
 
     private float _countFinishTime = 0;
@@ -48,7 +50,7 @@ public class FinishingAttack
     {
         _playerControl = playerControl;
 
-        _finishingAttackUI.Init(playerControl, _finishingAttackShort.FinishTime);
+        _finishingAttackUI.Init(playerControl, _finishingAttackShort.FinishTime1);
         _finishingAttackShort.Init(playerControl);
         _finishingAttackMove.Init(playerControl);
     }
@@ -81,8 +83,26 @@ public class FinishingAttack
     }
 
 
+    public void FinishCameraFixedUpadata()
+    {
+        if (_finishAttackType == FinishAttackType.OverThree)
+        {
+            _playerControl.CameraControl.FinishAttackCamera.DoFinishCameraSettingFirst();
+            _playerControl.CameraControl.FinishAttackCamera.DoChangeDutch();
+            _playerControl.CameraControl.UPP();
+        }
+        else
+        {
+            _playerControl.CameraControl.FinishAttackCamera.DoFinishCameraSettingFirst();
+            _playerControl.CameraControl.FinishAttackCamera.DoChangeDutch();
+        }
+
+    }
+
     public void StartFinishingAttack()
     {
+        _finishAttackType = _finishingAttackShort.SetFinishType(_nowFinishEnemy.Length);
+
         //属性を確定
         _startAttribute = _playerControl.PlayerAttributeControl.PlayerAttribute;
 
@@ -99,14 +119,35 @@ public class FinishingAttack
             AudioController.Instance.Voice.Play(VoiceState.PlayerChargeGrass);
         }
 
+
         //アニメーション再生
-        _playerControl.PlayerAnimControl.StartFinishAttack();
+        _playerControl.PlayerAnimControl.StartFinishAttack(_nowFinishEnemy.Length);
+        //トドメ用のカメラを使う
+        _playerControl.CameraControl.UseFinishCamera(_nowFinishEnemy.Length);
+
+
+        if (_finishAttackType == FinishAttackType.One)
+        {
+            //トドメの時間を設定
+            _setFinishTime = _finishingAttackShort.FinishTime1;
+        }
+        else if (_finishAttackType == FinishAttackType.Two)
+        {
+            //トドメの時間を設定
+            _setFinishTime = _finishingAttackShort.FinishTime2;
+        }
+        else
+        {
+            //トドメの時間を設定
+            _setFinishTime = _finishingAttackShort.FinishTime3;
+        }
+
+        //UIの方のため時間を設定
+        _finishingAttackUI.SetUIFinishTime(_setFinishTime);
 
         //コントローラーの振動
         _playerControl.ControllerVibrationManager.StartVibration();
 
-        //トドメ用のカメラを使う
-        _playerControl.CameraControl.UseFinishCamera();
 
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.SetEffect();
@@ -116,8 +157,6 @@ public class FinishingAttack
         _isCompletedFinishTime = false;
         _countFinishTime = 0;
 
-        //トドメの時間を設定
-        _setFinishTime = _finishingAttackShort.FinishTime;
 
         //敵を索敵
         // _nowFinishEnemy = CheckFinishingEnemy();
