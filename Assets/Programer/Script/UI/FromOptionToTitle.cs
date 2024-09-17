@@ -7,7 +7,7 @@ public class FromOptionToTitle : MonoBehaviour
 {
     [SerializeField] private Button _button;
     [SerializeField] private GameObject _panel;
-    private string _nextSceneName = "Title 1";
+    [SerializeField] private string _nextSceneName = "Title 1";
     private void OnEnable()
     {
         _button = GetComponent<Button>();
