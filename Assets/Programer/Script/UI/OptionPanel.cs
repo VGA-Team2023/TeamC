@@ -25,7 +25,6 @@ public class OptionPanel : MonoBehaviour, IPause
         if (_eventSystem != null)
         {
             _eventSystem.SetSelectedGameObject(_firstTarget);
-            //_firstTarget.GetComponent<DisplayTargetPointer>()?.TargetImage.gameObject.SetActive(true);
         }      
         _bgmSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.BGM);
         _voiceSlider.value = AudioController.Instance.GetVolume(VolumeChangeType.Voice);
