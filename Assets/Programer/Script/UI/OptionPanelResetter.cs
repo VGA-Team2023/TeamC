@@ -4,8 +4,6 @@ using UnityEngine.UI;
 public class OptionPanelResetter : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _mainUi = null;
-    [SerializeField]
     private GameObject _settingPanel = null;
     [SerializeField]
     private GameObject _helpUI = null;
