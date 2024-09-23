@@ -47,6 +47,8 @@ public class BossMove
 
     private BossControl _bossControl;
 
+    private Transform _beforTeleportPos;
+
     private Vector3 _moveDir;
 
 
@@ -149,35 +151,43 @@ public class BossMove
 
     public void Teleport()
     {
+        List<Transform> poss = new List<Transform>();
+
         foreach (var t in _teleportPoss)
         {
             float d = Vector3.Distance(_bossControl.PlayerT.position, t.position);
 
-            if (d > 4)
+            if (4 < d)
             {
-                //アニメーション再生
-                _bossControl.BossAnimControl.Avoid();
-
-                //属性別
-                if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
-                {
-                    //エフェクトを再生
-                    _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
-                    //音を鳴らす
-                    AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitIce, _bossControl.transform.position);
-                }
-                else
-                {
-                    //エフェクトを再生
-                    _bossControl.BossAttack.TeleportAttack.TeleportGrass.ForEach(i => i.Play());
-                    //音を鳴らす
-                    AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);
-                }
-
-                _bossControl.BossT.position = t.position;
-                return;
+                poss.Add(t);
             }
+
         }
+        //アニメーション再生
+        _bossControl.BossAnimControl.Avoid();
+
+        //属性別
+        if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
+        {
+            //エフェクトを再生
+            _bossControl.BossAttack.TeleportAttack.TeleportIce.ForEach(i => i.Play());
+            //音を鳴らす
+            AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitIce, _bossControl.transform.position);
+        }
+        else
+        {
+            //エフェクトを再生
+            _bossControl.BossAttack.TeleportAttack.TeleportGrass.ForEach(i => i.Play());
+            //音を鳴らす
+            AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);
+        }
+
+        var r = Random.RandomRange(0, poss.Count);
+
+        _bossControl.BossT.position = poss[r].position;
+        return;
+
+
     }
 
     public void Move()

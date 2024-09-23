@@ -27,6 +27,9 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
     [Header("トドメ完了後のレイヤー")]
     [SerializeField] private int _finishLayer;
 
+    [Header("死亡エフェクト")]
+    [SerializeField] private GameObject _deathEfect;
+
     private float _hp;
 
     private TutorialMissionAttack _attack;
@@ -44,6 +47,8 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
     private bool _isPause = false;
 
     private float _countDestroyTime = 0;
+
+    private bool _isDeadEffect = false;
 
     public bool IsAttackEnd => _isAttackEnd;
     public bool IsDownEnd => _isDownEnd;
@@ -71,6 +76,14 @@ public class AttackTutorialEnemy : MonoBehaviour, IEnemyDamageble, IFinishingDam
         if (_isDeath)
         {
             _countDestroyTime += Time.deltaTime;
+
+            if (_countDestroyTime > _destroyTime / 2 && !_isDeadEffect)
+            {
+                _isDeath = true;
+                var go = Instantiate(_deathEfect);
+                go.transform.position = transform.position;
+            }
+
             if (_countDestroyTime > _destroyTime)
             {
                 Destroy(gameObject);

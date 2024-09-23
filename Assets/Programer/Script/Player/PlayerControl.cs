@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISpecialMovingPause
 {
     [Header("マウスで操作するかどうか")]
     public bool IsMousePlay = false;
+
 
     [Header("@Hp設定")]
     [SerializeField] private PlayerHp _hp;
@@ -126,7 +128,7 @@ public class PlayerControl : MonoBehaviour, IPlayerDamageble, IPause, ISlow, ISp
 
     void Start()
     {
-
+     
     }
 
     void Update()

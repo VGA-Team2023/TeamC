@@ -142,7 +142,6 @@ public class BossControl : EnemyBase, IEnemyDamageble, IFinishingDamgeble, IPaus
         if (!_isFirstCamera)
         {
             _countFirstCamera += Time.deltaTime;
-
             _rb.velocity = Vector3.down * 0.1f;
 
             if (_countFirstCamera > 3)

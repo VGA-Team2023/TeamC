@@ -121,9 +121,9 @@ public class FinishingAttack
 
 
         //アニメーション再生
-        _playerControl.PlayerAnimControl.StartFinishAttack(_nowFinishEnemy.Length);
+        _playerControl.PlayerAnimControl.StartFinishAttack(_finishAttackType);
         //トドメ用のカメラを使う
-        _playerControl.CameraControl.UseFinishCamera(_nowFinishEnemy.Length);
+        _playerControl.CameraControl.UseFinishCamera(_finishAttackType);
 
 
         if (_finishAttackType == FinishAttackType.One)
@@ -240,6 +240,28 @@ public class FinishingAttack
     /// <summary>トドメをし終えた時の処理</summary>
     private void CompleteAttack()
     {
+        if (_finishAttackType == FinishAttackType.One)
+        {
+            //アニメーション再生
+            _playerControl.PlayerAnimControl.EndFinishAttack(1);
+            return;
+        }
+        else if (_finishAttackType == FinishAttackType.Two)
+        {
+            //アニメーション再生
+            _playerControl.PlayerAnimControl.EndFinishAttack(2);
+            return;
+        }
+        else
+        {
+            //アニメーション再生
+            _playerControl.PlayerAnimControl.EndFinishAttack(3);
+
+            //時間を遅くする
+            _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack3);
+        }
+
+
         _isCompletedFinishTime = true;
 
         //チャージ音の再生
@@ -279,8 +301,7 @@ public class FinishingAttack
         //エフェクトを設定
         _finishingAttackShort.FinishAttackNearMagic.Stop();
 
-        //アニメーション再生
-        _playerControl.PlayerAnimControl.EndFinishAttack();
+
 
         if (_nowFinishEnemy.Length > 0)
         {
@@ -300,8 +321,75 @@ public class FinishingAttack
             }
 
         }
+    }
+
+    public void StartHitStop()
+    {
         //時間を遅くする
-        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
+        _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack1);
+        _playerControl.FinishingAttack.FinishingAttackMove.SetSlow(true);
+    }
+
+    public void StartEnsytu()
+    {
+        _playerControl.FinishingAttack.FinishingAttackMove.SetSlow(false);
+        _isCompletedFinishTime = true;
+
+        //チャージ音の再生
+        Audio(false);
+
+        //ボイス
+        if (_startAttribute == PlayerAttribute.Ice)
+        {
+            AudioController.Instance.Voice.Play(VoiceState.PlayerFinishIce);
+        }
+        else
+        {
+            AudioController.Instance.Voice.Play(VoiceState.PlayerFinishGrass);
+        }
+
+        _finishingAttackShort.FinishAttackNearMagic.SetFinishEffect();
+
+        //カメラ終わり
+        _playerControl.CameraControl.FinishAttackCamera.EndFinish();
+
+
+        //カメラの振動
+        _playerControl.CameraControl.ShakeCamra(CameraType.Defult, CameraShakeType.EndFinishAttack);
+        _playerControl.CameraControl.ShakeCamra(CameraType.FinishCamera, CameraShakeType.EndFinishAttack);
+
+        //コントローラーの振動を停止
+        _playerControl.ControllerVibrationManager.StopVibration();
+
+        //スライダーUIを非表示にする
+        _finishingAttackUI.UnSetFinishUI();
+
+        //トドメ完了のUIを表示
+        _finishingAttackUI.ShowCompleteFinishUI(true);
+
+        //エフェクトを設定
+        _finishingAttackShort.FinishAttackNearMagic.Stop();
+
+
+
+        if (_nowFinishEnemy.Length > 0)
+        {
+            foreach (var e in _nowFinishEnemy)
+            {
+                if (_nowFinishEnemy == null) continue;
+                e.TryGetComponent<IFinishingDamgeble>(out IFinishingDamgeble damgeble);
+
+                if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
+                {
+                    damgeble?.EndFinishing(MagickType.Ice);
+                }
+                else
+                {
+                    damgeble?.EndFinishing(MagickType.Grass);
+                }
+            }
+
+        }
     }
 
     public void StopFinishingAttack()
@@ -351,6 +439,9 @@ public class FinishingAttack
 
         //トドメ完了のUIを非表示
         _finishingAttackUI.ShowCompleteFinishUI(false);
+
+        //通常のカメラに戻す
+        _playerControl.CameraControl.UseDefultCamera(false);
     }
 
     /// <summary>トドメを終えた際、エフェクトを消すかどうかを判断する</summary>
@@ -367,7 +458,24 @@ public class FinishingAttack
     /// </summary>
     public void SearchFinishingEnemy()
     {
-        _nowFinishEnemy = CheckFinishingEnemy();
+        var serchEnemy = CheckFinishingEnemy();
+
+        List<Collider> colliders = new List<Collider>();
+        foreach (var enemy in serchEnemy)
+        {
+            Vector3 viewportPoint = Camera.main.WorldToViewportPoint(enemy.transform.position);
+
+            // zが正であることを確認し、xとyが0〜1の範囲内に収まっているかどうかを確認
+            if (viewportPoint.z > 0 &&
+                       viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+                       viewportPoint.y >= 0 && viewportPoint.y <= 1)
+            {
+                colliders.Add(enemy);
+            }
+        }
+
+
+        _nowFinishEnemy = colliders.ToArray();
 
         _finishingAttackUI.ShowUI(_nowFinishEnemy);
         _finishingAttackUI.ShowCanFinishingUI(true);

@@ -113,7 +113,7 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         //ShakeCamra(CameraType.Defult, CameraShakeType.ChangeWeapon);
     }
 
-    public void UseFinishCamera(int i)
+    public void UseFinishCamera(FinishAttackType i)
     {
 
         _finishAttackCamera.ResetCamera();
@@ -129,11 +129,7 @@ public class CameraControl : MonoBehaviour, IPause, ISlow, ISpecialMovingPause
         _count = 0;
         _defultCamera.Priority = 0;
 
-        if (i == 1)
-        {
-            _finishCamera.Priority = 10;
-        }
-        else if (i == 2)
+        if (i == FinishAttackType.One || i == FinishAttackType.Two)
         {
             _finishCamera.Priority = 10;
         }

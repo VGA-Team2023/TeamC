@@ -12,6 +12,16 @@ public class FinishAttackEvent : MonoBehaviour
         _playerControl.FinishingAttack.EndFinishAnim();
     }
 
+    public void StatHitStop()
+    {
+        _playerControl.FinishingAttack.StartHitStop();
+    }
+
+    //public void StartEnsyutu()
+    //{
+    //    _playerControl.FinishingAttack.StartEnsytu();
+    //}
+
     public void ResetTime()
     {
         //時間を遅くする

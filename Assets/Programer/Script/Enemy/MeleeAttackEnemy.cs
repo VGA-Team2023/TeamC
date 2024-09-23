@@ -83,6 +83,14 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         }
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.PauseManager.Add(this);
+        GameManager.Instance.SlowManager.Add(this);
+        GameManager.Instance.SpecialMovingPauseManager.Add(this);
+    }
+
+
     private void OnDisable()
     {
         GameManager.Instance.PauseManager.Remove(this);
@@ -125,8 +133,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         States[(int)MoveState.Finish] = new MAEFinishState(this);
         States[(int)MoveState.Chase] = new MAEChaseState(this, _player);
         base.OnEnemyDestroy += StartFinishing;
-        GameManager.Instance.PauseManager.Add(this);
-        GameManager.Instance.SlowManager.Add(this);
+
         CurrentState = States[(int)_state];
     }
 
@@ -150,7 +157,7 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
     {
         if (_state == MoveState.FreeMove)
         {
-            CurrentState.WallHit();
+            // CurrentState.WallHit();
         }
     }
 
@@ -322,6 +329,11 @@ public class MeleeAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, 
         gameObject.layer = DeadLayer;
         SeAudio(SEState.EnemyStan, CRIType.Stop);
         SeAudio(SEState.EnemyOut, CRIType.Play);
+
+        Core.SetActive(false);
+
+        //死亡アニメーション
+        _anim.Play("Death");
 
         //ノックバックをする(通常のダメージより大きいノックバック)
         Vector3 dir = transform.position - _player.transform.position;

@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     [Header("現在のシーン")]
     [SerializeField] GameState _currentGameState;
 
-    [SerializeField, HideInInspector] 
+    [SerializeField, HideInInspector]
     SlowManager _slowManager;
 
-    [SerializeField, HideInInspector] 
+    [SerializeField, HideInInspector]
     TimeManager _timeManager;
 
     ScoreManager _scoreManager = new ScoreManager();
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     /// <summary>クリア時間</summary>
     public MinutesSecondsVer ClearTime => _clearTime;
 
- 　/// <summary>InGameで戦闘中かどうか</summary>
+    /// <summary>InGameで戦闘中かどうか</summary>
     public bool IsGameMove => _isGameMove;
 
     public static GameManager Instance
@@ -81,14 +81,14 @@ public class GameManager : MonoBehaviour
 
         }
         //先に読み取りが発生した時
-        else if(_instance == this)
+        else if (_instance == this)
         {
             if (_currentGameState == GameState.Game)
             {
-                InGameStart();
+                //InGameStart();
             }
 
-            _timeManager.Start();
+            // _timeManager.Start();
             ChangeBGMState(_instance._currentGameState);
 
             DontDestroyOnLoad(this);
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
                 //タイマーリセット
                 _instance._timeManager.TimerReset();
                 _instance._scoreManager.ScoreReset();
-                _instance.InGameStart();
+                //_instance.InGameStart();
             }
             Destroy(this);
         }
@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("G" + _isGameMove);
         //インゲーム中だったら
         if (_currentGameState == GameState.Game)
         {
@@ -157,7 +158,12 @@ public class GameManager : MonoBehaviour
     /// <summary>ゲーム中判定にする</summary>
     public void InGameStart()
     {
+        //相羽書き換え
+
+
+
         _isGameMove = true;
+        _timeManager.Start();
     }
 
     /// <summary>クリアタイム保存</summary>

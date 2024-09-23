@@ -76,19 +76,19 @@ public class FinishAttackNearMagic
     {
         if (_playerControl.PlayerAttributeControl.PlayerAttribute == PlayerAttribute.Ice)
         {
-            foreach (var a in particleSystems)
-            {
-                a.time = 0;
-                a.Play();
-            }
+            //foreach (var a in particleSystems)
+            //{
+            //    a.time = 0;
+            //    a.Play();
+            //}
         }
         else
         {
-            foreach (var a in particleSystemsGrass)
-            {
-                a.time = 0;
-                a.Play();
-            }
+            //foreach (var a in particleSystemsGrass)
+            //{
+            //    a.time = 0;
+            //    a.Play();
+            //}
         }
     }
 

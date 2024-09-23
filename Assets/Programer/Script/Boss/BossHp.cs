@@ -54,6 +54,10 @@ public class BossHp
 
     private float _countKnockDownTime = 0;
 
+    private bool _isLastHp = false;
+
+    public bool IsLastHp => _isLastHp;
+
     private int _waveCount = 0;
 
     private float _nowHp = 0;
@@ -164,6 +168,11 @@ public class BossHp
         {
             e.Stop();
         }   //ダウンエフェクトを停止
+
+        if (_waveCount == _waveHp.Count - 1)
+        {
+            _isLastHp = true;
+        }
 
         if (_waveCount == _waveHp.Count)
         {

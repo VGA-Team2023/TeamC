@@ -56,7 +56,7 @@ public class MAEFreeMoveState : IStateMachine
             _enemy.transform.forward = _dir.normalized;
             _isArrived = false;
         }
-        _enemy.Rb.velocity = _enemy.transform.forward * _enemy.Speed;
+        _enemy.Rb.velocity = _enemy.transform.forward * 2;
         _enemy.transform.position = new Vector3(_enemy.transform.position.x, _basePosition.y, _enemy.transform.position.z);
     }
 

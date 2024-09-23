@@ -26,7 +26,7 @@ public class PlayerAnimControl
     public void ChangeAttribute()
     {
         _playerControl.Animator.Play("Player_ChangeAttribute");
-       // _playerControl.Animator.SetTrigger("IsChangeAttribute");
+        // _playerControl.Animator.SetTrigger("IsChangeAttribute");
     }
 
     public void Avoid(bool isStart)
@@ -61,6 +61,12 @@ public class PlayerAnimControl
         }
     }
 
+    public void GameStartMovie()
+    {
+        _playerControl.Animator.Play("GameStartMovie");
+    }
+
+
     public void SetLongMagic(bool isON)
     {
         _playerControl.Animator.SetBool("IsEndLongMagic", isON);
@@ -72,15 +78,15 @@ public class PlayerAnimControl
     }
 
     /// <summary>トドメ開始のアニメーション </summary>
-    public void StartFinishAttack(int i)
+    public void StartFinishAttack(FinishAttackType i)
     {
         _playerControl.Animator.SetBool("IsFinishAttack", true);
 
-        if (i ==1)
+        if (i == FinishAttackType.One)
         {
             _playerControl.Animator.Play("Player_FinishAttack_Start1");
         }
-        else if (i ==2)
+        else if (i == FinishAttackType.Two)
         {
             _playerControl.Animator.Play("Player_FinishAttack_Start2");
         }
@@ -97,9 +103,11 @@ public class PlayerAnimControl
     }
 
     /// <summary>トドメ完了のアニメーション </summary>
-    public void EndFinishAttack()
+    public void EndFinishAttack(int i)
     {
-        _playerControl.Animator.Play("Player_FinishinAttack_Complet1");
+
+
+        _playerControl.Animator.Play("Player_FinishinAttack_Complet" + i);
     }
 
     public void PlayDead()

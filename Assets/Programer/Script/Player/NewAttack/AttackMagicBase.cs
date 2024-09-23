@@ -233,39 +233,32 @@ public class AttackMagicBase
                 var go = UnityEngine.GameObject.Instantiate(_prefab);
                 go.transform.position = m.MagicCircle.transform.position;
 
-                if (_playerControl.LockOn.IsLockOn)
+                //ロックオンをしているかどうかに応じて攻撃を変化
+                if (_playerControl.LockOn.IsLockOn && IsObjectVisible(_playerControl.LockOn.NowLockOnEnemy))
                 {
-                    if (_playerControl.LockOn.NowLockOnEnemy != null)
-                    {
-                        go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
-                        go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
-                    }
+                    go.transform.forward = _playerControl.LockOn.NowLockOnEnemy.transform.position - go.transform.position;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(_playerControl.LockOn.NowLockOnEnemy.transform, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
+                }   //ロックオンしている＆画面内にいる場合
+                else if (_enemys.Length != 0 && _magicType == MagickType.Ice)
+                {
+                    go.transform.forward = _enemys[0].transform.position - go.transform.position;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, attackType, _powerShortChanting);
                 }
+                else if (_enemys.Length != 0 && _magicType == MagickType.Grass)
+                {
+                    go.transform.forward = _enemys[_useMagicCount % _enemys.Length].transform.position - go.transform.position;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, attackType, _powerShortChanting);
+                }   //草属性の場合
                 else
                 {
-                    if (_enemys.Length == 0)
-                    {
-                        go.transform.forward = _playerControl.PlayerT.forward;
-                        go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                        magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
-                    }
-                    else
-                    {
-                        if (_enemys[_useMagicCount % _enemys.Length] == null)
-                        {
-                            go.transform.forward = _playerControl.PlayerT.forward;
-                            go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
-                        }
-                        else
-                        {
-                            go.transform.forward = _enemys[_useMagicCount % _enemys.Length].transform.position - go.transform.position;
-                            go.TryGetComponent<IMagicble>(out IMagicble magicble);
-                            magicble.SetAttack(_enemys[_useMagicCount % _enemys.Length], _playerControl.PlayerT.forward, attackType, _powerShortChanting);
-                        }
-                    }
-                }
+                    go.transform.forward = _playerControl.PlayerT.forward;
+                    go.TryGetComponent<IMagicble>(out IMagicble magicble);
+                    magicble.SetAttack(null, _playerControl.PlayerT.forward, attackType, _powerShortChanting);
+                }   //敵がいない場合
+
 
                 //サウンドを再生
                 if (_playerControl.Attack2.FirstAttribute == PlayerAttribute.Ice)
@@ -289,7 +282,18 @@ public class AttackMagicBase
         }
     }
 
+    //敵が画面内にいるかどうか
+    bool IsObjectVisible(GameObject obj)
+    {
+        if (obj == null) return false;
 
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(obj.transform.position);
+
+        // zが正であることを確認し、xとyが0〜1の範囲内に収まっているかどうかを確認
+        return viewportPoint.z > 0 &&
+               viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+               viewportPoint.y >= 0 && viewportPoint.y <= 1;
+    }
 
     /// <summary>現在出している魔法を中断させる</summary>
     public void StopMagic(int attackCount)

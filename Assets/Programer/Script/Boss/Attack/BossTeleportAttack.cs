@@ -127,6 +127,7 @@ public class BossTeleportAttack
         //エフェクトを再生
         if (_bossControl.EnemyAttibute == PlayerAttribute.Ice)
         {
+            Debug.Log("Effect_Teleport");
             _teleportIce.ForEach(i => i.Play());
 
             //音を鳴らす
@@ -134,6 +135,7 @@ public class BossTeleportAttack
         }
         else
         {
+            Debug.Log("Effect_Teleport");
             _teleportGrass.ForEach(i => i.Play());
             //音を鳴らす
             AudioController.Instance.SE.Play3D(SEState.PlayerBossEnemyHitGrass, _bossControl.transform.position);

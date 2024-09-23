@@ -18,6 +18,7 @@ public class GameEndWait : MonoBehaviour, IPause
 
     private bool _isCall = false;
 
+    [SerializeField] private List<Animator> _anims = new List<Animator>();
 
     private void Update()
     {
@@ -75,11 +76,13 @@ public class GameEndWait : MonoBehaviour, IPause
     public void Pause()
     {
         _isPause = true;
+        _anims.ForEach(i => i.speed = 0);
     }
 
     public void Resume()
     {
         _isPause = false;
+        _anims.ForEach(i => i.speed = 1);
     }
 
 

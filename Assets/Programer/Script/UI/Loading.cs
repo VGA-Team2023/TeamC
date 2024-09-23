@@ -35,6 +35,12 @@ public class Loading : MonoBehaviour
         yield return new WaitForSeconds(_waitTimer);
         try
         {
+
+            if(GameManager.Instance.PauseManager.IsPause)
+            {
+                GameManager.Instance.PauseManager.PauseResume(false);
+            }
+
             SceneManager.LoadScene(_nextSceneName);
         }
         catch (System.Exception ex)

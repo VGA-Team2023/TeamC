@@ -18,6 +18,7 @@ Material:
   - _EMISSION_COLOR_COLOR
   - _EMISSION_MAP_MODE_2D
   - _PARALLAX_MAP_MODE_2D
+  - _SOFT_PARTICLES_ENABLED
   - _TINT_COLOR_ENABLED
   - _TRANSPARENCY_BY_LUMINANCE
   m_InvalidKeywords:
@@ -267,8 +268,8 @@ Material:
     - _RimTransparencySharpness: 0.5
     - _RimTransparencySharpnessCoord: 0
     - _SmoothnessTextureChannel: 0
-    - _SoftParticlesEnabled: 0
-    - _SoftParticlesIntensity: 1
+    - _SoftParticlesEnabled: 1
+    - _SoftParticlesIntensity: 5
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TintAreaMode: 0

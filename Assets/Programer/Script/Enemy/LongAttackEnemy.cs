@@ -50,7 +50,8 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
     private float _defaultSpeed = 0;
     private float _defaultHp = 0;
-    private float _blownPower = 5;
+    [Header("吹き飛ばしパワー")]
+    [SerializeField] private float _blownPower = 2;
 
     private PlayerControl _player;
     private MoveState _state = MoveState.FreeMove;
@@ -68,6 +69,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     [Header("死亡後消えるまでの時間")]
     [SerializeField] private float _destroyTime = 4f;
 
+    [Header("死亡エフェクト")]
+    [SerializeField] private GameObject _deathEffect;
+
     private void CountDestroyTime()
     {
         if (!_isDeath) return;
@@ -76,6 +80,9 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
         if (_countDestroyTime > _destroyTime)
         {
+            _rb.velocity = Vector3.zero;
+            var go = Instantiate(_deathEffect);
+            go.transform.position = transform.position;
             base.OnEnemyDestroy -= StartFinishing;
             EnemyFinish();
             Destroy(gameObject);
@@ -196,7 +203,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     /// <param name="attackHitTyp">氷属性か草属性か</param>
     /// <param name="damage">ダメージ量</param>
     public void Damage(AttackType attackType, MagickType attackHitTyp, float damage)
-    { 
+    {
         VoiceAudio(VoiceState.EnemyLongDamage, EnemyBase.CRIType.Play);
         _anim.Play("Hit");
         _rb.velocity = Vector3.zero;
@@ -347,7 +354,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
 
         //ノックバックをする(通常のダメージより大きいノックバック)
         Vector3 dir = transform.position - _player.transform.position;
-        _rb.AddForce((dir.normalized / 2 + Vector3.up) * _blownPower * 2, ForceMode.Impulse);
+        _rb.AddForce((dir.normalized / 2 + Vector3.up) * _blownPower * 5, ForceMode.Impulse);
     }
 
     /// <summary>
@@ -355,6 +362,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     /// </summary>
     public void Pause()
     {
+        _anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
@@ -364,6 +372,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     /// </summary>
     public void Resume()
     {
+        _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
@@ -372,6 +381,7 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     /// </summary>
     void ISpecialMovingPause.Pause()
     {
+        _anim.speed = 0;
         _defaultSpeed = Speed;
         Speed = 0;
     }
@@ -381,17 +391,20 @@ public class LongAttackEnemy : EnemyBase, IEnemyDamageble, IFinishingDamgeble, I
     /// </summary>
     void ISpecialMovingPause.Resume()
     {
+        _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 
     public void OnSlow(float slowSpeedRate)
     {
+        _anim.speed = slowSpeedRate;
         _defaultSpeed = Speed;
         Speed += _slowSpeed * Speed;
     }
 
     public void OffSlow()
     {
+        _anim.speed = 1;
         Speed = _defaultSpeed;
     }
 

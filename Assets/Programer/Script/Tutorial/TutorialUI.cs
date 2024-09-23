@@ -44,7 +44,7 @@ public class TutorialUI
         {
             _count++;
 
-            if (_count == _talk.Count)
+            if (_count >= _talk.Count)
             {
                 _text.text = "";
                 _isReadEnd = true;

@@ -31,7 +31,7 @@ public class WalkState : PlayerStateBase
         _stateMachine.PlayerController.LockOn.PlayerLockOnUI.UpdateFinishingUIPosition();
 
         //プレイヤー移動時のカメラの視点角度調整
-        _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.PlayerMoveAutoRotationSet(false);
+       // _stateMachine.PlayerController.CameraControl.SetUpCameraSetting.PlayerMoveAutoRotationSet(false);
     }
 
     public override void LateUpdate()

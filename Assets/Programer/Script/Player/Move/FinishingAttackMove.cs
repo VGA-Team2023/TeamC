@@ -13,6 +13,7 @@ public class FinishingAttackMove
 
     private PlayerControl _playerControl;
 
+    private bool _isSlowMove  = false;
 
     private Transform _enemy;
 
@@ -26,6 +27,11 @@ public class FinishingAttackMove
         _enemy = enemy;
     }
 
+    public void SetSlow(bool slow)
+    {
+        _isSlowMove = slow;
+    }
+
     public void Move()
     {
         //移動入力を受け取る
@@ -35,8 +41,15 @@ public class FinishingAttackMove
         var horizontalRotation = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
         Vector3 velo = horizontalRotation * new Vector3(h, 0, v).normalized;
 
+        float speed = _moveSpeed;
+        
+        if(_isSlowMove)
+        {
+            speed = 1;
+        }
+
         //速度を加える
-        _playerControl.Rb.velocity = velo * _moveSpeed;
+        _playerControl.Rb.velocity = velo * speed;
     }
 
     public void Rotation()

@@ -41,10 +41,10 @@ public class BossDeath
 
         if (!_isDeathEeffect)
         {
-            if (_countDestroyTime > _destroyTime / 2)
+
+            if (_countDestroyTime > 3f)
             {
                 _isDeathEeffect = true;
-
                 var go = GameObject.Instantiate(_deathEffect);
                 go.transform.position = _bossControl.BossT.position + _offset;
             }
@@ -52,7 +52,6 @@ public class BossDeath
 
         if (_countDestroyTime > _destroyTime)
         {
-            Debug.Log("è¡Ç∑");
             return true;
         }
         return false;

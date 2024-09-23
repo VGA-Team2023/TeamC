@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
-public class TutorialManager : MonoBehaviour,IPause
+public class TutorialManager : MonoBehaviour, IPause
 {
+    [Header("映像さいせいするかどうか")]
+    [SerializeField] private bool _isPlayMovie = true;
+
+    [Header("TimeLine")]
+    [SerializeField] private PlayableDirector _movie;
+
+    [SerializeField] private List<Animator> _anims = new List<Animator>();
+
+
     [Header("チュートリアルの順番設定")]
     [SerializeField] private List<TutorialNum> _tutorialOrder = new List<TutorialNum>();
 
@@ -17,6 +27,9 @@ public class TutorialManager : MonoBehaviour,IPause
     [Header("チュートリアルの文章")]
     [SerializeField] private TutorialFirstTalkData _tutorialFirstTalkData;
 
+
+
+
     [SerializeField] private Loading _loading;
 
     protected InputManager _inputManager;
@@ -25,6 +38,9 @@ public class TutorialManager : MonoBehaviour,IPause
 
     /// <summary>チュートリアルを受けえるかどうか</summary>
     private bool _isTutorilReceve = false;
+
+    /// <summary>ムービーが再生終了したかどうか</summary>
+    private bool _isEndTutorilMovie = false;
 
     private bool _isEndTutorial = false;
 
@@ -35,6 +51,9 @@ public class TutorialManager : MonoBehaviour,IPause
     private bool _isFirstVoice = false;
 
     public bool IsCanInput => _isCanInput;
+
+    public bool IsEndTutorialMovie { get => _isEndTutorilMovie; set => _isEndTutorilMovie = value; }
+
 
     private bool _isReadEndMissinFirst = false;
 
@@ -68,21 +87,49 @@ public class TutorialManager : MonoBehaviour,IPause
         TutorialEnd,
 
     }
-
-    private void Awake()
+    private void OnEnable()
     {
+        GameManager.Instance.PauseManager.Add(this);
         _inputManager = GameObject.FindObjectOfType<InputManager>();
         _tutorialMissions.Init(this, _inputManager);
-
-        AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialStart);
-
-        //チュートリアル開始前の会話を設定
-        _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
     }
+
+    private void Start()
+    {
+        //ムービーを再生しない
+        if (!_isPlayMovie)
+        {
+            _movie.gameObject.SetActive(false);
+            AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialStart);
+            //チュートリアル開始前の会話を設定
+            _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
+            _isEndTutorilMovie = true;
+        }
+        else
+        {
+            _movie.Play();
+            Debug.Log("TutorialMovie");
+        }
+
+    }
+
+
 
     void Update()
     {
         // Debug.Log("F" + _tutorialMissions.CurrentTutorial.TutorialNum);
+
+        //ムービーをスキップ
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _movie.gameObject.SetActive(false);
+            AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialStart);
+            //チュートリアル開始前の会話を設定
+            _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
+        }
+
+        if (!_isEndTutorilMovie) return;
+
 
         if (_tutorialSituation == TutorialSituation.GameStartTalk)
         {
@@ -191,6 +238,20 @@ public class TutorialManager : MonoBehaviour,IPause
         }
 
     }
+
+    /// <summary>チュートリアル最初のムービーの再生が終わったときに呼ぶ</summary>
+    public void MovieEnd()
+    {
+        _isEndTutorilMovie = true;
+
+        AudioController.Instance.Voice.Play(VoiceState.InstructorTutorialStart);
+
+        //チュートリアル開始前の会話を設定
+        _tutorialUI.SetTalk(_tutorialFirstTalkData.BeforTalk);
+    }
+
+
+
 
     public void SetCanInput(bool canInput)
     {
@@ -394,10 +455,6 @@ public class TutorialManager : MonoBehaviour,IPause
             }
         }
     }
-    private void OnEnable()
-    {
-        GameManager.Instance.PauseManager.Add(this);
-    }
 
     private void OnDisable()
     {
@@ -407,11 +464,16 @@ public class TutorialManager : MonoBehaviour,IPause
 
     public void Pause()
     {
+        _movie.Pause();
+        _anims.ForEach(i => i.speed = 0);
+
         AudioSourceController.Instance.Voice.Pause();
     }
 
     public void Resume()
     {
+        _movie.Resume();
+        _anims.ForEach(i => i.speed = 1);
         AudioSourceController.Instance.Voice.Resume();
     }
 

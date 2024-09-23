@@ -7,12 +7,15 @@ public class HitStopConrol : MonoBehaviour
     [Header("ヒットストップのデータ")]
     [SerializeField] private List<HitStopData> _hitStopData = new List<HitStopData>();
 
+    [SerializeField] private PlayerControl _playerControl;
+
     private float _countTime = 0;
 
     private bool _isHitStop = false;
 
     private float _setHitStopTime = 0.3f;
 
+    private HitStopKind _stopKind;
 
     private ControllerVibrationManager _cMl;
 
@@ -50,6 +53,7 @@ public class HitStopConrol : MonoBehaviour
             _cMl.OneVibration(0.5f, 1f, 1f);
         }
 
+        _stopKind = hitStopKind;
         _isHitStop = true;
 
         foreach (var data in _hitStopData)
@@ -68,6 +72,12 @@ public class HitStopConrol : MonoBehaviour
         GameManager.Instance.SlowManager.OnOffSlow(false);
         _isHitStop = false;
         _countTime = 0;
+
+        if(_stopKind == HitStopKind.FinishAttack1)
+        {
+            _playerControl.FinishingAttack.StartEnsytu();
+        }
+
     }
 
     /// <summary>ヒットストップの時間を設定</summary>
@@ -99,12 +109,12 @@ public class HitStopData
     public float HitStopTime => _hitStopTime;
 
     public float HitStopScale => _hitstopScale;
-
 }
 
 public enum HitStopKind
 {
-    FinishAttack,
+    FinishAttack3,
+    FinishAttack1,
     Dead,
     BossDeath,
 

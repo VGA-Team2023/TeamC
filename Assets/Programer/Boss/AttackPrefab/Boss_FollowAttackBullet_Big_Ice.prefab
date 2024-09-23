@@ -79,7 +79,7 @@ MonoBehaviour:
   - {fileID: 8764550612887406517}
   - {fileID: 8764550613267599238}
   - {fileID: 6078562547768857434}
-  _attackPower: 10
+  _attackPower: 20
   _waitTime: 1
   _attackWaitTime: 0.15
   _destroyTime: 7
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isDestroy: 0
   _destroyTime: 1
+  _isOnotherHitStopSpeed: 0
+  _onotherHitStopSpeed: 0.8
   _effects:
   - _name: Finish
     _effects:

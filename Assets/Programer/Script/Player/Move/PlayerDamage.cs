@@ -119,7 +119,7 @@ public class PlayerDamage
             _playerControl.PlayerAnimControl.IsDead(true);
 
             //時間を遅くする
-            _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack);
+            _playerControl.HitStopConrol.StartHitStop(HitStopKind.FinishAttack3);
         }
         else
         {

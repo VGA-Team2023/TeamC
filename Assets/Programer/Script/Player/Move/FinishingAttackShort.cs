@@ -24,7 +24,9 @@ public class FinishingAttackShort
     [Header("Gizmoを表示するかどうか")]
     [SerializeField] private bool _isDrawGizmo = true;
 
-
+    [Header("Boss")]
+    [SerializeField] private BossControl _boss;
+ 
     [Header("---エフェクト設定---")]
     [SerializeField] private FinishAttackNearMagic _finishAttackNearMagic;
 
@@ -53,6 +55,19 @@ public class FinishingAttackShort
 
     public FinishAttackType SetFinishType(int enemyNum)
     {
+
+        if (_boss != null)
+        {
+            if (_boss.gameObject.activeSelf)
+            {
+                if (_boss.BossHp.IsLastHp)
+                {
+                    return FinishAttackType.OverThree;
+                }
+            }
+        }
+
+
         if (enemyNum >= _patarn3EnemyNum)
         {
             return FinishAttackType.OverThree;

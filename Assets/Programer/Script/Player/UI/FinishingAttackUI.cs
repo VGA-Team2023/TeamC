@@ -59,11 +59,17 @@ public class FinishingAttackUI
 
         for (int i = 0; i < _enemyMaxNum; i++)
         {
-            _canFinishUI.Add(UnityEngine.GameObject.Instantiate(_canFinishUIPrefab));
-            _finishUI.Add(UnityEngine.GameObject.Instantiate(_finishUIPrefab));
+            var go = UnityEngine.GameObject.Instantiate(_canFinishUIPrefab);
+            _canFinishUI.Add(go);
+
+            var go2 = UnityEngine.GameObject.Instantiate(_finishUIPrefab);
+            _finishUI.Add(go2);
 
             _canFinishUI[i].transform.SetParent(_parentUI);
             _finishUI[i].transform.SetParent(_parentUI);
+
+            _canFinishUI[i].transform.localScale = new Vector3(1, 1, 1);
+            _finishUI[i].transform.localScale = new Vector3(1, 1, 1);
         }
     }
 

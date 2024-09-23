@@ -218,7 +218,7 @@ public class PlayerMove
             SpeedLimit();
         }
 
-        Debug.Log(_playerControl.Rb.velocity);
+
         //重力を加える
         //_playerControl.Rb.AddForce(Vector3.down * _gravity);
     }

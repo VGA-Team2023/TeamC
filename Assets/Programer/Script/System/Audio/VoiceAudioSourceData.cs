@@ -32,7 +32,9 @@ public struct VoiceAudioSourceControlle : IAudioSourceControlle<VoiceStateAudioS
 
     public void Pause()
     {
-        _audioSource.Pause();
+        //if (_audioSource == null) return;
+
+         _audioSource.Pause();
     }
 
     public void Resume()

@@ -11,8 +11,11 @@ public class LAEFreeMoveState : IStateMachine
     List<Vector3> _patrolPoint = new List<Vector3>();
     int _index = 0;
 
+    /// <summary>Playerが攻撃判定内にいる時間を計算 </summary>
+    private float _playerNearTime = 0;
+
     public LAEFreeMoveState(LongAttackEnemy enemy, PlayerControl player, List<Vector3> patrolPoint)
-    { 
+    {
         _enemy = enemy;
         _player = player;
         _patrolPoint = patrolPoint;
@@ -22,6 +25,7 @@ public class LAEFreeMoveState : IStateMachine
     {
         _enemy.VoiceAudio(VoiceState.EnemyLongSaerch, EnemyBase.CRIType.Play);
         _index = 0;
+        _playerNearTime = 0;
     }
 
     public void Exit()
@@ -35,10 +39,19 @@ public class LAEFreeMoveState : IStateMachine
         if (_enemy.IsDemo) return;
         //敵がサーチ範囲に入ったら攻撃を始める(遠距離攻撃)
         float playerDistance = Vector3.Distance(_player.transform.position, _enemy.transform.position);
-        if(playerDistance < _enemy.SearchRange)
+        if (playerDistance < _enemy.SearchRange)
         {
-            Exit();
-            _enemy.StateChange(EnemyBase.MoveState.Attack);
+            _playerNearTime += Time.deltaTime;
+
+            if (_playerNearTime > 0.3f)
+            {
+                Exit();
+                _enemy.StateChange(EnemyBase.MoveState.Attack);
+            }
+        }
+        else
+        {
+            _playerNearTime = 0;
         }
         //基本は決められた地点を周回する
         float distance = Vector3.Distance(_enemy.transform.position, _patrolPoint[_index % _patrolPoint.Count]);

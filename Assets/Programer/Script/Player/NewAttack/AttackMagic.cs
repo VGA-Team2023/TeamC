@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -71,10 +72,30 @@ public class AttackMagic
 
         //敵を索敵
         Transform[] t = _playerControl.ColliderCheck.EnemySearch(_searchType, _offset, _size, 128);
-        _attackBase.Enemys = t;
+
+        List<Transform> inCameraEnemys = new List<Transform>();
+
+        //画面内に映っている敵を選別
+        foreach (var a in t)
+        {
+            Vector3 viewportPoint = Camera.main.WorldToViewportPoint(a.transform.position);
+
+            // zが正であることを確認し、xとyが0〜1の範囲内に収まっているかどうかを確認
+            if (viewportPoint.z > 0 && viewportPoint.x >= 0 && viewportPoint.x <= 1 && viewportPoint.y >= 0 && viewportPoint.y <= 1)
+            {
+                inCameraEnemys.Add(a);
+            }
+        }
+
+        // プレイヤーとの距離が近い順に並べ替える
+        inCameraEnemys.Sort((a, b) =>
+                  Vector3.Distance(_playerControl.PlayerT.position, a.position).CompareTo(Vector3.Distance(_playerControl.PlayerT.position, b.position)));
+
+
+        _attackBase.Enemys = inCameraEnemys.ToArray();
 
         _attackBase.IsAttackNow = true;
-        _attackBase.AttackCount=attackCount;
+        _attackBase.AttackCount = attackCount;
 
         if (t.Length == 0)
         {
